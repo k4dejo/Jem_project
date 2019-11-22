@@ -1,0 +1,26 @@
+<div class="show-login" [@hidenPage]="state">
+	<div class="col-lg-6 left">
+		<div class="page-content">
+			<img src="/assets/Images/Logo.png" alt="image"><br><br>
+			<a class="btnRight" id="{{shop}}" (click)="togleBtnLeft(this.id)" href="#" class="href">Ingresar</a>	
+		</div>
+	</div>
+	<div class="col-lg-6 right">
+		<div class="page-content">
+			<h1>Bambu Jeans</h1><br><br>
+			<a href="#" id="{{shop}}" (click)="togleBtnRight(this.id)" class="href">Ingresar</a>	
+		</div>
+	</div>
+</div>
+<div class="login-box" [@slidePage]="state">
+	<div class="hiden-login-btn">
+		<i class="fa fa-times" (click)="togledBtn()"></i>
+	</div>
+	<form #loginForm="ngForm" class="login-form">
+		<h1>Bienvenido</h1><br>
+		<input class="txtb" type="text" name="phone" #phone="ngModel" [(ngModel)]="client.phone" placeholder="Usuario (Teléfono)">
+		<input class="txtb" type="password" name="password" #password="ngModel" [(ngModel)]="client.password"  placeholder="Contraseña">
+		<input class="loginbtn" (click)="Onsubmit(loginForm)" type="submit" (click)="gotoShop()" value="Ingresar"><br>
+		<a  class="register" (click)="gotoRegister()">Registrarse</a>
+	</form>
+</div>

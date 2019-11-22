@@ -1,0 +1,160 @@
+<header>
+  <div class="containerNav">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-light">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/Home/BJem"><img class="logoStyle" src="assets/Images/Logo.png" alt=""></a>
+        </div>
+        <div class="collapse navbar-collapse navbar-right" id="navbar-1" *ngIf="!identity">
+          <ul class="nav navbar-nav">
+            <li><a href="Home/Damas">Damas</a></li>
+            <li><a href="Home/Caballeros">Caballeros</a></li>
+            <li><a href="Home/Niños">Niños</a></li>
+            <li><a href="Home/Niñas">Niñas</a></li>
+            <li><a href="">Outfit</a></li>
+            <li><a href="/Home/Nosotros">Sobre nosotros</a></li>
+            <li><a href=""><i class="fa fa-shopping-cart"></i> Carrito</a></li>
+           <li><a href="" data-toggle="modal" data-target="#loginmodal">Iniciar sesión</a></li>
+         </ul>
+       </div>
+       <div class="collapse navbar-collapse navbar-right" id="navbar-1" *ngIf="identity">
+          <ul class="nav navbar-nav">
+            <li><a href="Home/Damas">Damas</a></li>
+            <li><a href="Home/Caballeros">Caballeros</a></li>
+            <li><a href="Home/Niños">Niños</a></li>
+            <li><a href="Home/Niñas">Niñas</a></li>
+            <li><a href="">Outfit</a></li>
+            <li><a href="/Nosotros">Sobre nosotros</a></li>
+            <li><a href=""><i class="fa fa-shopping-cart"></i> Carrito</a></li>
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
+              {{identity.name}} <i class="fa fa-user"></i><span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="">Mi Perfil</a></li>
+                <li class="divider"></li>
+                <li><a href="">Historial</a></li>
+                <li class="divider"></li>
+                <li><a href="/Home/Bambu" (click)="logout()"><i class="fa fa-power-off"></i> Cerrar sesión</a>
+                </li>  
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">¡Inicia sesión en tu cuenta de Bambu Jeans!</h5>
+          <i class="fa fa-times close" data-dismiss="modal"></i>
+        </div>
+        <div class="modal-body">
+          <form #loginForm="ngForm" class="login-form">
+            <input class="txtb" type="text" name="phone" #phone="ngModel" [(ngModel)]="client.phone" placeholder="Usuario (Teléfono)">
+            <input class="txtb" type="password" name="password" #password="ngModel" [(ngModel)]="client.password"  placeholder="Contraseña">
+            <input class="loginbtn" data-dismiss="modal" (click)="Onsubmit(loginForm)" type="submit" value="Iniciar sesión"><br>
+          </form><br>
+          <div class="registerText">
+            No tienes cuenta? <a class="register" data-dismiss="modal" (click)="gotoRegister()">Registrarte</a>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</header>
+<!--<div id="main" class="main">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12">
+				<h2>Blusas</h2>
+				<a href="/Home/BJem"><i class="fas fa-home">Boutique Jem</i></a>
+			</div>
+			<div class="col-lg-10 type">
+				<div class="row">
+					<div class="col-md-3 list-items">
+						<article class="product-item">
+							<div class="row">
+								<div class="col-sm-9">
+									<a href="#">
+										<img src="assets/Images/cat%C3%A1logo/Damas/blu1.jpg" class="img-responsive" alt="">
+									</a>
+								</div>
+								<div class="col-sm-9">
+									<h4>Blusa de rayas</h4>
+									<span>₡ 12.000</span>
+								</div>
+								<div class="col-sm-9">
+									<a href="#">
+										<img src="assets/Images/cat%C3%A1logo/Damas/blu2.jpg" class="img-responsive" alt="">
+									</a>
+								</div>
+								<div class="col-sm-9">
+									<h4>Blusa 2</h4>
+									<span>₡ 9.000</span>
+								</div>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+
+<div id="main" class="main">
+	<div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12 catalogue">
+        <h2>Blusas</h2>
+        <a href="/Home/BJem"><i class="fas fa-home">Boutique Jem</i></a>
+      </div>
+      <div class="col-md-10 list-items">
+        <div class="row">
+        	<div class="col-md-3">
+        		<a href="#">
+					<img src="assets/Images/cat%C3%A1logo/Damas/blu1.jpg" class="img-responsive" alt="">
+				</a>
+				<h4>Blusa de rayas</h4>
+				<span>₡ 12.000</span><br>
+				<a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Ver</a>
+          	</div>
+          <div class="col-md-3">
+        		<a href="#">
+					<img src="assets/Images/cat%C3%A1logo/Damas/blu2.jpg" class="img-responsive" alt="">
+				</a>
+				<h4>Blusa 2</h4>
+				<span>₡ 9.000</span><br>
+				<a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Ver</a>
+          </div>
+          <div class="col-md-3">
+        		<a href="#">
+					<img src="assets/Images/cat%C3%A1logo/Damas/blu3.jpg" class="img-responsive" alt="">
+				</a>
+				<h4>Blusa 3</h4>
+				<span>₡ 10.000</span><br>
+				<a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Ver</a>
+          </div>
+          <div class="col-md-3">
+        		<a href="#">
+					<img src="assets/Images/cat%C3%A1logo/Damas/blu4.jpg" class="img-responsive" alt="">
+				</a>
+				<h4>Blusa 4</h4>
+				<span>₡ 8.500</span><br>
+				<a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Ver</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-whatsapp></app-whatsapp>
+</div>

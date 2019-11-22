@@ -1,0 +1,158 @@
+.logoStyle{
+	width: 50px;
+	height: 50px;
+}
+
+.modal-title{
+	
+	font-size: 20px;
+}
+
+.close{
+	position: absolute;
+	top: 7%;
+	right: 5%;
+}
+
+.login-form{
+	position: relative;
+	top:  20%;
+	left: 20%;
+	
+	text-align: center;
+}
+
+.registerText{
+	margin-top: 10px;
+	text-align: center;
+}
+
+.txtb{ 
+	display: block;
+	box-sizing: border-box;
+	width: 300px;
+	background: #dcdde1;
+	border: 1px solid #636e72;
+	padding: 10px 20px;
+	outline: none;
+	margin: 10px 0;
+	border-radius: 6px;
+	text-align: center;
+}
+
+.loginbtn{
+	width: 300px;
+	color: white;
+	background: #353b48;
+	border: 0;
+	padding: 10px;
+	border-radius: 6px;
+	cursor: pointer;
+	position: absolute;
+	left: 0;
+}
+
+.loginbtn:hover{
+	color: #333;
+	background:#dcdde1;
+	transition: 0.4s linear;
+}
+
+.register{
+	color: #273c75;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.register:hover{
+	color:#3498db;
+	transition: 0.4s linear;
+}
+
+@media only screen and (max-width: 600px){
+	div .navbar-header h2 a{
+		display: inline-block;
+		position: relative;
+		top: 0;
+		left: 150px;
+	}
+}
+
+
+.profile-pic {
+    width: 40px;
+    border-radius: 100%;
+  }
+
+
+
+
+    .dropdown-menu {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    border-color: #c8d6e5;
+    .dropdown-item {
+      padding: 7px 1.5rem;
+    }
+  }
+  ul.dropdown-user {
+    padding: 0px;
+    min-width: 270px;
+  }
+  li{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+  }
+  .divider{
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #c8d6e5;
+  }
+  .dw-user-box{
+    padding: 10px 15px;
+  }
+  .u-img{
+    width: 70px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  img{
+    width: 100%;
+    border-radius: 5px;
+  }
+  .u-text {
+    display: inline-block;
+    padding-left: 10px;
+  }
+  h4 {
+    margin: 0px;
+   font-size: 15px;
+  }
+  p{
+    margin-bottom: 2px;
+    font-size: 12px;
+  }
+  .btn {
+    color: white;
+    padding: 5px 10px;
+    display: inline-block;
+  }
+  .btn:hover{
+    background: #636e72;
+  }
+
+  a {
+    padding: 9px 15px;
+    display: block;
+    color: #2d3436;
+  }
+
+  a:hover{
+    background: #c8d6e5;
+    color: #686de0;
+    text-decoration: none;
+  }

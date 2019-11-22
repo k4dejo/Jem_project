@@ -1,0 +1,169 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Editar Producto</h2>
+      </div>
+      <div class="card-body">
+        <form class="form-group" #modProduct="ngForm" (submit)="editProduct(modProduct)" novalidate>
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="col-md-10">
+                <div class="input-group-desc">
+                  <label for="">Nombre del producto</label>
+                  <input class="input--style-5" name="name" #name="ngModel" [(ngModel)]="product.name" 
+                  type="text"/>
+                </div>
+                <div class="input-group-desc">
+                  <label for="">Descripción</label>
+                  <input class="input--style-5" name="detail"
+                  #detail="ngModel" [(ngModel)]="product.detail"
+                  type="text" type="text"required/>
+                </div>
+                <!--<div class="input-group-desc">
+									<label for="">Precio Público</label>
+									<input class="input--style-5" type="text" placeholder = "₡ 0.00" name="publicPrice" #publicPrice="ngModel" [ngModel]="product.publicPrice | currency" (ngModelChange)="product.publicPrice=$event" type="text" required>
+                </div>-->
+                <div class="input-group-desc">
+                  <label for="">Precio Público</label>
+                  <input class="input--style-5" type="text"placeholder="₡ 0.00"
+                  name="pricePublic" #pricePublic="ngModel"
+                  [(ngModel)]="product.pricePublic" type="text" required/>
+                </div>
+                <div class="input-group-desc">
+                  <label for="">Precio por Mayor</label>
+                  <input class="input--style-5" type="text" placeholder="₡ 0.00" name="priceMajor" 
+                  #priceMajor="ngModel" [(ngModel)]="product.priceMajor"type="text" required/>
+                </div>
+                <div class="input-group-desc">
+                  <label for="">Precio Tu Boutique</label>
+                  <input class="input--style-5" type="text" placeholder="₡ 0.00" name="priceTuB" 
+                  #priceTuB="ngModel" [(ngModel)]="product.priceTuB" type="text"required/>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <label for="">Género: {{ product.gender }}</label><br/>
+                    <div class="selectWrapper">
+                      <select name="gender" id="gender" class="selectpicker"
+                      [(ngModel)]="Gender" (click)="pushGender(Gender)">
+                        <option disabled="disabled" selected="selected">
+                          -Seleccionar-
+                        </option>
+                        <option *ngFor="let gen of gender" [value]="gen.id">
+                          {{ gen.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <label for="">Departamento: {{ product.department }}</label><br/>
+                    <div class="selectWrapper">
+                      <select name="department" id="department"
+                      [(ngModel)]="Departament" (click)="pushDepart(Departament)" class="custom-select">
+                        <option disabled="disabled" selected="selected">
+                          --Seleccionar--
+                        </option>
+                        <option *ngFor="let dpt of department" [value]="dpt.id">
+                          {{ dpt.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="input-group-desc">
+                      <label for="">Peso</label>
+                      <input class="input--style-5" type="text" name="weight" #weight="ngModel"
+                      [(ngModel)]="product.weight" placeholder="Kg" type="number"min="0"required/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h2 style="text-align: center;">Imagen Principal</h2>
+              <div class="divPhoto col-md-4">
+                <div class="colPhoto">
+                  <img class="img-responsive" [src]="fileBlob" alt="" />
+                </div>
+              </div>
+              <label class="btnLabel btn btn--green">
+                <i class="fas fa-file-upload"></i> Subir imagen
+                <input class="inputFile" name="photo" type="file" id="img"
+                accept="image/*" (change)="onUpload($event)"/>
+              </label>
+            </div>
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col-xs-5" *ngFor="let img of fileNpm">
+                  <i class="fa fa-window-close" aria-hidden="true" (click)="onRemove(img)">
+                  </i>
+                  <img class="img-responsive" [src]="img.name" alt="">
+                </div>
+                <div class="col-xs-5">
+                  <label class="newImg">
+                    <input type="file" class="inputFile" id="img" accept="image/*"
+                    (change)="saveNewImage($event)">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 navbar-right">
+              <button type="button" class="btn btn-primary">Volver</button>
+              <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+          </div>
+        </form>
+        <button type="submit" (click)="saveSizeAmount(size)" class="btn btn-primary">
+          Agregar más tallas
+        </button>
+        <div class="input-group-desc col-lg-12">
+          <div class="row">
+            <div class="col-xs-4">
+              <label for="">Talla</label>
+              <input class="input--style-5" name="size" #size="ngModel" [(ngModel)]="size.size"
+              type="text" type="text" required/>
+            </div>
+            <div class="col-xs-4">
+              <label for="">Cantidad</label>
+              <input class="input--style-5" type="number" name="amount" #amount="ngModel"
+              [(ngModel)]="size.amount" min="0" required/>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="warningAmount">
+            El campo cantidad debe que ser mayor a 0.
+          </div>
+          <div class="alert alert-danger" *ngIf="warningSize" role="alert">
+            El campo talla es requerido.
+          </div>
+        </div>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Talla</th>
+              <th scope="col">Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let relationship of viewRelation">
+              <td style="font-weight: bold;">
+                {{ relationship.size }}
+              </td>
+              <td style="font-weight: bold;">
+                {{ relationship.pivot.stock }}
+              </td>
+              <td>
+                <button type="button" (click)="deleteRelation(relationship)" class="btn btn-danger">
+                  <i class="far fa-trash-alt"></i> Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

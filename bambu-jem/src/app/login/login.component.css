@@ -1,0 +1,154 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.left{
+	height: 100vh;
+	background:#000;
+}
+
+.left::after{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../../assets/Images/bambufinal.jpg") no-repeat;
+	background-size:cover;
+	opacity: .6;
+}
+
+.right{
+	height: 100vh;
+	background: #000;
+}
+
+.right::after{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../../assets/Images/bambuTextura.jpg") no-repeat;
+	background-size:cover;
+	opacity: .6;
+}
+
+.page-content{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	width: 100%;
+	max-width: 200px;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 0 40px;
+}
+
+.page-content a{
+	display: inline-block;
+	text-decoration: none;
+	color: #6ab04c;
+	border: 2px solid #6ab04c;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	transition: 0.4s linear;
+}
+
+.page-content img{
+	display: inline-block;	
+	width: 100%;
+	
+}
+.page-content h1{
+	font-family: 'Permanent Marker', cursive;
+	color: #fff;
+}
+
+.page-content a:hover{
+	color: #fff;
+	background:#6ab04c;
+}
+
+.login-box{
+	position: absolute;
+	top: 0;
+	/*left: -100%;*/
+	width: 100%;
+	height: 100vh;
+	background-image: linear-gradient(45deg, #79CD55,#6ab04c);
+	transition: 0.4s;
+}
+
+.login-form{
+	position: absolute;
+	top:  50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #454B43;
+	text-align: center;
+}
+
+.login-form h1{
+	font-weight: 400;
+	margin-top: 0;
+}
+
+.txtb{ 
+	display: block;
+	box-sizing: border-box;
+	width: 240px;
+	background: #dcdde1;
+	border: 2px solid #636e72;
+	padding: 10px 20px;
+	outline: none;
+	margin: 10px 0;
+	border-radius: 6px;
+	text-align: center;
+}
+
+.loginbtn{
+	width: 240px;
+	color: white;
+	background: #353b48;
+	border: 0;
+	padding: 10px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.loginbtn:hover{
+	color: #333;
+	background:#dcdde1;
+	transition: 0.4s linear;
+}
+
+.hiden-login-btn{
+	color: #000;
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	cursor: pointer;
+	font-size: 24px;
+	opacity: .7;
+}
+
+.register{
+	color: #353b48;
+	position: absolute;
+	bottom: -30px;
+	right: 85px;
+	cursor: pointer;
+	font-size: 15px;
+	text-align: center;
+	text-decoration: none;
+}
+.register:hover{
+	color: white;
+	transition: 0.4s linear;
+}

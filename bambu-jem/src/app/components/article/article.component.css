@@ -1,0 +1,125 @@
+.main{
+	padding-top: 3%;
+}
+
+.catalogue{
+	padding-left: 1%;
+}
+
+h3{
+	color: #ccc;
+}
+
+.type{
+	padding-top: 5%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.product-item{
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 30px;
+}
+
+.row{
+	display: block;
+}
+
+.list-items{
+	padding-top: 4%;
+	padding-left: 12%;
+	padding-right: 6%;
+	padding-bottom: 5%;
+}
+
+span{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.col-md-3{
+	padding-bottom: 2%;
+}
+
+.logoStyle{
+	width: 50px;
+	height: 50px;
+}
+
+.modal-title{
+	
+	font-size: 20px;
+}
+
+.close{
+	position: absolute;
+	top: 7%;
+	right: 5%;
+}
+
+.login-form{
+	position: relative;
+	top:  20%;
+	left: 20%;
+	
+	text-align: center;
+}
+
+.registerText{
+	margin-top: 10px;
+	text-align: center;
+}
+
+.txtb{ 
+	display: block;
+	box-sizing: border-box;
+	width: 300px;
+	background: #dcdde1;
+	border: 1px solid #636e72;
+	padding: 10px 20px;
+	outline: none;
+	margin: 10px 0;
+	border-radius: 6px;
+	text-align: center;
+}
+
+.loginbtn{
+	width: 300px;
+	color: white;
+	background: #353b48;
+	border: 0;
+	padding: 10px;
+	border-radius: 6px;
+	cursor: pointer;
+	position: absolute;
+	left: 0;
+}
+
+.loginbtn:hover{
+	color: #333;
+	background:#dcdde1;
+	transition: 0.4s linear;
+}
+
+.register{
+	color: #273c75;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: none;
+}
+.register:hover{
+	color:#3498db;
+	transition: 0.4s linear;
+}
+
+@media only screen and (max-width: 600px){
+	div .navbar-header h2 a{
+		display: inline-block;
+		position: relative;
+		top: 0;
+		left: 150px;
+	}
+}
