@@ -22,7 +22,7 @@ class jwtAuthAdmin
 			'user' => $user,
 			'password' => $password
 		))->first();
-
+		
 		$signup = false;
 
 		if (is_object($user)) {

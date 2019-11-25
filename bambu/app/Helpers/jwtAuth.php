@@ -18,10 +18,12 @@ class jwtAuth
 
 	public function signup($phone, $password, $getToken=null)
 	{
-		$Client = client::where(array(
+		/*$Client = client::where(array(
 			'phone' => $phone,
 			'password' => $password
-		))->first();
+		))->first();*/
+
+		$Client = client::where('phone', $phone)->first();
 
 		$signup = false;
 

@@ -1,76 +1,3 @@
-<!--<header>
-  <div class="containerNav">
-    <nav class="navbar navbar-default navbar-fixed-top navbar-light">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
-            <span class="sr-only">Menu</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/Home/BJem"><img class="logoStyle" src="assets/Images/Logo.png" alt=""></a>
-        </div>
-        <div class="collapse navbar-collapse navbar-right" id="navbar-1" *ngIf="!identity">
-          <ul class="nav navbar-nav">
-            <li><a href="Home/Damas">Damas</a></li>
-            <li><a href="Home/Caballeros">Caballeros</a></li>
-            <li><a href="Home/Niños">Niños</a></li>
-            <li><a href="Home/Niñas">Niñas</a></li>
-            <li><a href="">Outfit</a></li>
-            <li><a href="/Home/Nosotros">Sobre nosotros</a></li>
-            <li><a href=""><i class="fa fa-shopping-cart"></i> Carrito</a></li>
-           <li><a href="" data-toggle="modal" data-target="#loginmodal">Iniciar sesión</a></li>
-         </ul>
-       </div>
-       <div class="collapse navbar-collapse navbar-right" id="navbar-1" *ngIf="identity">
-          <ul class="nav navbar-nav">
-            <li><a href="Home/Damas">Damas</a></li>
-            <li><a href="Home/Caballeros">Caballeros</a></li>
-            <li><a href="Home/Niños">Niños</a></li>
-            <li><a href="Home/Niñas">Niñas</a></li>
-            <li><a href="">Outfit</a></li>
-            <li><a href="/Nosotros">Sobre nosotros</a></li>
-            <li><a href=""><i class="fa fa-shopping-cart"></i> Carrito</a></li>
-            <li class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-              {{identity.name}} <i class="fa fa-user"></i><span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="">Mi Perfil</a></li>
-                <li class="divider"></li>
-                <li><a href="">Historial</a></li>
-                <li class="divider"></li>
-                <li><a href="/Home/Bambu" (click)="logout()"><i class="fa fa-power-off"></i> Cerrar sesión</a>
-                </li>  
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">¡Inicia sesión en tu cuenta de Bambu Jeans!</h5>
-          <i class="fa fa-times close" data-dismiss="modal"></i>
-        </div>
-        <div class="modal-body">
-          <form #loginForm="ngForm" class="login-form">
-            <input class="txtb" type="text" name="phone" #phone="ngModel" [(ngModel)]="client.phone" placeholder="Usuario (Teléfono)">
-            <input class="txtb" type="password" name="password" #password="ngModel" [(ngModel)]="client.password"  placeholder="Contraseña">
-            <input class="loginbtn" data-dismiss="modal" (click)="Onsubmit(loginForm)" type="submit" value="Iniciar sesión"><br>
-          </form><br>
-          <div class="registerText">
-            No tienes cuenta? <a class="register" data-dismiss="modal" (click)="gotoRegister()">Registrarte</a>
-          </div>
-        </div>
-      </div>
-    </div>  
-  </div>
-</header>-->
 <header>
   <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
   <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
@@ -80,7 +7,14 @@
     <div class="row justify-content-center">
       <div class="col-12 catalogue">
         <h2>Damas</h2>
-        <a href="/Home/BJem"><i class="fas fa-home">Boutique Jem</i></a>
+      </div>
+      <div class="col-md-12 guide">
+          <ol class="breadcrumb">
+            <a href="/Home/BJem"><i class="fas fa-home">Boutique Jem</i></a>
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active">Data</li>
+          </ol>
       </div>
       <div class="col-lg-10 types">
         <div class="row">
@@ -400,5 +334,7 @@
       </div>
     </div>
   </div>
-<app-footer></app-footer>
 </div>
+<footer> 
+  <app-footer></app-footer>
+</footer>

@@ -21,13 +21,13 @@ export class UserServices {
   }
 
   signup(client, getToken = null): Observable<any> {
-   if (getToken != null) {
+    if (getToken != null) {
       client.getToken = 'true';
-   }
-   const json    = JSON.stringify(client);
-   const params  = 'json=' + json;
-   const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-   return this._http.post(this.url + 'login', params, {headers: headers});
+    }
+    const json    = JSON.stringify(client);
+    const params  = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'login', params, {headers: headers});
   }
 
   getIdentity() {
@@ -41,13 +41,13 @@ export class UserServices {
   }
 
   getToken() {
-   const token = localStorage.getItem('token');
-   if (token !== 'undefined') {
-     this.token = token;
+    const token = localStorage.getItem('token');
+    if (token !== 'undefined') {
+      this.token = token;
     } else {
       this.token = null;
-   }
-   return this.token;
+    }
+    return this.token;
   }
 }
 

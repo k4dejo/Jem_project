@@ -4,6 +4,16 @@
 
 .catalogue{
 	padding-left: 1%;
+	padding-top: 2%;
+}
+
+.breadcrumb{
+	background: #ffffff00;
+	font-weight: bold;
+}
+
+.guide{
+	display: block;
 }
 
 h3{
@@ -12,9 +22,7 @@ h3{
 
 .types{
 	padding-top: 5%;
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%);
+	padding-left: 13%;
 }
 
 .list-items{
