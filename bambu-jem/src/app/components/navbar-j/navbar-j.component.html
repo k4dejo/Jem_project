@@ -56,7 +56,8 @@
     </ul>
   </div>
 </nav>
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<!--<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -85,4 +86,36 @@
 <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.cubeGrid,
   backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
   primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
-</ngx-loading>
+</ngx-loading>-->
+<div class="modal fadeInDown" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-content wrapper" id="formContent" role="document">
+    <div class="modal-header first">
+      <i class="fa fa-times close" data-dismiss="modal"></i>
+      <h2 id="modalLabel">¡Inicia sesión en tu cuenta de Bambu Jeans!</h2>
+    </div>
+    <div class="modal-body">
+      <form #loginForm="ngForm" class="login-form">
+        <input class="fadeIn second" type="text" name="phone" #phone="ngModel"
+        [(ngModel)]="client.phone" placeholder="Usuario (Teléfono)">
+        <input class="fadeIn third" type="password" name="password" #password="ngModel"
+        [(ngModel)]="client.password"  placeholder="Contraseña">
+        <input class="fadeIn fourth" data-dismiss="modal"
+        (click)="Onsubmit(loginForm)" type="submit" value="Iniciar sesión"><br>
+        <div class="alert-login" *ngIf="status == 'error'">
+          Usuario o contraseña incorrecta.
+        </div>
+      </form>
+      <div class="fadeIn fifth" id="formFooter">
+          <a class="underlineHover" href="#">Olvidaste tu contraseña?</a>
+      </div>
+    </div>
+    <div class="modal-footer fadeIn fifth">
+      <div class="registerText">
+        <p>
+           No tienes cuenta?
+        </p>
+        <a class="register" data-dismiss="modal" (click)="gotoRegister()">Registrarte</a>
+      </div>
+    </div>
+  </div>
+</div>

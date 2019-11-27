@@ -3,7 +3,14 @@
 }
 
 .catalogue{
-	padding-left: 1%;
+	padding-left: 3%;
+	padding-top: 3%;;
+}
+
+.breadcrumb-item{
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 h3{
@@ -15,6 +22,11 @@ h3{
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%);
+}
+
+.breadcrumb{
+	background: #ffffff00;
+	font-weight: bold;
 }
 
 .product-item{
@@ -115,11 +127,13 @@ span{
 	transition: 0.4s linear;
 }
 
-@media only screen and (max-width: 600px){
-	div .navbar-header h2 a{
-		display: inline-block;
-		position: relative;
-		top: 0;
-		left: 150px;
+@media (max-width: 767px){
+	.catalogue{
+		padding-left: 1%;
+		padding-top: 10%;
+	}
+	.type{
+		padding-top: 5%;
+		padding-left: 2%;
 	}
 }

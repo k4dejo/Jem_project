@@ -34,6 +34,7 @@ import { MangArticleComponent } from './adminlayout/mang-article/mang-article.co
 import { PricesFPipe } from './pipes/prices-f.pipe';
 import { EditProductComponent } from './adminlayout/edit-product/edit-product.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { ContactusComponent } from './components/contactus/contactus.component';
 
 
 
@@ -64,7 +65,8 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     MangArticleComponent,
     PricesFPipe,
     EditProductComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ContactusComponent
   ],
   imports: [
     BrowserModule,

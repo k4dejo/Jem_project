@@ -1,25 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  selector: 'app-contactus',
+  templateUrl: './contactus.component.html',
+  styleUrls: ['./contactus.component.css']
 })
-export class ArticleComponent implements OnInit {
+export class ContactusComponent implements OnInit {
   public shop_id = '';
   public shop_bool = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private _location: Location
   ) { }
-
-  backClicked() {
-    this._location.back();
-  }
 
   ngOnInit() {
     this.shop_id = this.route.snapshot.params['id'];

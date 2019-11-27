@@ -1,16 +1,3 @@
-<!--<footer class="footer">
-  <div class="foot">
-    <h3>Contáctenos</h3>
-    <ul class="list-inline">
-      <li class="mediaS"><a href=""><i class="fa fa-envelope"></i></a></li>
-      <li class="mediaS"><a href="https://wa.me/50683995589" target="_blank"><i class="fa fa-phone"></i></a> </li>
-      <li class="mediaS"><a href="https://www.instagram.com/bambu_jeans_cr/?hl=es-la" target="_blank"><i class="fab fa-instagram"></i></a></li>
-      <li class="mediaS"><a href="https://www.facebook.com/Bambu-Jeans-CR-2139032069474611/?ref=br_rs" target="_blank"><i class="fab fa-facebook-square"></i></a></li>
-    </ul>
-    <hr>
-  </div>
-</footer>-->
-
 <div class="container-fluid" style="background-color:#eff5f5;">
   <button onclick="topFunction()" id="to-top" title="Go to top">Top</button>
   <div class="row  row-no-gutters">
@@ -37,9 +24,9 @@
             Instagram
           </a>
         </li> 
-        <li>
+        <li (click)="gotoContact()">
           <i class="fa fa-envelope-square" aria-hidden="true"></i>
-          <a href="mailto:someone@yoursite.com?subject=Email Subject line">Email Us</a>  
+          <a (click)="gotoContact()" class="contact">Contactanos</a>  
         </li> 
       </ul>
     </div>     
