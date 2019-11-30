@@ -2,67 +2,74 @@
   <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
   <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
 </header>
-<!--<div class="main bg-gra-03" id="main">
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
-      <div class="fadeIn first">
-        <h4> Formulario de Contacto</h4>
-      </div>
-      <form #loginForm="ngForm">
-        <input type="text" id="login" class="fadeIn second"
-        name="user"  placeholder="Correo Electrónico"/>
-        <input type="password" id="password" class="fadeIn third"
-        name="password" placeholder="Contraseña"/>
-        <input type="submit" class="fadeIn fourth"
-        (click)="Onsubmit(loginForm)" value="Ingresar" data-toggle="modal" data-target="#exampleModal"/>
-      </form>
-    </div>
-  </div>
-</div>-->
-
 <div class="contact1">
   <div class="container-contact1">
-    <div class="contact1-pic js-tilt" data-tilt>
-      <img src="assets/Images/img-01.png" alt="IMG">
+    <div class="contact1-pic">
+      <div class="letter-image">
+        <div class="animated-mail">
+          <div class="back-fold"></div>
+          <div class="letter">
+            <div class="letter-border"></div>
+            <div class="letter-title"></div>
+            <div class="letter-context"></div>
+            <div class="letter-stamp">
+              <div class="letter-stamp-inner"></div>
+            </div>
+          </div>
+          <div class="top-fold"></div>
+          <div class="body"></div>
+          <div class="left-fold"></div>
+        </div>
+        <div class="shadow"></div>
+      </div>
     </div>
-
-    <form class="contact1-form validate-form">
+    <form class="contact1-form validate-form"  #contactForm="ngForm">
       <span class="contact1-form-title">
         Formulario de Contacto
       </span>
-
       <div class="wrap-input1 validate-input">
-        <input class="input1" type="text" name="name" placeholder="Nombre">
+        <input class="input1" type="text"
+        name="name" #name ="ngModel" 
+        [(ngModel)]="frmContact.name" type="text" placeholder="Nombre" required>
         <span class="shadow-input1"></span>
       </div>
-
       <div class="wrap-input1 validate-input">
-        <input class="input1" type="text" name="email" placeholder="Correo Electrónico">
+        <input class="input1" type="email"
+        name="email" #email ="ngModel" 
+        [(ngModel)]="frmContact.email" type="text" placeholder="Correo Electrónico" email>
+        <span class="shadow-input1"></span>
+        <div class="alert-validate" *ngIf="email.value !== '' && email.invalid">
+          Correo invalido.
+        </div>
+      </div>
+      <div class="wrap-input1 validate-input">
+        <input class="input1" type="text"
+        name="subject" subject ="ngModel" 
+        [(ngModel)]="frmContact.subject" type="text" placeholder="Asunto" required>
         <span class="shadow-input1"></span>
       </div>
-
       <div class="wrap-input1 validate-input">
-        <input class="input1" type="text" name="subject" placeholder="Asunto">
+        <textarea class="input1" name="message" #message="ngModel" [(ngModel)]="frmContact.msg" placeholder="Mensaje"></textarea>
         <span class="shadow-input1"></span>
       </div>
-
-      <div class="wrap-input1 validate-input">
-        <textarea class="input1" name="message" placeholder="Mensaje"></textarea>
-        <span class="shadow-input1"></span>
-      </div>
-
       <div class="container-contact1-form-btn">
-        <button class="contact1-form-btn">
+        <button class="contact1-form-btn" (click)="submitEmail(contactForm)">
           <span>
-            Send Email
+            Enviar Correo
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </span>
         </button>
       </div>
+      <div class="alert alert-success" role="alert" *ngIf="statusEmail">
+          Gracias por contactarnos, el mensaje fue enviado correctamente.
+        </div>
+        <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+          backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
+          primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
+        </ngx-loading>
     </form>
   </div>
 </div>
-
 <footer>
   <app-footer></app-footer>
 </footer>

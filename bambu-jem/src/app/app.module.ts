@@ -6,6 +6,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { NgxPopper } from 'angular-popper';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 
 import { AppComponent } from './app.component';
@@ -73,6 +74,7 @@ import { ContactusComponent } from './components/contactus/contactus.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    NgxPopper,
     NgxFileDropModule,
     NgxDropzoneModule,
     DropzoneModule,

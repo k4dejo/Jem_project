@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 465),
+    'port' => env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -55,10 +55,11 @@ return [
     |
     */
 
-    'from' => [
+    /*'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'breinersalas14@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Breiner'),
-    ],
+    ],*/
+    'from' => array('address' => null, 'name' => null),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +72,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'ssl'), /*estaba en (tls)*/
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'), /*estaba en (tls)*/
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +85,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => 'testingproyectBJem@gmail.com',
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => 'tomepalpinto',
 
     /*
     |--------------------------------------------------------------------------

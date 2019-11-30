@@ -1,19 +1,61 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ContactService } from '../../services/contact.service';
+import { Contactemail } from '../../models/contactemail';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.component.html',
+  providers: [ContactService],
   styleUrls: ['./contactus.component.css']
 })
 export class ContactusComponent implements OnInit {
   public shop_id = '';
   public shop_bool = true;
+  public frmContact: Contactemail;
+  public statusEmail = false;
+  public loading = false;
+  public primaryColour = '#ffffff';
+  public secondaryColour = '#ccc';
+  public PrimaryRed = '#dd0031';
+  public SecondaryBlue = '#006ddd';
+  public status: string;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public config = { animationType: ngxLoadingAnimationTypes.none,
+    primaryColour: this.primaryColour,
+    secondaryColour: this.secondaryColour,
+    tertiaryColour: this.primaryColour,
+    backdropBorderRadius: '3px'
+  };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+    private emailContact: ContactService
+  ) {
+    this.frmContact = new Contactemail('', '', '', '');
+  }
+
+  submitEmail(form) {
+    this.loading = true;
+    this.emailContact.sendEmailContacFrm(form.value).subscribe(
+      response => {
+        console.log(response);
+        if (response.status) {
+          this.statusEmail = true;
+          this.loading = false;
+          // restaurar formulario
+          this.frmContact = new Contactemail('', '', '', '');
+          form.reset();
+        }
+        this.loading = false;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
 
   ngOnInit() {
     this.shop_id = this.route.snapshot.params['id'];

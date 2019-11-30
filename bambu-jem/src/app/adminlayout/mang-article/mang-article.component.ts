@@ -11,7 +11,6 @@ import { AmounTotal } from '../../models/amounTotal';
 import { Image } from '../../models/image';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
-import { timer } from 'rxjs';
 
 
 @Component({

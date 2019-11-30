@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('outfits/AñadirOutfit','OutfitController@AttachOutfit');
 	Route::post('size/CrearTalla','sizeController@store');
 	Route::post('size/addTalla','sizeController@Attachsize');
+	Route::post('contactFrm','contactController@sendEmail');
 	Route::post('addMimage','imageController@store');
 	Route::get('getImages/{id}','imageController@show');
 	Route::get('getTalla/{id}','sizeController@showSizeP');
