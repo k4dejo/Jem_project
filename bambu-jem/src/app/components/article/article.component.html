@@ -8,68 +8,64 @@
 </header>
 <div id="main" class="main">
   <div class="container-fluid">
-    <div class="col-lg-6 catalogue">
-      <h2>Blusas</h2>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="Home/BJem"><i class="fas fa-home">Inicio</i></a>
-          </li>
-          <li (click)="backClicked()" class="breadcrumb-item"><a> Damas</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Blusas</li>
-        </ol>
-      </nav>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-md-10 list-items">
-        <div class="row">
-          <div class="col-xs-5 col-md-3">
-            <a href="#">
-              <img
-                src="assets/Images/cat%C3%A1logo/Damas/blu1.jpg"
-                class="img-responsive"
-                alt=""
-              />
-            </a>
-            <h4>Blusa de rayas</h4>
-            <span>₡ 12.000</span><br />
-            <a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Ver</a>
-          </div>
-          <div class="col-xs-5 col-md-3">
-            <a href="#">
-              <img
-                src="assets/Images/cat%C3%A1logo/Damas/blu2.jpg"
-                class="img-responsive"
-                alt=""
-              />
-            </a>
-            <h4>Blusa 2</h4>
-            <span>₡ 9.000</span><br />
-            <a href="#" class="btn btn-success"
-              ><i class="fa fa-shopping-cart"></i> Ver</a
-            >
-          </div>
-          <div class="col-xs-5 col-md-3">
-            <a href="#">
-              <img src="assets/Images/cat%C3%A1logo/Damas/blu3.jpg" class="img-responsive"alt=""/>
-            </a>
-            <h4>Blusa 3</h4>
-            <span>₡ 10.000</span><br />
-            <a href="#" class="btn btn-success"
-              ><i class="fa fa-shopping-cart"></i> Ver</a
-            >
-          </div>
-          <div class="col-xs-5 col-md-3">
-            <a href="#">
-              <img src="assets/Images/cat%C3%A1logo/Damas/blu4.jpg" class="img-responsive" alt=""/>
-            </a>
-            <h4>Blusa 4</h4>
-            <span>₡ 8.5000</span><br />
-            <a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i> Ver</a>
-          </div>
-        </div>
+    <div class="col-lg-12 catalogue">
+      <div class="container">
+        <h1>Blusas</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
+            <li (click)="backClicked()" class="breadcrumb-item" aria-current="page"><a>Damas</a></li>
+            <li class="breadcrumb-item" aria-current="page">Blusas</li>
+          </ol>
+        </nav>
       </div>
     </div>
+    <div class="container">
+		<div class="row">
+			<div class="col-xl-9 col-lg-8 col-md-7">
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap align-items-center">
+					<a href="#" class="grid-btn active"><i class="fa fa-th" aria-hidden="true"></i></a>
+					<a href="#" class="list-btn"><i class="fa fa-th-list" aria-hidden="true"></i></a>
+					<div class="pagination">
+						<a href="#" class="prev-arrow"><i class="fas fa-arrow-left arrow" aria-hidden="true"></i></a>
+						<a href="#" class="active">1</a>
+              			<a href="#">2</a>
+						<a href="#">3</a>
+              			<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+              			<a href="#">6</a>
+						<a href="#" class="next-arrow"><i class="fas fa-arrow-right arrow" aria-hidden="true"></i></a>
+					</div>
+				</div>
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+				<section class="pb-40 category-list">
+					<div class="row">
+						<div *ngFor="let product of products" class="col-lg-4 col-md-12 col-xs-12 single-product">
+							<div class="content">
+								<div class="content-overlay"></div>
+								<img class="content-image img-fluid d-block mx-auto"
+								[src]="product.photo" alt="">
+								<div class="content-details fadeIn-bottom">
+									<div class="bottom d-flex align-items-center justify-content-center">
+										<a href="#"><i class="far fa-heart"></i></a>
+                      					<a href="#"><i class="fas fa-shopping-cart"></i></a>
+										<a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-expand"></i></a>
+									</div>
+								</div>
+							</div>
+							<div class="price">
+								<h5>{{product.name}}</h5>
+								<h3>₡ {{product.pricePublic | number: '3.'}}</h3>
+								<h5>Precio al mayoreo</h5>
+								<h3>₡{{product.priceMajor| number: '3.'}}</h3>
+							</div>
+						</div>																																								
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
   </div>
   <app-whatsapp></app-whatsapp>
 </div>

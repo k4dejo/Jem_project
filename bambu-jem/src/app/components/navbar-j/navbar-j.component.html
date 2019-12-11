@@ -1,92 +1,78 @@
-<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
-  <div id="nav-bar" class="navbar-header">
-    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a href="/Home/BJem"><img class="logoStyle" src="assets/Images/Logo.png" alt=""></a>
-  </div>
-  <div class="collapse navbar-collapse navbar-right" id="navbarCollapse" *ngIf="!identity">
-    <ul class="nav navbar-nav">
-      <li class="menuNav"><a href="Home/Damas">Damas</a></li>
-      <li class="menuNav"><a href="Home/Caballeros">Caballeros</a></li>
-      <li class="menuNav"><a href="Home/Niños">Niños</a></li>
-      <li class="menuNav"><a href="Home/Niñas">Niñas</a></li>
-      <li class="menuNav"><a href="">Outfit</a></li>
-      <li class="menuNav"><a href=""><i class="fa fa-shopping-cart"></i> Carrito</a></li>
-      <li class="menuNav"><a href="" data-toggle="modal" data-target="#loginmodal">Iniciar sesión</a></li>
-    </ul>
-  </div>
-  <div class="collapse navbar-collapse navbar-right" id="navbar-1" *ngIf="identity">
-    <ul class="nav navbar-nav">
-      <li class="menuNav"><a href="Home/Damas">Damas</a></li>
-      <li class="menuNav"><a href="Home/Caballeros">Caballeros</a></li>
-      <li class="menuNav"><a href="Home/Niños">Niños</a></li>
-      <li class="menuNav"><a href="Home/Niñas">Niñas</a></li>
-      <li class="menuNav"><a href="">Outfit</a></li>
-      <li class="menuNav"><a href=""><i class="fa fa-shopping-cart"></i> Carrito</a></li>
-      <li>
-        <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button">
-          <img src="assets/Images/4.jpg" alt="user" class="profile-pic">
-        </a>
-        <div class="dropdown-menu">           
-          <ul class="dropdown-user">
-            <li>
-              <div class="dw-user-box">
-                <div class="u-img"><img src="assets/Images/4.jpg" alt="user"></div>
-                <div class="u-text">
-                  <h4>{{identity.name}}</h4>
-                  <p class="text-muted">{{identity.phone}}</p>
-                </div>
-              </div>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><i class="fas fa-user-tie"></i> Mi perfil</a></li>
-            <li><a href="#"><i class="fas fa-list-alt"></i> Historial</a></li>
-            <li><a href="#"><i class="fa fa-heart"></i> Deseados</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><i class="fas fa-cogs"></i> Configuración de Cuenta</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a (click)="logout()" href="/Home/BJem"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-<!--<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">¡Inicia sesión en tu cuenta de Bambu Jeans!</h5>
-        <i class="fa fa-times close" data-dismiss="modal"></i>
+<header class="header-section navbar-fixed-top">
+  <div class="header-top">
+    <div class="row">
+      <div class="col-xs-12 col-lg-3 text-lg-left">
+        <a href="/Home/BJem"><img class="site-logo" src="assets/Images/Logo.png" alt=""></a>
       </div>
-      <div class="modal-body">
-        <form #loginForm="ngForm" class="login-form">
-          <input class="txtb" type="text" name="phone" #phone="ngModel"
-          [(ngModel)]="client.phone" placeholder="Usuario (Teléfono)">
-          <input class="txtb" type="password" name="password" #password="ngModel"
-          [(ngModel)]="client.password"  placeholder="Contraseña">
-          <input class="loginbtn" data-dismiss="modal"
-          (click)="Onsubmit(loginForm)" type="submit" value="Iniciar sesión"><br>
-          <div class="alert-login" *ngIf="status == 'error'">
-            Usuario o contraseña incorrecta.
+      <div class="col-xs-12 col-lg-5 labelLogin" *ngIf="!identity">
+        <div class="user-panel">
+          <div class="up-item">
+            <i class="far fa-user" aria-hidden="true"></i>
+            <a href="" data-toggle="modal" data-target="#loginmodal">Iniciar Sesión</a> o
+            <a class="pointerRegister" (click)="gotoRegister()">Crea una Cuenta</a>
           </div>
-        </form><br>
-        <div class="registerText">
-          No tienes cuenta? <a class="register" data-dismiss="modal" (click)="gotoRegister()">Registrarte</a>
+          <div class="up-item">
+            <div class="shopping-card">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <span>0</span>
+            </div>
+            <a href="#">Carrito</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-lg-5 " *ngIf="identity">
+        <div class="user-panel">
+          <div class="up-item labelLog">
+            <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button">
+              <img src="assets/Images/4.jpg" alt="user" class="profile-pic">
+            </a>
+            <div class="dropdown-menu">           
+              <ul class="dropdown-user">
+                <li>
+                  <div class="dw-user-box">
+                    <div class="u-img"><img src="assets/Images/4.jpg" alt="user"></div>
+                    <div class="u-text">
+                      <h4>{{identity.name}}</h4>
+                      <p class="text-muted">{{identity.phone}}</p>
+                    </div>
+                  </div>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#"><i class="fas fa-user-tie"></i> Mi perfil</a></li>
+                <li><a href="#"><i class="fas fa-list-alt"></i> Historial</a></li>
+                <li><a href="#"><i class="fa fa-heart"></i> Deseados</a></li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <div class="shopping-card">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span>0</span>
+                  </div>
+                  <a href="#">Carrito</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li><a (click)="logout()" href="/Home/BJem"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>  
-</div>
-<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.cubeGrid,
-  backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
-  primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
-</ngx-loading>-->
+  </div>
+  <nav role="navigation" class="navbar main-navbar">
+    <div class="menu-btn navbar-toggler collapsed" (click)="toggleBurger()" data-toggle="collapse" data-target="#collapsingNavbar2">
+      <div class="menu-burger"></div>
+    </div>
+    <div class="navbar-collapse collapse container" id="collapsingNavbar2">
+      <ul class="main-menu navbar-nav mx-auto">
+        <li class="menuNavBar"><a href="Home/BJem">Inicio</a></li>
+        <li class="menuNavBar"><a href="Home/Damas/J">Damas</a></li>
+        <li class="menuNavBar"><a href="Home/Caballeros/J">Caballeros</a></li>
+        <li class="menuNavBar"><a href="Home/Niños/J">Niños</a></li>
+        <li class="menuNavBar"><a href="Home/Niñas">Niñas</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
 <div class="modal fadeInDown" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-content wrapper" id="formContent" role="document">
     <div class="modal-header first">
@@ -106,16 +92,18 @@
         </div>
       </form>
       <div class="fadeIn fifth" id="formFooter">
-          <a class="underlineHover" href="#">Olvidaste tu contraseña?</a>
+        <a class="underlineHover" href="#">Olvidaste tu contraseña?</a>
       </div>
     </div>
     <div class="modal-footer fadeIn fifth">
       <div class="registerText">
         <p>
-           No tienes cuenta?
+          No tienes cuenta?
         </p>
         <a class="register" data-dismiss="modal" (click)="gotoRegister()">Registrarte</a>
       </div>
     </div>
   </div>
 </div>
+
+

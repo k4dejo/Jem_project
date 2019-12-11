@@ -14,7 +14,7 @@ export class ContactusComponent implements OnInit {
   public shop_id = '';
   public shop_bool = true;
   public frmContact: Contactemail;
-  public statusEmail = false;
+  public statusEmail: boolean;
   public loading = false;
   public primaryColour = '#ffffff';
   public secondaryColour = '#ccc';
@@ -42,22 +42,28 @@ export class ContactusComponent implements OnInit {
     this.emailContact.sendEmailContacFrm(form.value).subscribe(
       response => {
         console.log(response);
-        if (response.status) {
+        if (response.status = 'success') {
           this.statusEmail = true;
           this.loading = false;
           // restaurar formulario
           this.frmContact = new Contactemail('', '', '', '');
           form.reset();
+        } else {
+          this.statusEmail = false;
         }
+        console.log(this.statusEmail);
         this.loading = false;
       },
       error => {
         console.log(<any>error);
+        this.loading = false;
+        this.statusEmail = false;
       }
     );
   }
 
   ngOnInit() {
+    console.log(this.statusEmail);
     this.shop_id = this.route.snapshot.params['id'];
     if (this.shop_id === 'J') {
       this.shop_bool = true;

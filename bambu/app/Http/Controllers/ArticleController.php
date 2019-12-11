@@ -49,6 +49,33 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    public function getConcreteProduct($department, $gender) {
+        $productConcrete = DB::table('articles')->where('gender', $gender)
+        ->where('department', $department)->get();
+        $productCount = count($productConcrete);
+        for ($i=0; $i < $productCount ; $i++) { 
+            $contents = Storage::get($productConcrete[$i]->photo);
+            $productConcrete[$i]->photo = base64_encode($contents);   
+        }
+        return response()->json(array(
+            'articles' => $productConcrete,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function getProductGender($gender) {
+        $productGen = article::where('gender', '=', $gender)->get();
+        $productCount = count($productGen);
+        for ($i=0; $i < $productCount ; $i++) { 
+            $contents = Storage::get($productGen[$i]->photo);
+            $productGen[$i]->photo = base64_encode($contents);   
+        }
+        return response()->json(array(
+            'articles' => $productGen,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function store(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();

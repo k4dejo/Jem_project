@@ -24,6 +24,13 @@ export class AdminService {
         return this._http.post(this.url + 'loginAdmin', params, { headers: headers });
     }
 
+    authAdmin(identity: any): Observable<any> {
+        const json = JSON.stringify(identity);
+        const params = 'json=' + json;
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.post(this.url + 'authAdmin', params, { headers: headers });
+    }
+
     getIdentity() {
         const identity = JSON.parse(localStorage.getItem('identity'));
         if (identity !== 'undefined') {

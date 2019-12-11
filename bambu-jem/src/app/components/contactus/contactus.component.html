@@ -28,14 +28,15 @@
         Formulario de Contacto
       </span>
       <div class="wrap-input1 validate-input">
-        <input class="input1" type="text"
-        name="name" #name ="ngModel" 
+        <input class="input1" type="text" name="name" #name ="ngModel"
         [(ngModel)]="frmContact.name" type="text" placeholder="Nombre" required>
         <span class="shadow-input1"></span>
+        <div class="alert-validate" *ngIf="name.touched && name.invalid">
+          Nombre es requerido.
+        </div>
       </div>
       <div class="wrap-input1 validate-input">
-        <input class="input1" type="email"
-        name="email" #email ="ngModel" 
+        <input class="input1" type="email" name="email" #email ="ngModel" 
         [(ngModel)]="frmContact.email" type="text" placeholder="Correo Electrónico" email>
         <span class="shadow-input1"></span>
         <div class="alert-validate" *ngIf="email.value !== '' && email.invalid">
@@ -43,30 +44,59 @@
         </div>
       </div>
       <div class="wrap-input1 validate-input">
-        <input class="input1" type="text"
-        name="subject" subject ="ngModel" 
+        <input class="input1" type="text" name="subject" #subject ="ngModel" 
         [(ngModel)]="frmContact.subject" type="text" placeholder="Asunto" required>
         <span class="shadow-input1"></span>
+        <div class="alert-validate" *ngIf="subject.touched && subject.invalid">
+          Necesitas un Asunto para redactar el mensaje.
+        </div>
       </div>
       <div class="wrap-input1 validate-input">
-        <textarea class="input1" name="message" #message="ngModel" [(ngModel)]="frmContact.msg" placeholder="Mensaje"></textarea>
+        <textarea class="input1" name="message" #message="ngModel"
+        [(ngModel)]="frmContact.msg" placeholder="Mensaje"></textarea>
         <span class="shadow-input1"></span>
+        <div class="alert-validate" *ngIf="message.touched && message.invalid">
+          Es necesario enviar un mensaje
+        </div>
       </div>
       <div class="container-contact1-form-btn">
-        <button class="contact1-form-btn" (click)="submitEmail(contactForm)">
+        <button class="contact1-form-btn"
+        data-toggle="modal" (click)="submitEmail(contactForm)"
+        href="#ignismyModal">
           <span>
             Enviar Correo
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </span>
         </button>
-      </div>
-      <div class="alert alert-success" role="alert" *ngIf="statusEmail">
-          Gracias por contactarnos, el mensaje fue enviado correctamente.
+        <div class="alert-send" *ngIf="statusEmail === false">
+          Debes llenar todos los campos 
         </div>
-        <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
-          backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
-          primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
-        </ngx-loading>
+      </div>  
+      <div class="container">
+        <div class="row">
+          <div class="modal fade" *ngIf="statusEmail" id="ignismyModal" role="dialog">
+            <div class="modal-dialog">
+              <!--<div class="modal-content" *ngIf="statusEmail">-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <i class="fa fa-times close" data-dismiss="modal"></i>
+                </div>
+                <div class="modal-body">
+                  <div class="thank-you-pop">
+                    <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                    <h1>Gracias!</h1>
+                    <p>Recibimos su mensaje y nos pondremos en contacto con usted pronto.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+        backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
+        primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
+      </ngx-loading>
     </form>
   </div>
 </div>

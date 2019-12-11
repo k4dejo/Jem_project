@@ -1,3 +1,211 @@
-<p>
-  gentleman works!
-</p>
+<header>
+    <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
+    <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
+  </header>
+  <div id="main" class="main">
+    <div class="container-fluid">	
+      <div class="col-lg-12 catalogue">
+        <div class="container">
+          <h1>Caballeros</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
+              <li class="breadcrumb-item active" aria-current="page">Caballeros</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-11 types">
+          <div class="row">
+            <div class="col-xs-3 col-md-3 list-items">
+              <a (click)="toggleBtn(3)">        
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img [src]="photoViewCami[0]" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Camisas</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img [src]="photoViewCami[1]" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Camisas</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/blu3.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Camisas</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-xs-3 col-md-3 list-items">
+              <a (click)="toggleBtn(1)">            
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/sh1.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Levis de Hombre</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/sh2.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Levis de Hombre</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/sh3.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Levis de Hombre</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-xs-3 col-md-3 list-items" >
+              <a (click)="toggleBtn(5)">
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img [src]="photoViewCamiseta[0]" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Camiseta</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img [src]="photoViewCamiseta[1]" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Camiseta</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/ena3.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Camiseta</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-xs-3 col-md-3 list-items">
+              <a (click)="toggleBtn(2)">
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/pan1.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Pantalones</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/721/960" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Pantalones</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="assets/Images/cat%C3%A1logo/Damas/pan3.jpg" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Pantalones</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-xs-3 col-md-3 list-items">
+              <a (click)="toggleBtn(4)">
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Shorts</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Shorts</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Shorts</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-xs-3 col-md-3 list-items">
+              <a (click)="toggleBtn(6)">
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Abrigos</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Abrigos</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Abrigos</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-xs-3 col-md-3 list-items">
+              <a (click)="toggleBtn(7)">
+                <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Accesorios</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Accesorios</h3>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img src="https://picsum.photos/1000/1200" class="img-responsive" alt="">
+                      <div class="carousel-caption">
+                        <h3>Accesorios</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer> 
+    <app-footer></app-footer>
+  </footer>
+  

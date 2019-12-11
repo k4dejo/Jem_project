@@ -18,9 +18,19 @@ export class AdminlayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.identity);
     if (this.identity == null) {
-      console.log(this.identity);
       this.router.navigate(['LoginAdmin']);
     }
+    this.adminService.authAdmin(this.identity).subscribe(
+      response => {
+        console.log(response);
+        if (response.status !== 'admin') {
+          this.router.navigate(['LoginAdmin']);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 }

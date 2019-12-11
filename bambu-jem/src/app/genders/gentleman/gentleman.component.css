@@ -1,0 +1,81 @@
+.main{
+	padding-top: 3%;
+}
+
+/*------- Start Bread Crumb --------*/
+.organic-bread {
+	margin-bottom: 100px;
+	margin-top:100%;
+}
+
+.breadcrumb-banner {
+	padding: 80px 0 50px 0;
+}
+
+h1 {
+	font-family: 'Calistoga', cursive;
+}
+
+.breadcrumb .breadcrumb-item a {
+	color: azure;
+	text-decoration: none;
+}
+
+.breadcrumb .breadcrumb-item:hover {
+	color: rgb(198, 206, 206);
+}
+
+.catalogue{
+	position: relative;
+	left: -1.2%;
+	padding-top: 6%;
+	width: 102.3%;
+	color: azure;
+	background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
+	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
+	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+}
+
+.breadcrumbDiv{
+	padding-left: 0;
+	padding-top: 97px;
+}
+
+.breadcrumb{
+	background: #ffffff00;
+	font-weight: bold;
+}
+
+h3{
+	color: rgb(253, 207, 108);
+}
+
+.types{
+	padding-top: 5%;
+	padding-left: 6%;
+}
+
+.list-items{
+	padding-bottom: 4%;
+}
+
+.logoStyle{
+	width: 50px;
+	height: 50px;
+}
+
+
+
+@media (max-width: 767px){
+	.catalogue{
+		padding-left: 1%;
+		padding-top: 50%;
+	}
+	.types{
+		padding-top: 5%;
+		padding-left: 2%;
+	}
+}
+

@@ -62,6 +62,7 @@ export class JempageComponent implements OnInit {
     this.ProductService.getProduct().subscribe(
       response => {
         this.product = response.articles;
+        console.log(this.product);
         for (let index = 0; index < this.product.length; index++) {
           // agrego formato a la imagen.
           this.product[index].photo = 'data:image/jpeg;base64,' + this.product[index].photo;

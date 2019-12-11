@@ -25,6 +25,16 @@ export class ArticleService {
       return this._http.get(this.url + 'articles', { headers: headers });
     }
 
+    getConcreteProduct(department, gender): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getConcreteProduct/' + department + '/ ' + gender, {headers: headers});
+    }
+
+    getProductGender(gender): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getproductGender/' + gender, {headers: headers});
+    }
+
     editProduct(token, id, product): Observable<any> {
       const json = JSON.stringify(product);
       const params = 'json=' + json;

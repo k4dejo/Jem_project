@@ -18,6 +18,7 @@ export class NavbarJComponent implements OnInit {
   public token;
   public status: string;
   public client: Client;
+  public menuOpen = false;
   public primaryColour = '#ffffff';
   public secondaryColour = '#ccc';
   public PrimaryRed = '#dd0031';
@@ -48,6 +49,18 @@ export class NavbarJComponent implements OnInit {
     if (this.identity === null) {
       this.loading = false;
     }
+  }
+
+  toggleBurger() {
+    const menuBtn = document.querySelector('.menu-btn');
+    if (!this.menuOpen) {
+      menuBtn.classList.add('open');
+      this.menuOpen = true;
+    } else {
+      menuBtn.classList.remove('open');
+      this.menuOpen = false;
+    }
+
   }
 
   Onsubmit(form) {

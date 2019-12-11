@@ -437,6 +437,16 @@ export class MangArticleComponent implements OnInit {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
     } else {
+      this.adminService.authAdmin(this.identity).subscribe(
+        response => {
+          console.log(response);
+          if (response.status !== 'admin') {
+            this.router.navigate(['LoginAdmin']);
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
       this.getGender();
       this.getProductView();
       this.fileBlob = 'assets/Images/default.jpg';

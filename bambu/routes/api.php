@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('register','clientController@register');
 	Route::post('login','clientController@login');
 	Route::post('loginAdmin','adminController@login');
+	Route::post('authAdmin','adminController@AuthAdmin');
 	Route::post('outfits/CrearOutfit','OutfitController@store');
 	Route::post('outfits/AñadirOutfit','OutfitController@AttachOutfit');
 	Route::post('size/CrearTalla','sizeController@store');
@@ -30,6 +31,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('contactFrm','contactController@sendEmail');
 	Route::post('addMimage','imageController@store');
 	Route::get('getImages/{id}','imageController@show');
+	Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
+	Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
 	Route::get('getTalla/{id}','sizeController@showSizeP');
 	Route::get('getTallaEdit/{id}','sizeController@showEditP');
 	Route::delete('deleteTalla/{id}','sizeController@detachSize');

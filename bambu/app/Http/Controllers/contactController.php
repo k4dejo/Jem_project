@@ -38,7 +38,7 @@ class contactController extends Controller
         Mail::send('emails.contact', $data, function ($message) use ($fromName, $fromEmail) {
             $message->to($fromEmail, $fromName);
             $message->from($fromEmail, $fromName);
-            $message->subject('¡Nuevo email!');
+            $message->subject('¡Nuevo email de la tienda!');
         });
 
         return response()->json(array(

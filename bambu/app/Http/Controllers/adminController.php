@@ -6,12 +6,35 @@ use Illuminate\Http\Request;
 use App\Helpers\jwtAuthAdmin;
 use Illuminate\Support\Facades\DB;
 use App\Admin;
+use Input;
 
 class adminController extends Controller
 {
+    public function AuthAdmin(Request $request) {
+        //recibir post
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+
+        //comprobar admin existente
+        $user     = (!is_null($json) && isset($params->user)) ? $params->user : null;
+		$password = (!is_null($json) && isset($params->password)) ? $params->password : null;
+        $priority    = (!is_null($json) && isset($params->priority)) ? $params->priority : null;
+        if (isset($priority)) {
+            $isset_admin = admin::where('priority', '=', $priority)->first();
+            $auth = array(
+                'status' => 'admin',
+                'code'  => 200,
+            );
+            return response()->json($auth, 200);
+        }
+        return response()->json(array(
+            'status' => 'NonAuth'
+        ), 200);
+    }
+
     public function login(Request $request)
     {
-        //$jwtAuth = new jwtAuthAdmin();
         $jwtAuth = new jwtAuthAdmin();
 
         //recibir post

@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'Home/Caballeros/:id' , component: GentlemanComponent},
   { path: 'Home/Niños/:id' , component: BoysComponent},
   { path: 'Home/Niñas/:id' , component: GirlsComponent},
-  { path: 'Home/Articulo' , component: ArticleComponent},
+  { path: 'Home/Articulo/:shopId/:dpt/:gender' , component: ArticleComponent},
   { path: 'Home/Detalle' , component: ArticleDetailComponent},
   { path: 'Home/Contacto/:id' , component: ContactusComponent},
   { path: 'LoginAdmin', component: LoginAdminComponent},

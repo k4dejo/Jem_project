@@ -24,10 +24,16 @@ h2 {
   background-color: #fff;
 }
 
+.register:hover {
+  color: #92badd;
+  text-decoration: none;
+  background-color: transparent;
+}
+
 .registerText:hover{
   cursor: pointer;
   text-decoration: none;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 /* TABS */
@@ -154,7 +160,7 @@ input [type="password"]:placeholder {
 
 .close{
   position: absolute;
-	top: 7%;
+	top: 4.5%;
 	right: 4.5%;
 }
 
@@ -176,6 +182,7 @@ input [type="password"]:placeholder {
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 @-webkit-keyframes fadeInDown {
@@ -247,6 +254,8 @@ input [type="password"]:placeholder {
   -webkit-animation-delay: 1.2s;
   -moz-animation-delay: 1.2s;
   animation-delay: 1.2s;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 @-webkit-keyframes fadeIn {
@@ -288,6 +297,8 @@ input [type="password"]:placeholder {
 
 .underlineHover:hover {
   color: #0d0d0d;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 .underlineHover:hover:after {
@@ -362,62 +373,6 @@ input [type="password"]:placeholder {
 }
 
 /* ==========================================================================
-   #NAVBAR
-  ========================================================================== */
-.container-fluid {
-  padding-right: 15px !important;
-  padding-left: 15px !important;
-  margin-right: auto !important;
-  margin-left: auto !important;
-}
-
-.logoStyle{
-	width: 49px;
-	height: 49px;
-}
-
-.navbar-brand
-{
-  font-family: 'Lustria', serif;
-  font-weight:bold;
-  color:#1D1F20;
-
-}
-.navbar-default .navbar-nav>li>a:hover
-{
-  color:#ad59f1;
-  font-size: 20px;
-  transition: 0.2s;
-}
-
-.navbar-collapse>.navMenu {
-  margin-top: 20%;
-
-}
-
-/*!TO BE FIXED!*/
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover
-{
-  color:#eee;
-  background-color: cadetblue;
-}
-
-.collapse>ul>.menuNav{
-  margin-top: 2%;
-}
-.navbar
-{
-  margin-bottom:0px;
-  background-color:rgb(217, 229, 243);
-  padding-right: 10px;
-  font-weight: bold;
-}
-.container-fluid
-{
-  padding:0px;
-}
-
-/* ==========================================================================
    #DROPDOWN_PROFILE
   ========================================================================== */
 .profile-pic {
@@ -427,6 +382,7 @@ input [type="password"]:placeholder {
 
 .dropdown-menu {
   font-weight: bold;
+  margin-left: -244%;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
@@ -495,4 +451,295 @@ a:hover{
   background: #c8d6e5;
   color: #686de0;
   text-decoration: none;
+}
+
+/*
+==============================================================================
+    NAVBARTEST
+==============================================================================    
+*/
+
+
+/*------------------
+  Header section
+---------------------*/
+
+.header-top {
+  background-color: #ffffff;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.site-logo {
+  display: inline-block;
+  width: 23%;
+  margin-right: 20%;
+}
+
+.text-lg-left {
+  width: 280px;
+}
+
+.pointerRegister:hover {
+  cursor: pointer;
+}
+
+.text-lg-left:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.labelLogin {
+  margin-left: 35%;
+}
+
+.labelLog {
+  position: relative;
+  left: 870px;
+  bottom: 15px;
+}
+
+.text-right {
+  margin-left: 20%;
+}
+
+.user-panel {
+  position: relative;
+  top: 20px;
+  left: 100px;
+}
+
+.user-panel .up-item {
+  display: inline-block;
+	font-size: 14px;
+}
+
+.user-panel .up-item i {
+  display: inline-block;
+  font-size: 22px;
+}
+
+.user-panel .up-item a {
+  display: inline-block;
+	font-size: 14px;
+	color: #000;
+}
+
+.user-panel .up-item a:hover {
+  text-decoration: none;
+  background-color: transparent;
+  color: #f51167;
+}
+
+.user-panel .up-item:first-child {
+	margin-right: 29px;
+}
+
+.shopping-card {
+	display: inline;
+	position: relative;
+}
+
+.shopping-card span {
+	position: absolute;
+	top: -4px;
+	left: 100%;
+	height: 16px;
+	min-width: 16px;
+	color: #fff;
+	font-size: 13px;
+	background: #f51167;
+	text-align: center;
+	border-radius: 30px;
+	padding: 0 2px;
+	margin-left: -7px;
+}
+
+.main-navbar {
+	background: #525050;
+}
+
+.slicknav_menu {
+	display: none;
+}
+
+.main-menu {
+	list-style: none;
+}
+
+.main-menu li {
+	display: inline-block;
+	position: relative;
+}
+
+.main-menu li a {
+	display: inline-block;
+	font-size: 16px;
+	color: #ffffff;
+	margin-right: 50px;
+	line-height: 1;
+	padding: 17px 0;
+  position: relative;
+}
+
+.main-menu li a .new {
+	position: absolute;
+	top: -8px;
+	font-size: 10px;
+	font-weight: 700;
+	color: #fff;
+	background: #f51167;
+	line-height: 1;
+	text-transform: uppercase;
+	left: calc(50% - 21px);
+	padding: 5px 9px 1px;
+	border-radius: 15px;
+	width: 42px;
+}
+
+.main-menu li:hover .sub-menu {
+	visibility: visible;
+	opacity: 1;
+	margin-top: 0;
+}
+
+.main-menu li:hover>a {
+  color: #11f5ea;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.main-menu .sub-menu {
+	position: absolute;
+	list-style: none;
+	width: 220px;
+	left: 0;
+	top: 100%;
+	padding: 20px 0;
+	visibility: hidden;
+	opacity: 0;
+	margin-top: 50px;
+	background: #fff;
+	z-index: 99;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	transition: all 0.4s;
+	-webkit-box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+	box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+}
+
+.main-menu .sub-menu li {
+	display: block;
+}
+
+.main-menu .sub-menu li a {
+	display: block;
+	color: #000;
+	margin-right: 0;
+	padding: 8px 20px;
+}
+
+.main-menu .sub-menu li a:hover {
+	color: #11f5ea;
+}
+
+.nav-switch {
+	display: none;
+}
+
+@media (max-width: 767px) {
+	.site-logo {
+    margin-left: 60%;
+    width: 40%;
+    height: 40%;
+  }
+
+  .labelLog {
+    left: 0;
+    bottom: 0;
+  }
+
+  .user-panel .up-item{
+    display: inline-flex;
+  }
+
+  .user-panel .up-item a {
+    display: inline-block;
+  }
+
+  .user-panel .up-item i {
+    display: inline-block;
+  }
+
+  .labelLogin {
+    text-align: center;
+    position: relative;
+    left: -55%;
+  }
+
+	.user-panel {
+    margin-bottom: 6%;
+  }
+  
+  .menu-btn {
+    margin-top: 6px;
+    margin-left: 6px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+  }
+
+  .main-menu li {
+    display: block;
+  } 
+
+  /*===========================================
+    BURGER NAVBAR
+  =============================================
+  */
+  
+  .menu-burger {
+    width: 26px;
+    height: 5px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255,101,47,.2);
+    transition: all .5s ease-in-out;
+  }
+  
+  .menu-burger::before,
+  .menu-burger::after {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 5px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255,101,47,.2);
+    transition: all .5s ease-in-out;
+  }
+  .menu-burger::before {
+    transform: translateY(-9px);
+  }
+  .menu-burger::after {
+    transform: translateY(9px);
+  }
+  
+  /* ANIMATION */
+  .menu-btn.open .menu-burger {
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+  }
+  .menu-btn.open .menu-burger::before {
+    transform: rotate(45deg) translate(35px, -35px);
+  }
+  .menu-btn.open .menu-burger::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+  }
+
 }
