@@ -10,12 +10,12 @@
   <div class="container-fluid">
     <div class="col-lg-12 catalogue">
       <div class="container">
-        <h1>Blusas</h1>
+        <h1>{{DepartmentView}}</h1>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
-            <li (click)="backClicked()" class="breadcrumb-item" aria-current="page"><a>Damas</a></li>
-            <li class="breadcrumb-item" aria-current="page">Blusas</li>
+            <li (click)="backClicked()" class="breadcrumb-item" aria-current="page"><a>{{genderView}}</a></li>
+            <li class="breadcrumb-item" aria-current="page">{{DepartmentView}}</li>
           </ol>
         </nav>
       </div>
@@ -50,7 +50,7 @@
 									<div class="bottom d-flex align-items-center justify-content-center">
 										<a href="#"><i class="far fa-heart"></i></a>
                       					<a href="#"><i class="fas fa-shopping-cart"></i></a>
-										<a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-expand"></i></a>
+										<a (click)="gotoDetail(product.id)"><i class="fas fa-expand"></i></a>
 									</div>
 								</div>
 							</div>

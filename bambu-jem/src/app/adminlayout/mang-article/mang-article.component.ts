@@ -338,19 +338,6 @@ export class MangArticleComponent implements OnInit {
     );
   }
 
-  getSizeAttach(productAttach, i) {
-    this.sizeService.getSizeP(productAttach).subscribe(
-      response => {
-        this.attachSizeArray = response;
-        this.productRelation.push(response);
-        this.productViewU = response.products;
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
   getDepartmentView(idGender: any) {
     switch (idGender) {
       case '1':
@@ -392,7 +379,6 @@ export class MangArticleComponent implements OnInit {
                 this.productView[i].department = this.department[indexD].name;
               }
             }
-            this.getSizeAttach(response.articles[i].id, i);
           }
         } else {
           this.productView = response.articles;

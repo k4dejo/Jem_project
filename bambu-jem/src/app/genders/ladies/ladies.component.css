@@ -2,6 +2,10 @@
 	padding-top: 3%;
 }
 
+.carruselHover:hover {
+	cursor: pointer;
+}
+
 /*------- Start Bread Crumb --------*/
 .organic-bread {
 	margin-bottom: 100px;

@@ -72,7 +72,6 @@ export class GentlemanComponent implements OnInit {
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
           this.getProductDepartment(this.products[index].department, this.products[index].photo);
         }
-        console.log(this.products);
       }, error => {
         console.log(<any>error);
       }
