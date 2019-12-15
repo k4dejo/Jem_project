@@ -170,6 +170,11 @@
                     <h2 class="title">Lista de producto</h2>
                </div>
                <div class="card-body">
+                    <div class="search-product">
+                         <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off" placeholder=" &#61442; Buscar...">
+                    </div>
+                    <pagination-controls class="my-pagination" (pageChange)="p = $event">
+                    </pagination-controls>
                     <div class="table-responsive">
                          <table class="table table-striped">
                               <thead class="">
@@ -184,7 +189,7 @@
                                    <th>Peso</th>
                               </thead>
                               <tbody>
-                                   <tr *ngFor="let product of productView">
+                                   <tr *ngFor="let product of productView  | filter: searchProduct | paginate: { itemsPerPage: 10, currentPage: p }">
                                         <td>
                                              <img class="img-responsive" [src]="product.photo" alt="">
                                         </td>
@@ -221,6 +226,7 @@
                                    </tr>
                               </tbody>
                          </table>
+                              <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
                          <div class="alert alert-success" *ngIf="!statusBool" role="alert">
                               No hay productos en inventario!
                          </div>

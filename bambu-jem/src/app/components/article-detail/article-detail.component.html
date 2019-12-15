@@ -21,88 +21,74 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="product-pic-zoom">
-                            <img class="product-big-img" [src]="product.photo" alt="">
-                        </div>
-                        <div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
-                            <div class="product-thumbs-track">
-                                <div class="pt active" data-imgbigurl="product.photo"><img [src]="product.photo" alt=""></div>
-                                <div class="pt" data-imgbigurl="img/single-product/2.jpg"><img src="img/single-product/thumb-2.jpg" alt=""></div>
-                                <div class="pt" data-imgbigurl="img/single-product/3.jpg"><img src="img/single-product/thumb-3.jpg" alt=""></div>
-                                <div class="pt" data-imgbigurl="img/single-product/4.jpg"><img src="img/single-product/thumb-4.jpg" alt=""></div>
-                            </div>
+                        <div class="gallery" *ngFor="let img of fileNpm">
+                            <img class="img-responsive" [src]="img.name" alt="">
                         </div>
                     </div>
                     <div class="col-lg-6 product-details">
-                        <h2 class="p-title">White peplum top</h2>
-                        <h3 class="p-price">$39.90</h3>
-                        <h4 class="p-stock">Available: <span>In Stock</span></h4>
+                        <h2 class="p-title">{{product.name}}</h2>
+                        <h3 class="p-price">₡ {{product.pricePublic | number: '3.'}} <span class="p-stock" style="color: grey">+ Envio gratis</span></h3>
+                        <h4 class="p-stock">Precio al por mayor: <span style="color: grey">
+                        ₡ {{product.priceMajor | number: '3.'}} (Envío dependerá del tamaño de la compra)</span></h4>
+                        <h4 class="p-stock"><span>Disponible</span></h4>
                         <div class="fw-size-choose">
                             <p>Size</p>
-                            <div class="sc-item">
-                                <input type="radio" name="sc" id="xs-size">
-                                <label for="xs-size">32</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="sc" id="s-size">
-                                <label for="s-size">34</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="sc" id="m-size" checked="">
-                                <label for="m-size">36</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="sc" id="l-size">
-                                <label for="l-size">38</label>
-                            </div>
-                            <div class="sc-item disable">
-                                <input type="radio" name="sc" id="xl-size" disabled>
-                                <label for="xl-size">40</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="sc" id="xxl-size">
-                                <label for="xxl-size">42</label>
+                            <div class="sc-item" *ngFor="let size of viewRelation">
+                                <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="test(size.size)">
+                                <label for="{{size.size}}">{{size.size}}</label>
                             </div>
                         </div>
                         <div class="quantity">
-                            <p>Quantity</p>
-                            <div class="pro-qty"><input type="text" value="1"></div>
+                            <p>Cantidad</p>
+                            <div class="pro-qty">
+                                <span class="dec qtybtn">-</span>
+                                <input type="text" value="1">
+                                <span class="inc qtybtn">+</span>
+                            </div>
                         </div>
-                        <a href="#" class="site-btn">SHOP NOW</a>
+                        <a href="#" class="site-btn">agregar al carrito</a>
+                        <div class="heart" (click)="like()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+                                <path d="M150 57.3C100.2-17.4.7 26.3.7 107.6c0 55 49.7 94.2 87.1 123.8 38.8 30.7 49.8 37.3 62.2 49.8 12.4-12.4 22.8-19.7 62.2-49.8 37.9-29 87.1-69.4 87.1-124.4 0-80.7-99.5-124.4-149.3-49.7z" fill-rule="evenodd" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
                         <div id="accordion" class="accordion-area">
                             <div class="panel">
                                 <div class="panel-header" id="headingOne">
-                                    <button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
+                                    <button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Detalle de producto <i class="fas fa-chevron-down"></i></button>
                                 </div>
-                                <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div id="collapse1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                     <div class="panel-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
-                                        <p>Approx length 66cm/26" (Based on a UK size 8 sample)</p>
-                                        <p>Mixed fibres</p>
-                                        <p>The Model wears a UK size 8/ EU size 36/ US size 4 and her height is 5'8"</p>
+                                        <p>{{product.detail}}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel">
                                 <div class="panel-header" id="headingTwo">
-                                    <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">care details </button>
+                                    <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">Cuidados de la prenda <i class="fas fa-chevron-down"></i>
+                                    </button>
                                 </div>
                                 <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                     <div class="panel-body">
                                         <img src="./img/cards.png" alt="">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                                        <p>Toda la mercadería que vendemos es original, no hay imitaciones para su tranquilidad..</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="panel">
                                 <div class="panel-header" id="headingThree">
-                                    <button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
+                                    <button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">Envios & Devoluciones<i class="fas fa-chevron-down"></i></button>
                                 </div>
                                 <div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                     <div class="panel-body">
-                                        <h4>7 Days Returns</h4>
-                                        <p>Cash on Delivery Available<br>Home Delivery <span>3 - 4 days</span></p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                                        <h4>Todas las prendas tienen de garantía un mes.</h4>
+                                        <a href="#">Mira nuestras políticas de reembolso.</a>
+                                        <p>Entrega a domicilio <span>
+                                        3-4 días habiles</span></p>
+                                        <p>Los envíos se hacen por Correos de Costa Rica y Trali, el costo mínimo de envió es de ₡3.000 y el máximo es de ₡6.000, si el máxim es sobrepasado nosotros asumimos la diferencia.</p>
+                                        <p>
+                                            Los envíos son de Lunes a Viernes, una vez confirmado tu deposito el envió produce al día siguiente, normalmente el transito es de un día al otro para que te llegue el pedido (no incluyen feriados o fines de semana), sin embargo para que lo tomes en cuenta este es un servicio de un tercero por lo que no nos podemos hacer responsables por el servicio que ellos prestan. Se te va a enviar al número de celular que registraste la guía respectiva para que le puedas dar seguimiento a tu paquete.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +97,6 @@
                 </div>
             </div>
         </section>
-        <!-- product section end -->
     </div>
     <app-whatsapp></app-whatsapp>
 </div>

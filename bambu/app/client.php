@@ -23,4 +23,9 @@ class client extends Model
     {
     	return $this->belongsTo('app/shop', 'shops_id');
     }
+
+    public function articles()
+    {
+        return $this->belongsToMany('App\article','article_client');
+    }
 }

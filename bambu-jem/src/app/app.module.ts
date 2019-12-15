@@ -7,6 +7,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { NgxPopper } from 'angular-popper';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 
 import { AppComponent } from './app.component';
@@ -75,6 +77,8 @@ import { ContactusComponent } from './components/contactus/contactus.component';
     HttpClientModule,
     FormsModule,
     NgxPopper,
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
     NgxFileDropModule,
     NgxDropzoneModule,
     DropzoneModule,

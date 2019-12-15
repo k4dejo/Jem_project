@@ -7,6 +7,7 @@ import { ImageService } from '../../services/image.service';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Article } from '../../models/article';
+import { Size } from '../../models/size';
 import { Image } from '../../models/image';
 
 @Component({
@@ -18,11 +19,14 @@ import { Image } from '../../models/image';
 export class ArticleDetailComponent implements OnInit {
   public shop_id = '';
   public shop_bool = true;
+  public BtnHover = false;
   public product: Article;
   public IdProduct;
   public fileBlob;
   public fileLength;
   public fileNpm: Array<Image>;
+  public productViewU: Article;
+  public viewRelation;
   public fileData: File;
   public fileView = [];
   public gender: Gender[];
@@ -55,6 +59,7 @@ export class ArticleDetailComponent implements OnInit {
   constructor(
     private ProductService: ArticleService,
     private imageService: ImageService,
+    private sizeService: SizeService,
     private route: ActivatedRoute,
     private _location: Location,
     private router: Router,
@@ -150,11 +155,43 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
+  getSizeProduct(idProduct: any) {
+    this.sizeService.getSizeE(idProduct).subscribe(
+      response => {
+        this.productViewU = response.products;
+        // this.attachSizeProduct = response;
+        this.viewRelation = this.productViewU[0].sizes;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  test(word: any) {
+    console.log(word);
+  }
+
+  like() {
+    const clickBtn = document.querySelector('.heart');
+    if (!this.BtnHover) {
+      clickBtn.classList.add('heart-liked');
+      clickBtn.classList.add('heart-beating');
+      this.BtnHover = true;
+    } else {
+      clickBtn.classList.remove('heart-liked');
+      clickBtn.classList.remove('heart-beating');
+      this.BtnHover = false;
+    }
+
+  }
+
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.getSingleProduct(this.IdProduct);
+    this.getSizeProduct(this.IdProduct);
+    console.log(this.viewRelation);
     if (this.shop_id === 'J') {
         this.shop_bool = true;
 
