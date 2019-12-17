@@ -36,13 +36,13 @@ class article extends Model
     	return $this->hasMany('app/image');
     }
 
-    public function client()
-    {
-        return $this->belongsToMany('App\client','article_client');
-    }
-
     public function sizes()
     {
         return $this->belongsToMany('App\size','article_size')->withPivot('stock');
+    }
+
+    public function client()
+    {
+        return $this->belongsToMany('App\client', 'article_client');
     }
 }

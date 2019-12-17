@@ -4,15 +4,17 @@ import {Location} from '@angular/common';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { ImageService } from '../../services/image.service';
+import { UserServices } from '../../services/user.service';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Article } from '../../models/article';
 import { Size } from '../../models/size';
+import { Like } from '../../models/like';
 import { Image } from '../../models/image';
 
 @Component({
   selector: 'app-article-detail',
-  providers: [ ArticleService, ImageService],
+  providers: [ ArticleService, ImageService, UserServices],
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.css']
 })
@@ -20,12 +22,15 @@ export class ArticleDetailComponent implements OnInit {
   public shop_id = '';
   public shop_bool = true;
   public BtnHover = false;
+  public token;
+  public identity;
   public product: Article;
   public IdProduct;
   public fileBlob;
   public fileLength;
   public fileNpm: Array<Image>;
   public productViewU: Article;
+  public favorite: Like;
   public viewRelation;
   public fileData: File;
   public fileView = [];
@@ -59,12 +64,16 @@ export class ArticleDetailComponent implements OnInit {
   constructor(
     private ProductService: ArticleService,
     private imageService: ImageService,
+    private clientService: UserServices,
     private sizeService: SizeService,
     private route: ActivatedRoute,
     private _location: Location,
     private router: Router,
   ) {
     this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '');
+    this.favorite = new Like('', '');
+    this.token = this.clientService.getToken();
+    this.identity = this.clientService.getIdentity();
   }
 
   gotoBack() {
@@ -128,8 +137,6 @@ export class ArticleDetailComponent implements OnInit {
             this.product.department = this.department[indexD].name;
           }
         }
-
-        console.log(this.product);
       }, error => {
         console.log(<any>error);
       }
@@ -173,28 +180,74 @@ export class ArticleDetailComponent implements OnInit {
 
   like() {
     const clickBtn = document.querySelector('.heart');
-    if (!this.BtnHover) {
-      clickBtn.classList.add('heart-liked');
-      clickBtn.classList.add('heart-beating');
-      this.BtnHover = true;
+    this.favorite.clientId = this.identity.sub;
+    this.favorite.articleId = this.IdProduct;
+    if (!this.BtnHover && this.identity) {
+      this.clientService.likeProduct(this.favorite).subscribe(
+        response => {
+          if (response.status = 'success') {
+            clickBtn.classList.add('heart-liked');
+            clickBtn.classList.add('heart-beating');
+            this.BtnHover = true;
+          }
+        }, error => {
+          console.log(<any>error);
+        }
+      );
     } else {
-      clickBtn.classList.remove('heart-liked');
-      clickBtn.classList.remove('heart-beating');
-      this.BtnHover = false;
+      this.clientService.detachFavorite(this.favorite).subscribe(
+        response => {
+          if (response.status = 'success') {
+            clickBtn.classList.remove('heart-liked');
+            clickBtn.classList.remove('heart-beating');
+            this.BtnHover = false;
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
     }
+  }
 
+  showFavorite() {
+    const clickBtn = document.querySelector('.heart');
+    this.clientService.showFavorite(this.identity.sub, this.IdProduct).subscribe(
+      response => {
+        if (response.status === 'liked') {
+          clickBtn.classList.add('heart-liked');
+          clickBtn.classList.add('heart-beating');
+          this.BtnHover = true;
+        } else {
+          clickBtn.classList.remove('heart-liked');
+          clickBtn.classList.remove('heart-beating');
+          this.BtnHover = false;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  changeImg(Img: any, idImg: any) {
+    for (let i = 0; i < this.fileNpm.length; ++i) {
+      console.log(this.fileNpm[i].id, '=', idImg); 
+      if (this.fileNpm[i].id == idImg) {
+        this.fileNpm[i].name = this.product.photo;
+      }
+    }
+    // this.fileNpm[idImg].name = this.product.photo;
+    this.product.photo = Img;
   }
 
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
+    this.showFavorite();
     this.getSingleProduct(this.IdProduct);
     this.getSizeProduct(this.IdProduct);
-    console.log(this.viewRelation);
     if (this.shop_id === 'J') {
         this.shop_bool = true;
-
     } else {
         if (this.shop_id === 'B') {
             this.shop_bool = false;

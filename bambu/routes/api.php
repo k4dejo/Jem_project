@@ -29,8 +29,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('size/CrearTalla','sizeController@store');
 	Route::post('size/addTalla','sizeController@Attachsize');
 	Route::post('contactFrm','contactController@sendEmail');
+	Route::post('like', 'favoriteController@likeProduct');
+	Route::post('detachLike', 'favoriteController@detachLike');
 	Route::post('addMimage','imageController@store');
 	Route::get('getImages/{id}','imageController@show');
+	Route::get('getFavorite/{idClient}/{idProduct}','favoriteController@showlikeFocus');
 	Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
 	Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
 	Route::get('getTalla/{id}','sizeController@showSizeP');

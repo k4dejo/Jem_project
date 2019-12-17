@@ -284,7 +284,7 @@ export class EditProductComponent implements OnInit {
     const myImg = e.target.files[0];
     const promise = this.getFileBlob(myImg);
     this.img.name = myImg.name;
-    this.img.product_id = this.id.toString();
+    this.img.id = this.id.toString();
     promise.then(Blob => {
       this.fileImg = Blob;
       this.img.file = this.fileImg;

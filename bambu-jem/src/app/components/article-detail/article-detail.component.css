@@ -50,12 +50,44 @@ h1 {
 	font-weight: bold;
 }
 
-/* --------------
-  Product page
-------------------*/
+/*=======================================================
+#IMAGEVIEW
+=========================================================*/
+
+.hide-bullets {
+    list-style:none;
+    margin-left: -40px;
+    margin-top:20px;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    width: 100%;
+}
+
+.col-sm-3 a {
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: all 3s ease;
+}
+
+.col-sm-3 a:hover {
+    border: 1px solid #ff4647;
+    border-radius: 100% 60% / 30% 10%;
+    background: linear-gradient(rgba(56,123,131,0.7),rgba(56,123,131,0.7));
+}
+/*=======================================================
+#PRODUCT_PAGE
+=========================================================*/
+
+section .container {
+	margin-top: 15%;
+}
 
 .product-section {
-	margin-top: 10%;
 	margin-left: 0;
 	padding-top: 70px;
 	padding-bottom: 65px;
@@ -296,15 +328,117 @@ h1 {
 	text-decoration: none;
 }
 
+/*======================================================
+	#THUMBS
+========================================================*/
+
+.gallery {
+	margin-left: 20px;
+}
+
+.product-thumbs .pt {
+	width: 116px;
+	height: 116px;
+	float: left;
+	margin-right: 31px;
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	padding-right: 2%;
+	padding-top: 1%; 
+}
+
+.product-thumbs .pt:last-child {
+	margin-right: 0;
+}
+
+.product-thumbs .pt.active:after {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	border: 2px solid #f51167;
+	z-index: 1;
+}
+
+.pt .content-overlay {
+	border: 3px solid #f51167;
+	position: absolute;
+	left: -10px;
+	top: -5px;
+	padding-top: 1%;
+	width: 80%;
+	height: 95%;
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+}
+
+.pt .content-overlay {
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out 0s;
+	-moz-transition: all 0.4s ease-in-out 0s;
+	transition: all 0.4s ease-in-out 0s;
+  }
+  
+.content-overlay{
+	margin: 10px;
+}
+
+.pt:hover .content-overlay{
+	opacity: .5;
+}
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px;
+}
+
+.preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%;
+}
+.preview-thumbnail.nav-tabs li img {
+	max-width: 100%;
+  	display: block;
+}
+
+.preview-thumbnail.nav-tabs li a {
+	padding: 0;
+	margin: 0;
+}
+
+.preview-thumbnail.nav-tabs li:last-of-type {
+	margin-right: 0;
+}
+
+.gallery {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+} 
+
+/*=======================================================
+#LikeButton
+=========================================================*/
+
 .heart {
     display: inline-block;
     height: 20px;
     width: 20px;
-    position: absolute;
-    left: -13%;
-    right: 0;
+    position: relative;
+    left: 5%;
     top: 43.5%;
-    transform: translateY(-50%);
+    transform: translateY(50%);
     cursor: pointer;
     text-align: center;
     margin: 0 auto;
@@ -448,29 +582,29 @@ webkit-keyframes hover{
   }
   15%{
     opacity:1;
-    transform:scale(1.2) translateY(-50%);
+    transform:scale(1.2) translateY(50%);
   }
   70%{
     opacity:1;
-    transform:scale(1) translateY(-50%);
+    transform:scale(1) translateY(50%);
   }
   100%{
     opacity:1;
-      transform:scale(0) translateY(-50%);
+      transform:scale(0) translateY(50%);
   }
 }
 
 
 @keyframes beat{
   0%{
-    transform:scale(1) translateY(-50%);;
+    transform:scale(1) translateY(50%);;
     color:#C7C7C7
   }
   50%{
-    transform:scale(1.35) translateY(-40%);
+    transform:scale(1.35) translateY(40%);
   }
   100%{
-    transform:scale(1) translateY(-50%);
+    transform:scale(1) translateY(50%);
   }
 }
 

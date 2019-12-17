@@ -20,6 +20,25 @@ export class UserServices {
     return this._http.post(this.url + 'register', params, {headers: headers});
   }
 
+  likeProduct(like): Observable<any> {
+    const json = JSON.stringify(like);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'like', params, {headers: headers});
+  }
+
+  detachFavorite(like): Observable<any> {
+    const json = JSON.stringify(like);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'detachLike', params, {headers: headers});
+  }
+
+  showFavorite(idClient, idProduct): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getFavorite/' + idClient + '/' + idProduct, {headers: headers});
+  }
+
   signup(client, getToken = null): Observable<any> {
     if (getToken != null) {
       client.getToken = 'true';

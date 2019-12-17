@@ -16,13 +16,29 @@
                 </nav>
             </div>
         </div>
-	<!-- product section -->
-	<section class="product-section">
+        <!-- product section -->
+        <section class="product-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="gallery" *ngFor="let img of fileNpm">
-                            <img class="img-responsive" [src]="img.name" alt="">
+                        <img class="img-responsive" [src]="product.photo" alt="">
+                        <div class="gallery">
+                            <div class="row">
+                                <!--<div class="col-md-6 product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+                                    <div class="product-thumbs-track" *ngFor="let img of fileNpm">
+                                        <div class="pt" (click)="changeImg(img.name, img.id)">
+                                            <div class="content-overlay"></div>
+                                            <img class="img-responsive" [src]="img.name" alt="">
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="col-md-3" *ngFor="let img of fileNpm">
+                                    <div class="pt" (click)="changeImg(img.name, img.id)">
+                                        <div class="content-overlay"></div>
+                                        <img class="img-responsive" [src]="img.name" alt="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 product-details">
@@ -32,7 +48,7 @@
                         ₡ {{product.priceMajor | number: '3.'}} (Envío dependerá del tamaño de la compra)</span></h4>
                         <h4 class="p-stock"><span>Disponible</span></h4>
                         <div class="fw-size-choose">
-                            <p>Size</p>
+                            <p>Talla</p>
                             <div class="sc-item" *ngFor="let size of viewRelation">
                                 <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="test(size.size)">
                                 <label for="{{size.size}}">{{size.size}}</label>
@@ -46,11 +62,13 @@
                                 <span class="inc qtybtn">+</span>
                             </div>
                         </div>
-                        <a href="#" class="site-btn">agregar al carrito</a>
-                        <div class="heart" (click)="like()">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
-                                <path d="M150 57.3C100.2-17.4.7 26.3.7 107.6c0 55 49.7 94.2 87.1 123.8 38.8 30.7 49.8 37.3 62.2 49.8 12.4-12.4 22.8-19.7 62.2-49.8 37.9-29 87.1-69.4 87.1-124.4 0-80.7-99.5-124.4-149.3-49.7z" fill-rule="evenodd" clip-rule="evenodd"/>
-                            </svg>
+                        <div class="addCart">
+                            <a href="#" class="site-btn">agregar al carrito</a>
+                            <div class="heart" (click)="like()">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+                                    <path d="M150 57.3C100.2-17.4.7 26.3.7 107.6c0 55 49.7 94.2 87.1 123.8 38.8 30.7 49.8 37.3 62.2 49.8 12.4-12.4 22.8-19.7 62.2-49.8 37.9-29 87.1-69.4 87.1-124.4 0-80.7-99.5-124.4-149.3-49.7z" fill-rule="evenodd" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
                         </div>
                         <div id="accordion" class="accordion-area">
                             <div class="panel">

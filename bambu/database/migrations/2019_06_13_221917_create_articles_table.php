@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration
             $table->bigInteger('priceMajor');
             $table->bigInteger('priceTuB');
             $table->string('department');
-            $table->bigInteger('weight');
+            $table->decimal('weight');
             $table->string('photo'); //extension .jpg .png ..etc
             $table->boolean('gender');
 

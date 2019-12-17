@@ -303,7 +303,7 @@ export class MangArticleComponent implements OnInit {
           this.status = response.status;
           this.productRespose = response.article;
           this.attachSizeProduct.product_id = this.productRespose.id;
-          this.images.product_id = this.productRespose.id;
+          this.images.id = this.productRespose.id;
           if (this.fileNpm.length > 0) {
             this.convertFileBlob();
           }
