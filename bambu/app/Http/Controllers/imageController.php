@@ -29,7 +29,7 @@ class imageController extends Controller
             $paramsArray = json_decode($json,true);
             $validate = Validator::make($paramsArray, [
                 'name'        => 'required',
-                'product_id'  => 'required'
+                'id'  => 'required'
             ]);
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
@@ -38,11 +38,11 @@ class imageController extends Controller
             $img =  $params->file;
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
-            $imgName = $params->product_id.'_'. time() . $params->name;
+            $imgName = $params->id.'_'. time() . $params->name;
             Storage::disk('local')->put($imgName, base64_decode($img));
             $image = new image();
             $image->name       = $imgName;
-            $image->article_id = $params->product_id;
+            $image->article_id = $params->id;
             $image->save();
 
             $data = array(

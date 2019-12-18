@@ -2,7 +2,7 @@
     <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
     <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
 </header>
-<div class="main">
+<div class="main" style="overflow: hidden;">
     <div class="container-fluid">
         <div class="col-lg-12 catalogue">
             <div class="container">
@@ -16,26 +16,26 @@
                 </nav>
             </div>
         </div>
+        <div id="myModal" class="modal">
+            <span class="close" data-dismiss="modal">&times;</span>
+            <a [href]="fileUrl" download="Prenda_{{randomChar}}.jpg"><i class="fas fa-cloud-download-alt"></i></a>
+            <img class="modal-content" [src]="product.photo" id="img01">
+        </div>
         <!-- product section -->
         <section class="product-section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img class="img-responsive" [src]="product.photo" alt="">
+                        <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
+                            <img class="prinImg" [src]="product.photo" alt="">
+                        </a>
                         <div class="gallery">
                             <div class="row">
-                                <!--<div class="col-md-6 product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+                                <div class="product-thumbs" style="overflow: hidden;">
                                     <div class="product-thumbs-track" *ngFor="let img of fileNpm">
                                         <div class="pt" (click)="changeImg(img.name, img.id)">
-                                            <div class="content-overlay"></div>
-                                            <img class="img-responsive" [src]="img.name" alt="">
+                                            <img class="img-responsive imageStyle" [src]="img.name" alt="">
                                         </div>
-                                    </div>
-                                </div>-->
-                                <div class="col-md-3" *ngFor="let img of fileNpm">
-                                    <div class="pt" (click)="changeImg(img.name, img.id)">
-                                        <div class="content-overlay"></div>
-                                        <img class="img-responsive" [src]="img.name" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -69,6 +69,7 @@
                                     <path d="M150 57.3C100.2-17.4.7 26.3.7 107.6c0 55 49.7 94.2 87.1 123.8 38.8 30.7 49.8 37.3 62.2 49.8 12.4-12.4 22.8-19.7 62.2-49.8 37.9-29 87.1-69.4 87.1-124.4 0-80.7-99.5-124.4-149.3-49.7z" fill-rule="evenodd" clip-rule="evenodd"/>
                                 </svg>
                             </div>
+                            <h4 *ngIf="NotifyUser" class="p-stock"><span>Inicia sesión para dar like</span></h4>
                         </div>
                         <div id="accordion" class="accordion-area">
                             <div class="panel">

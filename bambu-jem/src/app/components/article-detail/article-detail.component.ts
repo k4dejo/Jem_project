@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import {Location} from '@angular/common';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
@@ -20,6 +21,7 @@ import { Image } from '../../models/image';
 })
 export class ArticleDetailComponent implements OnInit {
   public shop_id = '';
+  public NotifyUser = false;
   public shop_bool = true;
   public BtnHover = false;
   public token;
@@ -34,8 +36,13 @@ export class ArticleDetailComponent implements OnInit {
   public viewRelation;
   public fileData: File;
   public fileView = [];
+  public randomChar: string;
   public gender: Gender[];
+  public fileUrl;
   public department: Departament[];
+  public subscribeTimer: any;
+  public interval;
+  public timeLeft = 5;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -63,6 +70,7 @@ export class ArticleDetailComponent implements OnInit {
 
   constructor(
     private ProductService: ArticleService,
+    private sanitizer: DomSanitizer,
     private imageService: ImageService,
     private clientService: UserServices,
     private sizeService: SizeService,
@@ -179,25 +187,53 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   like() {
-    const clickBtn = document.querySelector('.heart');
-    this.favorite.clientId = this.identity.sub;
-    this.favorite.articleId = this.IdProduct;
-    if (!this.BtnHover && this.identity) {
-      this.clientService.likeProduct(this.favorite).subscribe(
+    console.log(this.identity);
+    if (this.identity) {
+      this.NotifyUser = false;
+      const clickBtn = document.querySelector('.heart');
+      this.favorite.clientId = this.identity.sub;
+      this.favorite.articleId = this.IdProduct;
+      if (!this.BtnHover && this.identity) {
+        this.clientService.likeProduct(this.favorite).subscribe(
+          response => {
+            if (response.status = 'success') {
+              clickBtn.classList.add('heart-liked');
+              clickBtn.classList.add('heart-beating');
+              this.BtnHover = true;
+            }
+          }, error => {
+            console.log(<any>error);
+          }
+        );
+      } else {
+        this.clientService.detachFavorite(this.favorite).subscribe(
+          response => {
+            if (response.status = 'success') {
+              clickBtn.classList.remove('heart-liked');
+              clickBtn.classList.remove('heart-beating');
+              this.BtnHover = false;
+            }
+          }, error => {
+            console.log(<any> error);
+          }
+        );
+      }
+    } else {
+      this.NotifyUser = true;
+      this.startTimer();
+    }
+  }
+
+  showFavorite() {
+    if (this.identity) {  
+      const clickBtn = document.querySelector('.heart');
+      this.clientService.showFavorite(this.identity.sub, this.IdProduct).subscribe(
         response => {
-          if (response.status = 'success') {
+          if (response.status === 'liked') {
             clickBtn.classList.add('heart-liked');
             clickBtn.classList.add('heart-beating');
             this.BtnHover = true;
-          }
-        }, error => {
-          console.log(<any>error);
-        }
-      );
-    } else {
-      this.clientService.detachFavorite(this.favorite).subscribe(
-        response => {
-          if (response.status = 'success') {
+          } else {
             clickBtn.classList.remove('heart-liked');
             clickBtn.classList.remove('heart-beating');
             this.BtnHover = false;
@@ -209,28 +245,16 @@ export class ArticleDetailComponent implements OnInit {
     }
   }
 
-  showFavorite() {
-    const clickBtn = document.querySelector('.heart');
-    this.clientService.showFavorite(this.identity.sub, this.IdProduct).subscribe(
-      response => {
-        if (response.status === 'liked') {
-          clickBtn.classList.add('heart-liked');
-          clickBtn.classList.add('heart-beating');
-          this.BtnHover = true;
-        } else {
-          clickBtn.classList.remove('heart-liked');
-          clickBtn.classList.remove('heart-beating');
-          this.BtnHover = false;
-        }
-      }, error => {
-        console.log(<any> error);
-      }
-    );
+  makeRandom(lengthOfCode: number, possible: string) {
+    let text = "";
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
   }
 
   changeImg(Img: any, idImg: any) {
     for (let i = 0; i < this.fileNpm.length; ++i) {
-      console.log(this.fileNpm[i].id, '=', idImg); 
       if (this.fileNpm[i].id == idImg) {
         this.fileNpm[i].name = this.product.photo;
       }
@@ -239,13 +263,32 @@ export class ArticleDetailComponent implements OnInit {
     this.product.photo = Img;
   }
 
+  downloadImg() {
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    const lengthOfCode = 10;
+    this.randomChar = this.makeRandom(lengthOfCode, possible);
+    this.fileUrl = this.product.photo;
+  }
+
+  startTimer() {
+    this.timeLeft = 5;
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        if (this.timeLeft === 0) {
+          this.NotifyUser = false;
+        }
+      }
+    }, 800);
+  }
+
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
-    this.showFavorite();
     this.getSingleProduct(this.IdProduct);
     this.getSizeProduct(this.IdProduct);
+    this.showFavorite();
     if (this.shop_id === 'J') {
         this.shop_bool = true;
     } else {
