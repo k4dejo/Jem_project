@@ -23,7 +23,7 @@ class article extends Model
 
     public function purchases()
     {
-    	return $this->belongsToMany('App\purchase');
+    	return $this->belongsToMany('App\purchase')->withPivot('size', 'amount');
     }
 
     public function outfits()
@@ -39,10 +39,5 @@ class article extends Model
     public function sizes()
     {
         return $this->belongsToMany('App\size','article_size')->withPivot('stock');
-    }
-
-    public function client()
-    {
-        return $this->belongsToMany('App\client', 'article_client');
     }
 }

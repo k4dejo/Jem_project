@@ -17,6 +17,7 @@ import { MangArticleComponent } from './adminlayout/mang-article/mang-article.co
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 import { EditProductComponent } from './adminlayout/edit-product/edit-product.component';
 import { ContactusComponent } from '././components/contactus/contactus.component';
+import { ShoppingCartComponent } from '././components/shopping-cart/shopping-cart.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'Home/Articulo/:shopId/:dpt/:gender' , component: ArticleComponent},
   { path: 'Home/Contacto/:id' , component: ContactusComponent},
   { path: 'Home/producto/detalle/:id/:idProduct', component: ArticleDetailComponent},
+  { path: 'Carrito/:shopId/:idClient', component: ShoppingCartComponent},
   { path: 'LoginAdmin', component: LoginAdminComponent},
   { path: 'registrar/:id', component: RegisterComponent},
   { path: 'editarProducto/:id', component: EditProductComponent},

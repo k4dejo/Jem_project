@@ -16,6 +16,8 @@ class CreateArticlePurchaseTable extends Migration
         Schema::create('article_purchase', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->timestamps();
+            $table->bigInteger('amount');
+            $table->string('size');
             $table->Integer('article_id')->unsigned(); 
             $table->Integer('purchase_id')->unsigned(); 
 

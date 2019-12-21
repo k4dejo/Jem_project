@@ -9,8 +9,9 @@ class purchase extends Model
     //
     protected $table = "purchases";
      protected $fillable = [
+        'client_id',
         'price',
-        'date'
+        'status'
     ];
 
     public function client()
@@ -20,6 +21,6 @@ class purchase extends Model
 
     public function articles()
     {
-        return $this->belongsToMany('App\article');
+        return $this->belongsToMany('App\article')->withPivot('size', 'amount');;
     }
 }

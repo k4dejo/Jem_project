@@ -32,8 +32,8 @@
 						<h2 class="fw-title">Categories</h2>
 						<ul class="category-menu">
 							<li class="active"><a>Ropa de {{genderView}}</a>
-								<ul class="sub-menu" *ngFor="let department of dtDepartmentW">
-									<li><a href="#">{{department}}<span>(2)</span></a></li>
+								<ul class="sub-menu" *ngFor="let departs of department">
+									<li><a (click)="toggleDtp(departs.id)">{{departs.name}}</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -107,7 +107,7 @@
 				<!-- Start Best Seller -->
 				<section class="pb-40 category-list">
 					<div class="row">
-						<div *ngFor="let product of products | paginate: { itemsPerPage: 10, currentPage: p }" class="col-lg-4 col-md-12 col-xs-12 single-product">
+						<div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-4 col-md-12 col-xs-12 single-product">
 							<div class="content">
 								<div class="content-overlay"></div>
 								<img class="content-image img-fluid d-block mx-auto"

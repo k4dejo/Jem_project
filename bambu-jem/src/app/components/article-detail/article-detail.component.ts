@@ -6,16 +6,19 @@ import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { ImageService } from '../../services/image.service';
 import { UserServices } from '../../services/user.service';
+import { PurchaseService } from '../../services/purchase.service';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Article } from '../../models/article';
 import { Size } from '../../models/size';
 import { Like } from '../../models/like';
 import { Image } from '../../models/image';
+import { Purchase } from '../../models/purchase';
+import { AttachPurchase } from '../../models/attachPurchase';
 
 @Component({
   selector: 'app-article-detail',
-  providers: [ ArticleService, ImageService, UserServices],
+  providers: [ ArticleService, ImageService, UserServices, PurchaseService],
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.css']
 })
@@ -27,6 +30,10 @@ export class ArticleDetailComponent implements OnInit {
   public token;
   public identity;
   public product: Article;
+  public productCart: Purchase;
+  public attachPurchase: AttachPurchase;
+  public gotoCartBtn = false;
+  public valueQtyBtn = 1;
   public IdProduct;
   public fileBlob;
   public fileLength;
@@ -73,6 +80,7 @@ export class ArticleDetailComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private imageService: ImageService,
     private clientService: UserServices,
+    private purchaseService: PurchaseService,
     private sizeService: SizeService,
     private route: ActivatedRoute,
     private _location: Location,
@@ -80,6 +88,8 @@ export class ArticleDetailComponent implements OnInit {
   ) {
     this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '');
     this.favorite = new Like('', '');
+    this.productCart = new Purchase('', '', 0, '');
+    this.attachPurchase = new AttachPurchase('', '', 0, '');
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
   }
@@ -182,8 +192,8 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
-  test(word: any) {
-    console.log(word);
+  sizeAdd(dataSize: any) {
+    this.attachPurchase.size = dataSize;
   }
 
   like() {
@@ -245,6 +255,33 @@ export class ArticleDetailComponent implements OnInit {
     }
   }
 
+  addProductCart() {
+    this.productCart.clients_id = this.identity.sub;
+    this.productCart.status = 'incomplete';
+    if (this.valueQtyBtn < 6 && this.valueQtyBtn != 0) {
+      this.productCart.price = this.product.pricePublic;
+    } else {
+      this.productCart.price = this.product.priceMajor;
+    }
+    this.purchaseService.addNewPurchase(this.token, this.productCart).subscribe(
+      response => {
+        this.attachPurchase.purchase_id = response.purchase.id;
+        this.attachPurchase.article_id = this.IdProduct;
+        this.attachPurchase.amount = this.valueQtyBtn;
+        console.log(this.attachPurchase);
+        this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
+          response => {
+            console.log(response);
+          }, error => {
+            console.log(<any> error);
+          }
+        );
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   makeRandom(lengthOfCode: number, possible: string) {
     let text = "";
     for (let i = 0; i < lengthOfCode; i++) {
@@ -259,8 +296,24 @@ export class ArticleDetailComponent implements OnInit {
         this.fileNpm[i].name = this.product.photo;
       }
     }
-    // this.fileNpm[idImg].name = this.product.photo;
     this.product.photo = Img;
+  }
+
+  showProductPurchase() {
+    const idProNumber = Number(this.IdProduct);
+    this.purchaseService.showProductPurchase(this.token, this.identity.sub, idProNumber)
+    .subscribe(
+      response => {
+        console.log(response.status);
+        if (response.status === 'success') {
+          this.gotoCartBtn = true;
+        } else if(response.status === 'void') {
+          this.gotoCartBtn = false;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   downloadImg() {
@@ -282,20 +335,34 @@ export class ArticleDetailComponent implements OnInit {
     }, 800);
   }
 
+  incQty() {
+    this.valueQtyBtn += 1;
+  }
+
+  decQty() {
+    if (this.valueQtyBtn > 0) {
+      this.valueQtyBtn -= 1;
+    }  
+  }
+
+  gotoCart() {
+    this.router.navigate(['Carrito/', this.shop_id, this.identity.sub]);
+  }
+
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.getSingleProduct(this.IdProduct);
     this.getSizeProduct(this.IdProduct);
+    this.showProductPurchase();
     this.showFavorite();
     if (this.shop_id === 'J') {
         this.shop_bool = true;
     } else {
-        if (this.shop_id === 'B') {
-            this.shop_bool = false;
-        }
+      if (this.shop_id === 'B') {
+        this.shop_bool = false;
+      }
     }
   }
-
 }

@@ -312,6 +312,7 @@ span{
 
 .category-menu li:hover>a {
 	color: #37AEFA;
+	cursor: pointer;
 }
 
 .category-menu li.active>.sub-menu {

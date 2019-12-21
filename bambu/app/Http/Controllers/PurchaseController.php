@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\jwtAuthAdmin;
 use App\purchase;
 use App\client;
+use App\article;
 
 
 class PurchaseController extends Controller
@@ -54,8 +55,100 @@ class PurchaseController extends Controller
             $json =  $request->input('json', null);
             $params = json_decode($json);
             $paramsArray = json_decode($json,true);
-
+            $purchase = new purchase();
+            //validación
+            $validate = Validator::make($paramsArray, [
+                'clients_id'   => 'required',
+                'price'        => 'required',
+                'status'         => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            $purchase->clients_id = $params->clients_id;
+            $purchase->price = $params->price;
+            $purchase->status = $params->status;
+            $isset_purchase = DB::table('purchases')->where('clients_id', $params->clients_id)
+            ->where('status', $params->status)->get();
+            if ($isset_purchase == null) {
+                $purchase->save();
+                $getPurchase = purchase::where('clients_id', $params->clients_id);
+                $data = array(
+                    'purchase'   => $getPurchase,
+                    'status'     => 'success',
+                );
+            }
+            $getPurchase = purchase::where('clients_id', $params->clients_id)->first();
+            $data = array(
+                'purchase'   => $getPurchase,
+                'status'     => 'Exist',
+            );
+            return response()->json($data,200);
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
         }
+        return response()->json($data,200);
+    }
+
+    public function attachProductPurchase(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {    
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            //Hacer la relación del articulo con la compra con el atributo de cantidad y talla
+            $purchase = purchase::findOrFail($params->purchase_id);
+            $purchase->articles()->
+            attach($params->article_id,['amount'=>$params->amount, 'size'=>$params->size]);
+
+            $data = array(
+                'article' => $purchase,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+            return response()->json($data, 200);
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
+    public function showSingleProductPurchase($idClient, $idProduct) {
+        $isset_purchase = purchase::where('clients_id', $idClient)->first();
+        if ($isset_purchase != null) {
+            $isset_attach = purchase::find($isset_purchase->id)->articles()->find($idProduct);
+            if ($isset_attach != null) {
+                $data = array(
+                    'purchase' => $isset_attach,
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+            } else {
+                $data = array(
+                    'status'  => 'void',
+                    'code'    => 200,
+                );
+            }
+        } else {
+            $data = array(
+                'status'  => 'void',
+                'code'    => 200,
+            );
+        }
+        return response()->json($data,200);
     }
 
     /**

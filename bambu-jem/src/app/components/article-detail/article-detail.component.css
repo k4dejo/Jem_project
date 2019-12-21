@@ -2,7 +2,6 @@
 	padding-top: 3%;
 }
 
-
 /*------- Start Bread Crumb --------*/
 .organic-bread {
 	margin-bottom: 100px;
@@ -227,6 +226,7 @@ section .container {
 
 .product-details .social-sharing a:hover {
 	color: #414141;
+	cursor: pointer;
 }
 
 .quantity {

@@ -25,9 +25,6 @@ export class ArticleComponent implements OnInit {
   public fileUrl;
   public randomChar: string;
   public department: Departament[];
-  public countBlu = '1';
-  public countShort = '2';
-  public countPan = '3';
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -130,30 +127,6 @@ export class ArticleComponent implements OnInit {
     );
   }
 
-  getProductMenu(gender: any) {
-    this.ProductService.getProductGender(gender).subscribe(
-      response => {
-        this.productMenu = response.articles;
-        for (let index = 0; index < this.productMenu.length; index++) {
-          // agrego formato a la imagen.
-          this.productMenu[index].photo = 'data:image/jpeg;base64,' + this.productMenu[index].photo;
-          if (this.productMenu[index].department == this.countBlu) {
-            this.ProductService.getConcreteProduct(this.countBlu, gender).subscribe(
-              response => {
-                this.countBlu = response.articles.length;
-                console.log(response.articles.length);
-              }, error => {
-                console.log(<any> error);
-              }
-            );
-          }
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
   gotoDetail(productId: any) {
     const link = '/Home/producto/detalle/';
      this.router.navigate([link, this.shop_id, productId]);
@@ -165,6 +138,13 @@ export class ArticleComponent implements OnInit {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
+  }
+
+  toggleDtp(dtp: any) {
+    const link = '/Home/Articulo/';
+    const gender = this.route.snapshot.params['gender'];
+    this.router.navigate([link, this.shop_id, dtp, gender]);
+    this.getProduct(dtp, gender);
   }
 
   downloadImg(imgProduct: any) {
@@ -180,7 +160,7 @@ export class ArticleComponent implements OnInit {
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
     this.getProduct(department, gender);
-    this.getProductMenu(gender);
+    this.getDepartmentView(gender);
     if (this.shop_id === 'J') {
       this.shop_bool = true;
     } else {

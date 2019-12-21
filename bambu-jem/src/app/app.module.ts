@@ -38,6 +38,7 @@ import { PricesFPipe } from './pipes/prices-f.pipe';
 import { EditProductComponent } from './adminlayout/edit-product/edit-product.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ContactusComponent } from './components/contactus/contactus.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 
 
@@ -69,7 +70,8 @@ import { ContactusComponent } from './components/contactus/contactus.component';
     PricesFPipe,
     EditProductComponent,
     SafeHtmlPipe,
-    ContactusComponent
+    ContactusComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
