@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Helpers\jwtAuthAdmin;
 use App\purchase;
 use App\client;
@@ -70,7 +71,8 @@ class PurchaseController extends Controller
             $purchase->status = $params->status;
             $isset_purchase = DB::table('purchases')->where('clients_id', $params->clients_id)
             ->where('status', $params->status)->get();
-            if ($isset_purchase == null) {
+            $countPurchase = count($isset_purchase);
+            if ($countPurchase == 0) {
                 $purchase->save();
                 $getPurchase = purchase::where('clients_id', $params->clients_id);
                 $data = array(
@@ -123,6 +125,47 @@ class PurchaseController extends Controller
                 'code'  => 400,
             );
         }
+        return response()->json($data,200);
+    }
+
+    public function dettachProductPurchase(Request $request) {
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+        //validación
+        $validate = Validator::make($paramsArray, [
+            'idPurchase'   => 'required',
+            'idProduct'    => 'required'
+        ]);
+        if ($validate->fails()) {
+            return response()->json($validate->errors(),400);
+        }
+        $purchase = purchase::findOrFail($params->idPurchase);
+        $purchase->articles()->detach($params->idProduct);
+        $data = array(
+            'article' => $purchase,
+            'status'  => 'Delete success',
+            'code'    => 200
+        );
+        return response()->json($data, 200);
+    }
+
+    public function getPurchase($idClient) {
+        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
+        ->where('status', 'incomplete')->first();
+        $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
+        $countPurchase = count($arrayPurchase);
+        for ($i=0; $i < $countPurchase; $i++) { 
+            $contents = Storage::get($arrayPurchase[$i]->photo);
+            $arrayPurchase[$i]->photo = base64_encode($contents);   
+        }
+        $data = array(
+            'purchase'       => $arrayPurchase,
+            'purchasePrice'  => $purchaseClient->price,
+            'purchaseId'     => $purchaseClient->id,
+            'status'         => 'success',
+            'code'    => 200,
+        );
         return response()->json($data,200);
     }
 

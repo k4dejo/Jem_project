@@ -315,6 +315,35 @@ section .container {
   text-transform: uppercase;
 }
 
+.cart-btn{
+  font-weight: 600;
+  color: #232323;
+  font-family: 'Poppins', sans-serif;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  padding: 0 30px;
+  border-radius: 0px;
+  box-shadow: none;
+  border: 1px solid #eee;
+  padding: 15px 30px 15px 15px;
+  margin-bottom: 10%;
+  cursor: pointer; 
+  display: inline-block;
+  text-align: center;
+  box-shadow: 2.828px 2.828px 15px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.cart-btn:hover {
+	box-shadow: 2.828px 2.828px 15px 0px #FF30A5;
+	border: 1px solid transparent;
+	cursor: pointer;
+	text-decoration: none;
+}
+
 
 .site-btn:hover {
 	background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));

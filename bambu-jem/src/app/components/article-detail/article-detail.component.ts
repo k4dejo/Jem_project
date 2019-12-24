@@ -268,10 +268,12 @@ export class ArticleDetailComponent implements OnInit {
         this.attachPurchase.purchase_id = response.purchase.id;
         this.attachPurchase.article_id = this.IdProduct;
         this.attachPurchase.amount = this.valueQtyBtn;
-        console.log(this.attachPurchase);
         this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
           response => {
             console.log(response);
+            if (response.status === 'success') {
+              this.gotoCartBtn = true;
+            }
           }, error => {
             console.log(<any> error);
           }
