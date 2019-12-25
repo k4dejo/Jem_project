@@ -17,7 +17,7 @@
         <div class="col-lg-6">
         	<div class="cart-table">
         		<h3>Tus Compras</h3>
-        		<h4 class="title" *ngIf="productCount">Tu carrito tiene al menos 6 prendas; ¡Haz aplicado para el precio de mayoreo!</h4>
+        		<h4 class="title" *ngIf="productCount">Tu carrito tiene al menos 6 prendas; ¡Haz aplicado para el precio de mayorista!</h4>
         		<div class="cart-table-warp">
         			<table>
         				<thead>
@@ -74,7 +74,7 @@
         						</td>
         						<td class="size-col"><h4>{{product.pivot.size}}</h4></td>
         						<td class="total-col"><h4>₡ {{product.priceMajor * product.pivot.amount | number: '3.'}}</h4></td>
-        						<svg (click)="deleteProductBtn(product.id)" class="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+        						<svg (click)="deleteProductBtn(product)" class="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
         							<path class="trash-lid" fill-rule="evenodd" d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
         							<path class="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
         						</svg>
@@ -88,11 +88,11 @@
 			<a class="site-btn">Tienes un cupón?</a>
 			<div class="subtotal-area d-flex align-items-center justify-content-end">
 				<div class="title text-uppercase">Subtotal</div>
-				<div class="subtotal">$2160.00</div>
+				<div class="subtotal">₡ {{totalPrice | number: '3.'}}</div>
 			</div>
 			<div class="shipping-area d-flex justify-content-end">
 				<div class="title text-uppercase">Envio</div>
-				<div class="subtotal">$300</div>
+				<div class="subtotal">₡ {{shipping | number: '3.'}}</div>
 			</div>
 			<a class="checkout-btn">Pagar</a>	
 		</div>
