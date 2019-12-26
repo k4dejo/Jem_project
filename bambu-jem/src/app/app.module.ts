@@ -39,6 +39,8 @@ import { EditProductComponent } from './adminlayout/edit-product/edit-product.co
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { ContactusComponent } from './components/contactus/contactus.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CouponComponent } from './adminlayout/coupon/coupon.component';
 
 
 
@@ -71,7 +73,9 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     EditProductComponent,
     SafeHtmlPipe,
     ContactusComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    CheckoutComponent,
+    CouponComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,64 @@
+<div class="page-wrapper bg-gra-03">
+	<app-navbaradmin></app-navbaradmin>
+	<div class="wrapper wrapper--w1100">
+		<div class="card card-5">
+           <div class="card-heading">
+                <h2 class="title">Cupones</h2>
+           </div>
+           <div class="card-body">
+           		<div class="formgroup">
+           			<form class="form-group" #addCoupon="ngForm" (submit)="saveCoupon(addCoupon)">
+           				<div class="row">   					
+	           				<div class="col-lg-3">
+	           					<div class="input-goup-desc">
+	                             	<label for="">Nombre del cupón</label>
+	                             	<input class="input--style-5" type="text"
+	                             	name="name" #name ="ngModel" 
+	                             	[(ngModel)]="coupon.name" type="text" required>
+	           					</div>
+	           				</div>
+	           				<div class="col-lg-3">
+	           					<div class="input-goup-desc">
+	                             	<label for="">Descuento del cupón</label>
+	                             	<input class="input--style-5" type="text"
+	                             	name="discount" #discount ="ngModel" 
+	                             	[(ngModel)]="coupon.discount" type="text" required>
+	           					</div>
+       						</div>
+	           				<div class="toggle-button-cover col-lg-3">
+	           					<div class="button-cover">
+	           						<div class="button r" id="button-1">
+	           							<input type="checkbox" class="checkbox">
+	           							<div class="knobs"></div>
+	           							<div class="layer"></div>
+	           						</div>
+	           					</div>
+       						</div>
+           				</div>
+           			</form>
+           		</div>
+           		<div class="tablegroup">   			
+	           		<div class="search-product">
+	           			<input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off" placeholder=" &#61442; Buscar...">
+	           		</div>
+	           		<table class="table table-striped">
+	           			<thead>
+	           				<th scope="col">Nombre</th>
+	           				<th scope="col">Descuento</th>
+	           				<th scope="col">Expiración</th>
+	           				<th scope="col">Estado</th>
+	           			</thead>
+	           			<tbody>
+	           				<tr>
+		           				<td>PROMO2020</td>
+		           				<td>20%</td>
+		           				<td>20/02/2020</td>
+		           				<td>activa</td>
+	           				</tr>
+	           			</tbody>
+	           		</table>
+           		</div>
+           </div>
+		</div>
+	</div>
+</div>

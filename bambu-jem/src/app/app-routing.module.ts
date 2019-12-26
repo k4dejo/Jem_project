@@ -18,6 +18,7 @@ import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.comp
 import { EditProductComponent } from './adminlayout/edit-product/edit-product.component';
 import { ContactusComponent } from '././components/contactus/contactus.component';
 import { ShoppingCartComponent } from '././components/shopping-cart/shopping-cart.component';
+import { CouponComponent } from  './adminlayout/coupon/coupon.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'editarProducto/:id', component: EditProductComponent},
   { path: 'admin', component: AdminlayoutComponent},
   { path: 'admin/articulo', component: MangArticleComponent},
+  { path: 'admin/coupon' , component: CouponComponent},
   { path: '**', component: Error404Component},
 ];
 

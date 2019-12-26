@@ -27,6 +27,12 @@ export class NavbaradminComponent implements OnInit {
     localStorage.removeItem('token');
   }
 
+  gotoCoupon() {
+    const link = 'admin/coupon';
+    const gender = 2;
+    this.router.navigate([link]);
+  }
+
   ngOnInit() {
     if (this.identity.priority === 1) {
       this.viewPriority = 'Empleador';
