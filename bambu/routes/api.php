@@ -48,4 +48,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::delete('deleteImg/{id}','imageController@destroy');
 	Route::delete('deleteArrayImg/{id}', 'imageController@deleteImg');
 	Route::post('detachRelation', 'sizeController@detachRelation');
+	Route::post('getCouponClient','couponController@getCouponName');
 	Route::resource('articles','ArticleController');
+	Route::resource('coupon', 'couponController');

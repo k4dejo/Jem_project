@@ -16,6 +16,7 @@ class CreateOutfitsTable extends Migration
         Schema::create('outfits', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->string('name',255);
+            $table->string('photo'); //extension .jpg .png ..etc
             $table->timestamps();
         });
     }

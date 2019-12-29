@@ -12,5 +12,10 @@ class coupon extends Model
         'discount',
         'expiration',
         'status'
-    ]
+    ];
+
+    public function purchases()
+    {
+        return $this->belongsToMany(purchase::class);
+    }
 }

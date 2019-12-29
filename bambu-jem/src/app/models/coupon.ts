@@ -3,6 +3,7 @@ export class Coupon {
         public name: string,
         public discount: string,
         public expiration: string,
-        public status: boolean 
+        public status: boolean, 
+        public adminId: number
     ) {}
 }

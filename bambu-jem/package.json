@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^3.3.1",
     "@types/chart.js": "^2.9.2",
     "angular-animations": "0.0.10",
     "angular-credit-cards": "^3.1.8",

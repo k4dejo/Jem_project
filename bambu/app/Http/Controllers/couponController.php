@@ -17,7 +17,7 @@ class couponController extends Controller
      */
     public function index()
     {
-        $coupon = coupo::all();
+        $coupon = coupon::all();
         $data = array(
             'coupon' => $coupon,
             'status'  => 'success',
@@ -34,6 +34,26 @@ class couponController extends Controller
     public function create()
     {
         //
+    }
+
+    public function getCouponName(Request $request) {
+        // recoger datos del POST
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+        $coupon = coupon::where('name', '=', $paramsArray)->first();
+        if ($coupon != null) {
+            $data = array(
+                'coupon' => $coupon,
+                'status'  => 'success' 
+            );
+        } else {
+            $data = array(
+                'coupon' => $coupon,
+                'status'  => 'fail'
+            );
+        }
+        return response()->json($data, 200);
     }
 
     /**
@@ -82,8 +102,15 @@ class couponController extends Controller
                     'code'    => 400 
                 );
             }
-            return response()->json($data, 200);
+        } else {
+            //Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
         }
+        return response()->json($data, 200);
     }
 
     /**
@@ -135,33 +162,28 @@ class couponController extends Controller
                 'name'          => 'required',
                 'discount'      => 'required',
                 'expiration'    => 'required',
-                'status'        => 'required',
-                'adminId'       => 'required'
+                'status'        => 'required'
             ]);
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
             }
-            if ($params->adminId == 1 ) {
-                unset($paramsArray['id']);
-                unset($paramsArray['created_at']);
-                unset($paramsArray['file']);
-                Storage::delete($imgDB->photo);
-                Storage::disk('local')->put($imgName, base64_decode($img));
-                $article = article::where('id', $id)->update($paramsArray);
-                $data = array(
-                    'coupon' => $coupon,
-                    'status'  => 'success',
-                    'code'    => 200 
-                );
-            } else {
-                $data = array(
-                    'message' => 'Acceso no autorizando',
-                    'status'  => 'fail',
-                    'code'    => 400 
-                );
-            }
-            return response()->json($data, 200);    
+            unset($paramsArray['id']);
+            unset($paramsArray['created_at']);
+            $coupon = coupon::where('id', $id)->update($paramsArray);
+            $data = array(
+                'coupon' => $coupon,
+                'status'  => 'success',
+                'code'    => 200 
+            );
+        } else {
+            //Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
         }
+        return response()->json($data, 200);
     }
 
     /**

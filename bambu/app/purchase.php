@@ -19,6 +19,10 @@ class purchase extends Model
     	return $this->belongsTo('app/client');
     }
 
+    public function coupon() {
+        return $this->hasMany(coupon::class);
+    }
+
     public function articles()
     {
         return $this->belongsToMany('App\article')->withPivot('size', 'amount');;

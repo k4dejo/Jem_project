@@ -69,6 +69,7 @@ class PurchaseController extends Controller
             $purchase->clients_id = $params->clients_id;
             $purchase->price = $params->price;
             $purchase->status = $params->status;
+            $purchase->coupon_id = $params->coupon_id;
             $isset_purchase = DB::table('purchases')->where('clients_id', $params->clients_id)
             ->where('status', $params->status)->get();
             $countPurchase = count($isset_purchase);
@@ -163,6 +164,7 @@ class PurchaseController extends Controller
             'purchase'       => $arrayPurchase,
             'purchasePrice'  => $purchaseClient->price,
             'purchaseId'     => $purchaseClient->id,
+            'couponId'       => $purchaseClient->coupon_id,
             'status'         => 'success',
             'code'    => 200,
         );
@@ -217,7 +219,39 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+            //validacion
+            $validate = Validator::make($paramsArray, [
+                'clients_id'   => 'required',
+                'price'        => 'required',
+                'status'       => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            unset($paramsArray['id']);
+            unset($paramsArray['created_at']);
+            $purchase = purchase::where('id', $id)->update($paramsArray);
+            $data = array(
+                'purchase' => $purchase,
+                'status'  => 'success',
+                'code'    => 200 
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
     }
 
     /**

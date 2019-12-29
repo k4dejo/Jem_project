@@ -85,15 +85,29 @@
         	</div>
         </div>
 		<div class="col-lg-4 card-right" style="align-items: right;">
-			<a class="site-btn">Tienes un cupón?</a>
+            <div class="coupon">
+                <div *ngIf="booleanCoupon" class="coupon-wrap">                    
+                    <input name="coupon" #coupon="ngModel" [(ngModel)]="couponClient" class="input--style-5" type="text">
+                    <a (click)="verifyCoupon(couponClient)" class="view-btn color-2"><span>Aplicar</span></a>
+                    <h4 *ngIf="couponView != undefined && couponView == false" class="p-stock"><span>Cupón no disponible.</span></h4>
+                    <h4 *ngIf="cuponExpirate" class="p-stock"><span>El cupón ya expiró.</span></h4>
+                </div>
+                <a *ngIf="!booleanCoupon" (click)="activeCoupon()" class="coupon-btn">Tienes un cupón?</a>
+                <a *ngIf="booleanCoupon" (click)="activeCoupon()" class="coupon-btn">Ocultar</a>
+            </div>
 			<div class="subtotal-area d-flex align-items-center justify-content-end">
 				<div class="title text-uppercase">Subtotal</div>
 				<div class="subtotal">₡ {{totalPrice | number: '3.'}}</div>
 			</div>
 			<div class="shipping-area d-flex justify-content-end">
 				<div class="title text-uppercase">Envio</div>
-				<div class="subtotal">₡ {{shipping | number: '3.'}}</div>
+				<div *ngIf="productCount" class="subtotal">₡ {{shipping | number: '3.'}}</div>
+                <div *ngIf="!productCount" class="subtotal"> Envio gratuito</div>
 			</div>
+            <div *ngIf="couponView" class="shipping-area d-flex justify-content-end">
+                <div class="title text-uppercase">Cupón</div>
+                <div class="subtotal">₡ {{couponActive.discount | number: '3.'}}</div>
+            </div>
 			<a class="checkout-btn">Pagar</a>	
 		</div>
 	</div>

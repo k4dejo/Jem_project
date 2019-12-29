@@ -4,12 +4,15 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.service';
 import { ArticleService } from '../../services/article.service';
 import { PurchaseService } from '../../services/purchase.service';
+import { CouponService } from '../../services/coupon.service';
+import { Coupon } from '../../models/coupon';
 import { Article } from '../../models/article';
+import { Purchase } from '../../models/purchase';
 import { DettachPurchase } from '../../models/dettachPurchase';
 
 @Component({
   selector: 'app-shopping-cart',
-  providers: [ArticleService, PurchaseService, UserServices],
+  providers: [ArticleService, PurchaseService, UserServices, CouponService],
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
@@ -17,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
 	public shop_id = '';
 	public shop_bool = true;
   public productCount = false;
+  public booleanCoupon = false;
   public totalAmount = 0;
   public totalPrice = 0;
   public totalWeight = 0;
@@ -30,19 +34,29 @@ export class ShoppingCartComponent implements OnInit {
   public testProduct;
   public productPurchase: Array<Article>;
   public dettachPurchaseP: DettachPurchase;
+  public checkoutPurchase: Purchase;
   public purchasePrice: number;
 	public IdProduct;
   public token;
   public identity;
+  public couponClient;
+  public couponActive;
+  public couponView: boolean;
+  public coponResponse;
+  public date: string;
+  public cuponExpirate = false;
+  public currentDate = new Date();
   constructor(
     private route: ActivatedRoute,
     private _location: Location,
     private purchaseService: PurchaseService,
+    private couponService: CouponService,
     private clientService: UserServices,
     private router: Router ) { 
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.dettachPurchaseP = new DettachPurchase('', '');
+    this.checkoutPurchase = new Purchase('','', 0, 0, '');
   }
 
   getPurchases() {
@@ -52,6 +66,9 @@ export class ShoppingCartComponent implements OnInit {
         this.productPurchase = response.purchase;
         this.purchasePrice = response.price;
         this.testProduct = response.purchase;
+        this.checkoutPurchase.id = response.purchaseId;
+        this.checkoutPurchase.clients_id = this.identity.sub;
+        this.checkoutPurchase.status = 'incomplete';
         this.dettachPurchaseP.idPurchase = response.purchaseId;
         for (let i = 0; i < this.productPurchase.length; ++i) {
           this.totalAmount += response.purchase[i].pivot.amount;
@@ -62,20 +79,12 @@ export class ShoppingCartComponent implements OnInit {
         }
         if (response.purchase.length >= 6) {
           this.productCount = true;
-          this.CalculateTotalPrice(this.productCount);
         } else {
           if (this.totalAmount >= 6) {
             this.productCount = true;
-            this.CalculateTotalPrice(this.productCount);
           }
         }
-        /*if (this.totalAmount >= 6) {
-          this.productCount = true;
-          this.CalculateTotalPrice(this.productCount);
-        }
-        if (this.productPurchase.length >= 6) {
-          this.productCount = true;
-        }*/
+        this.CalculateTotalPrice(this.productCount);
       }, error => {
         console.log(<any> error);
       }
@@ -103,6 +112,10 @@ export class ShoppingCartComponent implements OnInit {
         this.totalPrice += this.testProduct[index].priceMajor * this.testProduct[index].pivot.amount;
       }
     }
+    if (this.couponView == true) {
+      console.log(this.couponActive);
+    }
+    this.checkoutPurchase.price = this.totalPrice;
   }
 
   deleteProductBtn(idProduct: any){
@@ -154,13 +167,19 @@ export class ShoppingCartComponent implements OnInit {
 
   shippingCalculate(weight: any, rate: any, additional: any) {
     this.shipping = 0;
-    if (weight <= 1 && weight > 0) {
-      this.shipping += rate;
+    if (this.productCount != false) {  
+      if (weight <= 1 && weight > 0) {
+        this.shipping += rate;
+      }
+      if (weight > 1) {
+        const weightAdditional = weight -1;
+        this.shipping += rate + (weightAdditional * additional);
+      }
+    } else {
+      this.shipping = 0;
     }
-    if (weight > 1) {
-      const weightAdditional = weight -1;
-      this.shipping += rate + (weightAdditional * additional);
-    }
+      this.checkoutPurchase.price -= this.shipping;
+    console.log(this.checkoutPurchase);
   }
 
   viewAddress(province: any, district: any) {
@@ -208,7 +227,39 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
+  activeCoupon() {
+    if (this.booleanCoupon === false) {
+      this.booleanCoupon = true;
+    } else {
+      this.booleanCoupon = false;
+    }
+  }
+
+  verifyCoupon(coupon: any) {
+    this.couponService.getCouponClient(coupon).subscribe(
+      response => {
+        this.couponActive = response.coupon;
+        if (this.couponActive.expiration > this.date) {
+          if (response.status === 'success' && response.coupon.status == true) {
+            this.couponView = true;
+            this.checkoutPurchase.coupon_id = this.couponActive.id;
+            this.checkoutPurchase.price -= this.couponActive.discount;
+            this.cuponExpirate = false;
+          } else {
+            this.couponView = false;
+          }
+        } else {
+          this.cuponExpirate = true;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
+    const month = this.currentDate.getMonth() + 1;
+    this.date = this.currentDate.getFullYear() + '-' + month + '-' + this.currentDate.getDate();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.splite = this.identity.address.split(',');

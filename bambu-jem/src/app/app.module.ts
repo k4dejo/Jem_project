@@ -7,8 +7,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { NgxPopper } from 'angular-popper';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 
 import { AppComponent } from './app.component';
@@ -85,6 +86,7 @@ import { CouponComponent } from './adminlayout/coupon/coupon.component';
     NgxPopper,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    NgbModule,
     NgxFileDropModule,
     NgxDropzoneModule,
     DropzoneModule,
