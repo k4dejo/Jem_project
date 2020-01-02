@@ -44,6 +44,8 @@ export class ShoppingCartComponent implements OnInit {
   public couponView: boolean;
   public coponResponse;
   public date: string;
+  public day;
+  public month;
   public cuponExpirate = false;
   public currentDate = new Date();
   constructor(
@@ -56,7 +58,7 @@ export class ShoppingCartComponent implements OnInit {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.dettachPurchaseP = new DettachPurchase('', '');
-    this.checkoutPurchase = new Purchase('','', 0, 0, '');
+    this.checkoutPurchase = new Purchase('','', 0, 0, 0, '');
   }
 
   getPurchases() {
@@ -178,8 +180,7 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.shipping = 0;
     }
-      this.checkoutPurchase.price -= this.shipping;
-    console.log(this.checkoutPurchase);
+    this.checkoutPurchase.price -= this.shipping;
   }
 
   viewAddress(province: any, district: any) {
@@ -235,10 +236,24 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
+  passCheckout() {
+    this.checkoutPurchase.shipping = this.shipping;
+    this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
+      response => {
+        if (response.status == 'success') {
+          this.router.navigate(['checkout/', this.checkoutPurchase.id]);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   verifyCoupon(coupon: any) {
     this.couponService.getCouponClient(coupon).subscribe(
       response => {
         this.couponActive = response.coupon;
+        console.log(response.coupon, 'today: ', this.date);
         if (this.couponActive.expiration > this.date) {
           if (response.status === 'success' && response.coupon.status == true) {
             this.couponView = true;
@@ -258,8 +273,17 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   ngOnInit() {
-    const month = this.currentDate.getMonth() + 1;
-    this.date = this.currentDate.getFullYear() + '-' + month + '-' + this.currentDate.getDate();
+     this.day = this.currentDate.getDate();
+    if (this.currentDate.getDate() < 10) {
+      this.day = '0' + this.currentDate.getDate().toString()
+    }
+    if (this.currentDate.getMonth() == 0) {
+      this.month = this.currentDate.getMonth().toString() + '1';
+    } else {
+      this.month = this.currentDate.getMonth() + 1;
+    }
+    this.date = this.currentDate.getFullYear() + '-' + this.month + '-' + this.day;
+    console.log(this.date);
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.splite = this.identity.address.split(',');

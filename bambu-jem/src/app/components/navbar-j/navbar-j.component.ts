@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.service';
+import { PurchaseService } from '../../services/purchase.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { Client } from '../../models/client';
+import { Purchase } from '../../models/purchase';
 
 
 @Component({
   selector: 'app-navbar-j',
-  providers: [UserServices],
+  providers: [UserServices, PurchaseService],
   templateUrl: './navbar-j.component.html',
-  styleUrls: ['./navbar-j.component.css']
+  styleUrls: ['./navbar-j.component.css'],
 })
 export class NavbarJComponent implements OnInit {
   public navItem = 'hiddenItem';
@@ -24,6 +26,8 @@ export class NavbarJComponent implements OnInit {
   public PrimaryRed = '#dd0031';
   public SecondaryBlue = '#006ddd';
   public loading = false;
+  public purchaseList: Array<Purchase>;
+  public purchaselenght;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public config = { animationType: ngxLoadingAnimationTypes.none,
     primaryColour: this.primaryColour,
@@ -35,6 +39,7 @@ export class NavbarJComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private purchaseService: PurchaseService,
     private clientService: UserServices
   ) {
     this.token = this.clientService.getToken();
@@ -101,8 +106,23 @@ export class NavbarJComponent implements OnInit {
     );
   }
 
- gotoRegister() {
+  gotoRegister() {
     this.router.navigate(['/registrar', 'jem']);
+  }
+
+  gotoCart() {
+    this.router.navigate(['Carrito/', 'J', this.identity.sub]);
+  }
+
+  getLenghtListPurchase() {
+    this.purchaseService.getPurchase(this.identity.sub).subscribe(
+      response => {
+        this.purchaseList = response.purchase;
+        this.purchaselenght = this.purchaseList.length;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   ngOnInit() {
@@ -110,5 +130,6 @@ export class NavbarJComponent implements OnInit {
     } else {
       this.identity.name = 'iniciar sesión';
     }
+    this.getLenghtListPurchase();
   }
 }

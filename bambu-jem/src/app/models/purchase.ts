@@ -4,6 +4,7 @@ export class Purchase {
         public clients_id: string,
         public price: number,
         public coupon_id: number,
+        public shipping: number,
         public status:string
     ) {}
 }

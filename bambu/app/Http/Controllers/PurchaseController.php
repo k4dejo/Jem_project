@@ -70,6 +70,7 @@ class PurchaseController extends Controller
             $purchase->price = $params->price;
             $purchase->status = $params->status;
             $purchase->coupon_id = $params->coupon_id;
+            $purchase->shipping = $params->shipping;
             $isset_purchase = DB::table('purchases')->where('clients_id', $params->clients_id)
             ->where('status', $params->status)->get();
             $countPurchase = count($isset_purchase);
@@ -165,6 +166,7 @@ class PurchaseController extends Controller
             'purchasePrice'  => $purchaseClient->price,
             'purchaseId'     => $purchaseClient->id,
             'couponId'       => $purchaseClient->coupon_id,
+            'shipping'       => $purchaseClient->shipping,
             'status'         => 'success',
             'code'    => 200,
         );
@@ -217,8 +219,7 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
         $checkToken = $jwtAuthAdmin->checkToken($hash);
@@ -237,7 +238,7 @@ class PurchaseController extends Controller
             }
             unset($paramsArray['id']);
             unset($paramsArray['created_at']);
-            $purchase = purchase::where('id', $id)->update($paramsArray);
+            $purchase = purchase::where('id', $params->id)->update($paramsArray);
             $data = array(
                 'purchase' => $purchase,
                 'status'  => 'success',

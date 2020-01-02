@@ -28,6 +28,11 @@ export class CouponService {
   	return this._http.get(this.url + 'coupon', { headers: headers });
   }
 
+  getSingleCoupon(id): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'coupon/' + id, { headers: headers });
+  }
+
   getCouponClient(coupon): Observable<any> {
     const json = JSON.stringify(coupon);
     const params = 'json=' + json;

@@ -23,6 +23,14 @@ export class PurchaseService {
     return this._http.post(this.url + 'Addpurchase', params, { headers: headers });
   }
 
+  editPurchase(token, dataPurchase):Observable<any> {
+    const json = JSON.stringify(dataPurchase);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.post(this.url + 'editPurchase', params, { headers: headers });
+  }
+
   attachProductPurchase(token, dataProduct): Observable<any> {
     const json = JSON.stringify(dataProduct);
     const params = 'json=' + json;

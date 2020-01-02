@@ -10,6 +10,7 @@ import { NgxPopper } from 'angular-popper';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgPaymentCardModule } from 'ng-payment-card';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 
 import { AppComponent } from './app.component';
@@ -86,6 +87,7 @@ import { CouponComponent } from './adminlayout/coupon/coupon.component';
     NgxPopper,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    NgPaymentCardModule,
     NgbModule,
     NgxFileDropModule,
     NgxDropzoneModule,

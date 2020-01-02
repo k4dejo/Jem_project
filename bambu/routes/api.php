@@ -33,6 +33,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('detachLike', 'favoriteController@detachLike');
 	Route::post('addMimage','imageController@store');
 	Route::post('Addpurchase', 'PurchaseController@store');
+	Route::post('editPurchase', 'PurchaseController@edit');
 	Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
 	Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
 	Route::get('getShowProductP/{idClient}/{idProduct}',

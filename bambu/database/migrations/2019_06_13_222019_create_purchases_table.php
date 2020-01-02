@@ -16,6 +16,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->bigInteger('price');
+            $table->bigInteger('shipping');
             $table->string('status');
             $table->timestamps();
             $table->unsignedInteger('clients_id');

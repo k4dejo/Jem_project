@@ -108,7 +108,7 @@
                 <div class="title text-uppercase">Cupón</div>
                 <div class="subtotal">₡ {{couponActive.discount | number: '3.'}}</div>
             </div>
-			<a class="checkout-btn">Pagar</a>	
+			<a (click)="passCheckout()" class="checkout-btn">Pagar</a>	
 		</div>
 	</div>
 	<app-whatsapp></app-whatsapp>

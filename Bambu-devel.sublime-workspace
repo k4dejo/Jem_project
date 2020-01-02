@@ -4,24 +4,276 @@
 		"selected_items":
 		[
 			[
-				"get",
-				"getMonth\tmethod"
+				"to",
+				"total\tproperty"
 			],
 			[
-				"curre",
-				"currentDate\tconst"
+				"p",
+				"purchaseCouponChage\tproperty"
+			],
+			[
+				"coiu",
+				"couponId\tabc"
+			],
+			[
+				"coupon",
+				"couponId\tabc"
+			],
+			[
+				"purch",
+				"purchase\tproperty"
 			],
 			[
 				"coupo",
-				"couponView\tabc"
+				"coupon\tparameter"
 			],
 			[
-				"boe",
-				"boolean\tkeyword"
+				"sub",
+				"subtotal\tabc"
+			],
+			[
+				"getTota",
+				"getTotalPrice\tmethod"
+			],
+			[
+				"le",
+				"length\tproperty"
+			],
+			[
+				"pur",
+				"purchaseArray\tproperty"
+			],
+			[
+				"subs",
+				"subscribe\tmethod"
+			],
+			[
+				"get",
+				"getSingleCoupon\tmethod"
+			],
+			[
+				"cou",
+				"couponService\tabc"
+			],
+			[
+				"produc",
+				"productCart\tproperty"
+			],
+			[
+				"purchase",
+				"purchaseArray\t(checkout.component.ts)"
+			],
+			[
+				"reso",
+				"response\tparameter"
+			],
+			[
+				"Pur",
+				"Purchase\talias"
+			],
+			[
+				"ge",
+				"getPurchase\tabc"
+			],
+			[
+				"align",
+				"align-items-center\tabc"
+			],
+			[
+				"da",
+				"day\tconst"
+			],
+			[
+				"res",
+				"response\tparameter"
+			],
+			[
+				"cc",
+				"Ccv\tproperty"
+			],
+			[
+				"send",
+				"sendCc\tproperty"
+			],
+			[
+				"view",
+				"viewMasterCard\tabc"
+			],
+			[
+				"margin",
+				"margin-left\tproperty"
+			],
+			[
+				"Cc",
+				"CcCard1\tproperty"
+			],
+			[
+				"splite",
+				"spliteFirstNumber\tproperty"
+			],
+			[
+				"Ccnu",
+				"CCnumber\tconst"
+			],
+			[
+				"number",
+				"numberCard\tabc"
+			],
+			[
+				"lo",
+				"log\tabc"
+			],
+			[
+				"chan",
+				"changeDetection\tabc"
+			],
+			[
+				"pue",
+				"purhcaselenght\tabc"
+			],
+			[
+				"pr",
+				"purchaseList\tproperty"
+			],
+			[
+				"con",
+				"console\tabc"
+			],
+			[
+				"respons",
+				"response\tparameter"
+			],
+			[
+				"Purhca",
+				"Purchase\tclass"
+			],
+			[
+				"purhc",
+				"purchase\tscript"
+			],
+			[
+				"Ar",
+				"Array\tvar"
 			],
 			[
 				"pu",
 				"public\tabc"
+			],
+			[
+				"num",
+				"number\t(checkout.component.html)"
+			],
+			[
+				"date",
+				"dateExp\tabc"
+			],
+			[
+				"fonts",
+				"font-size\tproperty"
+			],
+			[
+				"add",
+				"add\tabc"
+			],
+			[
+				"clas",
+				"classList\tabc"
+			],
+			[
+				"fuc",
+				"focusBtn\tabc"
+			],
+			[
+				"nu",
+				"number\t(checkout.component.html)"
+			],
+			[
+				"Ac",
+				"ArticleService\tabc"
+			],
+			[
+				"art",
+				"article.service\t(shopping-cart.component.ts)"
+			],
+			[
+				"Chec",
+				"CheckoutComponent\talias"
+			],
+			[
+				"checkoutPur",
+				"checkoutPurchase\tproperty"
+			],
+			[
+				"chec",
+				"checkout.component\tscript"
+			],
+			[
+				"compon",
+				"components\tdirectory"
+			],
+			[
+				"para",
+				"params\tabc"
+			],
+			[
+				"post",
+				"post\tmethod"
+			],
+			[
+				"purcharse",
+				"purchaseService\tproperty"
+			],
+			[
+				"purc",
+				"purchase\tabc"
+			],
+			[
+				"c",
+				"coupon_id\tproperty"
+			],
+			[
+				"ta",
+				"totalPrice\tproperty"
+			],
+			[
+				"prod",
+				"productPurchase\tproperty"
+			],
+			[
+				"month",
+				"monthExp\tconst"
+			],
+			[
+				"monthE",
+				"monthExp\tconst"
+			],
+			[
+				"curre",
+				"currentMonth\tabc"
+			],
+			[
+				"cons",
+				"const\tabc"
+			],
+			[
+				"fu",
+				"getFullYear\tmethod"
+			],
+			[
+				"getye",
+				"getFullYear\tmethod"
+			],
+			[
+				"cure",
+				"currentDate\tproperty"
+			],
+			[
+				"d",
+				"date\tproperty"
+			],
+			[
+				"boe",
+				"boolean\tkeyword"
 			],
 			[
 				"coup",
@@ -36,28 +288,12 @@
 				"paramsArray"
 			],
 			[
-				"ge",
-				"getCouponClient\tmethod"
-			],
-			[
-				"coupon",
-				"couponService\tproperty"
-			],
-			[
-				"c",
-				"click\tabc"
-			],
-			[
 				"req",
 				"request\tabc"
 			],
 			[
 				"font",
 				"font-weight\tproperty"
-			],
-			[
-				"margin",
-				"margin-left\tproperty"
 			],
 			[
 				"bo",
@@ -72,20 +308,8 @@
 				"productCount\tabc"
 			],
 			[
-				"para",
-				"params\tabc"
-			],
-			[
-				"cou",
-				"coupon_id\t(purchase.ts)"
-			],
-			[
 				"co",
 				"coupon_id\t(purchase.ts)"
-			],
-			[
-				"prod",
-				"productCart\tabc"
 			],
 			[
 				"Artic",
@@ -164,16 +388,8 @@
 				"expiration\t(2019_12_25_203123_create_coupons_table.php)"
 			],
 			[
-				"add",
-				"additional\tparameter"
-			],
-			[
 				"wei",
 				"weightAdditional\tabc"
-			],
-			[
-				"res",
-				"restAdd\tproperty"
 			],
 			[
 				"rest",
@@ -212,28 +428,12 @@
 				"testProduct\tproperty"
 			],
 			[
-				"to",
-				"totalAmount\tproperty"
-			],
-			[
-				"pr",
-				"productPurchase\tproperty"
-			],
-			[
 				"producu",
 				"productCount\t(shopping-cart.component.ts)"
 			],
 			[
-				"produc",
-				"productCount\tabc"
-			],
-			[
 				"purchar",
 				"purchaseService\tproperty"
-			],
-			[
-				"purch",
-				"purchaseClient\tabc"
 			],
 			[
 				"idP",
@@ -268,20 +468,8 @@
 				"arrayPurchase\tabc"
 			],
 			[
-				"pur",
-				"purchasePrice\tproperty"
-			],
-			[
 				"procu",
 				"productPurchase\tabc"
-			],
-			[
-				"Ar",
-				"Article\tabc"
-			],
-			[
-				"art",
-				"article\tscript"
 			],
 			[
 				"iport",
@@ -298,10 +486,6 @@
 			[
 				"use",
 				"user.service\tscript"
-			],
-			[
-				"Pur",
-				"PurchaseService\tabc"
 			],
 			[
 				"deco",
@@ -330,200 +514,25 @@
 			[
 				"fi",
 				"first\tabc"
-			],
-			[
-				"goto",
-				"gotoCartBtn\t(article-detail.component.ts)"
-			],
-			[
-				"show",
-				"showProductPurchase\tabc"
-			],
-			[
-				"at",
-				"attachPurchase\tproperty"
-			],
-			[
-				"a",
-				"attachProductPurchase\tmethod"
-			],
-			[
-				"purcas",
-				"purchaseService\tproperty"
-			],
-			[
-				"clien",
-				"clients_id\tabc"
-			],
-			[
-				"attac",
-				"attachPurchase\tproperty"
-			],
-			[
-				"Atta",
-				"AttachPurchase\talias"
-			],
-			[
-				"atta",
-				"attachPurchase\tscript"
-			],
-			[
-				"Purchas",
-				"PurchaseController@store\tabc"
-			],
-			[
-				"re",
-				"return\tabc"
-			],
-			[
-				"clients",
-				"clients_id\tabc"
-			],
-			[
-				"par",
-				"params\tabc"
-			],
-			[
-				"client",
-				"clients_id\tabc"
-			],
-			[
-				"sub",
-				"subscribe\tabc"
-			],
-			[
-				"Pu",
-				"PurchaseService\tabc"
-			],
-			[
-				"purc",
-				"PurchaseService\talias"
-			],
-			[
-				"pric",
-				"priceMajor\tproperty"
-			],
-			[
-				"ths",
-				"this\tkeyword"
-			],
-			[
-				"p",
-				"productCart\tproperty"
-			],
-			[
-				"pucha",
-				"Purchase\talias"
-			],
-			[
-				"data",
-				"dataPurchase\tabc"
-			],
-			[
-				"va",
-				"valueProduct\tabc"
-			],
-			[
-				"value",
-				"valueProduct\tabc"
-			],
-			[
-				"vau",
-				"valueQtyBtn\tabc"
-			],
-			[
-				"val",
-				"valueQtyBtn\tabc"
-			],
-			[
-				"addProd",
-				"addProductCart\t(article-detail.component.ts)"
-			],
-			[
-				"dt",
-				"dtp\tparameter"
-			],
-			[
-				"shop",
-				"shop_id\t(article.component.ts)"
-			],
-			[
-				"sh",
-				"shop_id\tproperty"
-			],
-			[
-				"cons",
-				"console\tabc"
-			],
-			[
-				"count",
-				"countArray\tabc"
-			],
-			[
-				"getDepartment",
-				"getDepartmentView\t(article.component.ts)"
-			],
-			[
-				"getdepartment",
-				"getDepartmentView\t(article.component.ts)"
-			],
-			[
-				"gender",
-				"genderProduct\tabc"
-			],
-			[
-				"Depar",
-				"DepartCount\tabc"
-			],
-			[
-				"public",
-				"public\tkeyword"
-			],
-			[
-				"D",
-				"DepartCount\tclass"
-			],
-			[
-				"de",
-				"depart-count\tscript"
-			],
-			[
-				"this",
-				"this\tkeyword"
-			],
-			[
-				"ide",
-				"identity\tproperty"
-			],
-			[
-				"r",
-				"rgba()\tbackground"
-			],
-			[
-				"fon",
-				"font-weight\tproperty"
-			],
-			[
-				"ran",
-				"randomChar\tabc"
-			],
-			[
-				"modal",
-				"modal-content\tabc"
-			],
-			[
-				"ali",
-				"align-items\tproperty"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.html",
+			"file": "bambu-jem/src/app/components/checkout/checkout.component.html",
 			"settings":
 			{
-				"buffer_size": 5815,
+				"buffer_size": 10036,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bambu-jem/src/app/components/checkout/checkout.component.ts",
+			"settings":
+			{
+				"buffer_size": 5182,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -532,18 +541,27 @@
 			"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.ts",
 			"settings":
 			{
-				"buffer_size": 8326,
+				"buffer_size": 9713,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.css",
+			"file": "bambu/app/Http/Controllers/PurchaseController.php",
 			"settings":
 			{
-				"buffer_size": 12311,
+				"buffer_size": 9149,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "bambu-jem/src/app/services/coupon.service.ts",
+			"settings":
+			{
+				"buffer_size": 1794,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -601,9 +619,12 @@
 		"/C/wamp64/www/Bambu-jem/bambu/app",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers",
+		"/C/wamp64/www/Bambu-jem/bambu/routes",
 		"/C/wamp64/www/Bambu-jem/bambu-jem",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/adminlayout",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/adminlayout/coupon",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/article-detail",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart",
@@ -611,24 +632,34 @@
 	],
 	"file_history":
 	[
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart/shopping-cart.component.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/models/purchase.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/article-detail/article-detail.component.ts",
+		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_06_13_222019_create_purchases_table.php",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/checkout/checkout.component.css",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/checkout/checkout.component.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart/shopping-cart.component.html",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart/shopping-cart.component.css",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/checkout/checkout.component.html",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/models/CC.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/navbar-j/navbar-j.component.html",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/navbar-j/navbar-j.component.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/navbar-j/navbar-j.component.css",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/app.module.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/app-routing.module.ts",
+		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/services/purchase.service.ts",
+		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/PurchaseController.php",
+		"/C/wamp64/www/Bambu-jem/bambu/routes/api.php",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/article-detail/article-detail.component.css",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/couponController.php",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/services/coupon.service.ts",
-		"/C/wamp64/www/Bambu-jem/bambu/routes/api.php",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/register/register.component.css",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart/shopping-cart.component.css",
 		"/C/Users/Breiner/Desktop/shop/cart.html",
 		"/C/Users/Breiner/Desktop/shop/css/main.css",
-		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/PurchaseController.php",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/article-detail/article-detail.component.ts",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/models/purchase.ts",
 		"/C/wamp64/www/Bambu-jem/bambu/app/purchase.php",
 		"/C/wamp64/www/Bambu-jem/bambu/app/coupon.php",
-		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_06_13_222019_create_purchases_table.php",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart/shopping-cart.component.html",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_06_13_222223_create_outfits_table.php",
 		"/C/wamp64/www/architectui-angular-free-theme/src/app/services/article.service.ts",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/app.module.ts",
 		"/C/wamp64/www/architectui-angular-free-theme/src/app/DemoPages/Forms/Elements/layout/layout.component.html",
 		"/C/wamp64/www/architectui-angular-free-theme/src/app/DemoPages/Dashboards/analytics/analytics.component.ts",
 		"/C/wamp64/www/architectui-angular-free-theme/src/app/Layout/Components/header/header.component.html",
@@ -644,18 +675,15 @@
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/navbaradmin/navbaradmin.component.ts",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/navbaradmin/navbaradmin.component.html",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/adminlayout/coupon/coupon.component.spec.ts",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/app-routing.module.ts",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_12_25_203123_create_coupons_table.php",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/ArticleController.php",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_06_13_221917_create_articles_table.php",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_06_14_215015_create_article_outfit.php",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/shopping-cart/shopping-cart.component.ts",
 		"/C/Users/Breiner/Desktop/angular-canvasjs-chart-samples/angular-canvasjs-chart-samples/src/app/app.component.html",
 		"/C/Users/Breiner/Desktop/angular-canvasjs-chart-samples/angular-canvasjs-chart-samples/src/app/app.component.css",
 		"/C/Users/Breiner/Desktop/angular-canvasjs-chart-samples/angular-canvasjs-chart-samples/src/app/app.component.ts",
 		"/C/Users/Breiner/Desktop/angular-canvasjs-chart-samples/angular-canvasjs-chart-samples/src/app/app.module.ts",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/adminlayout/mang-article/mang-article.component.ts",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/services/purchase.service.ts",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/models/dettachPurchase.ts",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/sizeController.php",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/node_modules/@angular/core/src/render/api.d.ts",
@@ -687,7 +715,6 @@
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/adminlayout/edit-product/edit-product.component.ts",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/services/user.service.ts",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/favoriteController.php",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/navbar-j/navbar-j.component.html",
 		"/C/wamp64/www/Bambu-jem/bambu/app/client.php",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_12_15_201120_create_article_client_table.php",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_12_16_001307_rename_column_article_client.php",
@@ -720,7 +747,6 @@
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_10_26_054220_create_article_size_table.php",
 		"/C/wamp64/www/Bambu-jem/bambu/database/migrations/2019_10_26_054101_create_size_table.php",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/models/size.ts",
-		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/navbar-j/navbar-j.component.ts",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/OutfitController.php",
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/components/register/register.component.ts",
 		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/sizeAmountController.php",
@@ -733,12 +759,7 @@
 		"/C/wamp64/www/Bambu-jem/bambu-jem/src/app/app.component.html",
 		"/C/Users/Breiner/Desktop/image-2.0.8/LICENSE",
 		"/C/Users/Breiner/Desktop/image-2.0.8/composer.json",
-		"/C/Users/Breiner/Desktop/image-2.0.8/tests/AbstractCommandTest.php",
-		"/C/Users/Breiner/Desktop/image-2.0.8/phpunit.xml",
-		"/C/Users/Breiner/Desktop/image-2.0.8/README.md",
-		"/C/Users/Breiner/Desktop/image-2.0.8/src/config/config.php",
-		"/C/wamp64/www/Bambu-jem/bambu/app/Http/Controllers/Controller.php",
-		"/C/Users/Breiner/Desktop/etiquetado/estilo.css"
+		"/C/Users/Breiner/Desktop/image-2.0.8/tests/AbstractCommandTest.php"
 	],
 	"find":
 	{
@@ -756,6 +777,91 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"coupon",
+			"purchase",
+			"response",
+			"| .3",
+			"shipping",
+			"couponId",
+			"viewAddress",
+			"h4",
+			"<span>",
+			"......................................<",
+			"............................................<",
+			"title",
+			"<br>",
+			"day",
+			"122414",
+			"Subtotal",
+			"122414",
+			"Subtotal",
+			"subtotal-area",
+			"Cantidad",
+			"case",
+			"198px",
+			"250px",
+			"left",
+			"viewMasterCard",
+			"value",
+			"masterCard",
+			"auto",
+			"masterCard",
+			"CCnumber",
+			"spliteFirstNumber",
+			"detectFirstNumber",
+			"ChangeDetectionStrategy",
+			"0",
+			"purhcaselenght",
+			"purchaseList",
+			"gotoCart",
+			"submitCheckout",
+			"CCnumber",
+			"submitCheckout",
+			"Ccv",
+			"string",
+			"department",
+			"detail",
+			"yearCc",
+			"monthChange",
+			"yearChange",
+			"<option>",
+			"document",
+			"maxlength",
+			"Cccard",
+			"numberCard",
+			"d",
+			"bottom",
+			"<img src",
+			"img",
+			"&",
+			"  content: '';\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  background: url('http://cdn.flaticon.com/svg/44/44386.svg') no-repeat center;\n  background-size: cover;\n  opacity: .0",
+			"flip",
+			"fieldset",
+			"PurchaseService",
+			"hover",
+			"icon-eComm",
+			"CoupoCnComponent",
+			"coupon",
+			"Router",
+			"router",
+			"articles",
+			"post",
+			"store",
+			"passCheckout",
+			"CalculateTotalPrice",
+			"coupon",
+			"0",
+			"response",
+			"true",
+			"condition",
+			"MonthExp",
+			"number",
+			"condition",
+			"spliteDate",
+			"currentDate",
+			"month",
+			"coupon-btn",
+			"border",
 			"undefined",
 			"coponResponse",
 			"product",
@@ -798,92 +904,7 @@
 			"clients_id",
 			"article",
 			"product",
-			"var",
-			"discunt",
-			"20",
-			"%</",
-			"Article",
-			"ngModel",
-			"toggle",
-			"1",
-			"name",
-			"namdiscounte",
-			"discount",
-			"department",
-			"discout",
-			"detail",
-			"<th>",
-			"Wrapper",
-			"wrapper",
-			"coupon",
-			"articles",
-			"article",
-			"fail",
-			"message",
-			"success",
-			"priceMajor",
-			"pricePublic",
-			"priceMajor",
-			"pricePublic",
-			"Reverse",
-			"r",
-			"calculateWeight",
-			"viewAddress",
-			"shippingCalculate",
-			"restRate",
-			"rateGAM",
-			"2400",
-			"resultado",
-			"weight",
-			"splite",
-			"central",
-			"console.log(province);  ",
-			"condition",
-			"number",
-			"Number",
-			"totalPrice",
-			"cccccc",
-			"222222",
-			"h3",
-			"h6",
-			"pivot",
-			"idProduct",
-			"dettachProductPurchase",
-			"sizes",
-			"60px",
-			"purchasePrice",
-			"name",
-			"productGen",
-			"pirvate",
-			"DB",
-			".title",
-			"title",
-			"ite-btn",
-			"site",
-			"d-flex",
-			"tile",
-			"align-items-center",
-			"title",
-			"subtotal-area",
-			"shipping-area ",
-			"shipping-area",
-			"15px",
-			"828px",
-			"total-cos",
-			"quantity",
-			"quy-col",
-			"pc-title",
-			"product-th",
-			"scrollbar",
-			"cart-table",
-			"Price",
-			"SizeSize",
-			"Total",
-			"Quantity",
-			"null",
-			"shop_id",
-			"string",
-			"gotoCart"
+			"var"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -901,24 +922,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.html",
+					"file": "bambu-jem/src/app/components/checkout/checkout.component.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5815,
+						"buffer_size": 10036,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4623,
-								4623
+								2854,
+								2854
 							]
 						],
 						"settings":
@@ -931,8 +952,8 @@
 								{
 									"1":
 									[
-										4083,
-										4088
+										7344,
+										7346
 									]
 								},
 								"icon":
@@ -947,8 +968,8 @@
 								{
 									"1":
 									[
-										933,
-										938
+										7344,
+										7346
 									]
 								},
 								"unmatched":
@@ -957,61 +978,61 @@
 							},
 							"bracket_highlighter.clone_regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content"
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
 							],
 							"bracket_highlighter.locations":
 							{
@@ -1019,8 +1040,8 @@
 								{
 									"1":
 									[
-										4628,
-										4629
+										2853,
+										2854
 									]
 								},
 								"icon":
@@ -1035,8 +1056,8 @@
 								{
 									"1":
 									[
-										4581,
-										4582
+										2830,
+										2831
 									]
 								},
 								"unmatched":
@@ -1045,309 +1066,92 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content"
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
 							],
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true,
 							"typescript_plugin_format_options":
 							{
-								"convertTabsToSpaces": true,
+								"convertTabsToSpaces": false,
 								"indentSize": 4,
 								"tabSize": 4
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 1692.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8326,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7870,
-								7870
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone": -1,
-							"bracket_highlighter.clone_locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										7869,
-										7870
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"region.yellowish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										7868,
-										7869
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.clone_regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										7869,
-										7870
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"region.yellowish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										7868,
-										7869
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"typescript_plugin_format_options":
-							{
-								"convertTabsToSpaces": true,
-								"indentSize": 2,
-								"tabSize": 2
-							},
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4228.0,
+						"translation.y": 540.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.css",
+					"buffer": 1,
+					"file": "bambu-jem/src/app/components/checkout/checkout.component.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12311,
+						"buffer_size": 5182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12196,
-								12196
+								2471,
+								2449
 							]
 						],
 						"settings":
@@ -1358,83 +1162,10 @@
 							{
 								"close":
 								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.clone_regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
 									"1":
 									[
-										12265,
-										12266
+										4939,
+										4940
 									]
 								},
 								"icon":
@@ -1449,8 +1180,96 @@
 								{
 									"1":
 									[
-										12195,
-										12196
+										4505,
+										4506
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										2474,
+										2475
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										2242,
+										2243
 									]
 								},
 								"unmatched":
@@ -1459,69 +1278,588 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content"
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
 							],
-							"syntax": "Packages/CSS/CSS.sublime-syntax"
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
+							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 10601.0,
+						"translation.y": 1204.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "bambu-jem/src/app/components/shopping-cart/shopping-cart.component.ts",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 9713,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1046,
+								1056
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+									"1":
+									[
+										898,
+										899
+									]
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 46.0,
+						"translation.y": 1582.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "bambu/app/Http/Controllers/PurchaseController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5897,
+								5897
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										5979,
+										5980
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										5620,
+										5621
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2659.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "bambu-jem/src/app/services/coupon.service.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1794,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1105,
+								1105
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										1106,
+										1107
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/single_quote.png",
+										"region.greenish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										1098,
+										1099
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

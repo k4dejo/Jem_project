@@ -45,9 +45,9 @@
                 <li>
                   <div class="shopping-card">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span>0</span>
+                    <span>{{purchaselenght}}</span>
                   </div>
-                  <a href="#">Carrito</a>
+                  <a (click)="gotoCart()">Carrito</a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li><a (click)="logout()" href="/Home/BJem"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
