@@ -22,7 +22,7 @@ import { AdminService } from '../../services/admin.service';
 
 export class MangArticleComponent implements OnInit {
   public product: Article;
-  public p: number = 1;
+  public p = 1;
   public searchProduct;
   public size: Size;
   public images: Image;

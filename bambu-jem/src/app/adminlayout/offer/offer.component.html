@@ -1,0 +1,53 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Promociones</h2>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <div class="search-product">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
+              placeholder=" &#61442; Buscar...">
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">Producto</th>
+              <th scope="col">Género</th>
+              <th scope="col">Depart</th>
+              <th scope="col">Público</th>
+              <th scope="col"></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let coupon of coupons">
+                <td>{{coupon.name}}</td>
+                <td>{{coupon.discount | number: '3.'}}</td>
+                <td>{{coupon.expiration}}</td>
+                <td>
+                  <div class="toggle-button-cover">
+                    <div class="button-cover">
+                      <div class="button r" id="button-1">
+                        <input type="checkbox" name="status" #status="ngModel" (change)="editStatus(coupon)"
+                          [(ngModel)]="coupon.status" class="checkbox">
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <svg class="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                    <path class="trash-lid" fill-rule="evenodd"
+                      d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                    <path class="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                  </svg>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

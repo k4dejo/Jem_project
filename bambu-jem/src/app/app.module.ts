@@ -6,15 +6,13 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
-import { NgxPopper } from 'angular-popper';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgPaymentCardModule } from 'ng-payment-card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -43,6 +41,7 @@ import { ContactusComponent } from './components/contactus/contactus.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CouponComponent } from './adminlayout/coupon/coupon.component';
+import { OfferComponent } from './adminlayout/offer/offer.component';
 
 
 
@@ -77,18 +76,17 @@ import { CouponComponent } from './adminlayout/coupon/coupon.component';
     ContactusComponent,
     ShoppingCartComponent,
     CheckoutComponent,
-    CouponComponent
+    CouponComponent,
+    OfferComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgxPopper,
+    NgbModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    NgPaymentCardModule,
-    NgbModule,
     NgxFileDropModule,
     NgxDropzoneModule,
     DropzoneModule,

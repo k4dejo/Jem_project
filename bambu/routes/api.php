@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /*Route::group(['middleware' => 'cors'], function(){
-    //aqui van todas las rutas que necesitan CORS 
+    //aqui van todas las rutas que necesitan CORS
 });*/
 	Route::post('register','clientController@register');
 	Route::post('login','clientController@login');
@@ -51,4 +51,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('detachRelation', 'sizeController@detachRelation');
 	Route::post('getCouponClient','couponController@getCouponName');
 	Route::resource('articles','ArticleController');
-	Route::resource('coupon', 'couponController');
+    Route::resource('coupon', 'couponController');
+    Route::resource('offer', 'offerController');

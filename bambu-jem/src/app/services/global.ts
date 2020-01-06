@@ -1,3 +1,3 @@
 export let GLOBAL = {
-    url: 'http://bambu-jem.com.devel/api/'
+    url: 'http://bambuJem.com.devel/api/'
 };

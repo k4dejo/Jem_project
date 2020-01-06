@@ -36,6 +36,11 @@ class article extends Model
     	return $this->hasMany('app/image');
     }
 
+    public function offers()
+    {
+    	return $this->hasMany('app/offer');
+    }
+
     public function sizes()
     {
         return $this->belongsToMany('App\size','article_size')->withPivot('stock');

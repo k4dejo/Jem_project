@@ -54,7 +54,7 @@ export class ShoppingCartComponent implements OnInit {
     private purchaseService: PurchaseService,
     private couponService: CouponService,
     private clientService: UserServices,
-    private router: Router ) { 
+    private router: Router ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.dettachPurchaseP = new DettachPurchase('', '');
@@ -93,7 +93,7 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
-  calculateWeight(){ 
+  calculateWeight(){
     this.totalWeight = 0;
     for (var index = 0; index < this.productPurchase.length; ++index) {
       this.totalWeight += Number(this.testProduct[index].weight) * this.testProduct[index].pivot.amount;
@@ -144,7 +144,7 @@ export class ShoppingCartComponent implements OnInit {
     this.totalAmount += 1;
     if (this.totalAmount >= 6) {
       this.productCount = true;
-    } else {    
+    } else {
       if (idProduct.pivot.amount >= 6) {
         this.productCount = true;
       }
@@ -159,7 +159,7 @@ export class ShoppingCartComponent implements OnInit {
     }
     if (this.totalAmount >= 6) {
       this.productCount = true;
-    } else {    
+    } else {
       if (idProduct.pivot.amount < 6) {
         this.productCount = false;
       }
@@ -169,7 +169,7 @@ export class ShoppingCartComponent implements OnInit {
 
   shippingCalculate(weight: any, rate: any, additional: any) {
     this.shipping = 0;
-    if (this.productCount != false) {  
+    if (this.productCount != false) {
       if (weight <= 1 && weight > 0) {
         this.shipping += rate;
       }
@@ -187,43 +187,43 @@ export class ShoppingCartComponent implements OnInit {
     switch (province) {
       case "San José":
         if (district === 'central') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);  
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
       case "Alajuela":
         if (district === 'central') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);  
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
       case "Guanacaste":
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd); 
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
       case "Heredia":
         if (district === 'central') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);  
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
       case "Puntarenas":
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);  
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
       case "Limón":
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);  
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
       case "Cartago":
         if (district === 'central') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);  
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
       default:
-        'fuera de rango de zona'  
+        'fuera de rango de zona'
       break;
     }
   }
@@ -255,7 +255,7 @@ export class ShoppingCartComponent implements OnInit {
         this.couponActive = response.coupon;
         console.log(response.coupon, 'today: ', this.date);
         if (this.couponActive.expiration > this.date) {
-          if (response.status === 'success' && response.coupon.status == true) {
+          if (response.status === 'success' && response.coupon.status === true) {
             this.couponView = true;
             this.checkoutPurchase.coupon_id = this.couponActive.id;
             this.checkoutPurchase.price -= this.couponActive.discount;
