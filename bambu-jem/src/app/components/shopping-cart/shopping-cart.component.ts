@@ -17,8 +17,8 @@ import { DettachPurchase } from '../../models/dettachPurchase';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-	public shop_id = '';
-	public shop_bool = true;
+  public shop_id = '';
+  public shop_bool = true;
   public productCount = false;
   public booleanCoupon = false;
   public totalAmount = 0;
@@ -36,7 +36,7 @@ export class ShoppingCartComponent implements OnInit {
   public dettachPurchaseP: DettachPurchase;
   public checkoutPurchase: Purchase;
   public purchasePrice: number;
-	public IdProduct;
+  public IdProduct;
   public token;
   public identity;
   public couponClient;
@@ -58,7 +58,7 @@ export class ShoppingCartComponent implements OnInit {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.dettachPurchaseP = new DettachPurchase('', '');
-    this.checkoutPurchase = new Purchase('','', 0, 0, 0, '');
+    this.checkoutPurchase = new Purchase('', '', 0, 0, 0, '');
   }
 
   getPurchases() {
@@ -93,9 +93,9 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
-  calculateWeight(){
+  calculateWeight() {
     this.totalWeight = 0;
-    for (var index = 0; index < this.productPurchase.length; ++index) {
+    for (let index = 0; index < this.productPurchase.length; ++index) {
       this.totalWeight += Number(this.testProduct[index].weight) * this.testProduct[index].pivot.amount;
     }
     this.viewAddress(this.splite[0] , this.splite[1]);
@@ -105,22 +105,22 @@ export class ShoppingCartComponent implements OnInit {
     // sumatoria de los precios
     this.calculateWeight();
     this.totalPrice = 0;
-    if (countBool != true) {
-      for (var index = 0; index < this.productPurchase.length; ++index) {
+    if (countBool !== true) {
+      for (let index = 0; index < this.productPurchase.length; ++index) {
         this.totalPrice += this.testProduct[index].pricePublic * this.testProduct[index].pivot.amount;
       }
     } else {
-      for (var index = 0; index < this.productPurchase.length; ++index) {
+      for (let index = 0; index < this.productPurchase.length; ++index) {
         this.totalPrice += this.testProduct[index].priceMajor * this.testProduct[index].pivot.amount;
       }
     }
-    if (this.couponView == true) {
+    if (this.couponView === true) {
       console.log(this.couponActive);
     }
     this.checkoutPurchase.price = this.totalPrice;
   }
 
-  deleteProductBtn(idProduct: any){
+  deleteProductBtn(idProduct: any) {
     this.dettachPurchaseP.idProduct = idProduct.id;
     this.purchaseService.dettachProductPurchase(this.dettachPurchaseP).subscribe(
       response => {
@@ -140,7 +140,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   incQty(idProduct: any) {
-    idProduct.pivot.amount +=1;
+    idProduct.pivot.amount += 1;
     this.totalAmount += 1;
     if (this.totalAmount >= 6) {
       this.productCount = true;
@@ -169,12 +169,12 @@ export class ShoppingCartComponent implements OnInit {
 
   shippingCalculate(weight: any, rate: any, additional: any) {
     this.shipping = 0;
-    if (this.productCount != false) {
+    if (this.productCount !== false) {
       if (weight <= 1 && weight > 0) {
         this.shipping += rate;
       }
       if (weight > 1) {
-        const weightAdditional = weight -1;
+        const weightAdditional = weight - 1;
         this.shipping += rate + (weightAdditional * additional);
       }
     } else {
@@ -185,37 +185,37 @@ export class ShoppingCartComponent implements OnInit {
 
   viewAddress(province: any, district: any) {
     switch (province) {
-      case "San José":
+      case 'San José':
         if (district === 'central') {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
-      case "Alajuela":
+      case 'Alajuela':
         if (district === 'central') {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
-      case "Guanacaste":
+      case 'Guanacaste':
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
-      case "Heredia":
+      case 'Heredia':
         if (district === 'central') {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
-      case "Puntarenas":
+      case 'Puntarenas':
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
-      case "Limón":
+      case 'Limón':
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
-      case "Cartago":
+      case 'Cartago':
         if (district === 'central') {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
@@ -223,7 +223,8 @@ export class ShoppingCartComponent implements OnInit {
         }
       break;
       default:
-        'fuera de rango de zona'
+        // tslint:disable-next-line:no-unused-expression
+        'fuera de rango de zona';
       break;
     }
   }
@@ -240,7 +241,7 @@ export class ShoppingCartComponent implements OnInit {
     this.checkoutPurchase.shipping = this.shipping;
     this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
       response => {
-        if (response.status == 'success') {
+        if (response.status === 'success') {
           this.router.navigate(['checkout/', this.checkoutPurchase.id]);
         }
       }, error => {
@@ -275,9 +276,9 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
      this.day = this.currentDate.getDate();
     if (this.currentDate.getDate() < 10) {
-      this.day = '0' + this.currentDate.getDate().toString()
+      this.day = '0' + this.currentDate.getDate().toString();
     }
-    if (this.currentDate.getMonth() == 0) {
+    if (this.currentDate.getMonth() === 0) {
       this.month = this.currentDate.getMonth().toString() + '1';
     } else {
       this.month = this.currentDate.getMonth() + 1;

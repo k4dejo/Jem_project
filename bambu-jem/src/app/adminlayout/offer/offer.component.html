@@ -20,32 +20,76 @@
               <th scope="col"></th>
             </thead>
             <tbody>
-              <tr *ngFor="let coupon of coupons">
-                <td>{{coupon.name}}</td>
-                <td>{{coupon.discount | number: '3.'}}</td>
-                <td>{{coupon.expiration}}</td>
-                <td>
-                  <div class="toggle-button-cover">
-                    <div class="button-cover">
-                      <div class="button r" id="button-1">
-                        <input type="checkbox" name="status" #status="ngModel" (change)="editStatus(coupon)"
-                          [(ngModel)]="coupon.status" class="checkbox">
-                        <div class="knobs"></div>
-                        <div class="layer"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <svg class="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
-                    <path class="trash-lid" fill-rule="evenodd"
-                      d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
-                    <path class="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
-                  </svg>
-                </td>
+              <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 5, currentPage: p}">
+                <td>{{product.name}}</td>
+                <td>{{product.gender}}</td>
+                <td>{{product.department}}</td>
+                <td>₡ {{product.pricePublic | number: '3.'}}</td>
+                <td><input type="button" class="btn btn--blue btn--pill" value="Agregar Promo" (click)="getProductPromo(product.id)"></td>
               </tr>
             </tbody>
+            <pagination-controls class="my-pagination" (pageChange)="p = $event">
+            </pagination-controls>
           </table>
+          <div class="formgroup">
+            <form class="form-group" action="">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="input-goup-desc">
+                    <label for="">Titulo de la promoción</label>
+                    <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="offer.name"
+                      type="text" required>
+                  </div>
+                  <div class="input-goup-desc">
+                    <label for="">Producto</label>
+                    <input class="input--style-5" type="text" name="productOffer" productOffer="ngModel" [(ngModel)]="offer.articleName"
+                      type="text" style="color: rgb(141, 141, 141);" disabled>
+                  </div>
+                  <div class="input-goup-desc">
+                    <label for="">Valor de la Promo</label>
+                    <input class="input--style-5" type="text" name="offer" offer="ngModel" [(ngModel)]="offer.offer"
+                      type="text" placeholder="₡ 0.00" required>
+                  </div>
+                </div>
+                <div *ngIf="!editPromoBool" class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="input-goup-desc">
+                    <button type="button" (click)="savePromo()" class="btn btn--green btn--pill" >Guardar</button>
+                  </div>
+                </div>
+                <div *ngIf="editPromoBool" class="col-lg-6 col-md-6 col-xs-12">
+                  <div class="input-goup-desc">
+                    <button type="button" (click)="editPromo()" class="btn btn--blue btn--pill" >Editar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tablePromo">
+            <table class="table table-striped">
+              <thead>
+                <th scope="col">Promo</th>
+                <th scope="col">Producto</th>
+                <th scope="col">valor</th>
+                <th scope="col"></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let promo of offerList | paginate: { itemsPerPage: 5, currentPage: pp}">
+                  <td><a (click)="sendEditPromo(promo)">{{promo.name}}</a></td>
+                  <td>{{promo.articleName}}</td>
+                  <td>₡ {{promo.offer | number: '3.'}}</td>
+                  <td>
+                    <svg (click)="deleteOffer(promo.id)" class="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
+                      <path class="trash-lid" fill-rule="evenodd"
+                        d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />
+                      <path class="trash-can" d="M8 17h2v9h8v-9h2v9a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
+                    </svg>
+                  </td>
+                </tr>
+              </tbody>
+              <pagination-controls class="my-pagination" (pageChange)="pp = $event">
+              </pagination-controls>
+            </table>
+          </div>
         </div>
       </div>
     </div>

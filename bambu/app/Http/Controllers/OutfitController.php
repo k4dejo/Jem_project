@@ -42,16 +42,24 @@ class OutfitController extends Controller
             $paramsArray = json_decode($json,true);
 
             //validacion
-            $validate = Validator::make($paramsArray, ['name'   => 'required']);
+            $validate = Validator::make($paramsArray, [
+                'name'   => 'required',
+                'photo'  => 'required'
+            ]);
 
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
             }
 
+            $img =  $params->file;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $imgName = time() . $params->photo;
+            Storage::disk('local')->put($imgName, base64_decode($img));
             // guardar los datos
             $outfits = new outfit();
-            $outfits->name = $params->name;
-
+            $outfits->name  = $params->name;
+            $outfits->photo = $imgName;
             $outfits->save();
 
             $data = array(
@@ -59,8 +67,7 @@ class OutfitController extends Controller
                 'status'  => 'success',
                 'code'    => 200,
             );
-        }else
-        {
+        } else {
 			//Error
             $data = array(
                 'message' => 'login incorrecto',
@@ -71,12 +78,12 @@ class OutfitController extends Controller
         return response()->json($data, 200);
     }
 
-    public function Attachsize(Request $request)
+    public function AttachOutfits(Request $request)
     {
-    	// recoger datos del POST
-        	$json =  $request->input('json', null);
-            $params = json_decode($json);
-            $paramsArray = json_decode($json,true);
+        // recoger datos del POST
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
 
     	//Hacer la relación de articulos a outfits
 		$article = article::findOrFail($params->article_id);
@@ -86,6 +93,20 @@ class OutfitController extends Controller
             'article' => $article,
             'status'  => 'success',
             'code'    => 200,
+        );
+        return response()->json($data, 200);
+    }
+
+    public function detachOutfits() {
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+        $article = article::findOrFail($params->article_id);
+        $article->outfits()->detach($params->outfit_id);
+        $data = array(
+            'article' => $article,
+            'status'  => 'Delete success',
+            'code'    => 200
         );
         return response()->json($data, 200);
     }

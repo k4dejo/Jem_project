@@ -30,44 +30,43 @@ export class CouponComponent implements OnInit {
     this.coupon = new Coupon('', '', '', false, 0);
   }
 
-  saveCoupon(form){
-  	this.coupon.expiration = this.model.year + '-' + this.model.month + '-' + this.model.day;
-  	if (this.identity.priority === 1) {
-  		this.coupon.adminId = this.identity.priority;
-  		this.couponService.add(this.token, this.coupon).subscribe(
-  			response => {
-  				if (response.status =='success') {
-  					this.getCoupon();
-  				}
-  			}, error => {
-  				console.log(<any> error);
-  			}
-		);
-  	} else {
-  		console.log('acceso no autorizando');
-  		this.router.navigate(['LoginAdmin']);
-  	}
+  saveCoupon(form) {
+    this.coupon.expiration = this.model.year + '-' + this.model.month + '-' + this.model.day;
+    if (this.identity.priority === 1) {
+      this.coupon.adminId = this.identity.priority;
+      this.couponService.add(this.token, this.coupon).subscribe(
+        response => {
+          if (response.status === 'success') {
+            this.getCoupon();
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+    } else {
+      console.log('acceso no autorizando');
+      this.router.navigate(['LoginAdmin']);
+    }
   }
 
   getCoupon() {
-  	this.couponService.getCoupon().subscribe(
-  		response => {
-  			this.coupons = response.coupon;
-  			console.log(this.coupons);
-  		}, error => {
-  			console.log(<any> error);
-  		}
-	);
+    this.couponService.getCoupon().subscribe(
+      response => {
+        this.coupons = response.coupon;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   editStatus(object: any) {
-  	this.couponService.editCoupon(this.token, object.id, object).subscribe(
-  		response => {
-  			console.log(response);
-  		}, error => {
-  			console.log(<any> error);
-  		}
-	);
+    this.couponService.editCoupon(this.token, object.id, object).subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   ngOnInit() {

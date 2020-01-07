@@ -12,6 +12,6 @@ class outfit extends Model
     //relations
     public function articles()
     {
-    	return $this->belongsToMany(article::class);
+    	return $this->belongsToMany('App\article','article_outfit');
     }
 }

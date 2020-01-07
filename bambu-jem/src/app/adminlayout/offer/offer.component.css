@@ -264,7 +264,9 @@ input {
 
 .btn--blue {
   background: #4272d7;
+  color: #f5f6fa;
 }
+
 
 .btn--blue:hover {
   background: #3868cd;
@@ -276,6 +278,10 @@ input {
 
 .btn--red:hover {
   background: #eb3746;
+}
+
+.input-goup-desc button {
+  margin-top: 45%;
 }
 
 /* ==========================================================================
@@ -311,8 +317,19 @@ th  {
 }
 
 .my-pagination /deep/ .ngx-pagination .current {
-  background: #232323;
+  background: #494949;
   color:#ffff;
+}
+
+td a {
+  color: #161a3b;
+  font-weight: 600;
+  transition: .3;
+}
+
+td a:hover {
+  color: #181d50;
+  cursor: pointer;
 }
 
 /*==========================================================================
@@ -332,8 +349,8 @@ th  {
 
 /*--------------TRASH_ICON-------------*/
 .icon-trash {
-  width: 65px;
-  height: 65px;
+  width: 50px;
+  height: 50px;
   fill: #232323;
 }
 

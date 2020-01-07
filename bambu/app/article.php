@@ -28,7 +28,7 @@ class article extends Model
 
     public function outfits()
     {
-        return $this->belongsToMany(outfit::class);
+        return $this->belongsToMany('App\outfit','article_outfit');
     }
 
     public function image()
