@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
 use App\Helpers\jwtAuthAdmin;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\outfit;
 use App\article;
 
@@ -15,6 +17,22 @@ class OutfitController extends Controller
     {
        //listado de los outfits
         $outfits = outfit::all();
+        $outfitCount = count($outfits);
+        if ($outfitCount <= 0) {
+            return response()->json(array(
+                'outfits' => $outfits,
+                'status'   => 'void'
+            ), 200);
+        }
+        if ($outfitCount > 1) {
+            for ($i=0; $i < $outfitCount ; $i++) {
+                $contents = Storage::get($outfits[$i]->photo);
+                $outfits[$i]->photo = base64_encode($contents);
+            }
+        }else{
+            $contents = Storage::get($outfits[0]->photo);
+            $outfits[0]->photo = base64_encode($contents);
+        }
         return response()->json(array(
             'outfits' => $outfits,
             'status'  => 'success'

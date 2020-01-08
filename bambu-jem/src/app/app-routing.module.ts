@@ -18,9 +18,10 @@ import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.comp
 import { EditProductComponent } from './adminlayout/edit-product/edit-product.component';
 import { ContactusComponent } from '././components/contactus/contactus.component';
 import { ShoppingCartComponent } from '././components/shopping-cart/shopping-cart.component';
-import { CouponComponent } from  './adminlayout/coupon/coupon.component';
+import { CouponComponent } from './adminlayout/coupon/coupon.component';
 import { CheckoutComponent } from '././components/checkout/checkout.component';
 import { OfferComponent } from './adminlayout/offer/offer.component';
+import { OutfitComponent } from './adminlayout/outfit/outfit.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'admin/articulo', component: MangArticleComponent},
   { path: 'admin/coupon' , component: CouponComponent},
   { path: 'admin/ofertas', component: OfferComponent},
+  { path: 'admin/outfits', component: OutfitComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},
 ];

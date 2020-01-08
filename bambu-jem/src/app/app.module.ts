@@ -42,6 +42,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CouponComponent } from './adminlayout/coupon/coupon.component';
 import { OfferComponent } from './adminlayout/offer/offer.component';
+import { OutfitComponent } from './adminlayout/outfit/outfit.component';
 
 
 
@@ -67,6 +68,7 @@ import { OfferComponent } from './adminlayout/offer/offer.component';
     ArticleDetailComponent,
     NavbarJComponent,
     AdminlayoutComponent,
+    OutfitComponent,
     NavbaradminComponent,
     DashboardComponent,
     MangArticleComponent,

@@ -1,3 +1,106 @@
-<p>
-  outfit works!
-</p>
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Outfits</h2>
+      </div>
+      <div class="card-body">
+        <div *ngIf="attachProductBool" class="table-responsive">
+          <div class="search-product">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
+              placeholder=" &#61442; Buscar...">
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <th></th>
+              <th scope="col">Producto</th>
+              <th scope="col">Género</th>
+              <th scope="col">Depart</th>
+              <th scope="col"></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 5, currentPage: p}">
+                <td><img class="img-responsive" [src]="product.photo" alt=""></td>
+                <td>{{product.name}}</td>
+                <td>{{product.gender}}</td>
+                <td>{{product.department}}</td>
+                <td>₡ {{product.pricePublic | number: '3.'}}</td>
+                <td><input (click)="attachProductOutfit(product)" type="button" class="btn btn--blue btn--pill" value="Agregar al outfit"></td>
+              </tr>
+            </tbody>
+            <pagination-controls class="my-pagination" (pageChange)="p = $event">
+            </pagination-controls>
+          </table>
+        </div>
+        <div class="formgroup">
+          <form class="form-group" action="">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-xs-12 colPhoto">
+                <img class="img-responsive" [src]="fileBlob" alt="">
+                <label class="btnLabel btn btn--green">
+                  <i class="fas fa-file-upload"></i> Subir imagen
+                  <input class="inputFile" name="photo" type="file" id="img" accept="image/*" (change)="onUpload($event)">
+                </label>
+              </div>
+              <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="input-goup-desc">
+                  <label for="">Titulo o descripción del outfit</label>
+                  <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="outfit.name"
+                  type="text" required>
+                </div><br>
+                <div *ngIf="attachProductBool" class="input-goup-desc">
+                  <table class="table table-striped">
+                    <thead>
+                      <th></th>
+                      <th>producto</th>
+                    </thead>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="input-goup-desc">
+                  <input *ngIf="!attachProductBool" (click)="saveOutfit()" type="button" class="btn btn--green btn--pill" value="Guardar">
+                </div>
+                <div class="input-goup-desc">
+                  <input *ngIf="attachProductBool" (click)="saveAttachOutfit()" type="button"
+                  class="btn btn--green btn--pill" value="Salvar">
+                </div>
+                <div class="input-goup-desc">
+                  <input *ngIf="attachProductBool" (click)="resetForm()" type="button"
+                  class="btn btn--blue btn--pill" value="Nuevo Outfit">
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="search-product">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchOutfit" autocomplete="off"
+              placeholder=" &#61442; Buscar...">
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <th></th>
+                <th scope="col">Outfit</th>
+                <th scope="col"></th>
+              </thead>
+              <tr *ngFor="let outfit of outfitsView | filter: searchOutfit">
+                <td>
+                  <img class="img-responsive" [src]="outfit.photo" alt="">
+                </td>
+                <td>
+                  {{outfit.name}}
+                </td>
+                <td><input type="button" (click)="attachOutfitProduct(outfit)"
+                class="btn btn--blue btn--pill" value="Añadir prenda"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,5 +4,5 @@ export class Offer {
     public offer: number,
     public articleId: number,
     public articleName: string
-  ){}
+  ) {}
 }

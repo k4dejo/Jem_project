@@ -24,8 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('login','clientController@login');
 	Route::post('loginAdmin','adminController@login');
 	Route::post('authAdmin','adminController@AuthAdmin');
-	Route::post('outfits/CrearOutfit','OutfitController@store');
-	Route::post('outfits/AñadirOutfit','OutfitController@AttachOutfit');
+	Route::post('createOutfit','OutfitController@store');
+	Route::post('attachOutfit','OutfitController@AttachOutfit');
 	Route::post('size/CrearTalla','sizeController@store');
 	Route::post('size/addTalla','sizeController@Attachsize');
 	Route::post('contactFrm','contactController@sendEmail');
@@ -35,7 +35,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('Addpurchase', 'PurchaseController@store');
 	Route::post('editPurchase', 'PurchaseController@edit');
 	Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
-	Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
+    Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
+    Route::post('attachOutfitProduct', 'OutfitController@AttachOutfits');
 	Route::get('getShowProductP/{idClient}/{idProduct}',
 	'PurchaseController@showSingleProductPurchase');
 	Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
@@ -44,7 +45,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
 	Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
 	Route::get('getTalla/{id}','sizeController@showSizeP');
-	Route::get('getTallaEdit/{id}','sizeController@showEditP');
+    Route::get('getTallaEdit/{id}','sizeController@showEditP');
+    Route::get('getOutfitsList', 'OutfitController@index');
 	Route::delete('deleteTalla/{id}','sizeController@detachSize');
 	Route::delete('deleteImg/{id}','imageController@destroy');
 	Route::delete('deleteArrayImg/{id}', 'imageController@deleteImg');
