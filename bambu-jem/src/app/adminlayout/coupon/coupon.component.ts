@@ -69,6 +69,18 @@ export class CouponComponent implements OnInit {
     );
   }
 
+  deleteCoupon(idCoupon) {
+    this.couponService.deleteCoupon(idCoupon).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.getCoupon();
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);

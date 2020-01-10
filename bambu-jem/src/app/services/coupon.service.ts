@@ -47,4 +47,9 @@ export class CouponService {
     .set('Authorization', token);
     return this._http.put(this.url + 'coupon/' + id, params, { headers: headers });
   }
+
+  deleteCoupon(id): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.delete(this.url + 'coupon/' + id, { headers: headers });
+  }
 }

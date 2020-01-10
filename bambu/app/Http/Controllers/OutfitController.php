@@ -96,6 +96,68 @@ class OutfitController extends Controller
         return response()->json($data, 200);
     }
 
+    public function editOutfit($id, Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+            //validacion
+            $validate = Validator::make($paramsArray, [
+                'name'   => 'required',
+                'photo'        => 'required',
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            $imgDB = outfit::where('id', $id)->first();
+            $lengthImg = strlen($params->photo);
+            if ($lengthImg <= 100) {
+                $img =  $params->file;
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                $imgName = time() . $params->photo;
+                $paramsArray['photo'] = $imgName;
+                unset($paramsArray['id']);
+                unset($paramsArray['created_at']);
+                unset($paramsArray['file']);
+                Storage::delete($imgDB->photo);
+                Storage::disk('local')->put($imgName, base64_decode($img));
+                $outfit = outfit::where('id', $id)->update($paramsArray);
+            }else {
+                $route = public_path().'\catalogo'.'\/';
+                $imgRoute = str_replace('/', '', $route);
+                $imgRoute = $imgRoute . $paramsArray['photo'];
+                Storage::delete($imgDB->photo);
+                $paramsArray['photo'] = time() .'.jpg';
+                $img = $paramsArray['file'];
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                unset($paramsArray['id']);
+                unset($paramsArray['created_at']);
+                unset($paramsArray['file']);
+                Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                $outfit = outfit::where('id', $id)->update($paramsArray);
+            }
+            $data = array(
+                'outfit' => $outfit,
+                'status'  => 'success',
+                'code'    => 200
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
+
+    }
+
     public function AttachOutfits(Request $request)
     {
         // recoger datos del POST
@@ -115,7 +177,18 @@ class OutfitController extends Controller
         return response()->json($data, 200);
     }
 
-    public function detachOutfits() {
+    public function showOutfitList($id) {
+        $outfit = outfit::findOrfail($id);
+        $arrayOutfit = outfit::find($id)->articles()->get();
+        $data = array(
+            'outfit'       => $arrayOutfit,
+            'status'       => 'success',
+            'code'    => 200,
+        );
+        return response()->json($data,200);
+    }
+
+    public function detachOutfits(Request $request) {
         $json =  $request->input('json', null);
         $params = json_decode($json);
         $paramsArray = json_decode($json,true);
@@ -123,6 +196,24 @@ class OutfitController extends Controller
         $article->outfits()->detach($params->outfit_id);
         $data = array(
             'article' => $article,
+            'status'  => 'Delete success',
+            'code'    => 200
+        );
+        return response()->json($data, 200);
+    }
+
+    public function deleteOutfit($id){
+        //delete the relationships with first.
+        $outfit = outfit::findOrFail($id);
+        $outfit->articles()->detach();
+        //delete img
+        $route = public_path().'\catalogo'.'\/';
+        $imgRoute = str_replace('/', '', $route);
+        $imgRoute = $imgRoute . $outfit->photo;
+        Storage::delete($outfit->photo);
+        $outfit->delete();
+        $data = array(
+            'outfit' => $outfit,
             'status'  => 'Delete success',
             'code'    => 200
         );

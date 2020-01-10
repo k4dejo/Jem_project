@@ -36,7 +36,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('editPurchase', 'PurchaseController@edit');
 	Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
     Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
+    Route::post('deleteArrayImg/{id}', 'imageController@deleteImg');
+    Route::post('deleteOutfitDetach', 'OutfitController@detachOutfits');
     Route::post('attachOutfitProduct', 'OutfitController@AttachOutfits');
+    Route::put('editOutfit/{id}', 'OutfitController@editOutfit');
 	Route::get('getShowProductP/{idClient}/{idProduct}',
 	'PurchaseController@showSingleProductPurchase');
 	Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
@@ -47,9 +50,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::get('getTalla/{id}','sizeController@showSizeP');
     Route::get('getTallaEdit/{id}','sizeController@showEditP');
     Route::get('getOutfitsList', 'OutfitController@index');
+    Route::get('getOutfitAttach/{id}', 'OutfitController@showOutfitList');
 	Route::delete('deleteTalla/{id}','sizeController@detachSize');
-	Route::delete('deleteImg/{id}','imageController@destroy');
-	Route::delete('deleteArrayImg/{id}', 'imageController@deleteImg');
+    Route::delete('deleteImg/{id}','imageController@destroy');
+    Route::delete('deleteOutfit/{id}', 'OutfitController@deleteOutfit');
 	Route::post('detachRelation', 'sizeController@detachRelation');
 	Route::post('getCouponClient','couponController@getCouponName');
 	Route::resource('articles','ArticleController');

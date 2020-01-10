@@ -20,6 +20,7 @@ export class OutfitComponent implements OnInit {
   public outfit: Outfit;
   public outfitsView: Array<Outfit>;
   public attachOutfit: AttachOutfitProduct;
+  public detachOutfit: AttachOutfitProduct;
   public attachProductBool = false;
   public token;
   public identity;
@@ -56,6 +57,7 @@ export class OutfitComponent implements OnInit {
   public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
   public statusBool: boolean;
   public department: any[];
+  public productOutfit;
 
   constructor(
     private router: Router,
@@ -67,6 +69,7 @@ export class OutfitComponent implements OnInit {
     this.identity = this.adminService.getIdentity();
     this.outfit = new Outfit('', '', null);
     this.attachOutfit = new AttachOutfitProduct(0, 0);
+    this.detachOutfit = new AttachOutfitProduct(0, 0);
   }
 
   getFileBlob(file) {
@@ -199,14 +202,23 @@ export class OutfitComponent implements OnInit {
   }
 
   attachOutfitProduct(outfit) {
-    console.log(outfit);
     this.attachProductBool = true;
     this.fileBlob = outfit.photo;
     this.outfit.name = outfit.name;
     this.idOutfitAttach = outfit.id;
+    this.getOutfitListAttach(outfit.id);
   }
 
   saveAttachOutfit() {
+    this.outfit.file = this.fileBlob;
+    this.outfit.photo = this.outfit.name + 'photo';
+    this.outfitService.editOutfit(this.token, this.outfit, this.idOutfitAttach).subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any>error);
+      }
+    );
   }
 
   resetForm() {
@@ -218,7 +230,49 @@ export class OutfitComponent implements OnInit {
   attachProductOutfit(product: any) {
     this.attachOutfit.article_id = product.id;
     this.attachOutfit.outfit_id = this.idOutfitAttach;
-    console.log(this.attachOutfit);
+    this.outfitService.attachOutfitProduct(this.attachOutfit).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.getOutfitListAttach(this.attachOutfit.outfit_id);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  getOutfitListAttach(idOutfit: any) {
+    this.outfitService.getOutfitAttach(idOutfit).subscribe(
+      response => {
+        this.productOutfit = response.outfit;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  detachOutfitProduct(productId: any) {
+    this.detachOutfit.article_id = productId;
+    this.detachOutfit.outfit_id = this.idOutfitAttach;
+    this.outfitService.detachOutfitProduct(this.detachOutfit).subscribe(
+      response => {
+        console.log(response);
+        this.getOutfitListAttach(this.detachOutfit.outfit_id);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  deleteOutfit(dataOutfit: any) {
+    console.log(dataOutfit);
+    this.outfitService.deleteOutfit(dataOutfit.id).subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   ngOnInit() {
