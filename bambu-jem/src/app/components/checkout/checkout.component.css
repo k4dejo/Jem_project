@@ -2,9 +2,10 @@
 @import url('https://fonts.googleapis.com/css?family=Girassol&display=swap');
 
 .main{
-  margin-top: 9%;
+  margin-top: 8%;
   font-family: 'Open sans', sans-serif;
-  background: linear-gradient(50deg, #f3c680, hsla(179,54%,76%,1));
+  /*background: linear-gradient(50deg, #f3c680, hsla(179,54%,76%,1));*/
+  background: url('/assets/Images/checkoutBack.jpg');
 }
 
 
@@ -60,13 +61,13 @@ Form
 
 .form .fieldset-expiration {
   float: left;
-  width: 60%;  
+  width: 60%;
 }
 
 .form .select {
   width: 200px;
   margin-right: 12px;
-  float: left;  
+  float: left;
 }
 
 .form .fieldset-ccv {
@@ -116,7 +117,7 @@ input, .select {
   z-index: 2;
   top: 14px;
   right: 10px;
-  pointer-events: none;    
+  pointer-events: none;
 }
 
 
@@ -179,7 +180,7 @@ Credit Card
   position: absolute;
   top: -112px;
   left: 50%;
-  transform: translateX(-50%);  
+  transform: translateX(-50%);
 }
 
 .credit-card-box:hover .flip{
@@ -196,7 +197,8 @@ Credit Card
   height: 250px;
   border-radius: 15px;
   backface-visibility: hidden;
-  background: linear-gradient(135deg, #bd6772, #53223f);
+  /*background: linear-gradient(135deg, #bd6772, #53223f);*/
+  background: linear-gradient(135deg, #7072dd, #3e4a8b);
   position: absolute;
   color: #fff;
   font-family: Inconsolata;
@@ -223,7 +225,7 @@ Credit Card
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0; 
+  top: 0;
   left: 0;
   background: url('http://cdn.flaticon.com/svg/44/44386.svg') no-repeat center;
   background-size: cover;
@@ -254,7 +256,7 @@ Credit Card
 .front .logo img{
   position: absolute;
   bottom: 120px;
-  left: 0px; 
+  left: 0px;
 }
 
 .front .logo svg {
@@ -359,7 +361,7 @@ Credit Card
   color: #000;
   text-align: right;
   padding: 10px;
-  font-family: 'Indie Flower', cursive; 
+  font-family: 'Indie Flower', cursive;
   font-size: 16px;
 }
 
@@ -376,7 +378,7 @@ Credit Card
   width: 50vw;
   max-width: 200px;
   padding: 10px;
-  
+
 }
 
 .the-most img {
@@ -401,7 +403,7 @@ Credit Card
 
 .table-item td p{
   color: #A0A0A0;
-  font-family: "Poppins", sans-serif 
+  font-family: "Poppins", sans-serif
 }
 
 .subtotal-area .subtotal {
@@ -416,7 +418,7 @@ Credit Card
     margin-top: 52%;
   }
 
-  .credit-card-box{ 
+  .credit-card-box{
     width: 359px;
     top: -88px;
   }
@@ -431,6 +433,6 @@ Credit Card
   }
 
   .form .select {
-    width: 121px; 
+    width: 121px;
   }
-}  
+}

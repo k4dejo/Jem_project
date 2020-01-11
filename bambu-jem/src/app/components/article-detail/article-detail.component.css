@@ -31,12 +31,13 @@ h1 {
 	left: -1.2%;
 	padding-top: 6%;
 	width: 102.3%;
-	color: azure;
-	background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
+  color: azure;
+  background-image: url('/assets/Images/background.jpg');
+	/*background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
 	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
 	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);*/
 }
 
 .breadcrumbDiv{
@@ -307,7 +308,7 @@ section .container {
   border: 1px solid #eee;
   padding: 15px 30px 15px 15px;
   margin-bottom: 10%;
-  cursor: pointer; 
+  cursor: pointer;
   display: inline-block;
   text-align: center;
   box-shadow: 2.828px 2.828px 15px 0px rgba(0, 0, 0, 0.2);
@@ -329,7 +330,7 @@ section .container {
   border: 1px solid #eee;
   padding: 15px 30px 15px 15px;
   margin-bottom: 10%;
-  cursor: pointer; 
+  cursor: pointer;
   display: inline-block;
   text-align: center;
   box-shadow: 2.828px 2.828px 15px 0px rgba(0, 0, 0, 0.2);
@@ -350,7 +351,7 @@ section .container {
 	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
 	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);	
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	border: 1px solid transparent;
 	cursor: pointer;
 	color: #ffff;
@@ -485,7 +486,7 @@ section .container {
 
 
 /* Add Animation */
-.modal-content {  
+.modal-content {
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
   animation-name: zoom;
@@ -493,12 +494,12 @@ section .container {
 }
 
 @-webkit-keyframes zoom {
-  from {-webkit-transform:scale(0)} 
+  from {-webkit-transform:scale(0)}
   to {-webkit-transform:scale(1)}
 }
 
 @keyframes zoom {
-  from {transform:scale(0)} 
+  from {transform:scale(0)}
   to {transform:scale(1)}
 }
 

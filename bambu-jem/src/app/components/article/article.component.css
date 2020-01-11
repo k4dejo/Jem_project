@@ -1,7 +1,6 @@
 .main{
 	padding-top: 3%;
 }
-
 /*------- Start Bread Crumb --------*/
 .organic-bread {
 	margin-bottom: 100px;
@@ -31,11 +30,12 @@ h1 {
 	padding-top: 6%;
 	width: 102.3%;
 	color: azure;
-	background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
+	/*background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
 	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
 	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+  background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);*/
+  background-image: url('/assets/Images/background.jpg');
 }
 
 .breadcrumb-item{
@@ -92,7 +92,7 @@ span{
 }
 
 .modal-title{
-	
+
 	font-size: 20px;
 }
 
@@ -106,7 +106,7 @@ span{
 	position: relative;
 	top:  20%;
 	left: 20%;
-	
+
 	text-align: center;
 }
 
@@ -115,7 +115,7 @@ span{
 	text-align: center;
 }
 
-.txtb{ 
+.txtb{
 	display: block;
 	box-sizing: border-box;
 	width: 300px;
@@ -214,7 +214,7 @@ span{
 
 
 /* Add Animation */
-.modal-content {  
+.modal-content {
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
   animation-name: zoom;
@@ -222,12 +222,12 @@ span{
 }
 
 @-webkit-keyframes zoom {
-  from {-webkit-transform:scale(0)} 
+  from {-webkit-transform:scale(0)}
   to {-webkit-transform:scale(1)}
 }
 
 @keyframes zoom {
-  from {transform:scale(0)} 
+  from {transform:scale(0)}
   to {transform:scale(1)}
 }
 
@@ -528,9 +528,9 @@ span{
 	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
 	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);	
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	border: 1px solid transparent;
-	color: white;	
+	color: white;
 }
 
 .arrow:hover {
@@ -538,9 +538,9 @@ span{
 	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
 	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);	
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	border: 1px solid transparent;
-	color: white;	
+	color: white;
 }
 
 .active {
@@ -548,7 +548,7 @@ span{
 	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
 	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);	
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
 	border: 1px solid transparent;
 	color: white;
 }
@@ -658,7 +658,7 @@ span{
 	margin: auto;
 	overflow: hidden;
 }
-  
+
 .content .content-overlay {
 	background-color: black;
 	position: absolute;
@@ -722,7 +722,7 @@ span{
 	-moz-transition: all 0.4s ease-in-out 0s;
 	transition: all 0.4s ease-in-out 0s;
   }
-  
+
 .content-overlay{
 	margin: 10px;
 }

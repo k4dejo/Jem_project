@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
 body{
 	margin: 0;
 	padding: 0;
@@ -70,6 +72,79 @@ body{
 	display: inline-block;
 }
 
+  /* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+
+  .btn-secondary{
+    margin-top: 10%;
+  }
+
+  .btn--radius {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  .btn--radius-2 {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .btn--pill {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+  .btn--green {
+    background: #57b846;
+    color: white;
+  }
+
+  .btn--pink {
+    font-weight: bold;
+    background: transparent;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    color: rgb(71, 69, 69);
+  }
+
+  .btn--pink:hover {
+    background: #d68fff;
+    color: white;
+  }
+
+  .btn--green:hover {
+    background: #4dae3c;
+  }
+
+  .btn--blue {
+    background: #4272d7;
+    color: #f5f6fa;
+  }
+
+
+  .btn--blue:hover {
+    background: #3868cd;
+  }
+
+  .btn--red {
+    background: #ff4b5a;
+  }
+
+  .btn--red:hover {
+    background: #eb3746;
+  }
+
+  .input-goup-desc button {
+    margin-top: 45%;
+  }
+
+
 /*====================================================================
    #Outfit&promo
 =======================================================================*/
@@ -126,44 +201,6 @@ body{
   animation-fill-mode: both;
 }
 
-.btn {
-  display: inline-block;
-  font-weight: 400;
-  color: #212529;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
-  @media screen and (prefers-reduced-motion: reduce) {
-    .btn {
-      -webkit-transition: none;
-      -o-transition: none;
-      transition: none; } }
-  .btn:hover {
-    color: #212529;
-    text-decoration: none; }
-  .btn:focus, .btn.focus {
-    outline: 0;
-    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }
-  .btn.disabled, .btn:disabled {
-    opacity: 0.65; }
-.btn:not(:disabled):not(.disabled) {
-    cursor: pointer;
-}
 
 .pr-4,
 .px-4 {
@@ -175,18 +212,76 @@ body{
   padding-bottom: 1rem !important;
 }
 
+.mb-4 {
+  font-weight: 700;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.offersBanner {
+  background-image: url("/assets/Images/Image7.jpg");
+}
+
+.imgs{
+  background-image: url("/assets/Images/damas1.jpg");
+}
+
+.img-2 {
+  position: relative;
+  left: 149%;
+  bottom: 99px;
+  border: 10px solid white;
+}
+
+.text p {
+  font-family: 'Dosis', sans-serif;
+  color: #918e8e;
+  font-size: 26px;
+}
+
+.text-2 {
+  position: relative;
+  right: 62%;
+}
+
+.promo {
+  padding: 69px 530px 62px;
+  margin-bottom: 20px;
+  color: #918d8d;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.promo .btn {
+  font-size: 25px;
+  padding: 3px 19px;
+  margin-left: 50%;
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px; }
 }
 @media (min-width: 768px) {
   .container {
-    max-width: 720px; }
+    max-width: 720px;
+  }
 }
 
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px; }
+}
+
+@media (max-width: 767px) {
+  .img-2 {
+    position: initial;
+  }
+  .text-2 {
+    position: initial;
+  }
+  .promo {
+    padding: 13px 26px 8px;
+  }
 }
 @media (max-width: 767.98px) {
   .ftco-choose {
@@ -200,18 +295,13 @@ body{
   }
 }
 @media (min-width: 992px) {
-  .ftco-choose .img.img-2 {
-    margin-top: -70px;
-    border-top: 15px solid #fff;
-    border-left: 15px solid #fff;
-  }
   .container {
     max-width: 960px;
   }
   .ftco-choose .text {
     margin-left: -200px;
   }
-  .ftco-choose .text.text-2 {
+  .ftco-choose .text .text-2 {
     margin-left: 0;
   }
 }

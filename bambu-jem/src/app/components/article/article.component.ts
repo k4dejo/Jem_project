@@ -14,7 +14,7 @@ import {Location} from '@angular/common';
 })
 export class ArticleComponent implements OnInit {
   public shop_id = '';
-  public p: number = 1;
+  public p = 1;
   public products: Array<Article>;
   public productMenu: Array<Article>;
   public shop_bool = true;

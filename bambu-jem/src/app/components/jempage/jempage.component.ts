@@ -58,6 +58,7 @@ export class JempageComponent implements OnInit {
     }
   }
 
+
   getProduct() {
     this.ProductService.getProduct().subscribe(
       response => {

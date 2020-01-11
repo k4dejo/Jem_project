@@ -41,7 +41,7 @@
               	<div class="back">
               		<div class="strip"></div>
               		<div class="logo">
-						<img *ngIf="viewMasterCard" class="img-responsive" src="assets/Images/master.png" alt="">
+                    <img *ngIf="viewMasterCard" class="img-responsive" src="assets/Images/master.png" alt="">
               			<svg *ngIf="spliteFirstNumber == 4" version="1.1" id="visa" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47.834px" height="47.834px" viewBox="0 0 47.834 47.834" style="enable-background:new 0 0 47.834 47.834;">
               				<g>
               					<g>
@@ -163,7 +163,7 @@
 				</table>
 				<div class="subtotal-area d-flex align-items-center justify-content-end">
 					<div *ngIf="shipping > 0" class="subtitle text-uppercase">
-						Envio: ............................................ 
+						Envio: ............................................
 						<span>₡ {{shipping | number: '3.'}}</span>
 					</div>
 					<div *ngIf="shipping == 0" class="subtitle text-uppercase">
@@ -172,20 +172,20 @@
 				</div>
 				<div *ngIf="couponDiscount > 0" class="subtotal-area d-flex align-items-center justify-content-end">
 					<div class="subtitle text-uppercase">
-						Cupón: .......................................... 
+						Cupón: ..........................................
 						<span>₡ {{couponDiscount | number: '3.'}}</span>
 					</div>
 				</div>
 				<div class="subtotal-area d-flex align-items-center justify-content-end">
 					<div class="subtitle text-uppercase">
-						Subtotal: .................................... 
+						Subtotal: ....................................
 						<span>₡ {{subtotal | number: '3.'}}</span>
 					</div>
 				</div><br>
 				<div class="subtotal-area d-flex align-items-center justify-content-end">
 					<div class="alert alert-success" role="alert">
 						<div class="title text-uppercase">
-							Total: ...................................... 
+							Total: ......................................
 							<span>₡ {{total | number: '3.'}}</span>
 						</div>
 					</div>
@@ -195,7 +195,7 @@
 		</form>
 	</div>
 </div>
-<footer> 
+<footer>
     <app-footer></app-footer>
 </footer>
 

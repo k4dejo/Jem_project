@@ -43,6 +43,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CouponComponent } from './adminlayout/coupon/coupon.component';
 import { OfferComponent } from './adminlayout/offer/offer.component';
 import { OutfitComponent } from './adminlayout/outfit/outfit.component';
+import { PromoComponent } from './components/promo/promo.component';
 
 
 
@@ -79,7 +80,8 @@ import { OutfitComponent } from './adminlayout/outfit/outfit.component';
     ShoppingCartComponent,
     CheckoutComponent,
     CouponComponent,
-    OfferComponent
+    OfferComponent,
+    PromoComponent
   ],
   imports: [
     BrowserModule,

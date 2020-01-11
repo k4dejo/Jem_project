@@ -3,7 +3,7 @@ import {Location} from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.service';
 import { PurchaseService } from '../../services/purchase.service';
-import { ArticleService } from '../../services/article.service';  
+import { ArticleService } from '../../services/article.service';
 import { CouponService } from '../../services/coupon.service';
 import { Coupon } from '../../models/coupon';
 import { Article } from '../../models/article';
@@ -17,9 +17,9 @@ import { CC } from '../../models/CC';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-	public shop_id = '';
-	public shop_bool = true;
-	public token;
+  public shop_id = '';
+  public shop_bool = true;
+  public token;
   public identity;
   public sendCc: CC;
   public Ccv: number;
@@ -39,18 +39,15 @@ export class CheckoutComponent implements OnInit {
   public subtotal;
   public total;
 
-	constructor(
-  	private route: ActivatedRoute,
-  	private _location: Location,
-  	private purchaseService: PurchaseService,
-  	private couponService: CouponService,
-  	private clientService: UserServices,
-  	private router: Router )
-	{
+  constructor(
+    private purchaseService: PurchaseService,
+    private couponService: CouponService,
+    private clientService: UserServices,
+    private router: Router ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.sendCc = new CC('', 0, '', 0, 0);
-	}
+  }
 
 
   flipcard() {
@@ -84,19 +81,19 @@ export class CheckoutComponent implements OnInit {
   selectMasterCard() {
     switch (this.spliteFirstNumber.toString()) {
       case '51':
-        this.viewMasterCard = true;  
+        this.viewMasterCard = true;
       break;
       case '52':
-        this.viewMasterCard = true;  
+        this.viewMasterCard = true;
       break;
       case '53':
-        this.viewMasterCard = true;  
+        this.viewMasterCard = true;
       break;
       case '54':
-        this.viewMasterCard = true;  
+        this.viewMasterCard = true;
       break;
       case '55':
-        this.viewMasterCard = true;  
+        this.viewMasterCard = true;
       break;
       default:
         // code...
@@ -105,9 +102,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   detectFirstNumber(numberCard: any) {
-    this.spliteFirstNumber = this.CcCard1.slice(0,1);
+    this.spliteFirstNumber = this.CcCard1.slice(0, 1);
     if (this.spliteFirstNumber == 5) {
-      this.spliteFirstNumber = this.CcCard1.slice(0,2);
+      this.spliteFirstNumber = this.CcCard1.slice(0, 2);
       this.selectMasterCard();
       console.log(this.viewMasterCard);
     } else {
@@ -134,13 +131,14 @@ export class CheckoutComponent implements OnInit {
         this.purchaseArray = response.purchase;
         this.getSingleCoupon(response.couponId);
         if (this.shipping > 0) {
-          for (var i = 0; i < this.purchaseArray.length; ++i) {
-            this.subtotal += response.purchase[i].priceMajor * response.purchase[i].pivot.amount; 
+          // tslint:disable-next-line:no-shadowed-variable
+          for (let i = 0; i < this.purchaseArray.length; ++i) {
+            this.subtotal += response.purchase[i].priceMajor * response.purchase[i].pivot.amount;
           }
           this.getTotalPrice(this.shipping, this.subtotal, this.couponDiscount);
         } else {
-          for (var i = 0; i < this.purchaseArray.length; ++i) {
-            this.subtotal += response.purchase[i].pricePublic * response.purchase[i].pivot.amount; 
+          for (let i = 0; i < this.purchaseArray.length; ++i) {
+            this.subtotal += response.purchase[i].pricePublic * response.purchase[i].pivot.amount;
           }
           this.getTotalPrice(this.shipping, this.subtotal, response.couponId);
         }
@@ -152,8 +150,8 @@ export class CheckoutComponent implements OnInit {
 
   getTotalPrice(shipping, subtotal, coupon) {
     this.couponService.getSingleCoupon(coupon).subscribe(
-      response =>{
-        response.coupon.discount;
+      response => {
+        // response.coupon.discount;
         this.total = this.subtotal;
         if (shipping > 0) {
           this.total = this.subtotal - shipping;

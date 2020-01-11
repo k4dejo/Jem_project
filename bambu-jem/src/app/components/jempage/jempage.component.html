@@ -1,7 +1,7 @@
 <header>
   <app-navbar-j></app-navbar-j>
 </header>
-<div id="main" class="main">
+<div id="main" class="main" style="overflow: hidden;">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -172,37 +172,48 @@
         </div>
       </div>
     </div>
-    <!--<section class="ftco-section ftco-choose ftco-no-pb ftco-no-pt">
+
+  </div>
+  <app-whatsapp></app-whatsapp>
+</div>
+<div class="promo" style="background-image: url('/assets/Images/promo.jpg'); overflow: hidden;">
+  <h2>¡Aprovecha nuestras ofertas!</h2>
+  <h4>Siempre estamos renovando nuestro catálogo, no te pierdas de lo nuevo en promoción.</h4>
+  <a (click)="toggleBtn('ofertas')" class="btn btn--pink btn--pill">Ir</a>
+</div>
+<div class="main">
+  <div class="container-fluid">
+    <section class="ftco-section ftco-choose ftco-no-pb ftco-no-pt">
     	<div class="container">
     		<div class="row ">
     			<div class="col-md-8 d-flex align-items-stretch">
-    				<div class="img" style="background-image: url(assets/Images/caba2.jpg);"></div>
+            <img class="img-responsive" src="assets/Images/about-1.jpg" alt="">
     			</div>
     			<div class="col-md-4 py-md-5">
     				<div class="text py-3 py-md-5">
-	            <h2 class="mb-4">New Women's Clothing Summer Collection 2019</h2>
-	            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-	            <p><a href="#" class="btn btn-white px-4 py-3">Shop now</a></p>
+	            <h2 class="mb-4">Nuevos outfits colección 2020</h2>
+	            <p>Solo para ti hicimos outfit con nuestras prendas disponibles y así ver opciones de
+                cómo combinar las diferentes prendas que te ofrecemos.</p>
+	            <a href="#" class="btn btn--pink btn--pill">Mirar</a>
     				</div>
     			</div>
-    		</div>
-
-    		<div class="row ">
+        </div>
+        <div class="row">
     			<div class="col-md-5 order-md-last d-flex align-items-stretch">
-    				<div class="img img-2" style="background-image: url(assets/Images/caba1.jpg);"></div>
+            <img class="img-responsive img-2" src="assets/Images/about-2.jpg" alt="">
     			</div>
     			<div class="col-md-7 py-3 py-md-5">
     				<div class="text text-2 py-md-5">
-	            <h2 class="mb-4">New Men's Clothing Summer Collection 2019</h2>
-	            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-	            <p><a href="#" class="btn btn-white px-4 py-3">Shop now</a></p>
+              <h2 class="mb-4">Outfits para caballeros colección 2020</h2>
+              <p>Por que todos necesitamos opciones,
+                prueba ahora algunas combinaciones de nuestras prendas para todos los estilos y preferencias.</p>
+	            <a href="#" class="btn btn--pink btn--pill">Mirar</a>
     				</div>
     			</div>
     		</div>
-    	</div>
-    </section>-->
+      </div>
+    </section>
   </div>
-  <app-whatsapp></app-whatsapp>
 </div>
 <footer>
   <app-footer></app-footer>
