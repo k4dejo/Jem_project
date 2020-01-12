@@ -60,7 +60,7 @@
                 <td class="total-col">
                   <h4> ₡ {{ product.pricePublic * product.pivot.amount | number: "3."}} </h4>
                 </td>
-                <svg (click)="deleteProductBtn(product.id)" class="icon-trash" xmlns="http://www.w3.org/2000/svg"
+                <svg (click)="deleteProductBtn(product)" class="icon-trash" xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 28 40" width="40" height="40">
                   <path class="trash-lid" fill-rule="evenodd"
                     d="M6 15l4 0 0-3 8 0 0 3 4 0 0 2 -16 0zM12 14l4 0 0 1 -4 0z" />

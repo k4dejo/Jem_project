@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.service';
 import { ArticleService } from '../../services/article.service';
 import { PurchaseService } from '../../services/purchase.service';
 import { CouponService } from '../../services/coupon.service';
+import { OfferService } from '../../services/offer.service';
 import { Coupon } from '../../models/coupon';
 import { Article } from '../../models/article';
 import { Purchase } from '../../models/purchase';
@@ -21,6 +21,8 @@ export class ShoppingCartComponent implements OnInit {
   public shop_bool = true;
   public productCount = false;
   public booleanCoupon = false;
+  public offerBool = false;
+  public offer;
   public totalAmount = 0;
   public totalPrice = 0;
   public totalWeight = 0;
@@ -50,8 +52,8 @@ export class ShoppingCartComponent implements OnInit {
   public currentDate = new Date();
   constructor(
     private route: ActivatedRoute,
-    private _location: Location,
     private purchaseService: PurchaseService,
+    private offerService: OfferService,
     private couponService: CouponService,
     private clientService: UserServices,
     private router: Router ) {
@@ -77,6 +79,7 @@ export class ShoppingCartComponent implements OnInit {
           if (response.purchase[i].pivot.amount >= 6) {
             this.productCount = true;
           }
+          this.validateOffer(response.purchase[i].id, i);
           this.productPurchase[i].photo = 'data:image/jpeg;base64,' + this.productPurchase[i].photo;
         }
         if (response.purchase.length >= 6) {
@@ -107,7 +110,11 @@ export class ShoppingCartComponent implements OnInit {
     this.totalPrice = 0;
     if (countBool !== true) {
       for (let index = 0; index < this.productPurchase.length; ++index) {
+        console.log(this.totalPrice);
         this.totalPrice += this.testProduct[index].pricePublic * this.testProduct[index].pivot.amount;
+        console.log(this.testProduct[index]);
+        console.log('cantidad' + this.testProduct[index].pivot.amount);
+        console.log(this.testProduct[index].pricePublic * this.testProduct[index].pivot.amount);
       }
     } else {
       for (let index = 0; index < this.productPurchase.length; ++index) {
@@ -122,6 +129,7 @@ export class ShoppingCartComponent implements OnInit {
 
   deleteProductBtn(idProduct: any) {
     this.dettachPurchaseP.idProduct = idProduct.id;
+    console.log(idProduct);
     this.purchaseService.dettachProductPurchase(this.dettachPurchaseP).subscribe(
       response => {
         if (response.status === 'Delete success') {
@@ -273,6 +281,21 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
+  validateOffer(idProduct: any, i) {
+    this.offerService.getOfferProduct(idProduct).subscribe(
+      response => {
+        if (response.productOffer !== null) {
+          this.offerBool = true;
+          this.offer = response.productOffer;
+          this.productPurchase[i].pricePublic = this.offer.offer;
+          this.productPurchase[i].priceMajor = this.offer.offer;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
      this.day = this.currentDate.getDate();
     if (this.currentDate.getDate() < 10) {
@@ -284,7 +307,6 @@ export class ShoppingCartComponent implements OnInit {
       this.month = this.currentDate.getMonth() + 1;
     }
     this.date = this.currentDate.getFullYear() + '-' + this.month + '-' + this.day;
-    console.log(this.date);
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.splite = this.identity.address.split(',');

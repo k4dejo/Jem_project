@@ -7,6 +7,7 @@ import { SizeService } from '../../services/size.service';
 import { ImageService } from '../../services/image.service';
 import { UserServices } from '../../services/user.service';
 import { PurchaseService } from '../../services/purchase.service';
+import { OfferService } from '../../services/offer.service';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Article } from '../../models/article';
@@ -27,6 +28,8 @@ export class ArticleDetailComponent implements OnInit {
   public NotifyUser = false;
   public shop_bool = true;
   public BtnHover = false;
+  public offerBool = false;
+  public offer;
   public token;
   public identity;
   public product: Article;
@@ -81,6 +84,7 @@ export class ArticleDetailComponent implements OnInit {
     private imageService: ImageService,
     private clientService: UserServices,
     private purchaseService: PurchaseService,
+    private offerService: OfferService,
     private sizeService: SizeService,
     private route: ActivatedRoute,
     private _location: Location,
@@ -235,7 +239,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   showFavorite() {
-    if (this.identity) {  
+    if (this.identity) {
       const clickBtn = document.querySelector('.heart');
       this.clientService.showFavorite(this.identity.sub, this.IdProduct).subscribe(
         response => {
@@ -260,10 +264,14 @@ export class ArticleDetailComponent implements OnInit {
     this.productCart.status = 'incomplete';
     this.productCart.coupon_id = 0;
     this.productCart.shipping = 0;
-    if (this.valueQtyBtn < 6 && this.valueQtyBtn != 0) {
-      this.productCart.price = this.product.pricePublic;
+    if (this.offerBool) {
+      this.productCart.price = this.offer.offer;
     } else {
-      this.productCart.price = this.product.priceMajor;
+      if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
+        this.productCart.price = this.product.pricePublic;
+      } else {
+        this.productCart.price = this.product.priceMajor;
+      }
     }
     this.purchaseService.addNewPurchase(this.token, this.productCart).subscribe(
       response => {
@@ -271,8 +279,8 @@ export class ArticleDetailComponent implements OnInit {
         this.attachPurchase.article_id = this.IdProduct;
         this.attachPurchase.amount = this.valueQtyBtn;
         this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
+          // tslint:disable-next-line:no-shadowed-variable
           response => {
-            console.log(response);
             if (response.status === 'success') {
               this.gotoCartBtn = true;
             }
@@ -287,7 +295,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   makeRandom(lengthOfCode: number, possible: string) {
-    let text = "";
+    let text = '';
     for (let i = 0; i < lengthOfCode; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
@@ -311,7 +319,7 @@ export class ArticleDetailComponent implements OnInit {
         console.log(response.status);
         if (response.status === 'success') {
           this.gotoCartBtn = true;
-        } else if(response.status === 'void') {
+        } else if (response.status === 'void') {
           this.gotoCartBtn = false;
         }
       }, error => {
@@ -321,7 +329,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   downloadImg() {
-    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     const lengthOfCode = 10;
     this.randomChar = this.makeRandom(lengthOfCode, possible);
     this.fileUrl = this.product.photo;
@@ -346,17 +354,31 @@ export class ArticleDetailComponent implements OnInit {
   decQty() {
     if (this.valueQtyBtn > 0) {
       this.valueQtyBtn -= 1;
-    }  
+    }
   }
 
   gotoCart() {
     this.router.navigate(['Carrito/', this.shop_id, this.identity.sub]);
   }
 
+  validateOffer(idProduct: any) {
+    this.offerService.getOfferProduct(idProduct).subscribe(
+      response => {
+        if (response.productOffer !== null) {
+          this.offerBool = true;
+          this.offer = response.productOffer;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
+    this.validateOffer(this.IdProduct);
     this.getSingleProduct(this.IdProduct);
     this.getSizeProduct(this.IdProduct);
     this.showProductPurchase();

@@ -15,10 +15,10 @@
   <div class="col-xl-12 col-lg-12 col-md-9">
     <section class="pb-40 category-list">
       <div class="row">
-        <div class="col-lg-4 col-md-12 col-xs-12 single-product">
+        <div *ngFor="let offer of offerList" class="col-lg-4 col-md-12 col-xs-12 single-product">
           <div class="content">
             <div class="content-overlay"></div>
-            <img class="content-image img-fluid d-block mx-auto" alt="">
+            <img class="content-image img-fluid d-block mx-auto" [src]="offer.articleId.photo" alt="">
             <div class="content-details fadeIn-bottom">
               <div class="bottom d-flex align-items-center justify-content-center">
                 <a href="#"><i class="far fa-heart"></i></a>
@@ -28,7 +28,9 @@
             </div>
           </div>
           <div class="price">
-            <h3></h3>
+            <h5>{{offer.articleId.name}}</h5>
+            <h4><del>₡ {{offer.articleId.pricePublic | number: '3.'}}</del></h4>
+            <h3>₡ {{offer.offer | number: '3.'}}</h3>
           </div>
         </div>
       </div>

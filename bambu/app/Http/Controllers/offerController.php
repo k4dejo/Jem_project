@@ -98,6 +98,14 @@ class offerController extends Controller
         ), 200);
     }
 
+    public function validateOffer($id) {
+        $productOffer = DB::table('offers')->where('article_id', $id)->first();
+        return response()->json(array(
+            'productOffer' => $productOffer,
+            'status'   => 'success'
+        ), 200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

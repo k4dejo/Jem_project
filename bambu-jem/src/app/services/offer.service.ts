@@ -32,6 +32,11 @@ export class OfferService {
     return this._http.get(this.url + 'offer/' + id, { headers: headers });
   }
 
+  getOfferProduct(idProduct): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getOfferProduct/' + idProduct, { headers: headers });
+  }
+
   editOffer(token, id, offer): Observable<any> {
     const json = JSON.stringify(offer);
     const params = 'json=' + json;

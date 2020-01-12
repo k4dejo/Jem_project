@@ -841,6 +841,19 @@ feature-inner
 -------------------------------------------
 */
 
+@media (max-width: 1200px) {
+	.modal .modal-content{
+		margin-top: 27%;
+		margin-right: 4.5%;
+		width: 100%;
+		height: 65%;
+  }
+
+  .catalogue {
+    padding-top: 20%;
+  }
+}
+
 @media (max-width: 767px){
 	.catalogue{
 		padding-left: 1%;
@@ -848,9 +861,9 @@ feature-inner
 	}
 
 	.modal .modal-content{
-		margin-top: 20%;
+		margin-top: 40%;
 		margin-right: 10%;
 		width: 100%;
-		height: 60%;
+		height: 50%;
 	}
 }

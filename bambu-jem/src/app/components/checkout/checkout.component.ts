@@ -5,6 +5,7 @@ import { UserServices } from '../../services/user.service';
 import { PurchaseService } from '../../services/purchase.service';
 import { ArticleService } from '../../services/article.service';
 import { CouponService } from '../../services/coupon.service';
+import { OfferService } from '../../services/offer.service';
 import { Coupon } from '../../models/coupon';
 import { Article } from '../../models/article';
 import { Purchase } from '../../models/purchase';
@@ -34,15 +35,19 @@ export class CheckoutComponent implements OnInit {
   public monthCc;
   public dateExp;
   public purchaseArray: Array<Purchase>;
+  public purchaseList;
   public shipping;
   public couponDiscount: number;
   public subtotal;
   public total;
+  offerBool: boolean;
+  offer: any;
 
   constructor(
     private purchaseService: PurchaseService,
     private couponService: CouponService,
     private clientService: UserServices,
+    private offerService: OfferService,
     private router: Router ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
@@ -115,7 +120,9 @@ export class CheckoutComponent implements OnInit {
   getSingleCoupon(couponId: any) {
     this.couponService.getSingleCoupon(couponId).subscribe(
       response => {
-        this.couponDiscount = response.coupon.discount;
+        if (response.coupon !== null) {
+          this.couponDiscount = response.coupon.discount;
+        }
       }, error => {
         console.log(<any> error);
       }
@@ -129,18 +136,39 @@ export class CheckoutComponent implements OnInit {
         this.total = this.subtotal;
         this.shipping = response.shipping;
         this.purchaseArray = response.purchase;
+        this.purchaseList = response.purchase;
+        for (let index = 0; index < this.purchaseArray.length; ++index) {
+          this.validateOffer(response.purchase[index].id, index);
+        }
         this.getSingleCoupon(response.couponId);
         if (this.shipping > 0) {
           // tslint:disable-next-line:no-shadowed-variable
           for (let i = 0; i < this.purchaseArray.length; ++i) {
-            this.subtotal += response.purchase[i].priceMajor * response.purchase[i].pivot.amount;
+            // this.subtotal += response.purchase[i].priceMajor * response.purchase[i].pivot.amount;
+            this.subtotal += this.purchaseList[i].priceMajor * this.purchaseList[i].pivot.amount;
           }
           this.getTotalPrice(this.shipping, this.subtotal, this.couponDiscount);
         } else {
           for (let i = 0; i < this.purchaseArray.length; ++i) {
-            this.subtotal += response.purchase[i].pricePublic * response.purchase[i].pivot.amount;
+            // this.subtotal += response.purchase[i].pricePublic * response.purchase[i].pivot.amount;
+            this.subtotal += this.purchaseList[i].pricePublic * this.purchaseList[i].pivot.amount;
           }
           this.getTotalPrice(this.shipping, this.subtotal, response.couponId);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  validateOffer(idProduct: any, i) {
+    this.offerService.getOfferProduct(idProduct).subscribe(
+      response => {
+        if (response.productOffer !== null) {
+          this.offerBool = true;
+          this.offer = response.productOffer;
+          this.purchaseList[i].pricePublic = this.offer.offer;
+          this.purchaseList[i].priceMajor = this.offer.offer;
         }
       }, error => {
         console.log(<any> error);
@@ -156,8 +184,10 @@ export class CheckoutComponent implements OnInit {
         if (shipping > 0) {
           this.total = this.subtotal - shipping;
         }
-        if ( response.coupon.discount > 0) {
-          this.total = this.subtotal -  response.coupon.discount;
+        if (response.coupon !== null) {
+          if ( response.coupon.discount > 0) {
+            this.total = this.subtotal -  response.coupon.discount;
+          }
         }
         this.sendCc.totalPrice = this.total;
       }, error => {

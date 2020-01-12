@@ -2,7 +2,8 @@ export class Offer {
   constructor(
     public name: string,
     public offer: number,
-    public articleId: number,
-    public articleName: string
+    public articleId: any,
+    public article_id: any,
+    public articleName: any
   ) {}
 }

@@ -62,7 +62,7 @@ export class OfferComponent implements OnInit {
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.offer = new Offer('', 0, 0, '');
+    this.offer = new Offer('', 0, 0, 0, '');
   }
 
   fillDepartment(data = []) {
