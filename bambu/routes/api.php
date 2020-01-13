@@ -34,7 +34,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::post('addMimage','imageController@store');
 	Route::post('Addpurchase', 'PurchaseController@store');
 	Route::post('editPurchase', 'PurchaseController@edit');
-	Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
+    Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
+    Route::get('verifyPurchaseStatus/{id}', 'PurchaseController@verifyStatusPurchase');
     Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
     Route::post('deleteArrayImg/{id}', 'imageController@deleteImg');
     Route::post('deleteOutfitDetach', 'OutfitController@detachOutfits');

@@ -103,7 +103,7 @@ class PurchaseController extends Controller
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
         $checkToken = $jwtAuthAdmin->checkToken($hash);
-        if ($checkToken) {    
+        if ($checkToken) {
             // recoger datos del POST
             $json =  $request->input('json', null);
             $params = json_decode($json);
@@ -152,14 +152,25 @@ class PurchaseController extends Controller
         return response()->json($data, 200);
     }
 
+    public function verifyStatusPurchase($idClient) {
+        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
+        ->where('status', 'incomplete')->first();
+        $data = array(
+            'purchase'  => $purchaseClient,
+            'status'    => 'success',
+            'code'      => 200,
+        );
+        return response()->json($data,200);
+    }
+
     public function getPurchase($idClient) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
         ->where('status', 'incomplete')->first();
         $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
         $countPurchase = count($arrayPurchase);
-        for ($i=0; $i < $countPurchase; $i++) { 
+        for ($i=0; $i < $countPurchase; $i++) {
             $contents = Storage::get($arrayPurchase[$i]->photo);
-            $arrayPurchase[$i]->photo = base64_encode($contents);   
+            $arrayPurchase[$i]->photo = base64_encode($contents);
         }
         $data = array(
             'purchase'       => $arrayPurchase,
@@ -230,8 +241,7 @@ class PurchaseController extends Controller
             //validacion
             $validate = Validator::make($paramsArray, [
                 'clients_id'   => 'required',
-                'price'        => 'required',
-                'status'       => 'required'
+                'price'        => 'required'
             ]);
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
@@ -242,7 +252,7 @@ class PurchaseController extends Controller
             $data = array(
                 'purchase' => $purchase,
                 'status'  => 'success',
-                'code'    => 200 
+                'code'    => 200
             );
         } else {
             // Error

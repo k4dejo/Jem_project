@@ -258,6 +258,62 @@ export class ArticleDetailComponent implements OnInit {
       );
     }
   }
+  verifyPurchaseStatus() {
+    this.purchaseService.verifyStatusPurchase(this.identity.sub).subscribe(
+      response => {
+        if (response.purchase !== null) {
+          this.editPurchase(response);
+        } else {
+          this.savePurchase();
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  editPurchase(purchaseRes) {
+    console.log(this.productCart);
+    this.productCart.id = purchaseRes.purchase.id;
+    this.productCart.price = purchaseRes.purchase.price + this.productCart.price;
+    this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
+      response => {
+        console.log(response);
+        this.attachPurchase.purchase_id = purchaseRes.purchase.id;
+        this.attachPurchase.article_id = this.IdProduct;
+        this.attachPurchase.amount = this.valueQtyBtn;
+        this.attachProductPurchase();
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  savePurchase() {
+    this.purchaseService.addNewPurchase(this.token, this.productCart).subscribe(
+      response => {
+        this.attachPurchase.purchase_id = response.purchase.id;
+        this.attachPurchase.article_id = this.IdProduct;
+        this.attachPurchase.amount = this.valueQtyBtn;
+        this.attachProductPurchase();
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  attachProductPurchase() {
+    this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
+      response => {
+        if (response.status === 'success') {
+          this.gotoCartBtn = true;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
 
   addProductCart() {
     this.productCart.clients_id = this.identity.sub;
@@ -265,6 +321,15 @@ export class ArticleDetailComponent implements OnInit {
     this.productCart.coupon_id = 0;
     this.productCart.shipping = 0;
     if (this.offerBool) {
+      this.productCart.price = this.offer.offer * this.valueQtyBtn;
+    } else {
+      if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
+        this.productCart.price = this.product.pricePublic * this.valueQtyBtn;
+      } else {
+        this.productCart.price = this.product.priceMajor * this.valueQtyBtn;
+      }
+    }
+    /* if (this.offerBool) {
       this.productCart.price = this.offer.offer;
     } else {
       if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
@@ -272,26 +337,8 @@ export class ArticleDetailComponent implements OnInit {
       } else {
         this.productCart.price = this.product.priceMajor;
       }
-    }
-    this.purchaseService.addNewPurchase(this.token, this.productCart).subscribe(
-      response => {
-        this.attachPurchase.purchase_id = response.purchase.id;
-        this.attachPurchase.article_id = this.IdProduct;
-        this.attachPurchase.amount = this.valueQtyBtn;
-        this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
-          // tslint:disable-next-line:no-shadowed-variable
-          response => {
-            if (response.status === 'success') {
-              this.gotoCartBtn = true;
-            }
-          }, error => {
-            console.log(<any> error);
-          }
-        );
-      }, error => {
-        console.log(<any> error);
-      }
-    );
+    }*/
+    this.verifyPurchaseStatus();
   }
 
   makeRandom(lengthOfCode: number, possible: string) {

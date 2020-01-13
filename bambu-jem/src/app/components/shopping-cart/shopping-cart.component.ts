@@ -22,6 +22,7 @@ export class ShoppingCartComponent implements OnInit {
   public productCount = false;
   public booleanCoupon = false;
   public offerBool = false;
+  public productCart: Purchase;
   public offer;
   public totalAmount = 0;
   public totalPrice = 0;
@@ -61,6 +62,7 @@ export class ShoppingCartComponent implements OnInit {
     this.identity = this.clientService.getIdentity();
     this.dettachPurchaseP = new DettachPurchase('', '');
     this.checkoutPurchase = new Purchase('', '', 0, 0, 0, '');
+    this.productCart = new Purchase('', '', 0, 0, 0, '');
   }
 
   getPurchases() {
@@ -70,6 +72,9 @@ export class ShoppingCartComponent implements OnInit {
         this.productPurchase = response.purchase;
         this.purchasePrice = response.price;
         this.testProduct = response.purchase;
+        this.productCart.price = response.purchasePrice;
+        this.productCart.id = response.purchaseId;
+        console.log(this.productCart);
         this.checkoutPurchase.id = response.purchaseId;
         this.checkoutPurchase.clients_id = this.identity.sub;
         this.checkoutPurchase.status = 'incomplete';
@@ -108,17 +113,18 @@ export class ShoppingCartComponent implements OnInit {
     // sumatoria de los precios
     this.calculateWeight();
     this.totalPrice = 0;
+    this.productCart.price = 0;
     if (countBool !== true) {
       for (let index = 0; index < this.productPurchase.length; ++index) {
-        console.log(this.totalPrice);
+        console.log(this.totalPrice); // solo tengo arreglar cuando suma o resta (solo si el producto es oferta).
+        // 2:39 am.... creo que ya lo arregle :).
         this.totalPrice += this.testProduct[index].pricePublic * this.testProduct[index].pivot.amount;
-        console.log(this.testProduct[index]);
-        console.log('cantidad' + this.testProduct[index].pivot.amount);
-        console.log(this.testProduct[index].pricePublic * this.testProduct[index].pivot.amount);
+        this.productCart.price += this.testProduct[index].pricePublic * this.testProduct[index].pivot.amount;
       }
     } else {
       for (let index = 0; index < this.productPurchase.length; ++index) {
         this.totalPrice += this.testProduct[index].priceMajor * this.testProduct[index].pivot.amount;
+        this.productCart.price += this.testProduct[index].priceMajor * this.testProduct[index].pivot.amount;
       }
     }
     if (this.couponView === true) {
@@ -129,7 +135,7 @@ export class ShoppingCartComponent implements OnInit {
 
   deleteProductBtn(idProduct: any) {
     this.dettachPurchaseP.idProduct = idProduct.id;
-    console.log(idProduct);
+    this.editPurchase(idProduct);
     this.purchaseService.dettachProductPurchase(this.dettachPurchaseP).subscribe(
       response => {
         if (response.status === 'Delete success') {
@@ -143,6 +149,24 @@ export class ShoppingCartComponent implements OnInit {
         }
       }, error => {
         console.log(<any> error);
+      }
+    );
+  }
+
+  editPurchase(purchaseRes) {
+    this.productCart.status = 'incomplete';
+    this.productCart.clients_id = this.identity.sub;
+    if (this.productCount !== true) {
+      this.productCart.price = this.productCart.price - purchaseRes.pricePublic;
+    } else {
+      this.productCart.price = this.productCart.price - purchaseRes.priceMajor;
+    }
+    console.log(this.productCart);
+    this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any>error);
       }
     );
   }
@@ -262,9 +286,10 @@ export class ShoppingCartComponent implements OnInit {
     this.couponService.getCouponClient(coupon).subscribe(
       response => {
         this.couponActive = response.coupon;
-        console.log(response.coupon, 'today: ', this.date);
         if (this.couponActive.expiration > this.date) {
-          if (response.status === 'success' && response.coupon.status === true) {
+          console.log(response.status);
+          console.log(response.coupon);
+          if (response.status === 'success' && response.coupon.status === 1) {
             this.couponView = true;
             this.checkoutPurchase.coupon_id = this.couponActive.id;
             this.checkoutPurchase.price -= this.couponActive.discount;
@@ -289,6 +314,7 @@ export class ShoppingCartComponent implements OnInit {
           this.offer = response.productOffer;
           this.productPurchase[i].pricePublic = this.offer.offer;
           this.productPurchase[i].priceMajor = this.offer.offer;
+
         }
       }, error => {
         console.log(<any> error);

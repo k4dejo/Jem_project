@@ -610,3 +610,9 @@ h1 {
 .coupon .p-stock span {
 	color: #f51167;
 }
+
+@media (max-width: 767px) {
+  .catalogue{
+    padding-top: 56%;
+  }
+}

@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
-import { Purchase } from '../models/purchase';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseService {
-	public url: string;
+  public url: string;
 
   constructor(public _http: HttpClient) {
       this.url = GLOBAL.url;
   }
 
-  addNewPurchase(token, dataPurchase):Observable<any> {
+  addNewPurchase(token, dataPurchase): Observable<any> {
     const json = JSON.stringify(dataPurchase);
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
@@ -23,7 +22,7 @@ export class PurchaseService {
     return this._http.post(this.url + 'Addpurchase', params, { headers: headers });
   }
 
-  editPurchase(token, dataPurchase):Observable<any> {
+  editPurchase(token, dataPurchase): Observable<any> {
     const json = JSON.stringify(dataPurchase);
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
@@ -54,5 +53,10 @@ export class PurchaseService {
   getPurchase(idClient: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getPurchase/' + idClient, {headers: headers});
+  }
+
+  verifyStatusPurchase(idClient: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'verifyPurchaseStatus/' + idClient, {headers: headers});
   }
 }
