@@ -67,7 +67,7 @@ export class OutfitComponent implements OnInit {
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.outfit = new Outfit('', '', null);
+    this.outfit = new Outfit(0, '', '', null);
     this.attachOutfit = new AttachOutfitProduct(0, 0);
     this.detachOutfit = new AttachOutfitProduct(0, 0);
   }
@@ -130,7 +130,7 @@ export class OutfitComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.getOutfits();
-          this.outfit = new Outfit('', '', null);
+          this.outfit = new Outfit(0, '', '', null);
           this.fileBlob = 'assets/Images/default.jpg';
         }
       }, error => {
@@ -224,7 +224,7 @@ export class OutfitComponent implements OnInit {
   resetForm() {
     this.attachProductBool = false;
     this.fileBlob = 'assets/Images/default.jpg';
-    this.outfit = new Outfit('', '', null);
+    this.outfit = new Outfit(0, '', '', null);
   }
 
   attachProductOutfit(product: any) {

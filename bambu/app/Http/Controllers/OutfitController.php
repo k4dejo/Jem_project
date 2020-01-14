@@ -177,6 +177,25 @@ class OutfitController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getOutfitProduct() {
+        $outfits = outfit::all();
+        $outfitCount = count($outfits);
+        for ($i=0; $i < $outfitCount ; $i++) {
+            foreach ($outfits[$i]->articles as $article) {
+                //obteniendo los datos de un task específico
+                $articleRes = $article->outfits;
+            }
+            //intentar traer el blob desde el controller
+            $contents = Storage::get($outfits[$i]->photo);
+            $outfits[$i]->photo = base64_encode($contents);
+            $outfits[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents);
+        }
+        return response()->json(array(
+            'outfit' => $outfits,
+            'articles'  => $articleRes
+        ), 200);
+    }
+
     public function showOutfitList($id) {
         $outfit = outfit::findOrfail($id);
         $arrayOutfit = outfit::find($id)->articles()->get();

@@ -51,6 +51,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::get('getTalla/{id}','sizeController@showSizeP');
     Route::get('getTallaEdit/{id}','sizeController@showEditP');
     Route::get('getOutfitsList', 'OutfitController@index');
+    Route::get('getAttachOutfit', 'OutfitController@getOutfitProduct');
     Route::get('getOutfitAttach/{id}', 'OutfitController@showOutfitList');
     Route::get('getOfferProduct/{id}', 'offerController@validateOffer');
 	Route::delete('deleteTalla/{id}','sizeController@detachSize');

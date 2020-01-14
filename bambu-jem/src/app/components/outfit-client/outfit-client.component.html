@@ -1,0 +1,38 @@
+<header>
+  <div *ngIf="shop_bool">
+    <app-navbar-j></app-navbar-j>
+  </div>
+  <div *ngIf="!shop_bool">
+    <app-navbar-b></app-navbar-b>
+  </div>
+</header>
+<div class="main">
+  <div class="col-lg-12 catalogue">
+    <div class="container">
+      <h1>Outfits</h1>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12 col-md-9">
+    <section class="pb-40 category-list">
+      <div class="row">
+        <div *ngFor="let outfit of outfitList" class="col-lg-4 col-md-12 col-xs-12 single-product">
+          <div class="content">
+            <div class="content-overlay"></div>
+            <img class="content-image img-fluid d-block mx-auto" [src]="outfit.photo" alt="">
+            <div class="content-details fadeIn-bottom">
+              <div class="bottom d-flex align-items-center justify-content-center">
+                <div class="listOutfit" *ngFor="let productLink of outfit.articles">
+                  <a style="cursor:pointer;" (click)="gotoDetail(productLink.id)"><h5>{{productLink.name}}</h5></a>
+                </div>
+                <a data-toggle="modal" data-target="#myModal"><i class="fas fa-expand"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="price">
+            <h5>{{outfit.name}}</h5>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

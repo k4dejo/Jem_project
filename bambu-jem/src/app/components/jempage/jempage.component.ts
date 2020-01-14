@@ -82,4 +82,9 @@ export class JempageComponent implements OnInit {
     const link = '/Home/' + word;
     this.router.navigate([link, 'J']);
   }
+
+  gotoOutfits(word: any, gender: any) {
+    const link = '/Home/' + word;
+    this.router.navigate([link, 'J', gender]);
+  }
 }

@@ -52,8 +52,15 @@ export class PromoComponent implements OnInit {
     );
   }
 
+  gotoDetail(productId: any) {
+    const link = '/Home/producto/detalle/';
+    console.log(this.shop_id);
+     this.router.navigate([link, this.shop_id, productId]);
+  }
+
   ngOnInit() {
     this.shop_id = this.route.snapshot.params['shopId'];
+    console.log(this.shop_id);
     this.getOffersList();
     if (this.shop_id === 'J') {
       this.shop_bool = true;

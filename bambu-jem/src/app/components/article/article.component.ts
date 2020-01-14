@@ -133,7 +133,7 @@ export class ArticleComponent implements OnInit {
   }
 
   makeRandom(lengthOfCode: number, possible: string) {
-    let text = "";
+    let text = '';
     for (let i = 0; i < lengthOfCode; i++) {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
@@ -148,7 +148,7 @@ export class ArticleComponent implements OnInit {
   }
 
   downloadImg(imgProduct: any) {
-    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     const lengthOfCode = 10;
     this.randomChar = this.makeRandom(lengthOfCode, possible);
     this.fileUrl = imgProduct;

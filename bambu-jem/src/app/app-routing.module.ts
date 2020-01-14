@@ -22,6 +22,7 @@ import { CouponComponent } from './adminlayout/coupon/coupon.component';
 import { CheckoutComponent } from '././components/checkout/checkout.component';
 import { OfferComponent } from './adminlayout/offer/offer.component';
 import { OutfitComponent } from './adminlayout/outfit/outfit.component';
+import { OutfitClientComponent } from './components/outfit-client/outfit-client.component';
 import { PromoComponent } from './components/promo/promo.component';
 
 // aplicar export a la clase  hasta el momento es redundante
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: 'Home/Articulo/:shopId/:dpt/:gender' , component: ArticleComponent},
   { path: 'Home/Contacto/:id' , component: ContactusComponent},
   { path: 'Home/producto/detalle/:id/:idProduct', component: ArticleDetailComponent},
-  { path: 'Home/ofertas/:id', component: PromoComponent},
+  { path: 'Home/ofertas/:shopId', component: PromoComponent},
+  { path: 'Home/outfits/:shopId/:gender', component: OutfitClientComponent},
   { path: 'Carrito/:shopId/:idClient', component: ShoppingCartComponent},
   { path: 'LoginAdmin', component: LoginAdminComponent},
   { path: 'registrar/:id', component: RegisterComponent},

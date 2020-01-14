@@ -55,6 +55,11 @@ export class OutfitService {
     return this._http.post(this.url + 'attachOutfitProduct', params, {headers: headers});
   }
 
+  getAttachOutfit(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getAttachOutfit', { headers: headers });
+  }
+
   deleteOutfit(id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.delete(this.url + 'deleteOutfit/' + id, {headers: headers});
