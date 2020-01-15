@@ -53,7 +53,7 @@ class clientController extends Controller
 					'status'  => 'duplicate',
 					'code'    => 400,
 					'message' => 'El cliente ya existe'
-				);				
+				);
 			}
 		}else {
 			$data = array(
@@ -63,7 +63,17 @@ class clientController extends Controller
 			);
 		}
 		return response()->json($data, 200);
-	}
+    }
+
+    public function getClientList() {
+        $client = client::all();
+        $data = array(
+            'clients' => $client,
+            'status'  => 'success',
+            'code'    => 200
+        );
+        return response()->json($data, 200);
+    }
 
     public function login(Request $request)
 	{

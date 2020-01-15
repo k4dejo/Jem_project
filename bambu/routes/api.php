@@ -42,9 +42,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::post('attachOutfitProduct', 'OutfitController@AttachOutfits');
     Route::put('editOutfit/{id}', 'OutfitController@editOutfit');
 	Route::get('getShowProductP/{idClient}/{idProduct}',
-	'PurchaseController@showSingleProductPurchase');
+    'PurchaseController@showSingleProductPurchase');
+    Route::get('showProductSizeList/{id}' , 'ArticleController@showSizeList');
 	Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
-	Route::get('getImages/{id}','imageController@show');
+    Route::get('getImages/{id}','imageController@show');
+    Route::get('getClientList' , 'clientController@getClientList');
 	Route::get('getFavorite/{idClient}/{idProduct}','favoriteController@showlikeFocus');
 	Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
 	Route::get('getproductGender/{id}', 'ArticleController@getProductGender');

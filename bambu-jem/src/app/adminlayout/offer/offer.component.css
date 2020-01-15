@@ -308,7 +308,7 @@ th  {
 
 .my-pagination /deep/ .ngx-pagination {
   text-decoration: none;
-  margin-left: 65%;
+  margin-left: 50px;
   font-weight: bold;
 }
 
@@ -366,3 +366,4 @@ td a:hover {
 .icon-trash:hover {
   cursor: pointer;
 }
+

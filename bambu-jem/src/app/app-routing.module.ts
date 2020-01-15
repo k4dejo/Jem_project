@@ -16,6 +16,7 @@ import { ArticleDetailComponent  } from '././components/article-detail/article-d
 import { MangArticleComponent } from './adminlayout/mang-article/mang-article.component';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 import { EditProductComponent } from './adminlayout/edit-product/edit-product.component';
+import { FactuComponent } from './adminlayout/factu/factu.component';
 import { ContactusComponent } from '././components/contactus/contactus.component';
 import { ShoppingCartComponent } from '././components/shopping-cart/shopping-cart.component';
 import { CouponComponent } from './adminlayout/coupon/coupon.component';
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'admin/coupon' , component: CouponComponent},
   { path: 'admin/ofertas', component: OfferComponent},
   { path: 'admin/outfits', component: OutfitComponent},
+  { path: 'admin/facturación', component: FactuComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},
 ];

@@ -1,0 +1,170 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Facturación</h2>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive" style="overflow: auto;">
+          <div style="margin-left: 88%; color: white;">
+            <button class="btn btn--blue btn--pill">facturación</button>
+            <button class="btn btn--blue btn--pill">Apartados</button>
+          </div>
+          <div class="formgroup">
+            <form class="form-group" #factu='ngForm'>
+              <div class="row">
+                <div class="col-lg-7">
+                  <div class="col-md-10">
+                    <div class="input-group-desc">
+                      <label for="">Cliente</label> <button class="btn btn--blue btn--pill" style="color: white;">+</button>
+                      <button data-toggle="modal" data-target="#clientList" class="btn btn--blue btn--pill" style="color: white;">
+                        <i class="fas fa-search"></i>
+                      </button>
+                      <input class="input--style-5" name="name" type="text"/>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">Correo Electrónico</label>
+                      <input class="input--style-5" name="email" type="email"/>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">Dirección</label>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <select name="province" id="province" class="custom-select" >
+                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                            <option value="1">1</option>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <select name="province" id="province" class="custom-select" >
+                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                            <option value="2">2</option>
+                          </select>
+                        </div>
+                        <div class="col-md-4">
+                          <select name="province" id="province" class="custom-select" >
+                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                            <option value="3">3</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">Dirección detallada</label>
+                      <textarea class="input--style-5" style="resize: vertical;"
+                      name="addresDetail" id="addresDetail" cols="48" rows="2"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="search-product">
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
+                  placeholder=" &#61442; Buscar...">
+              </div>
+              <table class="table table-striped">
+                <pagination-controls class="my-pagination" (pageChange)="p = $event">
+                </pagination-controls>
+                <thead>
+                  <th></th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Género</th>
+                  <th scope="col">Depart</th>
+                  <th scope="col">Público</th>
+                  <th scope="col"></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
+                    <td><img class="img-responsive" [src]="product.photo" alt=""></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.gender}}</td>
+                    <td>{{product.department}}</td>
+                    <td>₡ {{product.pricePublic | number: '3.'}}</td>
+                    <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
+                    value="Agregar a compra" (click)="getProduct(product.id)"></td>
+                  </tr>
+                </tbody>
+                <pagination-controls class="my-pagination" (pageChange)="p = $event">
+                </pagination-controls>
+              </table>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="input-group-desc">
+                    <h4 for="">Producto</h4>
+                    <input class="input--style-5" name="name" type="text" [placeholder]="productGet.name" disabled/>
+                  </div>
+                  <div class="input-group-desc">
+                    <div class="fw-size-choose">
+                      <h4>Talla: </h4>
+                      <div class="sc-item" *ngFor="let size of productSizes">
+                        <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
+                        <label for="{{size.size}}">{{size.size}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group-desc">
+                    <h4>Cantidad</h4>
+                    <input class="input--style-5" name="name" type="number" [placeholder]="0"/>
+                    <input *ngIf="!AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
+                    value="ADD" disabled>
+                    <input *ngIf="AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
+                    value="ADD">
+                  </div>
+                </div>
+              </div>
+              <div class="billing">
+                <table class="table table-striped">
+                  <thead>
+                    <th></th>
+                    <th scope="col">Producto</th>
+                    <th class="quy-th">Cantidad</th>
+                    <th class="size-th">Talla</th>
+                    <th class="total-th">Precio</th>
+                    <th scope="col"></th>
+                  </thead>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fadeInDown" id="clientList" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-content wrapper" id="formContent" role="document">
+    <div class="modal-header first">
+      <i class="fa fa-times close" data-dismiss="modal"></i>
+      <h2 id="modalLabel">Lista de Clientes</h2>
+    </div>
+    <div class="modal-body fadeIn second">
+      <div class="search-product">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchClient" autocomplete="off"
+          placeholder=" &#61442; Buscar...">
+      </div>
+      <pagination-controls class="my-pagination" (pageChange)="pClient = $event">
+      </pagination-controls>
+      <table class="table table-striped">
+        <thead>
+          <th scope="col">Nombre</th>
+          <th scope="col">Correo Electrónico</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Dirección</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients | filter: searchClient | paginate: { itemsPerPage: 12, currentPage: pClient }">
+            <td>{{client.name}}</td>
+            <td>{{client.email}}</td>
+            <td>{{client.phone}}</td>
+            <td>{{client.address}}</td>
+            <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
+              value="Agregar" (click)="selectClient(client)" data-dismiss="modal"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

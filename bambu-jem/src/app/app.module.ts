@@ -45,6 +45,7 @@ import { OfferComponent } from './adminlayout/offer/offer.component';
 import { OutfitComponent } from './adminlayout/outfit/outfit.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { OutfitClientComponent } from './components/outfit-client/outfit-client.component';
+import { FactuComponent } from './adminlayout/factu/factu.component';
 
 
 
@@ -83,7 +84,8 @@ import { OutfitClientComponent } from './components/outfit-client/outfit-client.
     CouponComponent,
     OfferComponent,
     PromoComponent,
-    OutfitClientComponent
+    OutfitClientComponent,
+    FactuComponent
   ],
   imports: [
     BrowserModule,

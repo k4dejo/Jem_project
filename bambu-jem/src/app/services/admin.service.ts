@@ -31,6 +31,11 @@ export class AdminService {
         return this._http.post(this.url + 'authAdmin', params, { headers: headers });
     }
 
+    getClientList(): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getClientList', { headers: headers });
+    }
+
     getIdentity() {
         const identity = JSON.parse(localStorage.getItem('identity'));
         if (identity !== 'undefined') {

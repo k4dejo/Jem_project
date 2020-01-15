@@ -29,7 +29,11 @@ export class NavbaradminComponent implements OnInit {
 
   gotoCoupon() {
     const link = 'admin/coupon';
-    const gender = 2;
+    this.router.navigate([link]);
+  }
+
+  gotoFact() {
+    const link = 'admin/facturación';
     this.router.navigate([link]);
   }
 

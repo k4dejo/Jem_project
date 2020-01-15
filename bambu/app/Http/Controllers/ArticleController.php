@@ -9,6 +9,7 @@ use App\article;
 use Input;
 use Image;
 use App\outfit;
+use App\size;
 class ArticleController extends Controller
 {
 
@@ -23,8 +24,8 @@ class ArticleController extends Controller
                 'status'   => 'void'
             ), 200);
         }
-        if ($productCount > 1) {        
-            for ($i=0; $i < $productCount ; $i++) { 
+        if ($productCount > 1) {
+            for ($i=0; $i < $productCount ; $i++) {
                 $contents = Storage::get($articles[$i]->photo);
                 $articles[$i]->photo = base64_encode($contents);
             }
@@ -37,7 +38,7 @@ class ArticleController extends Controller
             'status'   => 'success'
         ), 200);
     }
-    
+
     public function show($id)
     {
         $articles = article::find($id);
@@ -49,13 +50,24 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    public function showSizeList($id) {
+        $article = article::findOrfail($id);
+        $arrayArticle = article::find($id)->sizes()->get();
+        $data = array(
+            'article'       => $arrayArticle,
+            'status'       => 'success',
+            'code'    => 200,
+        );
+        return response()->json($data,200);
+    }
+
     public function getConcreteProduct($department, $gender) {
         $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->get();
         $productCount = count($productConcrete);
-        for ($i=0; $i < $productCount ; $i++) { 
+        for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productConcrete[$i]->photo);
-            $productConcrete[$i]->photo = base64_encode($contents);   
+            $productConcrete[$i]->photo = base64_encode($contents);
         }
         return response()->json(array(
             'articles' => $productConcrete,
@@ -66,9 +78,9 @@ class ArticleController extends Controller
     public function getProductGender($gender) {
         $productGen = article::where('gender', '=', $gender)->get();
         $productCount = count($productGen);
-        for ($i=0; $i < $productCount ; $i++) { 
+        for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productGen[$i]->photo);
-            $productGen[$i]->photo = base64_encode($contents);   
+            $productGen[$i]->photo = base64_encode($contents);
         }
         return response()->json(array(
             'articles' => $productGen,
@@ -160,7 +172,7 @@ class ArticleController extends Controller
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
             }
-            
+
             $imgDB = article::where('id', $id)->first();
             $lengthImg = strlen($params->photo);
             if ($lengthImg <= 100) {
@@ -194,7 +206,7 @@ class ArticleController extends Controller
             $data = array(
                 'article' => $paramsArray,
                 'status'  => 'success',
-                'code'    => 200 
+                'code'    => 200
             );
         } else {
             //Error

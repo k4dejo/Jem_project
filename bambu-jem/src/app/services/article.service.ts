@@ -48,6 +48,11 @@ export class ArticleService {
       return this._http.get(this.url + 'articles/' + id, { headers: headers });
     }
 
+    getProductSizeList(id): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'showProductSizeList/' + id, { headers: headers });
+    }
+
   deleteProduct(id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.delete(this.url + 'articles/' + id, { headers: headers });
