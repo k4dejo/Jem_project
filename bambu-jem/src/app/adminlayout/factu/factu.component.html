@@ -7,53 +7,97 @@
       </div>
       <div class="card-body">
         <div class="table-responsive" style="overflow: auto;">
-          <div style="margin-left: 88%; color: white;">
+          <div style="margin-left: 87%; color: white;">
             <button class="btn btn--blue btn--pill">facturación</button>
             <button class="btn btn--blue btn--pill">Apartados</button>
           </div>
           <div class="formgroup">
             <form class="form-group" #factu='ngForm'>
               <div class="row">
-                <div class="col-lg-7">
-                  <div class="col-md-10">
+                <div class="col-lg-10">
+                  <div class="input-group-desc">
+                    <h4>Cliente</h4> <button class="btn btn--blue btn--pill" (click)="createClient()" style="color: white;">+</button>
+                    <button data-toggle="modal" data-target="#clientList" class="btn btn--blue btn--pill" style="color: white;">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                  <div *ngIf="clientBool" class="col-md-10">
                     <div class="input-group-desc">
-                      <label for="">Cliente</label> <button class="btn btn--blue btn--pill" style="color: white;">+</button>
-                      <button data-toggle="modal" data-target="#clientList" class="btn btn--blue btn--pill" style="color: white;">
-                        <i class="fas fa-search"></i>
-                      </button>
-                      <input class="input--style-5" name="name" type="text"/>
+                      <label for="">Nombre:</label>
+                      <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="billing.client"
+                      type="text">
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">teléfono</label>
+                      <input class="input--style-5" name="phone" type="phone" phone="ngModel" [(ngModel)]="billing.phone" />
                     </div>
                     <div class="input-group-desc">
                       <label for="">Correo Electrónico</label>
-                      <input class="input--style-5" name="email" type="email"/>
+                      <input class="input--style-5" name="email" type="email" #email="ngModel" [(ngModel)]="billing.email" />
                     </div>
                     <div class="input-group-desc">
                       <label for="">Dirección</label>
                       <div class="row">
-                        <div class="col-md-4">
-                          <select name="province" id="province" class="custom-select" >
-                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                            <option value="1">1</option>
-                          </select>
+                        <div class="col-lg-4 col-md-4 dropdown">
+                          <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                          (click)="getCant(Province)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                            {{province.name}}
+                          </option>
+                        </select>
                         </div>
-                        <div class="col-md-4">
-                          <select name="province" id="province" class="custom-select" >
-                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                            <option value="2">2</option>
-                          </select>
+                        <div class="col-lg-4 col-md-4 dropdown">
+                          <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
+                          (click)="getDist(Province, Cant)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                            {{cant.name}}
+                          </option>
+                        </select>
                         </div>
-                        <div class="col-md-4">
-                          <select name="province" id="province" class="custom-select" >
-                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                            <option value="3">3</option>
-                          </select>
+                        <div class="col-lg-4 col-md-4 dropdown">
+                          <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
+                          (click)="pushAddress(Province, Cant, District)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                            {{dist.name}}
+                          </option>
+                        </select>
                         </div>
                       </div>
                     </div>
                     <div class="input-group-desc">
                       <label for="">Dirección detallada</label>
                       <textarea class="input--style-5" style="resize: vertical;"
-                      name="addresDetail" id="addresDetail" cols="48" rows="2"></textarea>
+                      name="addresDetail" #addresDetail="ngModel" [(ngModel)]="billing.addressDetail" id="addresDetail" cols="48" rows="2"></textarea>
+                    </div>
+                  </div>
+                  <div *ngIf="!clientBool" class="col-md-10">
+                    <div class="input-group-desc">
+                      <label for="">Nombre:</label>
+                      <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="billing.client"
+                      type="text" disabled>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">teléfono</label>
+                      <input class="input--style-5" name="phone" type="phone" phone="ngModel"
+                      [(ngModel)]="billing.phone" disabled/>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">Correo Electrónico</label>
+                      <input class="input--style-5" name="email" type="email" #email="ngModel"
+                      [(ngModel)]="billing.email" disabled/>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">Dirección</label>
+                      <h4>{{billing.address}}</h4>
+                    </div>
+                    <div class="input-group-desc">
+                      <label for="">Dirección detallada</label>
+                      <textarea class="input--style-5" style="resize: vertical;"
+                      name="addresDetail" #addresDetail="ngModel" [(ngModel)]="billing.addressDetail"
+                      id="addresDetail" cols="48" rows="2" disabled></textarea>
                     </div>
                   </div>
                 </div>
@@ -94,35 +138,51 @@
                     <input class="input--style-5" name="name" type="text" [placeholder]="productGet.name" disabled/>
                   </div>
                   <div class="input-group-desc">
+                    <h4 for="">Precio</h4>
+                    <input class="input--style-5" name="name" type="text" [placeholder]="productGet.pricePublic" disabled/>
+                  </div>
+                  <div class="input-group-desc">
                     <div class="fw-size-choose">
                       <h4>Talla: </h4>
                       <div class="sc-item" *ngFor="let size of productSizes">
-                        <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
+                        <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size)">
                         <label for="{{size.size}}">{{size.size}}</label>
                       </div>
                     </div>
                   </div>
                   <div class="input-group-desc">
                     <h4>Cantidad</h4>
-                    <input class="input--style-5" name="name" type="number" [placeholder]="0"/>
+                    <input class="input--style-5" name="amount" #amount="ngModel" [(ngModel)]="valueQtyBtn" type="number" [placeholder]="0"/>
                     <input *ngIf="!AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
                     value="ADD" disabled>
                     <input *ngIf="AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
-                    value="ADD">
+                    value="ADD" (click)="checkoutBilling(productGet)">
                   </div>
                 </div>
               </div>
               <div class="billing">
                 <table class="table table-striped">
                   <thead>
-                    <th></th>
                     <th scope="col">Producto</th>
-                    <th class="quy-th">Cantidad</th>
-                    <th class="size-th">Talla</th>
-                    <th class="total-th">Precio</th>
+                    <th scope="col" class="quy-th">Cantidad</th>
+                    <th scope="col" class="size-th">Talla</th>
+                    <th scope="col" class="total-th">Precio</th>
                     <th scope="col"></th>
                   </thead>
+                  <tbody>
+                    <tr *ngFor="let productBill of arrayBilling">
+                      <td>{{productBill.name}}</td>
+                      <td>{{productBill.pivot.amount}}</td>
+                      <td>{{productBill.pivot.size}}</td>
+                      <td>₡ {{productBill.pricePublic * productBill.pivot.amount | number: "3."}}</td>
+                      <td>
+                        <input style="color: white;" type="button" class="btn btn--blue btn--pill"
+                        value="Eliminar" (click)="detachProductBilling(productBill)">
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
+                <h3>Total: ₡ {{billing.price | number: "3."}}</h3>
               </div>
             </form>
           </div>

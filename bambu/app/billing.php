@@ -15,4 +15,9 @@ class billing extends Model
        'address',
        'addressDetail'
    ];
+
+   public function articles()
+   {
+       return $this->belongsToMany('App\article')->withPivot('size', 'amount');
+   }
 }

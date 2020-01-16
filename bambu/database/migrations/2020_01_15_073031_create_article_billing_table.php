@@ -15,6 +15,8 @@ class CreateArticleBillingTable extends Migration
     {
         Schema::create('article_billing', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('amount');
+            $table->string('size');
             $table->Integer('article_id')->unsigned();
             $table->Integer('billing_id')->unsigned();
             $table->timestamps();

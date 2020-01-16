@@ -1,232 +1,241 @@
 <div class="page-wrapper bg-gra-03 p-t-45 p-b-50" *ngIf="shop">
-	<div class="wrapper wrapper--w790">
-		<div class="card card-5">
-			<div class="card-heading">
-                <h2 class="title">Boutique Jem</h2>
+  <div class="wrapper wrapper--w790">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Boutique Jem</h2>
+      </div>
+      <div class="card-body">
+        <form #registerForm="ngForm">
+          <div class="form-row m-b-55">
+            <div class="name">Nombre</div>
+            <div class="value">
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group-desc">
+                    <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="firstName"
+                      type="text" required>
+                    <label class="label--desc">Primer Nombre</label>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group-desc">
+                    <input class="input--style-5" type="text" name="lastName" #name="ngModel" [(ngModel)]="lastName"
+                      type="text" required>
+                    <label class="label--desc">Apellido</label>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-body">
-            	<form #registerForm="ngForm">
-            		<div class="form-row m-b-55">
-            			<div class="name">Nombre</div>
-            			<div class="value">
-            				<div class="row row-space">
-            					<div class="col-2">
-            						<div class="input-group-desc">
-            							<input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="firstName" type="text" required>
-                                        <label class="label--desc">Primer Nombre</label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="lastName" #name="ngModel" [(ngModel)]="lastName" type="text" required>
-                                        <label class="label--desc">Apellido</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            		<div class="form-row m-b-55">
-            			<div class="name">Contraseña</div>
-            			<div class="value">
-            				<div class="input-group-desc">
-								<input class="input--style-5" type="text" name="password" type="password" #password="ngModel" [(ngModel)]="client.password" required>
-                            	<label class="label--desc">Digite su contraseña</label>
-                        	</div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-	                    <div class="name">Correo</div>
-	                    <div class="value">
-	                        <div class="input-group">
-	                            <input class="input--style-5" type="email" name="email" #email="ngModel" [(ngModel)]="client.email" required>
-	                        </div>
-	                    </div>
-	                </div>
-                    <div class="form-row m-b-55">
-                        <div class="name">Phone</div>
-                        <div class="value">
-                            <div class="input-group-desc">
-                                <input class="input--style-5"name="phone" #phone="ngModel" [(ngModel)]="client.phone" type="phone" required>
-                                <label class="label--desc">Este también será tu usuario</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                    	<div class="name">Dirección</div>
-                        <div class="value">
-                        	<div class="row row-refine">
-                        		<div class="col-md-3">
-                                    <div class="input-group">
-                                        <select name="province" id="province" class="custom-select"
-                                        [(ngModel)]="Province"
-                                        (click)="getCant(Province)">
-                                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                                            <option *ngFor="let province of ArrayProvin" [value]="province.id">
-                                                {{province.name}}
-                                            </option> 
-                                        </select>
-                                        <label class="label--desc">Provincia</label>
-                                    </div>
-                                </div>
-                        		<div class="col-md-3">
-                                    <div class="input-group">
-                                        <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant" (click)="getDist(Province, Cant)">
-                                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                                            <option *ngFor="let cant of ArrayCant" [value]="cant.id">
-                                                {{cant.name}}
-                                            </option>
-                                        </select>
-                                        <label class="label--desc">Cantón</label>
-                                    </div>
-                        		</div>
-                        		<div class="col-md-3">
-                                    <div class="input-group select-dropdown">
-                                        <select name="distrit" id="distrit" class="custom-select"
-                                        [(ngModel)]="District" (click)="pushAddress(Province, Cant, District)">
-                                            <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                                            <option *ngFor="let dist of ArrayDist" [value]="dist.id">
-                                                {{dist.name}}
-                                            </option>
-                                        </select>
-                                        <label class="label--desc">Distrito</label>
-                                    </div>
-                        		</div>
-                        	</div>
-                        </div>
-                    </div>
-                    <div class="form-row m-b-55">
-                        <div class="name">Dirección detallada</div>
-                        <div class="value">
-                            <div class="input-group-desc">
-                                <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail" cols="55" rows="2" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="alert alert-success" role="alert" *ngIf="status == 'success'">
-                        <p>
-                            Usuario Registrado <a href="/Home/BJem" class="alert-link">Ingresa Ahora!</a>
-                        </p>
-                    </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="status == 'duplicate'">
-                        <p>El usuario ya existe.</p>
-                    </div><br>
-                    <div>
-                        <button class="btn btn--radius-2 btn--red" type="submit"
-                        (click)="Onsubmit(registerForm)">Register</button>
-                    </div>
-                </form>
+          </div>
+          <div class="form-row m-b-55">
+            <div class="name">Contraseña</div>
+            <div class="value">
+              <div class="input-group-desc">
+                <input class="input--style-5" type="text" name="password" type="password" #password="ngModel"
+                  [(ngModel)]="client.password" required>
+                <label class="label--desc">Digite su contraseña</label>
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Correo</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="email" name="email" #email="ngModel" [(ngModel)]="client.email"
+                  required>
+              </div>
+            </div>
+          </div>
+          <div class="form-row m-b-55">
+            <div class="name">Phone</div>
+            <div class="value">
+              <div class="input-group-desc">
+                <input class="input--style-5" name="phone" #phone="ngModel" [(ngModel)]="client.phone" type="phone"
+                  required>
+                <label class="label--desc">Este también será tu usuario</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Dirección</div>
+            <div class="value">
+              <div class="row row-refine">
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                      (click)="getCant(Province)">
+                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                      <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                        {{province.name}}
+                      </option>
+                    </select>
+                    <label class="label--desc">Provincia</label>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
+                      (click)="getDist(Province, Cant)">
+                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                      <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                        {{cant.name}}
+                      </option>
+                    </select>
+                    <label class="label--desc">Cantón</label>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group select-dropdown">
+                    <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
+                      (click)="pushAddress(Province, Cant, District)">
+                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                      <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                        {{dist.name}}
+                      </option>
+                    </select>
+                    <label class="label--desc">Distrito</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row m-b-55">
+            <div class="name">Dirección detallada</div>
+            <div class="value">
+              <div class="input-group-desc">
+                <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail"
+                  cols="55" rows="2" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-success" role="alert" *ngIf="status == 'success'">
+            <p>
+              Usuario Registrado <a href="/Home/BJem" class="alert-link">Ingresa Ahora!</a>
+            </p>
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="status == 'duplicate'">
+            <p>El usuario ya existe.</p>
+          </div><br>
+          <div>
+            <button class="btn btn--radius-2 btn--red" type="submit" (click)="Onsubmit(registerForm)">Register</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 <div class="page-wrapper bg-gra-03 p-t-45 p-b-50" *ngIf="!shop">
-	<div class="wrapper wrapper--w790">
-		<div class="card card-5">
-			<div class="card-heading">
-                <h2 class="title">TU Boutique</h2>
+  <div class="wrapper wrapper--w790">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">TU Boutique</h2>
+      </div>
+      <div class="card-body">
+        <form #registerForm="ngForm">
+          <div class="form-row m-b-55">
+            <div class="name">Nombre</div>
+            <div class="value">
+              <div class="row row-space">
+                <div class="col-2">
+                  <div class="input-group-desc">
+                    <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="firstName"
+                      type="text" required>
+                    <label class="label--desc">Primer Nombre</label>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <div class="input-group-desc">
+                    <input class="input--style-5" type="text" name="lastName" #name="ngModel" [(ngModel)]="lastName"
+                      type="text" required>
+                    <label class="label--desc">Apellido</label>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-body">
-            	<form #registerForm="ngForm">
-            		<div class="form-row m-b-55">
-            			<div class="name">Nombre</div>
-            			<div class="value">
-            				<div class="row row-space">
-            					<div class="col-2">
-            						<div class="input-group-desc">
-            							<input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="firstName" type="text" required>
-                                        <label class="label--desc">Primer Nombre</label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="lastName" #name="ngModel" [(ngModel)]="lastName" type="text" required>
-                                        <label class="label--desc">Apellido</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row m-b-55">
-                        <div class="name">Phone</div>
-                        <div class="value">
-                            <div class="input-group-desc">
-                                <input class="input--style-5"name="phone" #phone="ngModel" [(ngModel)]="client.phone" type="phone" required>
-                                <label class="label--desc">Este también será tu usuario</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Correo</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <input class="input--style-5" type="email" name="email" #email="ngModel" [(ngModel)]="client.email" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Dirección</div>
-                        <div class="value">
-                            <div class="row row-refine">
-                                <div class="col-3">
-                                    <div class="col-md-3">
-                                        <div class="input-group select-dropdown">
-                                            <select name="province" id="province" class="custom-select"
-                                            [(ngModel)]="Province">
-                                                <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                                                <option *ngFor="let province of ArrayProvin" [value]="province.id">
-                                                    {{province.name}}
-                                                </option>
-                                            </select>
-                                            <label class="label--desc">Provincia</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="col-md-3">
-                                        <div class="input-group select-dropdown">
-                                            <select name="cant" id="cant" class="custom-select"
-                                            [(ngModel)]="Cant" (click)="getCant(Province)">
-                                                <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                                                <option *ngFor="let cant of ArrayCant" [value]="cant.id">
-                                                    {{cant.name}}
-                                                </option>
-                                            </select>
-                                            <label class="label--desc">Cantón</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="input-group">
-                                        <div class="input-group select-dropdown">
-                                            <select name="dist" id="dist" class="custom-select"
-                                            [(ngModel)]="District" (click)="getDist(Province, Cant, District)">
-                                                <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                                                <option *ngFor="let dist of ArrayDist" [value]="dist.id">
-                                                    {{dist.name}}
-                                                </option>
-                                            </select>
-                                            <label class="label--desc">Distrito</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row m-b-55">
-                        <div class="name">Dirección detallada</div>
-                        <div class="value">
-                            <div class="input-group-desc">
-                                
-                                <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail" cols="55" rows="2" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn btn--radius-2 btn--red" type="submit"
-                        (click)="Onsubmit(registerForm)" data-toggle="modal">Register</button>
-                    </div>
-                </form>
+          </div>
+          <div class="form-row m-b-55">
+            <div class="name">Phone</div>
+            <div class="value">
+              <div class="input-group-desc">
+                <input class="input--style-5" name="phone" #phone="ngModel" [(ngModel)]="client.phone" type="phone"
+                  required>
+                <label class="label--desc">Este también será tu usuario</label>
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Correo</div>
+            <div class="value">
+              <div class="input-group">
+                <input class="input--style-5" type="email" name="email" #email="ngModel" [(ngModel)]="client.email"
+                  required>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="name">Dirección</div>
+            <div class="value">
+              <div class="row row-refine">
+                <div class="col-3">
+                  <div class="col-md-3">
+                    <div class="input-group select-dropdown">
+                      <select name="province" id="province" class="custom-select" [(ngModel)]="Province">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                          {{province.name}}
+                        </option>
+                      </select>
+                      <label class="label--desc">Provincia</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="col-md-3">
+                    <div class="input-group select-dropdown">
+                      <select name="cant" id="cant" class="custom-select" [(ngModel)]="Cant"
+                        (click)="getCant(Province)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                          {{cant.name}}
+                        </option>
+                      </select>
+                      <label class="label--desc">Cantón</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="input-group">
+                    <div class="input-group select-dropdown">
+                      <select name="dist" id="dist" class="custom-select" [(ngModel)]="District"
+                        (click)="getDist(Province, Cant, District)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                          {{dist.name}}
+                        </option>
+                      </select>
+                      <label class="label--desc">Distrito</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row m-b-55">
+            <div class="name">Dirección detallada</div>
+            <div class="value">
+              <div class="input-group-desc">
+
+                <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail"
+                  cols="55" rows="2" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"></textarea>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn--radius-2 btn--red" type="submit" (click)="Onsubmit(registerForm)"
+              data-toggle="modal">Register</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

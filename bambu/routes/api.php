@@ -40,10 +40,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::post('deleteArrayImg/{id}', 'imageController@deleteImg');
     Route::post('deleteOutfitDetach', 'OutfitController@detachOutfits');
     Route::post('attachOutfitProduct', 'OutfitController@AttachOutfits');
+    Route::post('attachBillingProduct', 'billingController@attachProductBilling');
+    Route::post('detachBillingProduct', 'billingController@dettachProductBilling');
     Route::put('editOutfit/{id}', 'OutfitController@editOutfit');
 	Route::get('getShowProductP/{idClient}/{idProduct}',
     'PurchaseController@showSingleProductPurchase');
     Route::get('showProductSizeList/{id}' , 'ArticleController@showSizeList');
+    Route::get('getBillingList/{id}', 'billingController@getBilling');
 	Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
     Route::get('getImages/{id}','imageController@show');
     Route::get('getClientList' , 'clientController@getClientList');
@@ -64,3 +67,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	Route::resource('articles','ArticleController');
     Route::resource('coupon', 'couponController');
     Route::resource('offer', 'offerController');
+    Route::resource('billing', 'billingController');

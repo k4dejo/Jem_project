@@ -26,6 +26,11 @@ class article extends Model
     	return $this->belongsToMany('App\purchase')->withPivot('size', 'amount');
     }
 
+    public function billing()
+    {
+    	return $this->belongsToMany('App\billing')->withPivot('size', 'amount');
+    }
+
     public function outfits()
     {
         return $this->belongsToMany('App\outfit','article_outfit');
