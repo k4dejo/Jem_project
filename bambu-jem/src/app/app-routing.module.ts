@@ -25,6 +25,7 @@ import { OfferComponent } from './adminlayout/offer/offer.component';
 import { OutfitComponent } from './adminlayout/outfit/outfit.component';
 import { OutfitClientComponent } from './components/outfit-client/outfit-client.component';
 import { PromoComponent } from './components/promo/promo.component';
+import { ApartComponent } from '././adminlayout/apart/apart.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'admin/ofertas', component: OfferComponent},
   { path: 'admin/outfits', component: OutfitComponent},
   { path: 'admin/facturación', component: FactuComponent},
+  { path: 'admin/Apartados', component: ApartComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},
 ];

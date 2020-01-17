@@ -7,5 +7,6 @@ export class Billing {
       public phone: string,
       public address: string,
       public addressDetail: string,
+      public status: string
   ) {}
 }

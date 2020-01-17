@@ -6,50 +6,51 @@ import { GLOBAL } from './global';
 @Injectable({
   providedIn: 'root'
 })
-export class BillingService {
+export class ApartService {
   public url: string;
 
   constructor(public _http: HttpClient) {
-      this.url = GLOBAL.url;
+    this.url = GLOBAL.url;
   }
-  addNewBilling(token, dataBilling): Observable<any> {
-    const json = JSON.stringify(dataBilling);
+
+  addNewApart(token, dataApart): Observable<any> {
+    const json = JSON.stringify(dataApart);
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', token);
-    return this._http.post(this.url + 'billing', params, { headers: headers });
+    return this._http.post(this.url + 'AddApart', params, { headers: headers });
   }
 
-  editBilling(token, dataBilling): Observable<any> {
-    const json = JSON.stringify(dataBilling);
+  editApart(token, dataPurchase): Observable<any> {
+    const json = JSON.stringify(dataPurchase);
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', token);
-    return this._http.post(this.url + 'editBilling', params, { headers: headers });
+    return this._http.post(this.url + 'EditApart', params, { headers: headers });
   }
 
-  attachProductBilling(token, dataBilling): Observable<any> {
-    const json = JSON.stringify(dataBilling);
+  attachProductApart(token, dataApart): Observable<any> {
+    const json = JSON.stringify(dataApart);
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', token);
-    return this._http.post(this.url + 'attachBillingProduct', params, { headers: headers });
+    return this._http.post(this.url + 'AttachApart', params, { headers: headers });
   }
 
-  getBilling(idBilling: any): Observable<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.get(this.url + 'getBillingList/' + idBilling, {headers: headers});
-  }
-
-  getBillingList(): Observable<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.get(this.url + 'billing', {headers: headers});
-  }
-
-  detachProductBilling(dataBilling: any): Observable<any> {
-    const json = JSON.stringify(dataBilling);
+  dettachProductApart(dataDettachApart: any): Observable<any> {
+    const json = JSON.stringify(dataDettachApart);
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.post(this.url + 'detachBillingProduct', params, { headers: headers });
+    return this._http.post(this.url + 'detachApart', params, { headers: headers });
+  }
+
+  getApart(idApart: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getApart/' + idApart, {headers: headers});
+  }
+
+  getApartClient(idClient: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getApartClient/' + idClient, {headers: headers});
   }
 }

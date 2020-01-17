@@ -188,7 +188,7 @@ class billingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editBilling(Request $request)
     {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
@@ -204,14 +204,14 @@ class billingController extends Controller
                 'email'         => 'required',
                 'phone'         => 'required',
                 'address'       => 'required',
-                'addressDetail' => 'required'
+                'addressDetail' => 'required',
+                'status'        => 'required'
             ]);
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
             }
             unset($paramsArray['id']);
             unset($paramsArray['created_at']);
-            return 'holi';
             $billing = billing::where('id', $params->id)->update($paramsArray);
             $data = array(
                 'billing' => $billing,

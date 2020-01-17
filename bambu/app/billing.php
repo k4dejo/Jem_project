@@ -13,7 +13,8 @@ class billing extends Model
        'email',
        'phone',
        'address',
-       'addressDetail'
+       'addressDetail',
+       'status'
    ];
 
    public function articles()

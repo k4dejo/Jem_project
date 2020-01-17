@@ -82,7 +82,7 @@ export class FactuComponent implements OnInit {
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.billing = new Billing('', 0, '', '', '', '', '');
+    this.billing = new Billing('', 0, '', '', '', '', '', '');
     this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '');
     this.attachBilling = new AttachBilling('', '', 0, '');
   }
@@ -94,6 +94,10 @@ export class FactuComponent implements OnInit {
       dptId = i + 1;
       this.department.push(new Departament(dptId.toString(), data[i]));
     }
+  }
+
+  gotoApart() {
+    this.router.navigate(['admin/Apartados']);
   }
 
 
@@ -185,7 +189,6 @@ export class FactuComponent implements OnInit {
     this.adminService.getClientList().subscribe(
       response => {
         this.clients = response.clients;
-        console.log(this.clients);
       }, error => {
         console.log(<any> error);
       }
@@ -193,7 +196,6 @@ export class FactuComponent implements OnInit {
   }
 
   selectClient(dataClient: any) {
-    console.log(dataClient);
     this.billing.client = dataClient.name;
     this.billing.address = dataClient.address;
     this.billing.phone = dataClient.phone;
@@ -313,6 +315,7 @@ export class FactuComponent implements OnInit {
 
   checkoutBilling(productGet: any) {
     this.billing.price += productGet.pricePublic * this.valueQtyBtn;
+    this.billing.status = 'incomplete';
     this.total += this.billing.price;
     this.billingService.addNewBilling(this.token, this.billing).subscribe(
       response => {
@@ -320,7 +323,6 @@ export class FactuComponent implements OnInit {
           this.attachBilling.amount = this.valueQtyBtn;
           this.attachBilling.article_id = productGet.id;
           this.attachBilling.billing_id = response.billing.id;
-          this.editBilling(response.billing.id);
           this.attachBillingProduct(this.token, this.attachBilling);
         }
       }, error => {
@@ -334,6 +336,7 @@ export class FactuComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.getBilling(dataBilling.billing_id);
+          this.editBilling(dataBilling.billing_id);
         }
       }, error => {
         console.log(<any> error);
@@ -343,7 +346,6 @@ export class FactuComponent implements OnInit {
 
   editBilling(IdBilling: any) {
     this.billing.id = IdBilling;
-    console.log(this.billing);
     this.billing.price = 0;
     this.billingService.getBilling(IdBilling).subscribe(
       response => {
@@ -351,15 +353,16 @@ export class FactuComponent implements OnInit {
         for (let index = 0; index < this.arrayBilling.length; index++) {
           this.billing.price += this.arrayBilling[index].pricePublic * this.arrayBilling[index].pivot.amount;
         }
-        this.editFunctBilling(this.token, this.billing, this.billing.id);
+        this.editFunctBilling(this.token, this.billing);
       }, error => {
         console.log(<any>error);
       }
     );
   }
 
-  editFunctBilling(token, dataBill, id) {
-    this.billingService.editBilling(token, dataBill, id).subscribe(
+
+  editFunctBilling(token, dataBill) {
+    this.billingService.editBilling(token, dataBill).subscribe(
       response => {
         console.log(response);
       }, error => {
@@ -375,6 +378,7 @@ export class FactuComponent implements OnInit {
       response => {
         console.log(response);
         this.getBilling(response.IdBilling);
+        this.editBilling(response.IdBilling);
       }, error => {
         console.log(<any> error);
       }
