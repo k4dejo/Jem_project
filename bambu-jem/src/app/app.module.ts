@@ -47,6 +47,7 @@ import { PromoComponent } from './components/promo/promo.component';
 import { OutfitClientComponent } from './components/outfit-client/outfit-client.component';
 import { FactuComponent } from './adminlayout/factu/factu.component';
 import { ApartComponent } from './adminlayout/apart/apart.component';
+import { ModAdminComponent } from './adminlayout/mod-admin/mod-admin.component';
 
 
 
@@ -87,7 +88,8 @@ import { ApartComponent } from './adminlayout/apart/apart.component';
     PromoComponent,
     OutfitClientComponent,
     FactuComponent,
-    ApartComponent
+    ApartComponent,
+    ModAdminComponent
   ],
   imports: [
     BrowserModule,

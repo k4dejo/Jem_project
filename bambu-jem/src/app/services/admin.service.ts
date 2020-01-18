@@ -31,6 +31,14 @@ export class AdminService {
         return this._http.post(this.url + 'authAdmin', params, { headers: headers });
     }
 
+    verifyPass(token, dataAdmin: any): Observable<any> {
+      const json = JSON.stringify(dataAdmin);
+      const params = 'json=' + json;
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
+      return this._http.post(this.url + 'verifyPassword', params, { headers: headers });
+    }
+
     getClientList(): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'getClientList', { headers: headers });

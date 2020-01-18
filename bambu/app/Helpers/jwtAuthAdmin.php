@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Admin;
 
 /**
- * 
+ *
  */
 class jwtAuthAdmin
 {
@@ -14,7 +14,33 @@ class jwtAuthAdmin
 	public function __construct()
 	{
 		$this->key = 'tome-pal-pinto-01';
-	}
+    }
+
+    public function verifyPassword($password, $priority, $getToken=null) {
+		$user = Admin::where(array(
+			'priority' => $priority,
+			'password' => $password
+        ))->first();
+
+        $signup = false;
+
+		if (is_object($user)) {
+			$signup = true;
+        }
+        if ($signup) {
+            $jwt = JWT::encode($user->password,$this->key, 'HS256');
+            $decoded = JWT::decode($jwt,$this->key, array('HS256'));
+            if (is_null($getToken)) {
+				return $decoded;
+			}else{
+				return $decoded;
+			}
+
+        }else{
+			//retornar error
+			return array('status' => 'Error', 'message' => 'Fallo al ingresar');
+		}
+    }
 
 	public function signup($user, $password, $getToken=null)
 	{
@@ -22,7 +48,7 @@ class jwtAuthAdmin
 			'user' => $user,
 			'password' => $password
 		))->first();
-		
+
 		$signup = false;
 
 		if (is_object($user)) {
@@ -71,7 +97,7 @@ class jwtAuthAdmin
 		}else{
 			$auth = false;
 		}
-		
+
 		if ($getIdentity) {
 			return $decoded;
 		}

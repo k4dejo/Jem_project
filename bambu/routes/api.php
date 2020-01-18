@@ -30,6 +30,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    /*ADMIN*/
    Route::post('loginAdmin','adminController@login');
    Route::post('authAdmin','adminController@AuthAdmin');
+   Route::post('verifyPassword', 'adminController@VerifyPass');
    /**/
 
    /*OUTFIT*/

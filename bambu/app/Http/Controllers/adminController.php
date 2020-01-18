@@ -33,6 +33,30 @@ class adminController extends Controller
         ), 200);
     }
 
+    public function VerifyPass(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+
+        if ($checkToken) {
+            $jwtAuth = new jwtAuthAdmin();
+
+            //recibir post
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+
+            $password = (!is_null($json) && isset($params->oldPass)) ? $params->oldPass : null;
+            $priority = (!is_null($json) && isset($params->priority)) ? $params->priority : null;
+            $getToken = (!is_null($json) && isset($params->getToken))? $params->getToken : null;
+
+            //cifrar pass
+            $pwd = hash('sha256', $password);
+            $signup = $jwtAuth->verifyPassword($password, $priority,$getToken);
+            return $signup;
+        }
+    }
+
     public function login(Request $request)
     {
         $jwtAuth = new jwtAuthAdmin();

@@ -1,6 +1,6 @@
 .search-box{
   height: 40px;
-  background: #ccc; 
+  background: #ccc;
   border-radius: 50px;
   padding: 8px;
 }
@@ -36,8 +36,9 @@ top: 25%;
 }
 
 .profile-pic {
-  width: 40px;
+  width: 45px;
   border-radius: 100%;
+  margin-top: 26%;
 }
 
 

@@ -225,6 +225,7 @@ export class ApartComponent implements OnInit {
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
         }
+
       }, error => {
         console.log(<any>error);
       }
@@ -263,8 +264,18 @@ export class ApartComponent implements OnInit {
     this.client.email = dataClient.email;
     this.client.addressDetail = dataClient.addressDetail;
     this.apartM.clients_id = dataClient.id;
-    this.getApartClient(dataClient.id);
+    this.apartM.price = 0;
     this.clientBool = false;
+    this.apartService.addNewApart(this.token, this.apartM).subscribe(
+      response => {
+        if (response.status === 'success' || response.status === 'Exist') {
+          this.attachApart.apart_id = response.apart.id;
+          this.getApartClient(dataClient.id);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   attachApartProduct(token: any, dataApart: any) {

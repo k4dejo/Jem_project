@@ -1,0 +1,49 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+      <h2 class="title">¡Bienvenida Jennifer!</h2>
+      </div>
+      <div class="card-body">
+        <div class="formgroup">
+          <form class="form-group">
+            <div class="row">
+              <div class="col-lg-9">
+                <h3>Cambio de contraseña</h3>
+                <div class="input-group-desc">
+                  <h4>Contraseña pasada: </h4>
+                  <input *ngIf="showNewPass" class="input--style-5" name="oldPassword" #oldPassword="ngModel"
+                  [(ngModel)]="changePass.oldPass" type="text">
+                  <input *ngIf="!showNewPass" class="input--style-5" name="oldPassword" #oldPassword="ngModel"
+                  [(ngModel)]="changePass.oldPass" type="password">
+                </div>
+                <div class="input-group-desc">
+                  <h4>Nueva contraseña: </h4>
+                  <input *ngIf="showNewPass" class="input--style-5" name="newPassword" #newPassword="ngModel"
+                  [(ngModel)]="changePass.newPass" type="text">
+                  <input *ngIf="!showNewPass" class="input--style-5" name="newPassword" #newPassword="ngModel"
+                  [(ngModel)]="changePass.newPass" type="password">
+                </div>
+                <div class="input-group-desc">
+                  <h4>Repite la nueva la contraseña: </h4>
+                  <input *ngIf="showNewPass" class="input--style-5" name="rePassword" #rePassword="ngModel"
+                  [(ngModel)]="changePass.rePass" type="text">
+                  <input *ngIf="!showNewPass" class="input--style-5" name="rePassword" #rePassword="ngModel"
+                  [(ngModel)]="changePass.rePass" type="password">
+                  <div class="icon">
+                    <a (click)="showPass()"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div class="input-group-desc">
+                  <input style="color: white;" type="button" class="btn btn--green btn--pill"
+                  value="Guardar" (click)="savePass()">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

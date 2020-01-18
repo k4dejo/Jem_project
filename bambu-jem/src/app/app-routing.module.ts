@@ -26,6 +26,7 @@ import { OutfitComponent } from './adminlayout/outfit/outfit.component';
 import { OutfitClientComponent } from './components/outfit-client/outfit-client.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { ApartComponent } from '././adminlayout/apart/apart.component';
+import { ModAdminComponent } from './adminlayout/mod-admin/mod-admin.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'admin/outfits', component: OutfitComponent},
   { path: 'admin/facturación', component: FactuComponent},
   { path: 'admin/Apartados', component: ApartComponent},
+  { path: 'admin/Configuración', component: ModAdminComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},
 ];

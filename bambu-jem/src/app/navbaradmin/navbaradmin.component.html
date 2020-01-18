@@ -75,14 +75,16 @@
         <li>
           <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           role="button">
-            <img src="assets/Images/4.jpg" alt="user" class="profile-pic" />
+            <img *ngIf="priorityBoolean" alt="user" class="profile-pic" src="assets/Images/adminAdmin.png" alt="">
+            <img *ngIf="!priorityBoolean" alt="user" class="profile-pic" src="assets/Images/adminUser.png" alt="">
           </a>
           <div class="dropdown-menu">
             <ul class="dropdown-user">
               <li>
                 <div class="dw-user-box">
                   <div class="u-img">
-                    <img src="assets/Images/4.jpg" alt="user" />
+                    <img *ngIf="!priorityBoolean" alt="user" class="profile-pic" src="assets/Images/adminUser.png" alt="">
+                    <img *ngIf="priorityBoolean" alt="user" class="profile-pic" src="assets/Images/adminAdmin.png" alt="">
                   </div>
                   <div class="u-text">
                     <h4>{{ identity.user }}</h4>
@@ -92,7 +94,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a href="#"><i class="fas fa-user-tie"></i> Mi perfil</a>
+                <a href="admin/Configuración"><i class="fas fa-user-tie"></i> Mi perfil</a>
               </li>
               <li role="separator" class="divider"></li>
               <li>
