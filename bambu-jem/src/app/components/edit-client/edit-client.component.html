@@ -1,0 +1,14 @@
+<header>
+  <div *ngIf="shop_bool">
+    <app-navbar-j></app-navbar-j>
+  </div>
+  <div *ngIf="!shop_bool">
+    <app-navbar-b></app-navbar-b>
+  </div>
+</header>
+<div class="main" style="overflow: hidden;">
+  <div class="container-fluid">
+    <div class="cart-table">
+    </div>
+  </div>
+</div>

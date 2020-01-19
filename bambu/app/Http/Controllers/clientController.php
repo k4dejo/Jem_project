@@ -91,10 +91,10 @@ class clientController extends Controller
 		$pwd = hash('sha256', $password);
 
 		if (!is_null($phone) && !is_null($password) && ($getToken == null || $getToken == 'false')) {
-			$signup = $jwtAuth->signup($phone, $password);
+			$signup = $jwtAuth->signup($phone, $pwd);
 
 		}elseif ($getToken != null) {
-			$signup = $jwtAuth->signup($phone, $password,$getToken);
+			$signup = $jwtAuth->signup($phone, $pwd,$getToken);
 
 		}else{
 			$signup = array(

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\client;
 
 /**
- * 
+ *
  */
 class jwtAuth
 {
@@ -18,12 +18,10 @@ class jwtAuth
 
 	public function signup($phone, $password, $getToken=null)
 	{
-		/*$Client = client::where(array(
+		$Client = client::where(array(
 			'phone' => $phone,
 			'password' => $password
-		))->first();*/
-
-		$Client = client::where('phone', $phone)->first();
+        ))->first();
 
 		$signup = false;
 
@@ -76,7 +74,7 @@ class jwtAuth
 		}else{
 			$auth = false;
 		}
-		
+
 		if ($getIdentity) {
 			return $decoded;
 		}

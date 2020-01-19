@@ -715,7 +715,9 @@ td .img-responsive{
 ==========================================*/
 
 .icon .fa{
-  margin-top: 1%;
+  position: relative;
+  left: 95%;
+  top: 2%;
   font-weight: 900;
   font-size: 25px;
   color: #1a1a1a;

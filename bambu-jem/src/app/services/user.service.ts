@@ -39,6 +39,11 @@ export class UserServices {
     return this._http.get(this.url + 'getFavorite/' + idClient + '/' + idProduct, {headers: headers});
   }
 
+  showFavoriteList(idClient): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getFavoriteList/' + idClient, {headers: headers});
+  }
+
   signup(client, getToken = null): Observable<any> {
     if (getToken != null) {
       client.getToken = 'true';

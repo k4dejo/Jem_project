@@ -1,0 +1,42 @@
+<header>
+  <div *ngIf="shop_bool">
+    <app-navbar-j></app-navbar-j>
+  </div>
+  <div *ngIf="!shop_bool">
+    <app-navbar-b></app-navbar-b>
+  </div>
+</header>
+<div class="main" style="overflow: hidden;">
+  <div class="container-fluid">
+    <div class="cart-table">
+      <h3>Tus Productos Favoritos</h3>
+      <div style="padding-left: 5%; padding-right:5%; margin-bottom: 2%;" class="cart-table-warp">
+        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+        <table>
+          <thead>
+            <th scope="col" style="margin-bottom: 3%;">Producto</th>
+            <th scope="col" style="margin-bottom: 3%;">Precio</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let favorite of favoriteList | paginate: { itemsPerPage: 12, currentPage: p }">
+              <td class="product-col">
+                <img class="img-responsive" [src]="favorite.photo" alt="" />
+                <div class="pc-title">
+                  <h4>{{ favorite.name }}</h4>
+                </div>
+              </td>
+              <td>
+                ₡ {{favorite.pricePublic | number: "3."}}
+              </td>
+              <td>
+                <input style="color: white;" type="button" class="btn btn--blue btn--pill"
+                value="Eliminar de la lista" (click)="deleteFavorite(favorite)">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

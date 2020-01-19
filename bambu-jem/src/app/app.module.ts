@@ -48,6 +48,9 @@ import { OutfitClientComponent } from './components/outfit-client/outfit-client.
 import { FactuComponent } from './adminlayout/factu/factu.component';
 import { ApartComponent } from './adminlayout/apart/apart.component';
 import { ModAdminComponent } from './adminlayout/mod-admin/mod-admin.component';
+import { CreateAdminComponent } from './adminlayout/create-admin/create-admin.component';
+import { ViewlikeComponent } from './components/viewlike/viewlike.component';
+import { EditClientComponent } from './components/edit-client/edit-client.component';
 
 
 
@@ -89,7 +92,10 @@ import { ModAdminComponent } from './adminlayout/mod-admin/mod-admin.component';
     OutfitClientComponent,
     FactuComponent,
     ApartComponent,
-    ModAdminComponent
+    ModAdminComponent,
+    CreateAdminComponent,
+    ViewlikeComponent,
+    EditClientComponent
   ],
   imports: [
     BrowserModule,

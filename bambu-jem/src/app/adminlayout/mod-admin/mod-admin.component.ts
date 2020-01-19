@@ -14,6 +14,8 @@ export class ModAdminComponent implements OnInit {
   public identity;
   public showNewPass = false;
   public changePass: ChangeAdmin;
+  public secureBool = false;
+  public modalSuccess = false;
 
   constructor( private adminService: AdminService, private router: Router) {
     this.token = this.adminService.getToken();
@@ -37,13 +39,23 @@ export class ModAdminComponent implements OnInit {
 
   savePass() {
     this.changePass.priority = this.identity.priority;
-    this.adminService.verifyPass(this.token, this.changePass).subscribe(
-      response => {
-        console.log(response);
-      }, error => {
-        console.log(<any> error);
-      }
-    );
+    if (this.changePass.newPass === this.changePass.rePass) {
+      this.secureBool = false;
+      this.adminService.verifyPass(this.token, this.changePass).subscribe(
+        response => {
+          console.log(response);
+          if (response.status === 'success') {
+            this.modalSuccess = true;
+          } else {
+            this.modalSuccess = false;
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+    } else {
+      this.secureBool = true;
+    }
   }
 
   ngOnInit() {

@@ -1,0 +1,61 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+      <h2 class="title">Crear Nuevo Usuario</h2>
+      </div>
+      <div class="card-body">
+        <div class="formgroup">
+          <form class="form-group">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="input-group-desc">
+                  <h4>Nombre:</h4>
+                  <input class="input--style-5" name="user" #user="ngModel"
+                  [(ngModel)]="newAdmin.user" type="text">
+                </div>
+                <div class="input-group-desc">
+                  <h4>Contraseña:</h4>
+                  <input *ngIf="!showNewPass" class="input--style-5" name="password" #password="ngModel"
+                  [(ngModel)]="newAdmin.password" type="password">
+                  <input *ngIf="showNewPass" class="input--style-5" name="password" #password="ngModel"
+                  [(ngModel)]="newAdmin.password" type="text">
+                  <div class="icon">
+                    <a (click)="showPass()">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="input-group-desc">
+                  <input style="color: white;" type="button" class="btn btn--green btn--pill"
+                  value="Guardar" data-toggle="modal" data-target="#successPassModal" (click)="saveAdmin()">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="tableAdmin">
+          <h3 style="text-align: center; font-weight: bold; margin-bottom: 1%;">Lista de Empleados</h3>
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">Nombre</th>
+              <th scope="col"></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let admin of adminList">
+                <td>{{admin.user}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input style="color: white;" type="button" class="btn btn--red btn--pill"
+                  value="Eliminar" data-toggle="modal" data-target="#successPassModal" (click)="deleteAdmin(admin)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

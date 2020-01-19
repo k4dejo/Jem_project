@@ -114,6 +114,14 @@ export class NavbarJComponent implements OnInit {
     this.router.navigate(['Carrito/', 'J', this.identity.sub]);
   }
 
+  gotoFavorites() {
+    this.router.navigate(['Home/Favoritos/', 'J']);
+  }
+
+  gotoConfig() {
+    this.router.navigate(['Cuenta/configuración/', 'J']);
+  }
+
   getLenghtListPurchase() {
     this.purchaseService.getPurchase(this.identity.sub).subscribe(
       response => {

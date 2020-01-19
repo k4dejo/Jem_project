@@ -16,29 +16,23 @@ class jwtAuthAdmin
 		$this->key = 'tome-pal-pinto-01';
     }
 
-    public function verifyPassword($password, $priority, $getToken=null) {
-		$user = Admin::where(array(
+    public function verifyPasswordAuth($password, $priority, $getToken=null) {
+        $user = Admin::where(array(
 			'priority' => $priority,
 			'password' => $password
         ))->first();
 
-        $signup = false;
+        $verify = false;
 
 		if (is_object($user)) {
-			$signup = true;
+			$verify = true;
         }
-        if ($signup) {
-            $jwt = JWT::encode($user->password,$this->key, 'HS256');
-            $decoded = JWT::decode($jwt,$this->key, array('HS256'));
-            if (is_null($getToken)) {
-				return $decoded;
-			}else{
-				return $decoded;
-			}
 
+        if ($verify) {
+            return $user;
         }else{
 			//retornar error
-			return array('status' => 'Error', 'message' => 'Fallo al ingresar');
+			return array('status' => 'Error', 'message' => 'contraseña no coincide');
 		}
     }
 
@@ -53,7 +47,7 @@ class jwtAuthAdmin
 
 		if (is_object($user)) {
 			$signup = true;
-		}
+        }
 
 		if ($signup) {
 			//generar token y retornar

@@ -24,6 +24,9 @@
                   [(ngModel)]="changePass.newPass" type="text">
                   <input *ngIf="!showNewPass" class="input--style-5" name="newPassword" #newPassword="ngModel"
                   [(ngModel)]="changePass.newPass" type="password">
+                  <p *ngIf="secureBool" style="color: red; font-weight: bold; margin-bottom: 1%;">
+                    Verifica que los campos sean los correctos
+                  </p>
                 </div>
                 <div class="input-group-desc">
                   <h4>Repite la nueva la contraseña: </h4>
@@ -31,19 +34,40 @@
                   [(ngModel)]="changePass.rePass" type="text">
                   <input *ngIf="!showNewPass" class="input--style-5" name="rePassword" #rePassword="ngModel"
                   [(ngModel)]="changePass.rePass" type="password">
+                  <p *ngIf="secureBool" style="color: red; font-weight: bold; margin-bottom: 1%;">
+                    Verifica que los campos sean los correctos
+                  </p>
                   <div class="icon">
-                    <a (click)="showPass()"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a (click)="showPass()">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
                   </div>
                 </div>
                 <div class="input-group-desc">
                   <input style="color: white;" type="button" class="btn btn--green btn--pill"
-                  value="Guardar" (click)="savePass()">
+                  value="Guardar" data-toggle="modal" data-target="#successPassModal" (click)="savePass()">
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="successPassModal" tabindex="-1" role="dialog" aria-labelledby="successPassModalLabel" aria-hidden="true">
+  <div class="Modal text-center">
+    <div class="ModalHeader">
+    </div>
+    <div class="ModalBody text-center center-block">
+      <div class="icon text-center">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </div>
+      <h3>Contraseña restablecida</h3>
+    </div>
+    <div class="modal-footer">
+      <input style="color: white;" type="button" class="btn btn--green btn--pill"
+      value="¡Listo!" data-dismiss="modal">
     </div>
   </div>
 </div>

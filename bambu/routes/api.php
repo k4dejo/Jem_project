@@ -31,6 +31,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    Route::post('loginAdmin','adminController@login');
    Route::post('authAdmin','adminController@AuthAdmin');
    Route::post('verifyPassword', 'adminController@VerifyPass');
+   Route::post('createNewAdmin', 'adminController@createAdmin');
+   Route::delete('deleteAdmin/{id}', 'adminController@destroyAdmin');
+   Route::get('getAdminList', 'adminController@getAdminList');
    /**/
 
    /*OUTFIT*/
@@ -62,6 +65,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    Route::post('like', 'favoriteController@likeProduct');
    Route::post('detachLike', 'favoriteController@detachLike');
    Route::get('getFavorite/{idClient}/{idProduct}','favoriteController@showlikeFocus');
+   Route::get('getFavoriteList/{idClient}', 'favoriteController@showFavoriteList');
    /**/
 
    /*IMAGE*/

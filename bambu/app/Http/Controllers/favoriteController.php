@@ -43,6 +43,29 @@ class favoriteController extends Controller
         return response()->json($data, 200);
     }
 
+    public function showFavoriteList($idClient) {
+        $favoriteClient = DB::table('clients')->where('id', $idClient)->first();
+        $arrayFavorite = client::find($favoriteClient->id)->articles()->get();
+        $countFavorite = count($arrayFavorite);
+        if ($countFavorite > 0) {
+            for ($i=0; $i < $countFavorite; $i++) {
+                $contents = Storage::get($arrayFavorite[$i]->photo);
+                $arrayFavorite[$i]->photo = base64_encode($contents);
+            }
+            $data = array(
+                'favorite'       => $arrayFavorite,
+                'status'         => 'success',
+                'code'    => 200,
+            );
+        } else {
+            $data = array(
+                'status'         => 'void',
+                'code'    => 200,
+            );
+        }
+        return response()->json($data,200);
+    }
+
     public function showlikeFocus($idClient, $idProduct) {
     	$client = client::findOrFail($idClient);
         foreach ($client->articles as $article) {
@@ -54,7 +77,7 @@ class favoriteController extends Controller
 			'status'  => 'nonLike',
     		'code'    => 200
     	);
-        for ($i=0; $i < $productsCount; $i++) { 
+        for ($i=0; $i < $productsCount; $i++) {
         	if ($client->articles[$i]->pivot->article_id == $idProduct &&
     		$client->articles[$i]->pivot->client_id == $idClient) {
 		        $data = array(

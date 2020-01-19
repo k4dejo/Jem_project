@@ -46,15 +46,92 @@ class adminController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
 
-            $password = (!is_null($json) && isset($params->oldPass)) ? $params->oldPass : null;
+            $oldPassword = (!is_null($json) && isset($params->oldPass)) ? $params->oldPass : null;
+            $newPassword = (!is_null($json) && isset($params->newPass)) ? $params->newPass : null;
             $priority = (!is_null($json) && isset($params->priority)) ? $params->priority : null;
             $getToken = (!is_null($json) && isset($params->getToken))? $params->getToken : null;
 
             //cifrar pass
-            $pwd = hash('sha256', $password);
-            $signup = $jwtAuth->verifyPassword($password, $priority,$getToken);
-            return $signup;
+            $Oldpwd = hash('sha256', $oldPassword);
+            if (!is_null($priority) && !is_null($oldPassword)) {
+                $DBpass = $jwtAuth->verifyPasswordAuth($Oldpwd, $priority);
+                if ($DBpass != null) {
+                    $newPwd = hash('sha256', $newPassword);
+                    $adminPassUpdate = Admin::where('priority', $priority)
+                    ->update(['password' => $newPwd]);
+                    return response()->json(array(
+                        'message' => 'contraseña restablecida',
+                        'status'   => 'success'
+                    ), 200);
+                } else {
+                    return $DBpass;
+                }
+            }
         }
+    }
+
+    public function createAdmin(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+
+        if ($checkToken) {
+            //recibir post
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+
+            //comprobar admin existente
+            $user     = (!is_null($json) && isset($params->user)) ? $params->user : null;
+            $password = (!is_null($json) && isset($params->password)) ? $params->password : null;
+            $priorityNewAdmin    = (!is_null($json) && isset($params->priority)) ? $params->priorityNew : null;
+            $priorityAdmin    = (!is_null($json) && isset($params->priority)) ? $params->priorityAdmin : null;
+            $isset_admin = admin::where('priority', '=', $params->priorityAdmin)->first();
+            if (isset($isset_admin)) {
+                $newAdmin = new Admin();
+                $newAdmin->user = $user;
+                $newAdmin->password = $password;
+                $newAdmin->priority = $params->priorityNew;
+                $pwd = hash('sha256', $password);
+                $newAdmin->password = $pwd;
+
+                //comprobar admin existente
+                $isset_newAdmin = Admin::where('user', '=', $user)->first();
+                if ($isset_newAdmin == null) {
+                    //guardar admin
+				    $newAdmin->save();
+				    $data = array(
+					    'status'  => 'success',
+					    'code'    => 200,
+					    'message' => 'Administrador registrado correctamente'
+				    );
+                }else{
+                    //admin existe
+                    $data = array(
+                        'status'  => 'duplicate',
+                        'code'    => 400,
+                        'message' => 'El administrador ya existe'
+                    );
+                }
+            }else {
+                $data = array(
+                    'status'  => 'Error',
+                    'code'    => 400,
+                    'message' => 'permiso de administrador denegado'
+                );
+            }
+            return response()->json($data, 200);
+        }
+    }
+
+    public function getAdminList() {
+        $adminList = Admin::where('priority', '=', 0)->get();
+        $data = array(
+            'admis' => $adminList,
+            'status'  => 'success',
+            'code'    => 200
+        );
+        return response()->json($data, 200);
     }
 
     public function login(Request $request)
@@ -73,10 +150,10 @@ class adminController extends Controller
         $pwd = hash('sha256', $password);
 
         if (!is_null($user) && !is_null($password) && ($getToken == null || $getToken == 'false')) {
-            $signup = $jwtAuth->signup($user, $password);
+            $signup = $jwtAuth->signup($user, $pwd);
 
         }elseif ($getToken != null) {
-            $signup = $jwtAuth->signup($user, $password, $getToken);
+            $signup = $jwtAuth->signup($user, $pwd, $getToken);
 
         }else{
             $signup = array(
@@ -149,8 +226,26 @@ class adminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyAdmin($id, Request $request)
     {
-        //
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+
+        if ($checkToken) {
+            $admin = Admin::find($id);
+            $admin->delete();
+            $data = array(
+                'admin' => $admin,
+                'status'  => 'success',
+                'code'    => 200
+            );
+        }else{
+            $data = array(
+                'status'  => 'Error',
+                'message' => 'permiso de administrador denegado'
+            );
+        }
+        return response()->json($data, 200);
     }
 }

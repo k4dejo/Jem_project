@@ -27,6 +27,9 @@ import { OutfitClientComponent } from './components/outfit-client/outfit-client.
 import { PromoComponent } from './components/promo/promo.component';
 import { ApartComponent } from '././adminlayout/apart/apart.component';
 import { ModAdminComponent } from './adminlayout/mod-admin/mod-admin.component';
+import { CreateAdminComponent } from './adminlayout/create-admin/create-admin.component';
+import { ViewlikeComponent } from './components/viewlike/viewlike.component';
+import { EditClientComponent } from './components/edit-client/edit-client.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -43,6 +46,8 @@ const routes: Routes = [
   { path: 'Home/producto/detalle/:id/:idProduct', component: ArticleDetailComponent},
   { path: 'Home/ofertas/:shopId', component: PromoComponent},
   { path: 'Home/outfits/:shopId/:gender', component: OutfitClientComponent},
+  { path: 'Home/Favoritos/:shopId', component: ViewlikeComponent},
+  { path: 'Cuenta/configuración/:shopId', component: EditClientComponent},
   { path: 'Carrito/:shopId/:idClient', component: ShoppingCartComponent},
   { path: 'LoginAdmin', component: LoginAdminComponent},
   { path: 'registrar/:id', component: RegisterComponent},
@@ -55,6 +60,7 @@ const routes: Routes = [
   { path: 'admin/facturación', component: FactuComponent},
   { path: 'admin/Apartados', component: ApartComponent},
   { path: 'admin/Configuración', component: ModAdminComponent},
+  { path: 'admin/mantenimiento_Usuarios', component: CreateAdminComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},
 ];
