@@ -34,7 +34,8 @@ class jwtAuth
 			$token = array(
 				'sub' => $Client->id,
 				'phone' => $Client->phone,
-				'name' => $Client->name,
+                'name' => $Client->name,
+                'email' => $Client->email,
 				'address' => $Client->address,
 				'addressDetail'=> $Client->addressDetail,
 				'shops_id' => $Client->shops_id,

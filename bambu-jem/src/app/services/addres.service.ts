@@ -14,22 +14,22 @@ export class AddresServices {
     }
 
     getProvinceJson(): Observable<any> {
-        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-        return this._http.get(this.province_url, {headers: headers});
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.province_url, {headers: headers});
     }
 
     getCanJson(idCant: string): Observable<any> {
-        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-        this.Can_url = 'https://ubicaciones.paginasweb.cr/provincia/' + idCant + '/cantones.json';
-        return this._http.get(this.Can_url, {headers: headers});
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      this.Can_url = 'https://ubicaciones.paginasweb.cr/provincia/' + idCant + '/cantones.json';
+      return this._http.get(this.Can_url, {headers: headers});
     }
 
     getDistJson(idPro: string, idCant: string): Observable<any> {
-        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-        this.Dist_url = 'https://ubicaciones.paginasweb.cr/provincia/'
-        + idPro + '/canton/'
-        + idCant + '/distritos.json';
-        return this._http.get(this.Dist_url, {headers: headers});
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      this.Dist_url = 'https://ubicaciones.paginasweb.cr/provincia/'
+      + idPro + '/canton/'
+      + idCant + '/distritos.json';
+      return this._http.get(this.Dist_url, {headers: headers});
     }
 
 }

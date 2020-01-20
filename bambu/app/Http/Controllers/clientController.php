@@ -9,6 +9,57 @@ use App\client;
 
 class clientController extends Controller
 {
+
+    public function editClient($id, Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuth = new jwtAuth();
+        $checkToken = $jwtAuth->checkToken($hash);
+
+        if ($checkToken) {
+            //recibir post
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+
+            $name     = (!is_null($json) && isset($params->name)) ? $params->name : null;
+            $phone    = (!is_null($json) && isset($params->phone)) ? $params->phone : null;
+            $email    = (!is_null($json) && isset($params->email)) ? $params->email : null;
+            $address   = (!is_null($json) && isset($params->address)) ? $params->address : null;
+            $addressDetail = (!is_null($json) && isset($params->addressDetail)) ? $params->addressDetail :null;
+            $isset_client = client::where('id', '=', $id)->first();
+            if ($isset_client != null) {
+                //guardar cliente
+                $client_save = client::where('id', $id)->update([
+                    'name'          => $name,
+                    'phone'         => $phone,
+                    'email'         => $email,
+                    'address'       => $address,
+                    'addressDetail' => $addressDetail
+                ]);
+                $data = array(
+                    'status'  => 'success',
+                    'code'    => 200,
+                    'message' => 'cliente registrado correctamente'
+                );
+            }else{
+                //admin existe
+                $data = array(
+                    'status'  => 'duplicate',
+                    'code'    => 400,
+                    'message' => 'El cliente no existe'
+                );
+            }
+
+        }else {
+            $data = array(
+                'status'  => 'Error',
+                'code'    => 400,
+                'message' => 'permiso denegado'
+            );
+        }
+        return response()->json($data, 200);
+    }
+
 	public function register(Request $request)
 	{
 		//recoger post

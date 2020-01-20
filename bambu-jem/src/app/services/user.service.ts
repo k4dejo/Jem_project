@@ -20,6 +20,14 @@ export class UserServices {
     return this._http.post(this.url + 'register', params, {headers: headers});
   }
 
+  editClientInfo(token, idClient, client: any): Observable<any> {
+    const json = JSON.stringify(client);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.put(this.url + 'editClientInfo/' + idClient, params, {headers: headers});
+  }
+
   likeProduct(like): Observable<any> {
     const json = JSON.stringify(like);
     const params = 'json=' + json;

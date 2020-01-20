@@ -24,6 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    /*CLIENT*/
    Route::post('register','clientController@register');
    Route::post('login','clientController@login');
+   Route::put('editClientInfo/{id}', 'clientController@editClient');
    Route::get('getClientList' , 'clientController@getClientList');
    /**/
 

@@ -8,7 +8,94 @@
 </header>
 <div class="main" style="overflow: hidden;">
   <div class="container-fluid">
-    <div class="cart-table">
+    <div class="cart-table"><br>
+      <h3 style="margin-top: 2%; margin-left: 1%;">Configuarción de mi perfil</h3>
+      <form class="contact1-form validate-form"  #editClient="ngForm">
+        <div class="wrap-input1 validate-input">
+          <input class="input1" type="text" name="name"
+           #name="ngModel" [(ngModel)]="clientInfo.name" type="text" placeholder="Nombre" required>
+          <span class="shadow-input1"></span>
+        </div>
+        <div class="wrap-input1 validate-input">
+          <input class="input1" type="email" name="email"
+          #email="ngModel" [(ngModel)]="clientInfo.email"
+          type="text" placeholder="Correo Electrónico" email>
+          <span class="shadow-input1"></span>
+        </div>
+        <div class="wrap-input1 validate-input">
+          <input class="input1" type="text" name="phone"
+          phone="ngModel" [(ngModel)]="clientInfo.phone" type="text" placeholder="Teléfono">
+          <span class="shadow-input1"></span>
+        </div>
+        <div class="wrap-input1 validate-input">
+          <input class="input1" type="email"  name="address"
+          #address="ngModel" [(ngModel)]="clientInfo.address"
+          type="text" placeholder="dirección" disabled>
+          <span class="shadow-input1"></span>
+          <label>
+            <a (click)="changeAddress()"
+            style=" font-weight: bold; color: rgb(31, 219, 219); cursor: pointer;">
+              Cambiar dirección
+            </a>
+          </label>
+        </div>
+        <div *ngIf="addressBool" class="wrap-input1 validate-input">
+          <h4>Provincia</h4>
+          <select class="combobox input-medium form-control" name="province" id="province"
+          [(ngModel)]="Province" (click)="getCant(Province)">
+            <option value="" selected="selected">--Seleccionar--</option>
+            <option *ngFor="let province of ArrayProvin" [value]="province.id">
+              {{province.name}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="addressBool" class="wrap-input1 validate-input">
+          <h4>Cantón</h4>
+          <select name="province_can" id="province_can" class="combobox input-medium form-control"
+          [(ngModel)]="Cant" (click)="getDist(Province, Cant)">
+            <option value="" selected="selected">--Seleccionar--</option>
+            <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+              {{cant.name}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="addressBool" class="wrap-input1 validate-input">
+          <h4>Distrito</h4>
+          <select name="distrit" id="distrit" class="combobox input-medium form-control"
+          [(ngModel)]="District" (click)="pushAddress(Province, Cant, District)">
+            <option disabled="disabled" selected="selected">--Seleccionar--</option>
+            <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+              {{dist.name}}
+            </option>
+          </select>
+        </div>
+        <div class="wrap-input1 validate-input">
+          <textarea class="input1" name="adressDetail"
+          #adressDteail="ngModel" [(ngModel)]="clientInfo.addressDetail" placeholder="dirección detallada"></textarea>
+          <span class="shadow-input1"></span>
+        </div>
+        <a (click)="edit()"  data-toggle="modal" data-target="#successPassModal" class="site-btn">
+          Guardar
+        </a>
+      </form>
+    </div>
+  </div>
+</div>
+<button class="btn btn-secudary" data-toggle="modal" data-target="#successPassModal">asd</button>
+<div class="modal fade" id="successPassModal" tabindex="-1" role="dialog" aria-labelledby="successPassModalLabel" aria-hidden="true">
+  <div *ngIf="modalBool" class="Modal text-center">
+    <div class="ModalHeader">
+    </div>
+    <div class="ModalBody text-center center-block">
+      <div class="icon text-center">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </div>
+      <h3>¡Datos guardados satisfactoriamente!</h3>
+    </div>
+    <div class="modal-footer">
+      <a value="¡Listo!" data-dismiss="modal" class="site-btn">
+        !Listo¡
+      </a>
     </div>
   </div>
 </div>
