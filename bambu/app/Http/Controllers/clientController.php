@@ -60,6 +60,24 @@ class clientController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getClientInfo($idClient) {
+        $client = client::where('id', '=', $idClient)->first();
+        if ($client != null) {
+            $data = array(
+                'client'  => $client,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        } else {
+            $data = array(
+                'client'  => $client,
+                'status'  => 'fail',
+                'code'    => 200,
+            );
+        }
+        return response()->json($data, 200);
+    }
+
 	public function register(Request $request)
 	{
 		//recoger post

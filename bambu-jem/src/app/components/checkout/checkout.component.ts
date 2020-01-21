@@ -34,7 +34,8 @@ export class CheckoutComponent implements OnInit {
   public yearCc;
   public monthCc;
   public dateExp;
-  public purchaseArray: Array<Purchase>;
+  public purchaseArray;
+  public PurchaseEdit: Purchase;
   public purchaseList;
   public shipping;
   public couponDiscount: number;
@@ -52,6 +53,7 @@ export class CheckoutComponent implements OnInit {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.sendCc = new CC('', 0, '', 0, 0);
+    this.PurchaseEdit = new Purchase('', '', 0, 0, 0, '');
   }
 
 
@@ -80,7 +82,33 @@ export class CheckoutComponent implements OnInit {
     this.sendCc.CCnumber = this.CcCard1 + this.CcCard2 + this.CcCard3 + this.CcCard4;
     this.sendCc.Ccholder = this.Ccholder;
     this.sendCc.Ccv = this.Ccv;
-    console.log(this.sendCc);
+    this.sendCc.totalPrice = this.total;
+    for (let index = 0; index < this.purchaseArray.length; index++) {
+      console.log(this.purchaseArray[index].pivot);
+      this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
+    }
+  }
+
+  editAmountProduct(idProduct: any, product) {
+    this.purchaseService.UpdateAmount(this.token, idProduct, product).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.PurchaseEdit.status = 'Procesando';
+          this.purchaseService.editPurchase(this.token, this.PurchaseEdit).subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
+            response => {
+              console.log(response);
+            }, error => {
+              console.log(<any> error);
+            }
+
+          );
+        }
+
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   selectMasterCard() {
@@ -137,6 +165,7 @@ export class CheckoutComponent implements OnInit {
         this.shipping = response.shipping;
         this.purchaseArray = response.purchase;
         this.purchaseList = response.purchase;
+        this.PurchaseEdit = response.dataPurchase;
         for (let index = 0; index < this.purchaseArray.length; ++index) {
           this.validateOffer(response.purchase[index].id, index);
         }

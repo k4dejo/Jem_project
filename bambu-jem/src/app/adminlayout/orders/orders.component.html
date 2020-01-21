@@ -1,0 +1,107 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Ordenes</h2>
+      </div>
+      <div class="card-body">
+        <div class="formgroup">
+          <form class="form-group">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="tableAdmin">
+                  <select (change)="searchPurchase($event.target.value)"
+                  class="combobox input-medium form-control">
+                    <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                    <option value="incomplete">
+                      incomplete
+                    </option>
+                    <option value="procesando">
+                      procesando
+                    </option>
+                  </select><br>
+                  <table class="table table-striped">
+                    <thead>
+                      <th scope="col">Cliente</th>
+                      <th scope="col">Envío</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Estado</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let purchase of purchaselist">
+                        <td>
+                          {{purchase.clients_id}}
+                        </td>
+                        <td>
+                          {{purchase.shipping}}
+                        </td>
+                        <td>
+                          ₡ {{purchase.price | number: '3.'}}
+                        </td>
+                        <td style="color: rgb(5, 207, 32);">
+                          {{purchase.status}}
+                        </td>
+                        <td>
+                          <input style="color: white;" type="button"
+                          (click)="toggleInfo(purchase)" data-toggle="modal" data-target="#infoPurchase" class="btn btn--blue btn--pill" value="ver">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fadeInDown" id="infoPurchase" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-content wrapper" id="formContent" role="document">
+    <div class="modal-header first">
+      <i class="fa fa-times close" data-dismiss="modal"></i>
+      <h2 id="modalLabel">Infomación del pedido</h2>
+    </div>
+    <div class="modal-body fadeIn second">
+      <div class="row">
+        <div class="col-md-6" style="text-align: left;">
+          <h3>Nombre Cliente:</h3>
+          <p>{{purchaseinfo.clientName}}</p>
+          <h3>Dirección:</h3>
+          {{purchaseinfo.clientAddress}}
+          <h3>Dirección detalle</h3>
+          {{purchaseinfo.addressDetail}}
+          <h3>Teléfono:</h3>
+          {{purchaseinfo.clientPhone}}
+          <h3>Envío</h3>
+           ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}
+          <h3>Precio total:</h3>
+          ₡ {{purchaseinfo.purchasePrice | number: '3.'}}
+        </div>
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">producto</th>
+              <th scope="col">Talla</th>
+              <th scope="col">cantidad</th>
+              <th scope="col">precio</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 8, currentPage: p }">
+                <td>{{product.name}}</td>
+                <td>{{product.pivot.size}}</td>
+                <td>{{product.pivot.amount}}</td>
+                <td>₡ {{product.pricePublic | number: '3.'}} </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          </pagination-controls>
+          <input type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -58,6 +58,11 @@ export class AdminService {
       return this._http.get(this.url + 'getAdminList', { headers: headers });
     }
 
+    getClientPurchase(idClient: any): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getClientPurchase/' + idClient, { headers: headers });
+    }
+
     deleteAdmin(token, id): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', token);

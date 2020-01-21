@@ -617,7 +617,7 @@ textarea.input1 + .shadow-input1 {
 }
 #successPassModal .Modal .ModalBody {
   background-color: #fff;
-  padding: 5px 0;
+  padding: 85px 0;
   text-align: center;
   margin: 0 auto !important;
 }

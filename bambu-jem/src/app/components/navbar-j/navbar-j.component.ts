@@ -126,7 +126,12 @@ export class NavbarJComponent implements OnInit {
     this.purchaseService.getPurchase(this.identity.sub).subscribe(
       response => {
         this.purchaseList = response.purchase;
-        this.purchaselenght = this.purchaseList.length;
+        console.log(response.purchase);
+        if (this.purchaseList.length === 0) {
+          this.purchaselenght = 0;
+        } else {
+          this.purchaselenght = this.purchaseList.length;
+        }
       }, error => {
         console.log(<any> error);
       }

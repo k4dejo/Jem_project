@@ -39,12 +39,17 @@ export class EditClientComponent implements OnInit {
   }
 
   getClientInfo() {
-    this.clientInfo.name = this.identity.name;
-    this.clientInfo.phone = this.identity.phone;
-    this.clientInfo.address = this.identity.address;
-    this.clientInfo.email = this.identity.email;
-    this.clientInfo.addressDetail = this.identity.addressDetail;
-    console.log(this.clientInfo);
+    this.clientService.getClientInfo(this.identity.sub).subscribe(
+      response => {
+        this.clientInfo.name = response.client.name;
+        this.clientInfo.email = response.client.email;
+        this.clientInfo.phone = response.client.phone;
+        this.clientInfo.address = response.client.address;
+        this.clientInfo.addressDetail = response.client.addressDetail;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   edit() {
@@ -53,6 +58,7 @@ export class EditClientComponent implements OnInit {
         console.log(response);
         if (response.status === 'success') {
           this.modalBool = true;
+          this.getClientInfo();
         } else {
           this.modalBool = false;
         }

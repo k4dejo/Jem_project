@@ -26,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    Route::post('login','clientController@login');
    Route::put('editClientInfo/{id}', 'clientController@editClient');
    Route::get('getClientList' , 'clientController@getClientList');
+   Route::get('getClientInfo/{id}', 'clientController@getClientInfo');
    /**/
 
    /*ADMIN*/
@@ -35,6 +36,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    Route::post('createNewAdmin', 'adminController@createAdmin');
    Route::delete('deleteAdmin/{id}', 'adminController@destroyAdmin');
    Route::get('getAdminList', 'adminController@getAdminList');
+   Route::get('getClientPurchase/{id}', 'adminController@getClient');
    /**/
 
    /*OUTFIT*/
@@ -81,10 +83,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    Route::post('editPurchase', 'PurchaseController@edit');
    Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
    Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
+   Route::put('updateAmountProduct/{id}', 'PurchaseController@changeAmountProduct');
+   Route::put('editPurchaseStatus/{id}', 'PurchaseController@editPurchaseClient');
    Route::get('verifyPurchaseStatus/{id}', 'PurchaseController@verifyStatusPurchase');
    Route::get('getShowProductP/{idClient}/{idProduct}',
    'PurchaseController@showSingleProductPurchase');
    Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
+   Route::get('getStatusPurchase/{id}', 'PurchaseController@getPurchaseStatus');
+   Route::get('getClientInfoPurchase/{id}', 'PurchaseController@getClientInfo');
    /**/
 
    /*BILLING*/

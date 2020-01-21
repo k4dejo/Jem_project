@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\jwtAuthAdmin;
 use Illuminate\Support\Facades\DB;
 use App\Admin;
+use App\client;
 use Input;
 
 class adminController extends Controller
@@ -163,6 +164,15 @@ class adminController extends Controller
         }
 
         return response()->json($signup, 200);
+    }
+
+    public function getClient($idClient) {
+        $client = client::where('id', $idClient)->first();
+        $data = array(
+            'client'  => $client,
+            'status' => 'success'
+        );
+        return response()->json($data, 200);
     }
 
     /**

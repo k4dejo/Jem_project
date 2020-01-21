@@ -61,7 +61,7 @@ class sizeController extends Controller
                 'size'   => $isset_size,
                 'status' => 'Exists',
             );
-            return response()->json($data,200);             
+            return response()->json($data,200);
         }
     }
 
@@ -82,13 +82,12 @@ class sizeController extends Controller
         return response()->json($data, 200);
     }
 
-
     public function showEditP($id) {
         $article = article::all();
         $productCount = count($article);
-        for ($i=0; $i < $productCount ; $i++) { 
+        for ($i=0; $i < $productCount ; $i++) {
             if ($article[$i]->id = $id) {
-                // obteniendo los tasks asociados al User
+                // obteniendo los tasks asociados al producto
                 foreach ($article[$i]->sizes as $size) {
                     // obteniendo los datos de un task específico
                     $sizeServe = $size->size;
@@ -97,7 +96,7 @@ class sizeController extends Controller
                 // intentar traer el blob desde el controller
                 $contents = Storage::get($article[$i]->photo);
                 $article[$i]->photo = base64_encode($contents);
-                $article[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents); 
+                $article[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents);
                 return response()->json(array(
                     'products' => $article,
                     'amount'  => $amount,
@@ -110,8 +109,8 @@ class sizeController extends Controller
     public function showSizeP(){
         $article = article::all();
         $productCount = count($article);
-        for ($i=0; $i < $productCount ; $i++) { 
-            //obteniendo los tasks asociados al User
+        for ($i=0; $i < $productCount ; $i++) {
+            //obteniendo los tasks asociados al producto
             foreach ($article[$i]->sizes as $size) {
                 //obteniendo los datos de un task específico
                 $sizeServe = $size->size;
@@ -120,7 +119,7 @@ class sizeController extends Controller
             //intentar traer el blob desde el controller
             $contents = Storage::get($article[$i]->photo);
             $article[$i]->photo = base64_encode($contents);
-            $article[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents); 
+            $article[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents);
         }
         return response()->json(array(
             'products' => $article,

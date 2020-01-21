@@ -28,6 +28,11 @@ export class UserServices {
     return this._http.put(this.url + 'editClientInfo/' + idClient, params, {headers: headers});
   }
 
+  getClientInfo(idClient: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getClientInfo/' + idClient, {headers: headers});
+  }
+
   likeProduct(like): Observable<any> {
     const json = JSON.stringify(like);
     const params = 'json=' + json;

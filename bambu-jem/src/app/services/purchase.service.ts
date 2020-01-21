@@ -30,6 +30,14 @@ export class PurchaseService {
     return this._http.post(this.url + 'editPurchase', params, { headers: headers });
   }
 
+  UpdateAmount(token, idProduct, dataPurchase): Observable<any> {
+    const json = JSON.stringify(dataPurchase);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.put(this.url + 'updateAmountProduct/' + idProduct, params, { headers: headers });
+  }
+
   attachProductPurchase(token, dataProduct): Observable<any> {
     const json = JSON.stringify(dataProduct);
     const params = 'json=' + json;
@@ -53,6 +61,25 @@ export class PurchaseService {
   getPurchase(idClient: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getPurchase/' + idClient, {headers: headers});
+  }
+
+  getStatusPurchase(status: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getStatusPurchase/' + status, {headers: headers});
+  }
+
+
+  getClientInfoPurchase(idClient: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getClientInfoPurchase/' + idClient, {headers: headers});
+  }
+
+
+  editPurchaseStatus(idPurchase, data): Observable<any> {
+    const json = JSON.stringify(data);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.put(this.url + 'editPurchaseStatus/' + idPurchase, params, { headers: headers });
   }
 
   verifyStatusPurchase(idClient: any): Observable<any> {

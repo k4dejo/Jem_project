@@ -10,6 +10,7 @@ use App\Helpers\jwtAuthAdmin;
 use App\purchase;
 use App\client;
 use App\article;
+use App\size;
 
 
 class PurchaseController extends Controller
@@ -25,6 +26,14 @@ class PurchaseController extends Controller
         $purchases = purchase::all();
         return response()->json(array(
             'purchases' => $purchases,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function getPurchaseStatus($status) {
+        $purchaseStatus = purchase::where('status', $status)->get();
+        return response()->json(array(
+            'purchases' => $purchaseStatus,
             'status'   => 'success'
         ), 200);
     }
@@ -99,6 +108,64 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
+    public function editPurchaseClient($idPurchase, Request $request) {
+        // recoger datos del POST
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+        $purchase = purchase::where('id', $idPurchase)->first();
+        if ($purchase != null) {
+            $adminPassUpdate = purchase::where('id', $idPurchase)
+            ->update(['status' => $paramsArray]);
+            $data = array(
+                'article' => $purchase,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'vacio',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
+    public function changeAmountProduct($idProduct, Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $arrayProduct = article::find($idProduct)->sizes()->get();
+            $countGetProduct = count($arrayProduct);
+            for ($i=0; $i < $countGetProduct; $i++) {
+                $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock - $params->pivot->amount;
+                $size = size::find($arrayProduct[$i]->pivot->size_id);
+                $product = article::find($arrayProduct[$i]->pivot->article_id);
+                // modifica la cantidad del producto e la tabla pivote
+                $product->sizes()->updateExistingPivot($size->id,['stock' => $arrayProduct[$i]->pivot->stock ]);
+            }
+            $data = array(
+                'article' => $product,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        }else {
+            $data = array(
+                'mgs' => 'token invalido',
+                'status'  => 'fail',
+                'code'    => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
     public function attachProductPurchase(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
@@ -163,6 +230,30 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
+    public function getClientInfo($idClient) {
+        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
+        ->where('status', 'procesando')->first();
+        $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
+        $infoClient = client::where('id', $idClient)->first();
+        $countPurchase = count($arrayPurchase);
+        for ($i=0; $i < $countPurchase; $i++) {
+            $contents = Storage::get($arrayPurchase[$i]->photo);
+            $arrayPurchase[$i]->photo = base64_encode($contents);
+        }
+        $data = array(
+            'purchase'                 => $arrayPurchase,
+            'clientName'               => $infoClient->name,
+            'clientAddress'            => $infoClient->address,
+            'addressDetail'            => $infoClient->addressDetail,
+            'clientPhone'              => $infoClient->phone,
+            'purchasePrice'             => $purchaseClient->price,
+            'PurchaseShiping'             => $purchaseClient->shipping,
+            'status'                   => 'success',
+            'code'    => 200,
+        );
+        return response()->json($data,200);
+    }
+
     public function getPurchase($idClient) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
         ->where('status', 'incomplete')->first();
@@ -178,6 +269,7 @@ class PurchaseController extends Controller
             'purchaseId'     => $purchaseClient->id,
             'couponId'       => $purchaseClient->coupon_id,
             'shipping'       => $purchaseClient->shipping,
+            'dataPurchase'   => $purchaseClient,
             'status'         => 'success',
             'code'    => 200,
         );
