@@ -52,6 +52,7 @@ import { CreateAdminComponent } from './adminlayout/create-admin/create-admin.co
 import { ViewlikeComponent } from './components/viewlike/viewlike.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { OrdersComponent } from './adminlayout/orders/orders.component';
+import { HistoryComponent } from './components/history/history.component';
 
 
 
@@ -97,7 +98,8 @@ import { OrdersComponent } from './adminlayout/orders/orders.component';
     CreateAdminComponent,
     ViewlikeComponent,
     EditClientComponent,
-    OrdersComponent
+    OrdersComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,

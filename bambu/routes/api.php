@@ -89,8 +89,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
    Route::get('getShowProductP/{idClient}/{idProduct}',
    'PurchaseController@showSingleProductPurchase');
    Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
+   Route::get('getHistoryPurchaseClient/{id}', 'PurchaseController@getProductHistory');
    Route::get('getStatusPurchase/{id}', 'PurchaseController@getPurchaseStatus');
-   Route::get('getClientInfoPurchase/{id}', 'PurchaseController@getClientInfo');
+   Route::get('getClientInfoPurchase/{id}/{status}', 'PurchaseController@getClientInfo');
+   Route::get('getProductPurchaseHistory/{id}', 'PurchaseController@ProductListHistoryOrder');
    /**/
 
    /*BILLING*/

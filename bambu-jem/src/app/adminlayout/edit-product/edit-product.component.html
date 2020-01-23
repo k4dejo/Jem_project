@@ -12,7 +12,7 @@
               <div class="col-md-10">
                 <div class="input-group-desc">
                   <label for="">Nombre del producto</label>
-                  <input class="input--style-5" name="name" #name="ngModel" [(ngModel)]="product.name" 
+                  <input class="input--style-5" name="name" #name="ngModel" [(ngModel)]="product.name"
                   type="text"/>
                 </div>
                 <div class="input-group-desc">
@@ -33,12 +33,12 @@
                 </div>
                 <div class="input-group-desc">
                   <label for="">Precio por Mayor</label>
-                  <input class="input--style-5" type="text" placeholder="₡ 0.00" name="priceMajor" 
+                  <input class="input--style-5" type="text" placeholder="₡ 0.00" name="priceMajor"
                   #priceMajor="ngModel" [(ngModel)]="product.priceMajor"type="text" required/>
                 </div>
                 <div class="input-group-desc">
                   <label for="">Precio Tu Boutique</label>
-                  <input class="input--style-5" type="text" placeholder="₡ 0.00" name="priceTuB" 
+                  <input class="input--style-5" type="text" placeholder="₡ 0.00" name="priceTuB"
                   #priceTuB="ngModel" [(ngModel)]="product.priceTuB" type="text"required/>
                 </div>
                 <div class="row">
@@ -115,6 +115,11 @@
               <button type="button" class="btn btn-primary">Volver</button>
               <button type="submit" class="btn btn-success">Guardar</button>
             </div>
+          </div>
+          <div class="col-md-3 navbar-right" style="margin-top: 1%;">
+            <div *ngIf="checkBool" class="alert alert-success" role="alert">
+              ¡Los cambios se han ejecutado!
+             </div>
           </div>
         </form>
         <button type="submit" (click)="saveSizeAmount(size)" class="btn btn-primary">

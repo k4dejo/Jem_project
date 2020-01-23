@@ -460,7 +460,7 @@ a:hover{
 /*
 ==============================================================================
     NAVBARTEST
-==============================================================================    
+==============================================================================
 */
 
 
@@ -649,7 +649,11 @@ a:hover{
 .nav-switch {
 	display: none;
 }
-
+@media (max-width: 1024px) {
+  .user-panel {
+    top: 10px;
+  }
+}
 @media (max-width: 767px) {
 	.site-logo {
     margin-left: 60%;
@@ -680,10 +684,15 @@ a:hover{
     left: -55%;
   }
 
-	.user-panel {
+	.login {
     margin-bottom: 6%;
+    left: 272px;
   }
-  
+
+  .user-panel {
+    top: 10px;
+  }
+
   .menu-btn {
     margin-top: 6px;
     margin-left: 6px;
@@ -699,13 +708,13 @@ a:hover{
 
   .main-menu li {
     display: block;
-  } 
+  }
 
   /*===========================================
     BURGER NAVBAR
   =============================================
   */
-  
+
   .menu-burger {
     width: 26px;
     height: 5px;
@@ -714,7 +723,7 @@ a:hover{
     box-shadow: 0 2px 5px rgba(255,101,47,.2);
     transition: all .5s ease-in-out;
   }
-  
+
   .menu-burger::before,
   .menu-burger::after {
     content: '';
@@ -732,7 +741,7 @@ a:hover{
   .menu-burger::after {
     transform: translateY(9px);
   }
-  
+
   /* ANIMATION */
   .menu-btn.open .menu-burger {
     transform: translateX(-50px);

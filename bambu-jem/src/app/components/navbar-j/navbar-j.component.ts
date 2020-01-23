@@ -121,6 +121,9 @@ export class NavbarJComponent implements OnInit {
   gotoConfig() {
     this.router.navigate(['Cuenta/configuración/', 'J']);
   }
+  gotoHistory() {
+    this.router.navigate(['Home/historial/', 'J']);
+  }
 
   getLenghtListPurchase() {
     this.purchaseService.getPurchase(this.identity.sub).subscribe(

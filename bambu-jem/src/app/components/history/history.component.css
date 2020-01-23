@@ -1,0 +1,629 @@
+.main{
+	padding-top: 3%;
+}
+
+/*==================================================================
+	#CART_PAGE
+====================================================================*/
+
+.title {
+	/*color: #cccccc;*/
+	color: #C0C0C0;
+}
+
+.cart-table {
+	margin-top: 14%;
+	margin-bottom: 10%;
+	padding: 0px 34px 0;
+	background: #F8F6F6;
+	border-radius: 8px;
+	overflow: auto;
+	box-shadow: 2.828px 2.828px 15px 1px rgba(0, 0, 0, 0.2);
+}
+
+.cart-table h3 {
+	font-weight: 700;
+	margin-bottom: 37px;
+}
+
+.cart-table table {
+	width: 100%;
+	min-width: 442px;
+	margin-bottom: 17px;
+}
+
+.cart-table table tr th {
+	font-size: 12px;
+	font-weight: 400;
+	color: #414141;
+	text-align: center;
+	padding-bottom: 25px;
+}
+
+.cart-table table tr th.product-th {
+	text-align: left;
+}
+
+.cart-table table tr th.size-th {
+	padding-right: 70px;
+}
+
+.cart-table table tr th.quy-th {
+	padding-right: 20px;
+}
+
+.cart-table .product-col {
+	display: table;
+	margin-bottom: 19px;
+}
+
+.cart-table .product-col img {
+	display: table-cell;
+	vertical-align: middle;
+	float: left;
+	width: 73px;
+}
+
+.cart-table .product-col .pc-title {
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 30px;
+}
+
+.cart-table .product-col .pc-title h4 {
+	font-size: 16px;
+	color: #414141;
+	font-weight: 700;
+	margin-bottom: 3px;
+}
+
+.cart-table .product-col .pc-title p {
+	margin-bottom: 0;
+	font-size: 16px;
+	color: #414141;
+}
+
+.cart-table .quy-col {
+	padding-right: 20px;
+}
+
+.cart-table .quantity {
+	margin-bottom: 0;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.cart-table .quantity .pro-qty {
+	width: 80px;
+	background: #fff;
+	border-color: #fff;
+}
+
+.cart-table .quantity .pro-qty .qtybtn {
+	width: 10px;
+}
+
+.cart-table .size-col,
+.cart-table .total-col {
+	text-align: center;
+}
+
+.cart-table .size-col h4,
+.cart-table .total-col h4 {
+	font-size: 18px;
+	color: #414141;
+	font-weight: 400;
+}
+
+.cart-table .size-col h4 {
+	padding-right: 70px;
+}
+
+.card-right .site-btn {
+	margin-bottom: 14px;
+	width: 50%;
+	min-height: 43px;
+	padding: 10px 25px 10px;
+}
+
+.card-right .checkout-btn {
+	margin-bottom: 14px;
+	width: 80%;
+	min-height: 43px;
+	padding: 10px 25px 10px;
+}
+
+.card-right {
+	margin-top: 4.5%;
+	margin-left: 5%;
+}
+
+.site-btn{
+  text-decoration: none;
+  font-weight: 600;
+  color: #232323;
+  font-family: 'Poppins', sans-serif;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  border-radius: 0px;
+  box-shadow: none;
+  border: 1px solid #eee;
+  margin-bottom: 10%;
+  margin-left: 200px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 2.824px 2.824px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+td .img-responsive{
+  weight: 60px;
+  height: 60px;
+}
+
+.site-btn:hover {
+	background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
+	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
+	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	border: 1px solid transparent;
+	cursor: pointer;
+	color: #ffff;
+	text-decoration: none;
+}
+
+.checkout-btn{
+  text-decoration: none;
+  font-weight: 600;
+  color: #232323;
+  font-family: 'Poppins', sans-serif;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  border-radius: 0px;
+  box-shadow: none;
+  border: 1px solid #eee;
+  margin-top: 2%;
+  margin-left: 66px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  box-shadow: 2.824px 2.824px 5px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.checkout-btn:hover {
+	background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
+	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
+	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
+	border: 1px solid transparent;
+	cursor: pointer;
+	color: #ffff;
+	text-decoration: none;
+}
+
+.quantity {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.quantity p {
+	float: left;
+	margin-right: 15px;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #414141;
+	padding-top: 10px;
+	margin-bottom: 0;
+}
+
+.quantity .pro-qty {
+	width: 94px;
+	height: 36px;
+	border: 1px solid #ddd;
+	padding: 0 15px;
+	border-radius: 40px;
+	float: left;
+}
+
+.quantity .pro-qty .qtybtn {
+	width: 15px;
+	display: block;
+	float: left;
+	line-height: 36px;
+	cursor: pointer;
+	text-align: center;
+	font-size: 18px;
+	color: #404040;
+}
+
+.quantity .pro-qty input {
+	width: 28px;
+	float: left;
+	border: none;
+	height: 36px;
+	line-height: 40px;
+	padding: 0;
+	font-size: 14px;
+	text-align: center;
+	background-color: transparent;
+}
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+   .btnfile {
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 50px;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+    font-family: inherit;
+  }
+
+  .btn {
+    display: inline-block;
+    margin: 3px;
+  }
+
+
+  .btn-secondary{
+    margin-top: 10%;
+  }
+
+  .btn--radius {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  .btn--radius-2 {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .btn--pill {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+  .btn--green {
+    background: #57b846;
+    color: white;
+  }
+
+  .btn--green:hover {
+    background: #4dae3c;
+  }
+
+  .btn--blue {
+    background: #4272d7;
+  }
+
+  .btn--blue:hover {
+    background: #3868cd;
+  }
+
+  .btn--red {
+    background: #ff4b5a;
+  }
+
+  .btn--red:hover {
+    background: #eb3746;
+  }
+
+/* ==========================================================================
+  #TABLE
+========================================================================== */
+
+tbody{
+  margin-top: 5%;
+}
+
+.my-pagination /deep/ .ngx-pagination {
+  text-decoration: none;
+  margin-left: 76%;
+  font-weight: bold;
+}
+
+.my-pagination /deep/ .ngx-pagination a {
+  text-decoration: none;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #232323;
+  color:#ffff;
+}
+
+/* ==========================================================================
+   #MODAL
+  ========================================================================== */
+
+  .dropdown-user a:hover {
+    cursor: pointer;
+  }
+
+
+  .registerText{
+    margin-top: 10px;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  /* TABS */
+
+  h2 {
+    color:#676768;
+  }
+
+  h2.inactive {
+    color: #cccccc;
+  }
+
+  h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+  }
+
+
+
+  .wrapper{
+    display: flow-root;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #formContent {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin-top: 4%;
+    margin-left: 24%;
+  }
+
+  #formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    text-align: center;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .close{
+    position: absolute;
+    top: 4.5%;
+    right: 4.5%;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  #icon {
+    width: 60%;
+  }
+
+
+  /* ANIMATIONS */
+
+  .fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  @-webkit-keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+  .fadeIn {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+  }
+
+  .fadeIn.first {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+
+  .fadeIn.second {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+  }
+
+  .fadeIn.third {
+    -webkit-animation-delay: 0.8s;
+    -moz-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+  }
+
+  .fadeIn.fourth {
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
+  }
+
+  .fadeIn.fifth {
+    -webkit-animation-delay: 1.2s;
+    -moz-animation-delay: 1.2s;
+    animation-delay: 1.2s;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Simple CSS3 Fade-in Animation */
+  .underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: #56baed;
+    content: "";
+    transition: width 0.2s;
+  }
+
+  .underlineHover:hover {
+    color: #0d0d0d;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  .underlineHover:hover:after {
+    width: 100%;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  #icon {
+    width: 60%;
+  }
+
+  /* Simple CSS3 Fade-in Animation */
+  @-webkit-keyframes modal-header {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes modal-header {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes modal-header {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .modal-header {
+    opacity: 0;
+    font-weight: bold;
+    -webkit-animation: modal-header ease-in 1;
+    -moz-animation: modal-header ease-in 1;
+    animation: modal-header ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+  }
+
+  .modal-header.first {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }

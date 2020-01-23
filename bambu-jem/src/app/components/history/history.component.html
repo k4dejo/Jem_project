@@ -1,0 +1,87 @@
+<header>
+  <div *ngIf="shop_bool">
+    <app-navbar-j></app-navbar-j>
+  </div>
+  <div *ngIf="!shop_bool">
+    <app-navbar-b></app-navbar-b>
+  </div>
+</header>
+<div class="main" style="overflow: hidden;">
+  <div class="container-fluid">
+    <div class="cart-table">
+      <h3>Tu historial de compras</h3>
+      <div style="padding-left: 5%; padding-right:5%; margin-bottom: 2%;" class="cart-table-warp">
+        <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+        <table style="padding-bottom: 5%;">
+          <thead>
+            <th scope="col">Número de orden</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orderList">
+              <td>
+                # {{order.id}}
+              </td>
+              <td>
+                ₡ {{order.price | number: '3.'}}
+              </td>
+              <td>
+                {{order.status}}
+              </td>
+              <td>
+                <a (click)="viewInfoPurchaseHistory(order.id)" data-toggle="modal" data-target="#infoPurchase" style="font-weight: bold; color: rgb(10, 62, 231); cursor: pointer;"> Ver orden</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fadeInDown" id="infoPurchase" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-content wrapper" id="formContent" role="document">
+    <div class="modal-header first">
+      <i class="fa fa-times close" data-dismiss="modal"></i>
+      <h2 id="modalLabel">Infomación del pedido</h2>
+    </div>
+    <div class="modal-body fadeIn second">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <th></th>
+              <th scope="col">producto</th>
+              <th scope="col">Talla</th>
+              <th scope="col">cantidad</th>
+              <th scope="col">precio</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productList">
+                <td><img class="img-responsive" [src]="product.photo" alt=""></td>
+                <td>
+                  <div class="pc-title">
+                    <h4>{{product.name}}</h4>
+                  </div>
+                </td>
+                <td>
+                  {{product.pivot.size}}
+                </td>
+                <td>
+                  {{product.pivot.amount}}
+                </td>
+                <td>
+                  {{product.pricePublic}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -31,6 +31,7 @@ import { CreateAdminComponent } from './adminlayout/create-admin/create-admin.co
 import { ViewlikeComponent } from './components/viewlike/viewlike.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { OrdersComponent } from './adminlayout/orders/orders.component';
+import { HistoryComponent } from './components/history/history.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'Home/ofertas/:shopId', component: PromoComponent},
   { path: 'Home/outfits/:shopId/:gender', component: OutfitClientComponent},
   { path: 'Home/Favoritos/:shopId', component: ViewlikeComponent},
+  { path: 'Home/historial/:shopId', component: HistoryComponent},
   { path: 'Cuenta/configuración/:shopId', component: EditClientComponent},
   { path: 'Carrito/:shopId/:idClient', component: ShoppingCartComponent},
   { path: 'LoginAdmin', component: LoginAdminComponent},

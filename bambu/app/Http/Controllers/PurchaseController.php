@@ -85,17 +85,20 @@ class PurchaseController extends Controller
             $countPurchase = count($isset_purchase);
             if ($countPurchase == 0) {
                 $purchase->save();
-                $getPurchase = purchase::where('clients_id', $params->clients_id);
+                //$getPurchase = purchase::where('clients_id', $params->clients_id);
+                $getPurchase = purchase::where('status', $params->status)->first();
                 $data = array(
                     'purchase'   => $getPurchase,
                     'status'     => 'success',
                 );
+            } else {
+                //$getPurchase = purchase::where('clients_id', $params->clients_id)->first();
+                $getPurchase = purchase::where('status', $params->status)->first();
+                $data = array(
+                    'purchase'   => $getPurchase,
+                    'status'     => 'Exist',
+                );
             }
-            $getPurchase = purchase::where('clients_id', $params->clients_id)->first();
-            $data = array(
-                'purchase'   => $getPurchase,
-                'status'     => 'Exist',
-            );
             return response()->json($data,200);
         } else {
             // Error
@@ -230,9 +233,36 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
-    public function getClientInfo($idClient) {
+    public function getProductHistory($idClient) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
-        ->where('status', 'procesando')->first();
+        ->where('status', '!=','incomplete')->get();
+        $data = array(
+            'purchase'                 => $purchaseClient,
+            'status'                   => 'success',
+            'code'    => 200,
+        );
+        return response()->json($data,200);
+
+    }
+
+    public function ProductListHistoryOrder($idPurchase) {
+        $arrayPurchase = purchase::find($idPurchase)->articles()->get();
+        $countPurchase = count($arrayPurchase);
+        for ($i=0; $i < $countPurchase; $i++) {
+            $contents = Storage::get($arrayPurchase[$i]->photo);
+            $arrayPurchase[$i]->photo = base64_encode($contents);
+        }
+        $data = array(
+            'productlist'                 => $arrayPurchase,
+            'status'                   => 'success',
+            'code'    => 200,
+        );
+        return response()->json($data,200);
+    }
+
+    public function getClientInfo($idClient, $status) {
+        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
+        ->where('status', $status)->first();
         $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
         $infoClient = client::where('id', $idClient)->first();
         $countPurchase = count($arrayPurchase);
@@ -246,13 +276,29 @@ class PurchaseController extends Controller
             'clientAddress'            => $infoClient->address,
             'addressDetail'            => $infoClient->addressDetail,
             'clientPhone'              => $infoClient->phone,
-            'purchasePrice'             => $purchaseClient->price,
-            'PurchaseShiping'             => $purchaseClient->shipping,
+            'purchasePrice'            => $purchaseClient->price,
+            'PurchaseShiping'          => $purchaseClient->shipping,
             'status'                   => 'success',
             'code'    => 200,
         );
         return response()->json($data,200);
     }
+
+    /*public function getPurchase($idClient) {
+        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
+        ->where('status', 'incomplete')->first();
+        $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
+        $data = array(
+            'purchase'       => $arrayPurchase,
+            'purchaseId'     => $purchaseClient->id,
+            'couponId'       => $purchaseClient->coupon_id,
+            'shipping'       => $purchaseClient->shipping,
+            'dataPurchase'   => $purchaseClient,
+            'status'         => 'success',
+            'code'    => 200,
+        );
+        return response()->json($data,200);
+    }*/
 
     public function getPurchase($idClient) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)

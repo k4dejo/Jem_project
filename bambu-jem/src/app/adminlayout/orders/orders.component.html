@@ -20,6 +20,9 @@
                     <option value="procesando">
                       procesando
                     </option>
+                    <option value="Enviado">
+                      Enviado
+                    </option>
                   </select><br>
                   <table class="table table-striped">
                     <thead>
@@ -99,7 +102,7 @@
           </table>
           <pagination-controls class="my-pagination" (pageChange)="p = $event">
           </pagination-controls>
-          <input type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
+          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
         </div>
       </div>
     </div>

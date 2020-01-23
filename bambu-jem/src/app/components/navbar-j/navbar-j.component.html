@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-lg-5 " *ngIf="identity">
-        <div class="user-panel">
+        <div class="user-panel login">
           <div class="up-item labelLog">
             <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button">
               <img src="assets/Images/4.jpg" alt="user" class="profile-pic">
@@ -39,7 +39,7 @@
                 </li>
                 <li role="separator" class="divider"></li>
                 <li><a (click)="gotoConfig()"><i class="fas fa-user-tie"></i> Mi perfil</a></li>
-                <li><a href="#"><i class="fas fa-list-alt"></i> Historial</a></li>
+                <li><a (click)="gotoHistory()"><i class="fas fa-list-alt"></i> Historial</a></li>
                 <li><a (click)="gotoFavorites()"><i class="fa fa-heart"></i> favoritos</a></li>
                 <li role="separator" class="divider"></li>
                 <li>

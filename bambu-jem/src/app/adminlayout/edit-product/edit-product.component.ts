@@ -75,6 +75,7 @@ export class EditProductComponent implements OnInit {
   public viewRelation;
   public token;
   public identity;
+  public checkBool = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -365,6 +366,9 @@ export class EditProductComponent implements OnInit {
     this.productService.editProduct(this.token, this.id, editProducts).subscribe(
       response => {
         this.product = response.article;
+        if (response.status === 'success') {
+          this.checkBool = true;
+        }
       },
       error => {
         console.log(<any> error);

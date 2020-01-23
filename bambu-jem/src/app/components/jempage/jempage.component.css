@@ -9,7 +9,6 @@ body{
 
 .landing{
   margin-top: 8.1%;
-
 	margin-left: 11px;
 	width: 100%;
 }
@@ -294,7 +293,16 @@ body{
   .ftco-choose .img {
     height: 350px;
   }
+  .landing{
+    margin-top: 39%;
+    margin-left: 11px;
+    width: 100%;
+  }
+  .row {
+    margin-left: -7%;
+  }
 }
+
 @media (min-width: 992px) {
   .container {
     max-width: 960px;

@@ -18,6 +18,7 @@ export class OrdersComponent implements OnInit {
   public purchaseinfo: PurchaseInfo;
   public productList;
   public p = 1;
+  public sendBtnBool = false;
 
   constructor(
     private router: Router,
@@ -55,8 +56,8 @@ export class OrdersComponent implements OnInit {
       );
     }
   }
-  getArrayPurchase(idClient) {
-    this.purchaseService.getClientInfoPurchase(idClient).subscribe(
+  getArrayPurchase(idClient, status) {
+    this.purchaseService.getClientInfoPurchase(idClient, status).subscribe(
       response => {
         this.purchaseinfo.clientName = response.clientName;
         this.purchaseinfo.clientAddress = response.clientAddress;
@@ -65,7 +66,6 @@ export class OrdersComponent implements OnInit {
         this.purchaseinfo.purchasePrice = response.purchasePrice;
         this.purchaseinfo.PurchaseShiping = response.PurchaseShiping;
         this.productList = response.purchase;
-        console.log(this.productList);
       }, error => {
         console.log(<any> error);
       }
@@ -87,7 +87,12 @@ export class OrdersComponent implements OnInit {
   toggleInfo(dataPurchase: any) {
     this.purchaseinfo.id = dataPurchase.id;
     console.log(this.purchaseinfo);
-    this.getArrayPurchase(dataPurchase.clients_id);
+    if (dataPurchase.status !== 'Enviado') {
+      this.sendBtnBool = false;
+    } else {
+      this.sendBtnBool = true;
+    }
+    this.getArrayPurchase(dataPurchase.clients_id, dataPurchase.status);
   }
 
   ngOnInit() {
