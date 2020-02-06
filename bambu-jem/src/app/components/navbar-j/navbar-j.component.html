@@ -24,13 +24,13 @@
         <div class="user-panel login">
           <div class="up-item labelLog">
             <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button">
-              <img src="assets/Images/4.jpg" alt="user" class="profile-pic">
+              <img [src]="clientPhoto" alt="user" class="profile-pic">
             </a>
             <div class="dropdown-menu">
               <ul class="dropdown-user">
                 <li>
                   <div class="dw-user-box">
-                    <div class="u-img"><img src="assets/Images/4.jpg" alt="user"></div>
+                    <div class="u-img"><img [src]="clientPhoto" alt="user"></div>
                     <div class="u-text">
                       <h4>{{identity.name}}</h4>
                       <p class="text-muted">{{identity.phone}}</p>
@@ -68,7 +68,7 @@
         <li class="menuNavBar"><a href="Home/Damas/J">Damas</a></li>
         <li class="menuNavBar"><a href="Home/Caballeros/J">Caballeros</a></li>
         <li class="menuNavBar"><a href="Home/Niños/J">Niños</a></li>
-        <li class="menuNavBar"><a href="Home/Niñas">Niñas</a></li>
+        <li class="menuNavBar"><a href="Home/Niñas/J">Niñas</a></li>
       </ul>
     </div>
   </nav>

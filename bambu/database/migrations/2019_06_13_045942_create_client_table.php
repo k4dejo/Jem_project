@@ -21,9 +21,10 @@ class CreateClientTable extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('addressDetail');
+            $table->string('photo');
             $table->timestamps();
 
-            $table->unsignedInteger('shops_id'); 
+            $table->unsignedInteger('shops_id');
             $table->foreign('shops_id')->references('id')->on('shops');
         });
     }

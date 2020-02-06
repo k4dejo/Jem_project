@@ -41,8 +41,9 @@ export class CheckoutComponent implements OnInit {
   public couponDiscount: number;
   public subtotal;
   public total;
-  offerBool: boolean;
-  offer: any;
+  public btnSuccessBool = false;
+  public offerBool: boolean;
+  public offer: any;
 
   constructor(
     private purchaseService: PurchaseService,
@@ -87,6 +88,10 @@ export class CheckoutComponent implements OnInit {
       console.log(this.purchaseArray[index].pivot);
       this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
     }
+  }
+
+  ckeckTerms(event: any) {
+    this.btnSuccessBool = event.target.checked;
   }
 
   editAmountProduct(idProduct: any, product) {

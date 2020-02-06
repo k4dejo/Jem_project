@@ -412,6 +412,34 @@ Credit Card
   font-size: 18px;
 }
 
+/*==================================================================
+  #CHECKBOX
+===================================================================*/
+
+.checkboxs {
+  position: relative;
+  left: 30%;
+}
+.checkboxs span {
+  position: absolute;
+  top: 30%;
+  left: 9%;
+}
+
+.checkbox
+{
+  position: relative;
+  width: 5%;
+  cursor: pointer;
+}
+
+/*==================================================================
+  #TERMS
+===================================================================*/
+.termStyle {
+  padding: 11px 20px 13px;
+  text-align: justify;
+}
 
 @media (max-width: 767px) {
   .main {

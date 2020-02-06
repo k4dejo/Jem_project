@@ -20,6 +20,7 @@ export class NavbarJComponent implements OnInit {
   public token;
   public status: string;
   public client: Client;
+  public clientPhoto;
   public menuOpen = false;
   public primaryColour = '#ffffff';
   public secondaryColour = '#ccc';
@@ -44,7 +45,7 @@ export class NavbarJComponent implements OnInit {
   ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
-    this.client = new Client('', '', '', '', '', '', 1);
+    this.client = new Client('', '', '', '', '', '', '', null, 1);
   }
 
   logout() {
@@ -83,6 +84,7 @@ export class NavbarJComponent implements OnInit {
               if (response.shops_id === 1) {
                 this.identity = response;
                 this.loading = false;
+                this.getClientPhoto(this.identity.sub);
                 localStorage.setItem('identity', JSON.stringify(this.identity));
               } else {
                 localStorage.removeItem('identity');
@@ -106,6 +108,17 @@ export class NavbarJComponent implements OnInit {
     );
   }
 
+  getClientPhoto(idClient: any) {
+    this.clientService.getClientPhoto(idClient).subscribe(
+      response => {
+        this.clientPhoto = response.clientPhoto;
+        this.clientPhoto = 'data:image/jpeg;base64,' + this.clientPhoto;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   gotoRegister() {
     this.router.navigate(['/registrar', 'jem']);
   }
@@ -119,7 +132,8 @@ export class NavbarJComponent implements OnInit {
   }
 
   gotoConfig() {
-    this.router.navigate(['Cuenta/configuración/', 'J']);
+    const link = 'Cuenta/configuración';
+    this.router.navigate([link, 'J']);
   }
   gotoHistory() {
     this.router.navigate(['Home/historial/', 'J']);
@@ -129,7 +143,6 @@ export class NavbarJComponent implements OnInit {
     this.purchaseService.getPurchase(this.identity.sub).subscribe(
       response => {
         this.purchaseList = response.purchase;
-        console.log(response.purchase);
         if (this.purchaseList.length === 0) {
           this.purchaselenght = 0;
         } else {
@@ -146,6 +159,9 @@ export class NavbarJComponent implements OnInit {
     } else {
       this.identity.name = 'iniciar sesión';
     }
-    this.getLenghtListPurchase();
+    if (this.identity.shops_id === 1) {
+      this.getClientPhoto(this.identity.sub);
+      this.getLenghtListPurchase();
+    }
   }
 }

@@ -79,6 +79,7 @@ export class MangArticleComponent implements OnInit {
   public subscribeTimer: any;
   public interval;
   public timeLeft = 5;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -288,6 +289,7 @@ export class MangArticleComponent implements OnInit {
   }
 
   pushGender(genderParam: any) {
+    console.log(genderParam);
     if (genderParam !== undefined) {
       this.product.gender = genderParam.toString();
       this.getDepartment();

@@ -26,6 +26,7 @@ import { AttachPurchase } from '../../models/attachPurchase';
 export class ArticleDetailComponent implements OnInit {
   public shop_id = '';
   public NotifyUser = false;
+  public NotifySuccess = false;
   public shop_bool = true;
   public BtnHover = false;
   public offerBool = false;
@@ -53,6 +54,7 @@ export class ArticleDetailComponent implements OnInit {
   public subscribeTimer: any;
   public interval;
   public timeLeft = 5;
+  public successModalBool = false;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -311,11 +313,27 @@ export class ArticleDetailComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.gotoCartBtn = true;
+          this.NotifySuccess = true;
+          this.startTimerSucess();
+        } else {
+          this.NotifySuccess = false;
         }
       }, error => {
         console.log(<any> error);
       }
     );
+  }
+
+  startTimerSucess() {
+    this.timeLeft = 5;
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        if (this.timeLeft === 0) {
+          this.NotifySuccess = false;
+        }
+      }
+    }, 800);
   }
 
   addProductCart() {

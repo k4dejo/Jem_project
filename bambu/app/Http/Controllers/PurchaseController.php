@@ -284,22 +284,6 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
-    /*public function getPurchase($idClient) {
-        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
-        ->where('status', 'incomplete')->first();
-        $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
-        $data = array(
-            'purchase'       => $arrayPurchase,
-            'purchaseId'     => $purchaseClient->id,
-            'couponId'       => $purchaseClient->coupon_id,
-            'shipping'       => $purchaseClient->shipping,
-            'dataPurchase'   => $purchaseClient,
-            'status'         => 'success',
-            'code'    => 200,
-        );
-        return response()->json($data,200);
-    }*/
-
     public function getPurchase($idClient) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
         ->where('status', 'incomplete')->first();

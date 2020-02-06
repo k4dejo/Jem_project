@@ -1,6 +1,6 @@
 export class DettachPurchase {
     constructor(
-    	public idPurchase: string,
-        public idProduct: string
+      public idPurchase: string,
+      public idProduct: string
     ) {}
 }

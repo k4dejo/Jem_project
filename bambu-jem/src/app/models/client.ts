@@ -6,6 +6,8 @@ export class Client {
         public email: string,
         public address: string,
         public addressDetail: string,
+        public photo: string,
+        public file: Blob,
         public shops_id: number
     ) {}
 }

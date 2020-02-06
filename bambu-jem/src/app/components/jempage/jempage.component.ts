@@ -31,7 +31,7 @@ export class JempageComponent implements OnInit {
     private clientService: UserServices) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
-    this.client = new Client('', '', '', '', '', '', 1);
+    this.client = new Client('', '', '', '', '', '', '', null, 1);
   }
 
   ngOnInit() {

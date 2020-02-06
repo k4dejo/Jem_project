@@ -66,6 +66,12 @@
 	width: 73px;
 }
 
+.photoClient {
+  margin-bottom: 5%;
+  width: 518px;
+  height: 433px;
+}
+
 .cart-table .product-col .pc-title {
 	display: table-cell;
 	vertical-align: middle;
@@ -303,6 +309,7 @@
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
+    padding: 9px 17px 9px;
   }
 
   .btn--green {
@@ -584,6 +591,17 @@ textarea.input1 + .shadow-input1 {
   transform: translateX(10px);
 }
 
+/* ==========================================================================
+   #FILE_PHOTO
+   ========================================================================== */
+   .inputFile{
+    display: none;
+  }
+
+  .btnLabel{
+    margin-left: 25%;
+  }
+
 /*========================================
   #MODAL
 ==========================================*/
@@ -710,6 +728,9 @@ textarea.input1 + .shadow-input1 {
     padding: 90px 80px 88px 80px;
   }
 
+  .cart-table {
+    margin-top: 38%;
+  }
   .contact1-pic {
     display: none;
   }

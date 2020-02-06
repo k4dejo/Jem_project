@@ -25,12 +25,18 @@ export class UserServices {
     const params = 'json=' + json;
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', token);
+    console.log(headers);
     return this._http.put(this.url + 'editClientInfo/' + idClient, params, {headers: headers});
   }
 
   getClientInfo(idClient: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getClientInfo/' + idClient, {headers: headers});
+  }
+
+  getClientPhoto(idClient: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getClientPhoto/' + idClient, {headers: headers});
   }
 
   likeProduct(like): Observable<any> {

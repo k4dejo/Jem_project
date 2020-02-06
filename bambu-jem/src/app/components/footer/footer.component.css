@@ -27,7 +27,7 @@ footer .fab {
 
 }
 
-footer .fa{ 
+footer .fa{
     color: #b8b8b8;
     border: 2px solid #b8b8b8;
     border-radius: 50%;
@@ -48,7 +48,7 @@ line-height: 1.8;
 }
 ul>li>a:hover,
 a:hover{
-color: #ff6600;
+color: #f51167;
 font-weight: 500;
 }
 
@@ -60,7 +60,7 @@ color:#304f50;
 font-weight: 500;
 margin: 1rem 0;
 padding: .4rem 0px;
-border-bottom: 1px solid #c7c7c7; 
+border-bottom: 1px solid #c7c7c7;
 letter-spacing: 3px;
 }
 
@@ -68,7 +68,7 @@ letter-spacing: 3px;
 color: #304f50;
 margin-right: 10px;
 font-size:18px;
-width:2.25rem;    
+width:2.25rem;
 }
 .fa {
 color: #304f50;

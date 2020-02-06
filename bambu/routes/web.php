@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::post('/bambu/register','clientController@register');
+Route::post('/bambu/register','clientController@register');
 Route::post('/bambu/login','clientController@login');
 Route::post('/bambu/loginAdmin','adminController@login');
 Route::post('/bambu/outfits/CrearOutfit','OutfitController@store');

@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
   public ArrayProvin: Province[];
   public ArrayCant: Cant[];
   public ArrayDist: District[];
+  public fileBlob;
 
 
   constructor(
@@ -35,7 +36,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private clientService: UserServices,
     private province: AddresServices) {
-    this.client = new Client('', '', '', '', '', '', this.shop_id);
+      this.client = new Client('', '', '', '', '', '', '', null, this.shop_id);
    }
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class RegisterComponent implements OnInit {
       }
     );
     this.id = this.route.snapshot.params['id'];
+    this.fileBlob = 'assets/Images/default.jpg';
     if (!this.id) { return; }
     if (this.id === 'jem') {
       this.shop = true;
@@ -148,8 +150,9 @@ export class RegisterComponent implements OnInit {
   }
 
   Onsubmit(form) {
-    console.log(form);
     this.client.name = this.firstName + ' ' + this.lastName;
+    this.client.photo = this.fileBlob;
+    console.log(this.client);
     this.clientService.register(this.client).subscribe(
       response => {
         console.log(this.client);
@@ -157,7 +160,7 @@ export class RegisterComponent implements OnInit {
           this.status = response.status;
 
           // vaciar formulario
-          this.client = new Client('', '', '', '', '', '', null);
+          this.client = new Client('', '', '', '', '', '', '', null, null);
           form.reset();
 
         } else {

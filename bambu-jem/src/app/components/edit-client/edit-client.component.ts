@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Route, Router, ActivatedRoute } from '@angular/router';
 import { UserServices } from '../../services/user.service';
 import { AddresServices } from '../../services/addres.service';
 import { Province } from '../../models/province';
@@ -27,6 +27,7 @@ export class EditClientComponent implements OnInit {
   public ArrayDist: District[];
   public clientInfo: Client;
   public modalBool =  false;
+  public fileBlob;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +36,7 @@ export class EditClientComponent implements OnInit {
   ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
-    this.clientInfo = new Client('', '', '', '', '', '', 0);
+    this.clientInfo = new Client('', '', '', '', '', '', '', null, 0);
   }
 
   getClientInfo() {
@@ -45,6 +46,12 @@ export class EditClientComponent implements OnInit {
         this.clientInfo.email = response.client.email;
         this.clientInfo.phone = response.client.phone;
         this.clientInfo.address = response.client.address;
+        this.clientInfo.file = response.client.photo;
+        this.fileBlob = response.client.photo;
+        console.log(this.clientInfo);
+        if (response.client.photo !== 'assets/Images/default.jpg') {
+          this.fileBlob = 'data:image/jpeg;base64,' + this.fileBlob;
+        }
         this.clientInfo.addressDetail = response.client.addressDetail;
       }, error => {
         console.log(<any> error);
@@ -52,13 +59,50 @@ export class EditClientComponent implements OnInit {
     );
   }
 
+  onUpload(e) {
+    const myImg = e.target.files[0];
+    this.clientInfo.photo = myImg.name;
+    const promise = this.getFileBlob(myImg);
+    promise.then(Blob => {
+      this.fileBlob = Blob;
+      // this.clientInfo.photo = this.fileBlob;
+      this.clientInfo.file = this.fileBlob;
+    });
+  }
+
+  getFileBlob(file) {
+    const reader = new FileReader();
+    return new Promise (function(resolve, reject) {
+      reader.onload = (function(theFile) {
+        return function(e) {
+          resolve(e.target.result);
+        };
+      })(file);
+      reader.readAsDataURL(file);
+    });
+  }
+
   edit() {
+    if (this.clientInfo.address === '') {
+      this.clientInfo.address = this.identity.address;
+    }
+    if (this.shop_id === 'J') {
+      this.clientInfo.shops_id = 1;
+    } else {
+      if (this.shop_id === 'B') {
+        this.clientInfo.shops_id = 0;
+      }
+    }
+    this.clientInfo.photo = this.fileBlob;
+    this.clientInfo.file = this.fileBlob;
+    console.log(this.clientInfo);
     this.clientService.editClientInfo(this.token, this.identity.sub, this.clientInfo).subscribe(
       response => {
         console.log(response);
         if (response.status === 'success') {
           this.modalBool = true;
           this.getClientInfo();
+          this.identity = this.clientService.getIdentity();
         } else {
           this.modalBool = false;
         }
@@ -173,7 +217,7 @@ export class EditClientComponent implements OnInit {
   ngOnInit() {
     this.getProvince();
     this.getClientInfo();
-    this.shop_id = this.route.snapshot.params['id'];
+    this.shop_id = this.route.snapshot.params['shopId'];
     if (this.shop_id === 'J') {
       this.shop_bool = true;
       this.clientInfo.shops_id = 1;

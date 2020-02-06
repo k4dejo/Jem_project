@@ -363,6 +363,7 @@ export class EditProductComponent implements OnInit {
     editProducts.weight      = this.product.weight;
     editProducts.photo       = this.product.photo;
     editProducts.file        = this.fileBlob;
+    console.log(editProducts);
     this.productService.editProduct(this.token, this.id, editProducts).subscribe(
       response => {
         this.product = response.article;
