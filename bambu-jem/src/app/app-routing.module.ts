@@ -35,8 +35,9 @@ import { HistoryComponent } from './components/history/history.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
-  { path: 'Home/Tu_Boutique', component: BambupageComponent},
+  { path: '', component: JempageComponent},
   { path: 'Home/BJem', component: JempageComponent},
+  { path: 'Home/Tu_Boutique', component: BambupageComponent},
   { path: 'Home/Nosotros', component: AboutUsComponent},
   { path: 'Logout/:sure', component: LoginComponent},
   { path: 'Home/Damas/:id' , component: LadiesComponent},

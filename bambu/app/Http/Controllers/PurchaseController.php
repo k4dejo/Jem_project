@@ -111,6 +111,29 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
+    public function convertHash(Request $request) {
+        // recoger datos del POST
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+        //return \Str::random(20);
+        $time = time();
+        $params->time = $time;
+        $key = 'wMZ86zdzku53x76FC557t688Gup3Vag3';
+        $hash = '""' . '|' . $params->amount . '|'. $time . '|' . $key;
+        $hashEncrypt = md5($hash);
+        $key_id = '13790849';
+        $procesor_id = '11442382';
+        $data = array(
+            'hashCredomatic' => $hashEncrypt,
+            'key_id'         => $key_id,
+            'procesor_id'    => $procesor_id,
+            'time'           => $time,
+            'code'  => 200,
+        );
+        return response()->json($data,200);
+    }
+
     public function editPurchaseClient($idPurchase, Request $request) {
         // recoger datos del POST
         $json =  $request->input('json', null);
