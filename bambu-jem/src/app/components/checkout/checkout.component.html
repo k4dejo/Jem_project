@@ -1,19 +1,25 @@
 <header>
-    <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
-    <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
+  <div *ngIf="shop_bool">
+    <app-navbar-j></app-navbar-j>
+  </div>
+  <div *ngIf="!shop_bool">
+    <app-navbar-b></app-navbar-b>
+  </div>
 </header>
 <div class="main" style="overflow: auto;">
-	<div class="checkout">
-		<div class="credit-card-box">
-			<div class="flip">
-				<div class="front">
-					<div class="chip"></div>
-					<div class="logo">
-						<img *ngIf="viewMasterCard" class="img-responsive" src="assets/Images/master.png" alt="">
-						<svg *ngIf="spliteFirstNumber == 4" version="1.1" id="visa" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47.834px" height="47.834px" viewBox="0 0 47.834 47.834" style="enable-background:new 0 0 47.834 47.834;">
-							<g>
-								<g>
-									<path d="M44.688,16.814h-3.004c-0.933,0-1.627,0.254-2.037,1.184l-5.773,13.074h4.083c0,0,0.666-1.758,0.817-2.143
+  <div class="checkout">
+    <div class="credit-card-box">
+      <div class="flip">
+        <div class="front">
+          <div class="chip"></div>
+          <div class="logo">
+            <img *ngIf="viewMasterCard" class="img-responsive" src="assets/Images/master.png" alt="">
+            <svg *ngIf="spliteFirstNumber == 4" version="1.1" id="visa" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47.834px" height="47.834px"
+              viewBox="0 0 47.834 47.834" style="enable-background:new 0 0 47.834 47.834;">
+              <g>
+                <g>
+                  <path d="M44.688,16.814h-3.004c-0.933,0-1.627,0.254-2.037,1.184l-5.773,13.074h4.083c0,0,0.666-1.758,0.817-2.143
 									c0.447,0,4.414,0.006,4.979,0.006c0.116,0.498,0.474,2.137,0.474,2.137h3.607L44.688,16.814z M39.893,26.01
               						c0.32-0.819,1.549-3.987,1.549-3.987c-0.021,0.039,0.317-0.825,0.518-1.362l0.262,1.23c0,0,0.745,3.406,0.901,4.119H39.893z
               						M34.146,26.404c-0.028,2.963-2.684,4.875-6.771,4.875c-1.743-0.018-3.422-0.361-4.332-0.76l0.547-3.193l0.501,0.228
@@ -23,29 +29,31 @@
           							C33.126,23.546,34.163,24.783,34.146,26.404z M0,16.962l0.05-0.286h6.028c0.813,0.031,1.468,0.29,1.694,1.159l1.311,6.304
               						C7.795,20.842,4.691,18.099,0,16.962z M17.581,16.812l-6.123,14.239l-4.114,0.007L3.862,19.161
           							c2.503,1.602,4.635,4.144,5.386,5.914l0.406,1.469l3.808-9.729L17.581,16.812L17.581,16.812z M19.153,16.8h3.89L20.61,31.066
-              						h-3.888L19.153,16.8z"/>
-              					</g>
-              				</g>
-              			</svg>
-              		</div>
-              		<div class="number">{{CcCard1}} {{CcCard2}} {{CcCard3}} {{CcCard4}}</div>
-              		<div class="card-holder">
-              			<label>Propietario</label>
-              			<div>{{Ccholder}}</div>
-              		</div>
-              		<div class="card-expiration-date">
-              			<label>Expiración</label>
-              			<div>{{monthCc}}/{{yearCc}}</div>
-              		</div>
-              	</div>
-              	<div class="back">
-              		<div class="strip"></div>
-              		<div class="logo">
-                    <img *ngIf="viewMasterCard" class="img-responsive" src="assets/Images/master.png" alt="">
-              			<svg *ngIf="spliteFirstNumber == 4" version="1.1" id="visa" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47.834px" height="47.834px" viewBox="0 0 47.834 47.834" style="enable-background:new 0 0 47.834 47.834;">
-              				<g>
-              					<g>
-              						<path d="M44.688,16.814h-3.004c-0.933,0-1.627,0.254-2.037,1.184l-5.773,13.074h4.083c0,0,0.666-1.758,0.817-2.143
+              						h-3.888L19.153,16.8z" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="number">{{CcCard1}} {{CcCard2}} {{CcCard3}} {{CcCard4}}</div>
+          <div class="card-holder">
+            <label>Propietario</label>
+            <div>{{Ccholder}}</div>
+          </div>
+          <div class="card-expiration-date">
+            <label>Expiración</label>
+            <div>{{monthCc}}/{{yearCc}}</div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="strip"></div>
+          <div class="logo">
+            <img *ngIf="viewMasterCard" class="img-responsive" src="assets/Images/master.png" alt="">
+            <svg *ngIf="spliteFirstNumber == 4" version="1.1" id="visa" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47.834px" height="47.834px"
+              viewBox="0 0 47.834 47.834" style="enable-background:new 0 0 47.834 47.834;">
+              <g>
+                <g>
+                  <path d="M44.688,16.814h-3.004c-0.933,0-1.627,0.254-2.037,1.184l-5.773,13.074h4.083c0,0,0.666-1.758,0.817-2.143
               						c0.447,0,4.414,0.006,4.979,0.006c0.116,0.498,0.474,2.137,0.474,2.137h3.607L44.688,16.814z M39.893,26.01
                 					c0.32-0.819,1.549-3.987,1.549-3.987c-0.021,0.039,0.317-0.825,0.518-1.362l0.262,1.23c0,0,0.745,3.406,0.901,4.119H39.893z
                 					M34.146,26.404c-0.028,2.963-2.684,4.875-6.771,4.875c-1.743-0.018-3.422-0.361-4.332-0.76l0.547-3.193l0.501,0.228
@@ -55,161 +63,197 @@
                 					C33.126,23.546,34.163,24.783,34.146,26.404z M0,16.962l0.05-0.286h6.028c0.813,0.031,1.468,0.29,1.694,1.159l1.311,6.304
                 					C7.795,20.842,4.691,18.099,0,16.962z M17.581,16.812l-6.123,14.239l-4.114,0.007L3.862,19.161
                 					c2.503,1.602,4.635,4.144,5.386,5.914l0.406,1.469l3.808-9.729L17.581,16.812L17.581,16.812z M19.153,16.8h3.89L20.61,31.066
-                					h-3.888L19.153,16.8z"/>
-                				</g>
-                			</g>
-                		</svg>
-                	</div>
-                	<div class="ccv">
-                		<label>CCV</label>
-                		<div>{{Ccv}}</div>
-                	</div>
-                </div>
-            </div>
+                					h-3.888L19.153,16.8z" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="ccv">
+            <label>CCV</label>
+            <div>{{Ccv}}</div>
+          </div>
         </div>
-        <form class="form" autocomplete="off" novalidate>
-        	<fieldset>
-		      <label for="card-number">Numero de tarjeta</label>
-		      <input (change)="detectFirstNumber(CcCard1)" name="numberCard1" #numberCard1="ngModel" [(ngModel)]="CcCard1" type="num" id="card-number" class="input-cart-number" maxlength="4"/>
-		      <input name="numberCard2" #numberCard2="ngModel" [(ngModel)]="CcCard2" type="num" id="card-number-1" class="input-cart-number" maxlength="4"/>
-		      <input name="numberCard3" #numberCard3="ngModel" [(ngModel)]="CcCard3" type="num" id="card-number-2" class="input-cart-number" maxlength="4"/>
-		      <input name="numberCard4" #numberCard4="ngModel" [(ngModel)]="CcCard4" type="num" id="card-number-3" class="input-cart-number" maxlength="4"/>
-		  	</fieldset>
-		  	<fieldset>
-		  		<label for="card-holder">Propietario</label>
-      			<input name="holder" #holder="ngModel" [(ngModel)]="Ccholder" type="text" id="card-holder" />
-      		</fieldset>
-      		<fieldset class="fieldset-expiration">
-      			<label for="card-expiration-month">Fecha de expiración</label>
-      			<div class="select">
-      				<select (change)="monthChange($event)" id="card-expiration-month">
-      					<option></option>
-      					<option value="01">01</option>
-					      <option value="02">02</option>
-					      <option value="03">03</option>
-					      <option value="04">04</option>
-					      <option value="05">05</option>
-					      <option value="06">06</option>
-					      <option value="07">07</option>
-					      <option value="08">08</option>
-					      <option value="09">09</option>
-					      <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-					</select>
-				</div>
-				<div class="select">
-					<select (change)="yearChange($event)" id="card-expiration-year">
-						<option></option>
-						<option value="2019">2019</option>
-						<option value="2020">2020</option>
-						<option value="2021">2021</option>
-						<option value="2022">2022</option>
-						<option value="2023">2023</option>
-						<option value="2024">2024</option>
-						<option value="2025">2025</option>
-						<option value="2026">2026</option>
-						<option value="2027">2027</option>
-						<option value="2028">2028</option>
-						<option value="2029">2029</option>
-						<option value="2030">2030</option>
-						<option value="2031">2031</option>
-					</select>
-				</div>
-			</fieldset>
-			<fieldset class="fieldset-ccv">
-				<label for="card-ccv">CCV</label>
-				<input name="ccv" #ccv="ngModel" [(ngModel)]="Ccv" (focus)="flipcard()"
-				(focusout)="flipOutCard()" type="text" id="card-ccv"
-				maxlength="3"/>
-			</fieldset><br>
-			<div class="col-md-12">
-				<h4>Tu Orden</h4>
-				<table *ngIf="shipping == 0" class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col" class="product-th">Producto</th>
-							<th scope="col" class="quy-th">Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="table-item" *ngFor="let product of purchaseArray">
-							<td>
-								<p>{{product.name}}  x{{product.pivot.amount}}</p>
-							</td>
-							<td>
-								<p>₡ {{product.pricePublic * product.pivot.amount | number: '3.'}}</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<table *ngIf="shipping > 0" class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col" class="product-th">Producto</th>
-							<th scope="col" class="quy-th">Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="table-item" *ngFor="let product of purchaseArray">
-							<td>
-								<p>{{product.name}}  x{{product.pivot.amount}}</p>
-							</td>
-							<td>
-								<p>₡ {{product.priceMajor * product.pivot.amount | number: '3.'}}</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="subtotal-area d-flex align-items-center justify-content-end">
-					<div *ngIf="shipping > 0" class="subtitle text-uppercase">
-						Envio: ............................................
-						<span>₡ {{shipping | number: '3.'}}</span>
-					</div>
-					<div *ngIf="shipping == 0" class="subtitle text-uppercase">
-						Envio: ............................................ <span> GRATIS</span>
-					</div>
-				</div>
-				<div *ngIf="couponDiscount > 0" class="subtotal-area d-flex align-items-center justify-content-end">
-					<div class="subtitle text-uppercase">
-						Cupón: ..........................................
-						<span>₡ {{couponDiscount | number: '3.'}}</span>
-					</div>
-				</div>
-				<div class="subtotal-area d-flex align-items-center justify-content-end">
-					<div class="subtitle text-uppercase">
-						Subtotal: ....................................
-						<span>₡ {{subtotal | number: '3.'}}</span>
-					</div>
-				</div><br>
-				<div class="subtotal-area d-flex align-items-center justify-content-end">
-					<div class="alert alert-success" role="alert">
-						<div class="title text-uppercase">
-							Total: ......................................
-							<span>₡ {{total | number: '3.'}}</span>
-						</div>
-					</div>
-				</div>
-			</div>
+      </div>
+    </div>
+    <form class="form" autocomplete="off" novalidate>
+      <fieldset>
+        <label for="card-number">Numero de tarjeta</label>
+        <input (change)="detectFirstNumber(CcCard1)" name="numberCard1" #numberCard1="ngModel" [(ngModel)]="CcCard1"
+          type="num" id="card-number" class="input-cart-number" maxlength="4" />
+        <input name="numberCard2" #numberCard2="ngModel" [(ngModel)]="CcCard2" type="num" id="card-number-1"
+          class="input-cart-number" maxlength="4" />
+        <input name="numberCard3" #numberCard3="ngModel" [(ngModel)]="CcCard3" type="num" id="card-number-2"
+          class="input-cart-number" maxlength="4" />
+        <input name="numberCard4" #numberCard4="ngModel" [(ngModel)]="CcCard4" type="num" id="card-number-3"
+          class="input-cart-number" maxlength="4" />
+      </fieldset>
+      <fieldset>
+        <label for="card-holder">Propietario</label>
+        <input name="holder" #holder="ngModel" [(ngModel)]="Ccholder" type="text" id="card-holder" />
+      </fieldset>
+      <fieldset class="fieldset-expiration">
+        <label for="card-expiration-month">Fecha de expiración</label>
+        <div class="select">
+          <select (change)="monthChange($event)" id="card-expiration-month">
+            <option></option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+        </div>
+        <div class="select">
+          <select (change)="yearChange($event)" id="card-expiration-year">
+            <option></option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+            <option value="2031">2031</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset class="fieldset-ccv">
+        <label for="card-ccv">CCV</label>
+        <input name="ccv" #ccv="ngModel" [(ngModel)]="Ccv" (focus)="flipcard()" (focusout)="flipOutCard()" type="text"
+          id="card-ccv" maxlength="3" />
+      </fieldset><br>
+      <div class="col-md-12">
+        <h4>Tu Orden</h4>
+        <table *ngIf="shipping == 0" class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="product-th">Producto</th>
+              <th scope="col" class="quy-th">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-item" *ngFor="let product of purchaseArray">
+              <td>
+                <p>{{product.name}} x{{product.pivot.amount}}</p>
+              </td>
+              <td>
+                <p>₡ {{product.pricePublic * product.pivot.amount | number: '3.'}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table *ngIf="shipping > 0" class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="product-th">Producto</th>
+              <th scope="col" class="quy-th">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-item" *ngFor="let product of purchaseArray">
+              <td>
+                <p>{{product.name}} x{{product.pivot.amount}}</p>
+              </td>
+              <td>
+                <p>₡ {{product.priceMajor * product.pivot.amount | number: '3.'}}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="subtotal-area d-flex align-items-center justify-content-end">
+          <div *ngIf="shipping > 0" class="subtitle text-uppercase">
+            Envio: ............................................
+            <span>₡ {{shipping | number: '3.'}}</span>
+          </div>
+          <div *ngIf="shipping == 0" class="subtitle text-uppercase">
+            Envio: ............................................ <span> GRATIS</span>
+          </div>
+        </div>
+        <div *ngIf="couponDiscount > 0" class="subtotal-area d-flex align-items-center justify-content-end">
+          <div class="subtitle text-uppercase">
+            Cupón: ..........................................
+            <span>₡ {{couponDiscount | number: '3.'}}</span>
+          </div>
+        </div>
+        <div class="subtotal-area d-flex align-items-center justify-content-end">
+          <div class="subtitle text-uppercase">
+            Subtotal: ....................................
+            <span>₡ {{subtotal | number: '3.'}}</span>
+          </div>
+        </div><br>
+        <div class="subtotal-area d-flex align-items-center justify-content-end">
+          <div class="alert alert-success" role="alert">
+            <div class="title text-uppercase">
+              Total: ......................................
+              <span>₡ {{total | number: '3.'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <button *ngIf="!btnSuccessBool" class="btn" disabled><i class="fa fa-lock"></i> Procesar Pago</button>
-      <button *ngIf="btnSuccessBool" (click)="submitCheckout()" class="btn"><i class="fa fa-lock"></i> Procesar Pago</button>
+      <button *ngIf="btnSuccessBool" (click)="submitCheckout()" data-toggle="modal"
+      data-target="#sendCredomatic" class="btn"><i class="fa fa-lock"></i> Procesar
+        Pago</button>
       <label class="checkboxs">
         <input (change)="ckeckTerms($event)" type="checkbox" class="checkbox" id="rememberMe" name="rememberMe">
-        <span><a style="color: rgb(23, 65, 253); cursor: pointer;" data-toggle="modal" data-target="#termsConditions">terminos y condiciones</a></span>
+        <span><a style="color: rgb(23, 65, 253); cursor: pointer;" data-toggle="modal"
+            data-target="#termsConditions">terminos y condiciones</a></span>
       </label>
-		</form>
-	</div>
+    </form>
+  </div>
 </div>
 <footer>
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </footer>
-<!-- Modal -->
-<div class="modal fade" id="termsConditions" tabindex="-1" role="dialog" aria-labelledby="termsConditionsTitle" aria-hidden="true">
+<div class="modal fade" id="sendCredomatic" tabindex="-1" role="dialog"
+aria-labelledby="sendCredomatic" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <i class="fa fa-times close" data-dismiss="modal"></i>
-        <h5 style="margin-left: 17%; font-weight: bold; font-size: 25px;" class="modal-title" id="terms&conditionsTitle">Términos y Condiciones de Uso</h5>
+        <h5 style="margin-left: 17%; font-weight: bold; font-size: 25px;" class="modal-title"
+          id="terms&conditionsTitle">Información de factura</h5>
+      </div>
+      <div class="modal-body">
+        <form ngNoForm name="CredomaticPost" class="formTransac" method="post"
+        action="https://credomatic.compassmerchantsolutions.com/api/transact.php">
+          <Input type="text" name="type" value=" sale"/>
+          <Input type="text" name="key_id" [value]="dataCredomatic.key_id"/>
+          <Input type="text" name="hash" [value]="dataCredomatic.hash"/>
+          <Input type="text" name="time" [value]="dataCredomatic.time">
+          <Input type="text" name="amount" [value]="dataCredomatic.amount">
+          <Input type="text" name="processor_id" [value]="dataCredomatic.processor_id">
+          <Input type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
+          <Input type="text" name="ccexp" [value]="dataCredomatic.ccexp">
+          <Input type="text" name="cvv" [value]="dataCredomatic.ccv">
+          <Input type="text" name="redirect" hidden value="http://localhost:4200">
+          <Input type="submit" class="btn" value="Enviar Transacción"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="termsConditions" tabindex="-1" role="dialog" aria-labelledby="termsConditionsTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i class="fa fa-times close" data-dismiss="modal"></i>
+        <h5 style="margin-left: 17%; font-weight: bold; font-size: 25px;" class="modal-title"
+          id="terms&conditionsTitle">Términos y Condiciones de Uso</h5>
       </div>
       <div class="modal-body">
         <div class="termStyle">
@@ -254,12 +298,16 @@
           </p>
           <h4 style="font-weight: bold;">POLITICA DE DEVOLUCION Y GARANTIA</h4>
           <ul>
-            <li><p>
-              NO HACEMOS REEMBOLSOS. En caso de una devolución,
-              se dará un crédito por la MISMA cantidad que el artículo fue comprado, siempre y cuando el
-              artículo se encuentre en las mismas condiciones que fue recibido (en perfecto estado con etiquetas y facturas).
-              El cambio se podrá realizar por cambio de talla o cambio de articulo si no quedara de la talla que necesita.
-            </p></li>
+            <li>
+              <p>
+                NO HACEMOS REEMBOLSOS. En caso de una devolución,
+                se dará un crédito por la MISMA cantidad que el artículo fue comprado, siempre y cuando el
+                artículo se encuentre en las mismas condiciones que fue recibido (en perfecto estado con etiquetas y
+                facturas).
+                El cambio se podrá realizar por cambio de talla o cambio de articulo si no quedara de la talla que
+                necesita.
+              </p>
+            </li>
             <li>
               <p>
                 No aplicaremos cambios a prendas que sean devueltas dañadas, usadas y/o sucias.
@@ -276,49 +324,69 @@
                 con las etiquetas originales adjuntas.
               </p>
             </li>
-            <li><p>
-              NO SE ACEPTAN DEVOLUCIONES en todas las prendas íntimas,
-              trajes de baño, collares, cinturones,
-              accesorios para el cabello, mochilas, gafas, bolsos,
-            </p></li>
-            <li><p>
-              Usted es responsable del envío de devolución, y todos los gastos de envío no son reembolsables.
-            </p></li>
-            <li><p>
-              Productos en descuento o promoción no se cambian.
-            </p></li>
-            <li><p>
-              El tiempo que se otorga para devoluciones de compras en
-              línea es de un plazo máximo de 10 días posteriores a la compra,
-              tomando en cuenta el tiempo de transito del paquete.
-              La prenda debe estar en perfectas condiciones.
-              Los cambios los puede realizar directamente
-              <span style="font-weight:900;">por Correos de CR cubriendo todos los costos de envío</span>,
-              en el momento que se recibe la prenda a cambiar se le envía la prenda nueva.
-            </p></li>
-            <li><p>
-              Los apartados no se cambian.
-            </p></li>
-            <li><p>
-              Leer bien las instrucciones del lavado de la prenda.
-            </p></li>
+            <li>
+              <p>
+                NO SE ACEPTAN DEVOLUCIONES en todas las prendas íntimas,
+                trajes de baño, collares, cinturones,
+                accesorios para el cabello, mochilas, gafas, bolsos,
+              </p>
+            </li>
+            <li>
+              <p>
+                Usted es responsable del envío de devolución, y todos los gastos de envío no son reembolsables.
+              </p>
+            </li>
+            <li>
+              <p>
+                Productos en descuento o promoción no se cambian.
+              </p>
+            </li>
+            <li>
+              <p>
+                El tiempo que se otorga para devoluciones de compras en
+                línea es de un plazo máximo de 10 días posteriores a la compra,
+                tomando en cuenta el tiempo de transito del paquete.
+                La prenda debe estar en perfectas condiciones.
+                Los cambios los puede realizar directamente
+                <span style="font-weight:900;">por Correos de CR cubriendo todos los costos de envío</span>,
+                en el momento que se recibe la prenda a cambiar se le envía la prenda nueva.
+              </p>
+            </li>
+            <li>
+              <p>
+                Los apartados no se cambian.
+              </p>
+            </li>
+            <li>
+              <p>
+                Leer bien las instrucciones del lavado de la prenda.
+              </p>
+            </li>
             <li>
               <p>
                 La garantía no cubre en los siguientes casos:
               </p>
               <ul>
-                <li><p>
-                  Que han sido expuestas al desgaste por el roce del uso continuo.
-                </p></li>
-                <li><p>
-                  Al exponer el producto a un peso excesivo.
-                </p></li>
-                <li><p>
-                  Si se expone a objetos punzo cortantes como clavos o tijeras.
-                </p></li>
-                <li><p>
-                  A la exposición al agua, fango piedra o fuego.
-                </p></li>
+                <li>
+                  <p>
+                    Que han sido expuestas al desgaste por el roce del uso continuo.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Al exponer el producto a un peso excesivo.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Si se expone a objetos punzo cortantes como clavos o tijeras.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    A la exposición al agua, fango piedra o fuego.
+                  </p>
+                </li>
               </ul>
             </li>
             <li>
@@ -402,14 +470,17 @@
                 cambio físico del producto ofertado sin que ello deba alterar la funcionalidad del mismo.
               </p>
               <p>
-                No podemos garantizar que la visualización del monitor de su computadora o celular de cualquier color será exacta. Nos reservamos el derecho, pero no estamos obligados, a limitar las ventas de nuestros productos o servicios a cualquier persona.
+                No podemos garantizar que la visualización del monitor de su computadora o celular de cualquier color
+                será exacta. Nos reservamos el derecho, pero no estamos obligados, a limitar las ventas de nuestros
+                productos o servicios a cualquier persona.
                 Nos reservamos el derecho de limitar las cantidades de cualquier producto o servicio que ofrecemos.
               </p>
               <p>
                 Todas las descripciones de los productos o precios de los productos están sujetas a
                 cambios en cualquier momento sin previo aviso, a discreción exclusiva de nosotros.
                 Nos reservamos el derecho de suspender cualquier producto en cualquier momento.
-                Cualquier oferta para cualquier producto o servicio realizado en este sitio es nula donde está prohibido.
+                Cualquier oferta para cualquier producto o servicio realizado en este sitio es nula donde está
+                prohibido.
               </p>
             </li>
             <li>
@@ -476,11 +547,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-

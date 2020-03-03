@@ -76,12 +76,12 @@ export class CheckoutComponent implements OnInit {
 
   monthChange(e) {
     this.monthCc = e.target.value;
-    this.dateExp = this.monthCc + '/' + this.yearCc;
+    this.dateExp = this.monthCc + '' + this.yearCc;
   }
 
   yearChange(e) {
     this.yearCc = e.target.value;
-    this.dateExp = this.monthCc + '/' + this.yearCc;
+    this.dateExp = this.monthCc + '' + this.yearCc;
   }
 
   submitCheckout() {
@@ -95,17 +95,13 @@ export class CheckoutComponent implements OnInit {
     this.dataCredomatic.ccexp = this.dateExp;
     this.dataCredomatic.ccv = this.Ccv.toString();
     for (let index = 0; index < this.purchaseArray.length; index++) {
-      console.log(this.purchaseArray[index].pivot);
-      console.log(this.dataCredomatic);
       this.hashCredomatic.amount = this.total;
       this.credomaticService.converHash(this.hashCredomatic).subscribe(
         response => {
-          this.dataCredomatic.processor_id = response.procesor_id;
+          this.dataCredomatic.processor_id = response.processor_id;
           this.dataCredomatic.hash = response.hashCredomatic;
           this.dataCredomatic.key_id = response.key_id;
           this.dataCredomatic.time = response.time;
-          this.dataCredomatic.redirect = 'http://localhost:4200';
-          console.log(this.dataCredomatic);
         // tslint:disable-next-line:no-shadowed-variable
         }, error => {
           console.log(<any> error);

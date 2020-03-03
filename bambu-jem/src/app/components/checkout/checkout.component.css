@@ -51,6 +51,10 @@ Buttons
 Form
 --------------------*/
 
+.formTransac Input{
+  margin-bottom: 2%;
+}
+
 .form fieldset {
   border: none;
   padding: 0;

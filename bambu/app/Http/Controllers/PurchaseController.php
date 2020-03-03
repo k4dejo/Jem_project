@@ -127,7 +127,7 @@ class PurchaseController extends Controller
         $data = array(
             'hashCredomatic' => $hashEncrypt,
             'key_id'         => $key_id,
-            'procesor_id'    => $procesor_id,
+            'processor_id'    => $procesor_id,
             'time'           => $time,
             'code'  => 200,
         );
