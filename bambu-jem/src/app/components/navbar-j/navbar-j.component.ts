@@ -45,7 +45,7 @@ export class NavbarJComponent implements OnInit {
   ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
-    this.client = new Client('', '', '', '', '', '', '', null, 1);
+    this.client = new Client('', '', '', '', '', '', '', '', null, 1);
   }
 
   logout() {

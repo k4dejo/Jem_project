@@ -36,7 +36,7 @@ export class EditClientComponent implements OnInit {
   ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
-    this.clientInfo = new Client('', '', '', '', '', '', '', null, 0);
+    this.clientInfo = new Client('', '', '', '', '', '', '', '', null, 0);
   }
 
   getClientInfo() {
@@ -44,6 +44,7 @@ export class EditClientComponent implements OnInit {
       response => {
         this.clientInfo.name = response.client.name;
         this.clientInfo.email = response.client.email;
+        this.clientInfo.dni = response.client.dni;
         this.clientInfo.phone = response.client.phone;
         this.clientInfo.address = response.client.address;
         this.clientInfo.file = response.client.photo;
@@ -95,10 +96,8 @@ export class EditClientComponent implements OnInit {
     }
     this.clientInfo.photo = this.fileBlob;
     this.clientInfo.file = this.fileBlob;
-    console.log(this.clientInfo);
     this.clientService.editClientInfo(this.token, this.identity.sub, this.clientInfo).subscribe(
       response => {
-        console.log(response);
         if (response.status === 'success') {
           this.modalBool = true;
           this.getClientInfo();

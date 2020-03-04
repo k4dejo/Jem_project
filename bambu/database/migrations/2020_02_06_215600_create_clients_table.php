@@ -22,6 +22,7 @@ class CreateClientsTable extends Migration
             $table->string('email');
             $table->string('addressDetail');
             $table->string('photo');
+            $table->string('dni');
             $table->timestamps();
 
             $table->unsignedInteger('shops_id');

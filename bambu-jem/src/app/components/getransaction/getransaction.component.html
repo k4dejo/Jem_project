@@ -1,0 +1,29 @@
+<header>
+  <div *ngIf="shop_bool">
+    <app-navbar-j></app-navbar-j>
+  </div>
+  <div *ngIf="!shop_bool">
+    <app-navbar-b></app-navbar-b>
+  </div>
+</header>
+<div class="main" style="overflow: auto;">
+  <div class="checkout">
+    <!--<div class="icon text-center">
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </div>
+    <h2 style="margin-left: 11%;">¡Transacción exitosa!</h2>
+    <button class="btn">
+      Descargar factura.
+    </button>-->
+    <div class="iconError text-center">
+      <i class="fas fa-times"></i>
+    </div>
+    <h2 style="margin-left: 11%;">¡Uups algo salio mal!</h2>
+    <button class="btnError" (click)="backClicked()">
+      Intentar Nuevamente.
+    </button>
+  </div>
+</div>
+<footer>
+  <app-footer></app-footer>
+</footer>

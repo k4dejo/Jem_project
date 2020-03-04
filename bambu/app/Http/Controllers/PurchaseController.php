@@ -80,6 +80,7 @@ class PurchaseController extends Controller
             $purchase->status = $params->status;
             $purchase->coupon_id = $params->coupon_id;
             $purchase->shipping = $params->shipping;
+            $purchase->orderId  = \Str::random(20);
             $isset_purchase = DB::table('purchases')->where('clients_id', $params->clients_id)
             ->where('status', $params->status)->get();
             $countPurchase = count($isset_purchase);
@@ -112,25 +113,38 @@ class PurchaseController extends Controller
     }
 
     public function convertHash(Request $request) {
-        // recoger datos del POST
-        $json =  $request->input('json', null);
-        $params = json_decode($json);
-        $paramsArray = json_decode($json,true);
-        //return \Str::random(20);
-        $time = time();
-        $params->time = $time;
-        $key = 'wMZ86zdzku53x76FC557t688Gup3Vag3';
-        $hash = '""' . '|' . $params->amount . '|'. $time . '|' . $key;
-        $hashEncrypt = md5($hash);
-        $key_id = '13790849';
-        $procesor_id = '11442382';
-        $data = array(
-            'hashCredomatic' => $hashEncrypt,
-            'key_id'         => $key_id,
-            'processor_id'    => $procesor_id,
-            'time'           => $time,
-            'code'  => 200,
-        );
+        $hashToken = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hashToken);
+
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $time = time();
+            $params->time = $time;
+            $key = 'wMZ86zdzku53x76FC557t688Gup3Vag3';
+            $hash = $params->order_id . '|' . $params->amount . '|'. $time . '|' . $key;
+            $hashEncrypt = md5($hash);
+            $key_id = '13790849';
+            $procesor_id = '11442382';
+            $data = array(
+                'hashCredomatic' => $hashEncrypt,
+                'key_id'         => $key_id,
+                'processor_id'    => $procesor_id,
+                'time'           => $time,
+                'code'  => 200,
+            );
+            return response()->json($data,200);
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
         return response()->json($data,200);
     }
 
@@ -322,6 +336,7 @@ class PurchaseController extends Controller
             'purchaseId'     => $purchaseClient->id,
             'couponId'       => $purchaseClient->coupon_id,
             'shipping'       => $purchaseClient->shipping,
+            'orderId'        => $purchaseClient->orderId,
             'dataPurchase'   => $purchaseClient,
             'status'         => 'success',
             'code'    => 200,

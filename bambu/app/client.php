@@ -14,7 +14,8 @@ class client extends Model
         'email',
         'address',
         'addressDetail',
-        'shops_id'
+        'shops_id',
+        'dni'
     ];
 
     //relations

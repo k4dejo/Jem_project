@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private clientService: UserServices,
     private province: AddresServices) {
-      this.client = new Client('', '', '', '', '', '', '', null, this.shop_id);
+      this.client = new Client('', '', '', '', '', '', '', '', null, this.shop_id);
    }
 
   ngOnInit() {
@@ -152,15 +152,13 @@ export class RegisterComponent implements OnInit {
   Onsubmit(form) {
     this.client.name = this.firstName + ' ' + this.lastName;
     this.client.photo = this.fileBlob;
-    console.log(this.client);
     this.clientService.register(this.client).subscribe(
       response => {
-        console.log(this.client);
         if (response.status === 'success') {
           this.status = response.status;
 
           // vaciar formulario
-          this.client = new Client('', '', '', '', '', '', '', null, null);
+          this.client = new Client('', '', '', '', '', '', '', '', null, null);
           form.reset();
 
         } else {

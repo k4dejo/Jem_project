@@ -21,9 +21,10 @@ class clientController extends Controller
             $json = $request->input('json', null);
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
-            $name     = (!is_null($json) && isset($params->name)) ? $params->name : null;
-            $phone    = (!is_null($json) && isset($params->phone)) ? $params->phone : null;
-            $email    = (!is_null($json) && isset($params->email)) ? $params->email : null;
+            $name      = (!is_null($json) && isset($params->name)) ? $params->name : null;
+            $phone     = (!is_null($json) && isset($params->phone)) ? $params->phone : null;
+            $email     = (!is_null($json) && isset($params->email)) ? $params->email : null;
+            $dni       = (!is_null($json) && isset($params->dni)) ? $params->dni : null;
             $address   = (!is_null($json) && isset($params->address)) ? $params->address : null;
             $addressDetail = (!is_null($json) && isset($params->addressDetail)) ? $params->addressDetail :null;
             $isset_client = client::where('id', '=', $id)->first();
@@ -43,6 +44,7 @@ class clientController extends Controller
                         'name'          => $name,
                         'phone'         => $phone,
                         'email'         => $email,
+                        'dni'           => $dni,
                         'address'       => $address,
                         'photo'         => $imgName,
                         'addressDetail' => $addressDetail
@@ -63,6 +65,7 @@ class clientController extends Controller
                         'name'          => $name,
                         'phone'         => $phone,
                         'email'         => $email,
+                        'dni'           => $dni,
                         'address'       => $address,
                         'photo'         => $paramsArray['photo'],
                         'addressDetail' => $addressDetail
@@ -141,14 +144,15 @@ class clientController extends Controller
 		$json = $request->input('json', null);
 		$params = json_decode($json);
 
-		$name     = (!is_null($json) && isset($params->name)) ? $params->name : null;
-		$password = (!is_null($json) && isset($params->password)) ? $params->password : null;
-		$phone    = (!is_null($json) && isset($params->phone)) ? $params->phone : null;
-		$email    = (!is_null($json) && isset($params->email)) ? $params->email : null;
-        $address   = (!is_null($json) && isset($params->address)) ? $params->address : null;
-        $photo   = (!is_null($json) && isset($params->photo)) ? $params->photo : null;
+		$name          = (!is_null($json) && isset($params->name)) ? $params->name : null;
+		$password      = (!is_null($json) && isset($params->password)) ? $params->password : null;
+		$phone         = (!is_null($json) && isset($params->phone)) ? $params->phone : null;
+        $email         = (!is_null($json) && isset($params->email)) ? $params->email : null;
+        $dni           = (!is_null($json) && isset($params->dni)) ? $params->dni : null;
+        $address       = (!is_null($json) && isset($params->address)) ? $params->address : null;
+        $photo         = (!is_null($json) && isset($params->photo)) ? $params->photo : null;
 		$addressDetail = (!is_null($json) && isset($params->addressDetail)) ? $params->addressDetail :null;
-		$shops_id = (!is_null($json) && isset($params->shops_id)) ? $params->shops_id : null;
+		$shops_id      = (!is_null($json) && isset($params->shops_id)) ? $params->shops_id : null;
 
 		if (!is_null($name) && !is_null($password) && !is_null($phone)) {
 			//crear cliente
@@ -156,7 +160,8 @@ class clientController extends Controller
 			$client->name          = $name;
 			$client->password      = $password;
 			$client->phone         = $phone;
-			$client->email         = $email;
+            $client->email         = $email;
+            $client->dni           = $dni;
             $client->address       = $address;
             $client->photo         = $photo;
 			$client->addressDetail = $addressDetail;

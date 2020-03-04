@@ -113,7 +113,6 @@
         <div class="select">
           <select (change)="yearChange($event)" id="card-expiration-year">
             <option></option>
-            <option value="2019">2019</option>
             <option value="2020">2020</option>
             <option value="2021">2021</option>
             <option value="2022">2022</option>
@@ -229,17 +228,18 @@ aria-labelledby="sendCredomatic" aria-hidden="true">
       <div class="modal-body">
         <form ngNoForm name="CredomaticPost" class="formTransac" method="post"
         action="https://credomatic.compassmerchantsolutions.com/api/transact.php">
-          <Input type="text" name="type" value=" sale"/>
-          <Input type="text" name="key_id" [value]="dataCredomatic.key_id"/>
-          <Input type="text" name="hash" [value]="dataCredomatic.hash"/>
-          <Input type="text" name="time" [value]="dataCredomatic.time">
-          <Input type="text" name="amount" [value]="dataCredomatic.amount">
-          <Input type="text" name="processor_id" [value]="dataCredomatic.processor_id">
-          <Input type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
-          <Input type="text" name="ccexp" [value]="dataCredomatic.ccexp">
-          <Input type="text" name="cvv" [value]="dataCredomatic.ccv">
-          <Input type="text" name="redirect" hidden value="http://localhost:4200">
-          <Input type="submit" class="btn" value="Enviar Transacción"/>
+          <Input disabled type="text" name="type" value=" sale"/>
+          <Input disabled type="text" name="key_id" [value]="dataCredomatic.key_id"/>
+          <Input disabled type="text" name="hash" [value]="dataCredomatic.hash"/>
+          <Input disabled type="text" name="time" [value]="dataCredomatic.time">
+          <Input disabled type="text" name="amount" [value]="dataCredomatic.amount">
+          <Input disabled type="text" name="orderid" [value]="dataCredomatic.orderid">
+          <Input disabled type="text" name="processor_id" [value]="dataCredomatic.processor_id">
+          <Input disabled type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
+          <Input disabled type="text" name="ccexp" [value]="dataCredomatic.ccexp">
+          <Input disabled type="text" name="cvv" [value]="dataCredomatic.ccv">
+          <Input type="text" name="redirect" hidden value="http://localhost:4200/get/transaccion/credomatic">
+          <Input type="submit" style="font-weight: bold;" class="btn" value="Enviar Transacción"/>
         </form>
       </div>
     </div>

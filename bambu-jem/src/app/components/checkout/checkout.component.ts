@@ -96,7 +96,7 @@ export class CheckoutComponent implements OnInit {
     this.dataCredomatic.ccv = this.Ccv.toString();
     for (let index = 0; index < this.purchaseArray.length; index++) {
       this.hashCredomatic.amount = this.total;
-      this.credomaticService.converHash(this.hashCredomatic).subscribe(
+      this.credomaticService.converHash(this.token, this.hashCredomatic).subscribe(
         response => {
           this.dataCredomatic.processor_id = response.processor_id;
           this.dataCredomatic.hash = response.hashCredomatic;
@@ -195,6 +195,8 @@ export class CheckoutComponent implements OnInit {
         this.purchaseArray = response.purchase;
         this.purchaseList = response.purchase;
         this.PurchaseEdit = response.dataPurchase;
+        this.hashCredomatic.order_id = response.orderId;
+        this.dataCredomatic.orderid = response.orderId;
         for (let index = 0; index < this.purchaseArray.length; ++index) {
           this.validateOffer(response.purchase[index].id, index);
         }
