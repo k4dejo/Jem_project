@@ -25,8 +25,8 @@ export class GetransactionComponent implements OnInit {
   ngOnInit() {
     const urlTest = window.location.href;
     const paramsUrl = new URLSearchParams(location.search);
-    paramsUrl.getAll('response');
-    console.log(paramsUrl.getAll('hash'));
+    paramsUrl.getAll('orderid');
+    console.log(paramsUrl.getAll('orderid'));
     if (this.shop_id === 'J') {
       this.shop_bool = true;
   } else {

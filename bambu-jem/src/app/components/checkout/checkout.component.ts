@@ -197,6 +197,7 @@ export class CheckoutComponent implements OnInit {
         this.PurchaseEdit = response.dataPurchase;
         this.hashCredomatic.order_id = response.orderId;
         this.dataCredomatic.orderid = response.orderId;
+        console.log(this.dataCredomatic);
         for (let index = 0; index < this.purchaseArray.length; ++index) {
           this.validateOffer(response.purchase[index].id, index);
         }

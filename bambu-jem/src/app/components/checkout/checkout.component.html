@@ -226,20 +226,48 @@ aria-labelledby="sendCredomatic" aria-hidden="true">
           id="terms&conditionsTitle">Información de factura</h5>
       </div>
       <div class="modal-body">
-        <form ngNoForm name="CredomaticPost" class="formTransac" method="post"
+        <!--<form ngNoForm name="CredomaticPost" class="formTransac" method="post"
         action="https://credomatic.compassmerchantsolutions.com/api/transact.php">
-          <Input disabled type="text" name="type" value=" sale"/>
-          <Input disabled type="text" name="key_id" [value]="dataCredomatic.key_id"/>
-          <Input disabled type="text" name="hash" [value]="dataCredomatic.hash"/>
-          <Input disabled type="text" name="time" [value]="dataCredomatic.time">
-          <Input disabled type="text" name="amount" [value]="dataCredomatic.amount">
-          <Input disabled type="text" name="orderid" [value]="dataCredomatic.orderid">
-          <Input disabled type="text" name="processor_id" [value]="dataCredomatic.processor_id">
-          <Input disabled type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
-          <Input disabled type="text" name="ccexp" [value]="dataCredomatic.ccexp">
-          <Input disabled type="text" name="cvv" [value]="dataCredomatic.ccv">
-          <Input type="text" name="redirect" hidden value="http://localhost:4200/get/transaccion/credomatic">
-          <Input type="submit" style="font-weight: bold;" class="btn" value="Enviar Transacción"/>
+          <input disabled type="text" name="type" value=" sale"/>
+          <label for="">key id</label>
+          <input disabled type="text" name="key_id" [value]="dataCredomatic.key_id"/>
+          <label for="">hash</label>
+          <input disabled type="text" name="hash" [value]="dataCredomatic.hash"/>
+          <label for="">time</label>
+          <input disabled type="text" name="time" [value]="dataCredomatic.time"/>
+          <input type="text" name="redirect" hidden value="http://localhost:4200/get/transaccion/credomatic">
+          <label for="">ccnumber</label>
+          <input disabled type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
+          <label for="">ccexp</label>
+          <input disabled type="text" name="ccexp" [value]="dataCredomatic.ccexp">
+          <label for="">amount</label>
+          <input disabled type="text" name="amount" [value]="dataCredomatic.amount"/>
+          <label for="">orderid</label>
+          <input disabled type="text" name="orderid" [value]="dataCredomatic.orderid"/>
+          <label for="">ccv</label>
+          <input disabled type="text" name="cvv" [value]="dataCredomatic.ccv"/>
+          <label for="">avs</label>
+          <input disabled type="text" name="avs" value=""/>
+          <label for="">processorId</label>
+          <input disabled type="text" name="processor_id" [value]="dataCredomatic.processor_id"/>
+          <input type="submit" style="font-weight: bold;" class="btn" value="Enviar Transacción"/>
+        </form>-->
+        <form ngNoForm name="CredomaticPost" method="post"
+        action="https://credomatic.compassmerchantsolutions.com/api/transact.php">
+          <input type="text" name="type" value=" sale">
+          <input type="text" name="key_id" [value]="dataCredomatic.key_id">
+          <!--<input type="text" name="key" value="wMZ86zdzku53x76FC557t688Gup3Vag3">-->
+          <input disabled type="text" name="hash" [value]="dataCredomatic.hash">
+          <input disabled type="text" name="time" [value]="dataCredomatic.time">
+          <input disabled type="text" name="amount" [value]="dataCredomatic.amount">
+          <input disabled type="text" name="orderid" [value]="dataCredomatic.orderid">
+          <input disabled type="text" name="processor_id" [value]="dataCredomatic.processor_id">
+          <input disabled type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
+          <input disabled type="text" name="ccexp" [value]="dataCredomatic.ccexp">
+          <input disabled type="text" name="cvv" [value]="dataCredomatic.ccv">
+          <input disabled type="text" name="avs" value="">
+          <input disabled type="text" hidden name="redirect"  value="http://localhost:4200/get/transaccion/credomatic">
+          <input type="submit" value="Enviar Transacción">
         </form>
       </div>
     </div>
