@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as jsPDF from 'jspdf'
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { AdminService } from '../../services/admin.service';
@@ -13,6 +14,7 @@ import { Gender } from '../../models/gender';
 import { Billing } from '../../models/billing';
 import { AttachBilling } from '../../models/attachBilling';
 import { Departament } from '../../models/department';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-factu',
@@ -69,8 +71,12 @@ export class FactuComponent implements OnInit {
   public ArrayProvin: Province[];
   public ArrayCant: Cant[];
   public ArrayDist: District[];
+  public currentDate = new Date();
   public arrayBilling;
   public total = 0;
+  public date: string;
+  public day;
+  public month;
 
   constructor(
     private router: Router,
@@ -396,6 +402,26 @@ export class FactuComponent implements OnInit {
     );
   }
 
+  getDate() {
+    this.day = this.currentDate.getDate();
+    if (this.currentDate.getDate() < 10) {
+      this.day = '0' + this.currentDate.getDate().toString();
+    }
+    if (this.currentDate.getMonth() === 0) {
+      this.month = this.currentDate.getMonth().toString() + '1';
+    } else {
+      this.month = this.currentDate.getMonth() + 1;
+    }
+    this.date = this.currentDate.getFullYear() + '-' + this.month + '-' + this.day;
+  }
+
+  PrintDoc() {
+    const Document = new jsPDF();
+    Document.fromHTML(document.getElementById('FormFactu'), 14, 15);
+    //Document.text(document.getElementById('FormFactu'), 14, 15);
+    Document.save('Factura Boutique Jem');
+  }
+
   ngOnInit() {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
@@ -404,6 +430,7 @@ export class FactuComponent implements OnInit {
       this.getProductView();
       this.getClientList();
       this.getProvice();
+      this.getDate();
     }
   }
 }
