@@ -28,25 +28,75 @@ export class ArticleComponent implements OnInit {
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
+    'Jeans',
     'Camisa',
     'Short',
     'Camisetas',
     'Abrigos',
-    'Accesorios'
+    'Accesorios',
+    'Gorras',
+    'Zapatos'
   ];
   public dtDepartmentW: string[] = [
     'Blusas',
     'Short',
     'Enaguas',
-    'Pantalones',
+    'Pantalon tela',
+    'Pantalon de mezclilla',
     'Levis de dama',
     'Vestidos de baño',
     'Salidas de playa',
     'Abrigos y sacos',
-    'Accesorios',
+    'Conjuntos',
     'Camisetas',
     'Enterizos',
-    'Vestidos'
+    'Vestidos',
+    'Ropa interior',
+    'Marca Tommy Hilfiger',
+    'Marca Aeropostale',
+    'Marca American Eagle',
+    'Marca Converse',
+    'Marca U.S Polo',
+    'Marca Náutica',
+    'Marca Vans',
+    'Marca Levis',
+    'Marca H y M',
+    'Sueters',
+    'Zapatos',
+    'Joyería',
+    'Bolsos',
+    'Fajas',
+    'Pijamas',
+    'Lencería',
+    'Gorras',
+    'Accesorios de Cabello',
+    'Plus Blusas',
+    'Plus Vestidos de baño',
+    'Plus Pijamas y Lencería',
+    'Anteojos',
+    'Billeteras o carteras'
+  ];
+  public dtDepartmentG: string[] = [
+    'Mamelucos',
+    'Accesorios',
+    'Blusas',
+    'Sueters',
+    'Shorts',
+    'Enaguas',
+    'Conjuntos',
+    'Vestidos',
+    'Pijamas'
+  ];
+  public dtDepartmentB: string[] = [
+    'Mamelucos',
+    'Accesorios',
+    'Camisetas',
+    'Camisas',
+    'Shorts',
+    'Conjuntos',
+    'Pijamas',
+    'Pantalones',
+    'Sueters'
   ];
   public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
 
@@ -79,10 +129,10 @@ export class ArticleComponent implements OnInit {
         this.fillDepartment(this.dtDepartmentW);
       break;
       case '3':
-        this.fillDepartment(this.dtDepartmentBG);
+        this.fillDepartment(this.dtDepartmentB);
       break;
       case '4':
-        this.fillDepartment(this.dtDepartmentBG);
+        this.fillDepartment(this.dtDepartmentG);
       break;
       default:
         console.log('Fuera de rango');

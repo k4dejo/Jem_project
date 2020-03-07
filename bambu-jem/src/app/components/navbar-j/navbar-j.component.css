@@ -380,7 +380,8 @@ input [type="password"]:placeholder {
    #DROPDOWN_PROFILE
   ========================================================================== */
 .profile-pic {
-  width: 40px;
+  width: 66px;
+  height: 48px;
   border-radius: 100%;
 }
 
@@ -659,6 +660,10 @@ a:hover{
     margin-left: 60%;
     width: 40%;
     height: 40%;
+  }
+
+  .text-lg-left {
+    display: none;
   }
 
   .labelLog {

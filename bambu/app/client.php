@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class client extends Model
 {
-	protected $table = "clients";
+    protected $table = "clients";
     protected $fillable = [
         'name',
         'password',
@@ -14,7 +14,8 @@ class client extends Model
         'email',
         'address',
         'addressDetail',
-        'shops_id'
+        'shops_id',
+        'dni'
     ];
 
     //relations

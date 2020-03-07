@@ -94,6 +94,7 @@ class billingController extends Controller
                 $billing->phone = $params->phone;
                 $billing->address = $params->address;
                 $billing->addressDetail = $params->addressDetail;
+                $billing->status = $params->status;
                 $billing->save();
                 $data = array(
                     'billing'   => $billing,

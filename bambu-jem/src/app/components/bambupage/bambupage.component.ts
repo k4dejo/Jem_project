@@ -24,7 +24,7 @@ export class BambupageComponent implements OnInit {
   ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
-    this.client = new Client('', '', '', '', '', '', 2);
+    this.client = new Client('', '', '', '', '', '', '', '', null, 2);
   }
 
   logout() {

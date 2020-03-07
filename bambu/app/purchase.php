@@ -11,7 +11,8 @@ class purchase extends Model
      protected $fillable = [
         'client_id',
         'price',
-        'status'
+        'status',
+        'orderId'
     ];
 
     public function client()

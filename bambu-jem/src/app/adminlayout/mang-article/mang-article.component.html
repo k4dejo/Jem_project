@@ -59,8 +59,8 @@
                   <div class="col-lg-12">
                     <label for="">Género</label><br>
                     <div class="selectWrapper">
-                      <select name="gender" id="gender" class="selectpicker" [(ngModel)]="Gender"
-                        (click)="pushGender(Gender)">
+                      <select name="genderSelect" id="genderSelect" class="selectpicker"
+                      (change)="pushGender($event.target.value)">
                         <option disabled="disabled" selected="selected">-Seleccionar-</option>
                         <option *ngFor="let gen of gender" [value]="gen.id">
                           {{gen.name}}
@@ -71,13 +71,13 @@
                   <div class="col-lg-5">
                     <label for="">Departamento</label><br>
                     <div class="selectWrapper">
-                      <select name="department" id="department" [(ngModel)]="Departament"
-                        (click)="pushDepart(Departament)" class="custom-select">
-                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                        <option *ngFor="let dpt of department" [value]="dpt.id">
-                          {{dpt.name}}
-                        </option>
-                      </select>
+                      <select name="department" id="department"
+                      (change)="pushDepart($event.target.value)" class="custom-select">
+                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                      <option *ngFor="let dpt of department" [value]="dpt.id">
+                        {{dpt.name}}
+                      </option>
+                    </select>
                     </div>
                   </div>
                   <div class="col-lg-5">
@@ -157,7 +157,6 @@
                 <button type="submit" class="btn btn-success">
                   Guardar
                 </button>
-                <button type="button" class="btn btn-primary" (click)="gotoPanel()">Volver</button>
               </div>
             </div>
           </div>

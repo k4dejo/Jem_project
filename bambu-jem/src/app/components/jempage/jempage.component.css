@@ -20,7 +20,7 @@ body{
 
 
 .catalogue{
-	margin-left: 48%;
+  margin-left: 47%;
 }
 
 .btnhover:hover{
@@ -293,10 +293,11 @@ body{
   .ftco-choose .img {
     height: 350px;
   }
-  .landing{
-    margin-top: 39%;
-    margin-left: 11px;
-    width: 100%;
+  .carousel{
+    display: ruby;
+  }
+  .d-flex{
+    max-width: 90%;
   }
   .row {
     margin-left: -7%;

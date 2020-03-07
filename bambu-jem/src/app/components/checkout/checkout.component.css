@@ -51,6 +51,10 @@ Buttons
 Form
 --------------------*/
 
+.formTransac Input{
+  margin-bottom: 2%;
+}
+
 .form fieldset {
   border: none;
   padding: 0;
@@ -412,10 +416,42 @@ Credit Card
   font-size: 18px;
 }
 
+/*==================================================================
+  #CHECKBOX
+===================================================================*/
+
+.checkboxs {
+  position: relative;
+  left: 30%;
+}
+.checkboxs span {
+  position: absolute;
+  top: 30%;
+  left: 9%;
+}
+
+.checkbox
+{
+  position: relative;
+  width: 5%;
+  cursor: pointer;
+}
+
+/*==================================================================
+  #TERMS
+===================================================================*/
+.termStyle {
+  padding: 11px 20px 13px;
+  text-align: justify;
+}
 
 @media (max-width: 767px) {
   .main {
     margin-top: 52%;
+  }
+
+  .col-md-12 h4 {
+    display: none;
   }
 
   .credit-card-box{

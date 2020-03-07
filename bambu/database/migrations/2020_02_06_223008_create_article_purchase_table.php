@@ -18,11 +18,11 @@ class CreateArticlePurchaseTable extends Migration
             $table->timestamps();
             $table->bigInteger('amount');
             $table->string('size');
-            $table->Integer('article_id')->unsigned(); 
-            $table->Integer('purchase_id')->unsigned(); 
+            $table->Integer('article_id')->unsigned();
+            $table->Integer('purchase_id')->unsigned();
 
             $table->foreign('article_id')->references('id')->on('articles');
-            $table->foreign('purchase_id')->references('id')->on('purchase');            
+            $table->foreign('purchase_id')->references('id')->on('purchase');
         });
     }
 

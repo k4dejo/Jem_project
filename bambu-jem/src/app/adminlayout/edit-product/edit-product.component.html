@@ -46,7 +46,7 @@
                     <label for="">Género: {{ product.gender }}</label><br/>
                     <div class="selectWrapper">
                       <select name="gender" id="gender" class="selectpicker"
-                      [(ngModel)]="Gender" (click)="pushGender(Gender)">
+                      (change)="pushGender($event.target.value)">
                         <option disabled="disabled" selected="selected">
                           -Seleccionar-
                         </option>
@@ -57,17 +57,15 @@
                     </div>
                   </div>
                   <div class="col-lg-5">
-                    <label for="">Departamento: {{ product.department }}</label><br/>
+                    <label for="">Departamento {{ product.department }}</label><br>
                     <div class="selectWrapper">
                       <select name="department" id="department"
-                      [(ngModel)]="Departament" (click)="pushDepart(Departament)" class="custom-select">
-                        <option disabled="disabled" selected="selected">
-                          --Seleccionar--
-                        </option>
-                        <option *ngFor="let dpt of department" [value]="dpt.id">
-                          {{ dpt.name }}
-                        </option>
-                      </select>
+                      (change)="pushDepart($event.target.value)" class="custom-select">
+                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                      <option *ngFor="let dpt of department" [value]="dpt.id">
+                        {{dpt.name}}
+                      </option>
+                    </select>
                     </div>
                   </div>
                   <div class="col-lg-5">

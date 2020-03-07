@@ -18,6 +18,7 @@ class CreatePurchasesTable extends Migration
             $table->bigInteger('price');
             $table->bigInteger('shipping');
             $table->string('status');
+            $table->string('orderId');
             $table->timestamps();
             $table->unsignedInteger('clients_id');
             $table->unsignedInteger('coupon_id');

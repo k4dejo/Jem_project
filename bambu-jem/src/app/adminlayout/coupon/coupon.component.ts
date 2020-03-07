@@ -18,6 +18,7 @@ export class CouponComponent implements OnInit {
   public model;
   public coupon: Coupon;
   public coupons;
+  public search;
   public priorityBoolean: boolean;
 
   constructor(

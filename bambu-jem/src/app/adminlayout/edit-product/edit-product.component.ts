@@ -33,7 +33,7 @@ export class EditProductComponent implements OnInit {
   public suma;
   public Mprice;
   public department: Departament[];
-  public dtDepartmentM: string[] = ['Levis de hombre',
+  /*public dtDepartmentM: string[] = ['Levis de hombre',
   'Pantalones',
   'Camisa',
   'Short',
@@ -55,7 +55,79 @@ export class EditProductComponent implements OnInit {
    'Enterizos',
    'Vestidos'
   ];
-  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
+  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];*/
+  public dtDepartmentM: string[] = ['Levis de hombre',
+  'Pantalones',
+  'Jeans',
+  'Camisa',
+  'Short',
+  'Camisetas',
+  'Abrigos',
+  'Accesorios',
+  'Gorras',
+  'Zapatos'
+];
+public dtDepartmentW: string[] = [
+  'Blusas',
+  'Short',
+  'Enaguas',
+  'Pantalon tela',
+  'Pantalon de mezclilla',
+  'Levis de dama',
+  'Vestidos de baño',
+  'Salidas de playa',
+  'Abrigos y sacos',
+  'Conjuntos',
+  'Camisetas',
+  'Enterizos',
+  'Vestidos',
+  'Ropa interior',
+  'Marca Tommy Hilfiger',
+  'Marca Aeropostale',
+  'Marca American Eagle',
+  'Marca Converse',
+  'Marca U.S Polo',
+  'Marca Náutica',
+  'Marca Vans',
+  'Marca Levis',
+  'Marca H y M',
+  'Sueters',
+  'Zapatos',
+  'Joyería',
+  'Bolsos',
+  'Fajas',
+  'Pijamas',
+  'Lencería',
+  'Gorras',
+  'Accesorios de Cabello',
+  'Plus Blusas',
+  'Plus Vestidos de baño',
+  'Plus Pijamas y Lencería',
+  'Anteojos',
+  'Billeteras o carteras'
+];
+public dtDepartmentG: string[] = [
+  'Mamelucos',
+  'Accesorios',
+  'Blusas',
+  'Sueters',
+  'Shorts',
+  'Enaguas',
+  'Conjuntos',
+  'Vestidos',
+  'Pijamas'
+];
+public dtDepartmentB: string[] = [
+  'Mamelucos',
+  'Accesorios',
+  'Camisetas',
+  'Camisas',
+  'Shorts',
+  'Conjuntos',
+  'Pijamas',
+  'Pantalones',
+  'Sueters'
+];
   public gender: Gender[];
   public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
   public status: string;
@@ -148,11 +220,11 @@ export class EditProductComponent implements OnInit {
         break;
 
         case '3':
-          this.fillDepartment(this.dtDepartmentBG);
+          this.fillDepartment(this.dtDepartmentB);
         break;
 
         case '4':
-          this.fillDepartment(this.dtDepartmentBG);
+          this.fillDepartment(this.dtDepartmentG);
         break;
 
         default:
@@ -363,6 +435,7 @@ export class EditProductComponent implements OnInit {
     editProducts.weight      = this.product.weight;
     editProducts.photo       = this.product.photo;
     editProducts.file        = this.fileBlob;
+    console.log(editProducts);
     this.productService.editProduct(this.token, this.id, editProducts).subscribe(
       response => {
         this.product = response.article;

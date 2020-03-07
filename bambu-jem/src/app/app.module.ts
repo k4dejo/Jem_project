@@ -53,6 +53,7 @@ import { ViewlikeComponent } from './components/viewlike/viewlike.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { OrdersComponent } from './adminlayout/orders/orders.component';
 import { HistoryComponent } from './components/history/history.component';
+import { GetransactionComponent } from './components/getransaction/getransaction.component';
 
 
 
@@ -99,7 +100,8 @@ import { HistoryComponent } from './components/history/history.component';
     ViewlikeComponent,
     EditClientComponent,
     OrdersComponent,
-    HistoryComponent
+    HistoryComponent,
+    GetransactionComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ namespace App\Helpers;
 
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\client;
 
 /**
@@ -27,21 +28,21 @@ class jwtAuth
 
 		if (is_object($Client)) {
 			$signup = true;
-		}
+        }
 
 		if ($signup) {
-			//generar token y returnar
-			$token = array(
-				'sub' => $Client->id,
-				'phone' => $Client->phone,
+            //generar token y returnar
+            $token = array(
+                'sub' => $Client->id,
+                'phone' => $Client->phone,
                 'name' => $Client->name,
                 'email' => $Client->email,
-				'address' => $Client->address,
-				'addressDetail'=> $Client->addressDetail,
-				'shops_id' => $Client->shops_id,
-				'iat' => time(),
-				'exp' => time() + (7 * 24 * 60 *60)
-			);
+                'address' => $Client->address,
+                'addressDetail'=> $Client->addressDetail,
+                'shops_id' => $Client->shops_id,
+                'iat' => time(),
+                'exp' => time() + (7 * 24 * 60 *60)
+            );
 
 			$jwt = JWT::encode($token,$this->key, 'HS256');
 			$decoded = JWT::decode($jwt,$this->key, array('HS256'));

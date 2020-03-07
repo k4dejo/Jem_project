@@ -32,12 +32,15 @@ import { ViewlikeComponent } from './components/viewlike/viewlike.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { OrdersComponent } from './adminlayout/orders/orders.component';
 import { HistoryComponent } from './components/history/history.component';
+import { GetransactionComponent } from './components/getransaction/getransaction.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
-  { path: 'Home/Tu_Boutique', component: BambupageComponent},
+  { path: '', component: JempageComponent},
   { path: 'Home/BJem', component: JempageComponent},
+  { path: 'Home/Tu_Boutique', component: BambupageComponent},
   { path: 'Home/Nosotros', component: AboutUsComponent},
+  { path: 'get/transaccion/credomatic', component: GetransactionComponent},
   { path: 'Logout/:sure', component: LoginComponent},
   { path: 'Home/Damas/:id' , component: LadiesComponent},
   { path: 'Home/Caballeros/:id' , component: GentlemanComponent},

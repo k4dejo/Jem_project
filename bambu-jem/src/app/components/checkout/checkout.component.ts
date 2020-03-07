@@ -6,14 +6,16 @@ import { PurchaseService } from '../../services/purchase.service';
 import { ArticleService } from '../../services/article.service';
 import { CouponService } from '../../services/coupon.service';
 import { OfferService } from '../../services/offer.service';
-import { Coupon } from '../../models/coupon';
-import { Article } from '../../models/article';
+import { Datacredomatic } from '../../models/datacredomatic';
+import { CredomaticService } from '../../services/credomatic.service';
 import { Purchase } from '../../models/purchase';
+import { Hash } from '../../models/hash';
 import { CC } from '../../models/CC';
+import { error } from 'util';
 
 @Component({
   selector: 'app-checkout',
-  providers: [ArticleService, PurchaseService, UserServices, CouponService],
+  providers: [ArticleService, PurchaseService, UserServices, CouponService, CredomaticService],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
@@ -41,21 +43,26 @@ export class CheckoutComponent implements OnInit {
   public couponDiscount: number;
   public subtotal;
   public total;
-  offerBool: boolean;
-  offer: any;
+  public btnSuccessBool = false;
+  public offerBool: boolean;
+  public offer: any;
+  public dataCredomatic: Datacredomatic;
+  public hashCredomatic: Hash;
 
   constructor(
     private purchaseService: PurchaseService,
     private couponService: CouponService,
     private clientService: UserServices,
+    private credomaticService: CredomaticService,
     private offerService: OfferService,
     private router: Router ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.sendCc = new CC('', 0, '', 0, 0);
     this.PurchaseEdit = new Purchase('', '', 0, 0, 0, '');
+    this.dataCredomatic = new Datacredomatic('', '', '', '', '', '', '', '', '', '', '');
+    this.hashCredomatic = new Hash('', '', '', '');
   }
-
 
   flipcard() {
     const focusBtn = document.querySelector('.credit-card-box');
@@ -69,12 +76,12 @@ export class CheckoutComponent implements OnInit {
 
   monthChange(e) {
     this.monthCc = e.target.value;
-    this.dateExp = this.monthCc + '/' + this.yearCc;
+    this.dateExp = this.monthCc + '' + this.yearCc;
   }
 
   yearChange(e) {
     this.yearCc = e.target.value;
-    this.dateExp = this.monthCc + '/' + this.yearCc;
+    this.dateExp = this.monthCc + '' + this.yearCc;
   }
 
   submitCheckout() {
@@ -83,10 +90,29 @@ export class CheckoutComponent implements OnInit {
     this.sendCc.Ccholder = this.Ccholder;
     this.sendCc.Ccv = this.Ccv;
     this.sendCc.totalPrice = this.total;
+    this.dataCredomatic.amount = this.total;
+    this.dataCredomatic.ccnumber = this.sendCc.CCnumber.toString();
+    this.dataCredomatic.ccexp = this.dateExp;
+    this.dataCredomatic.ccv = this.Ccv.toString();
     for (let index = 0; index < this.purchaseArray.length; index++) {
-      console.log(this.purchaseArray[index].pivot);
-      this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
+      this.hashCredomatic.amount = this.total;
+      this.credomaticService.converHash(this.token, this.hashCredomatic).subscribe(
+        response => {
+          this.dataCredomatic.processor_id = response.processor_id;
+          this.dataCredomatic.hash = response.hashCredomatic;
+          this.dataCredomatic.key_id = response.key_id;
+          this.dataCredomatic.time = response.time;
+        // tslint:disable-next-line:no-shadowed-variable
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+      // this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
     }
+  }
+
+  ckeckTerms(event: any) {
+    this.btnSuccessBool = event.target.checked;
   }
 
   editAmountProduct(idProduct: any, product) {
@@ -98,6 +124,7 @@ export class CheckoutComponent implements OnInit {
             // tslint:disable-next-line:no-shadowed-variable
             response => {
               console.log(response);
+            // tslint:disable-next-line:no-shadowed-variable
             }, error => {
               console.log(<any> error);
             }
@@ -105,6 +132,7 @@ export class CheckoutComponent implements OnInit {
           );
         }
 
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
@@ -151,6 +179,7 @@ export class CheckoutComponent implements OnInit {
         if (response.coupon !== null) {
           this.couponDiscount = response.coupon.discount;
         }
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
@@ -166,6 +195,9 @@ export class CheckoutComponent implements OnInit {
         this.purchaseArray = response.purchase;
         this.purchaseList = response.purchase;
         this.PurchaseEdit = response.dataPurchase;
+        this.hashCredomatic.order_id = response.orderId;
+        this.dataCredomatic.orderid = response.orderId;
+        console.log(this.dataCredomatic);
         for (let index = 0; index < this.purchaseArray.length; ++index) {
           this.validateOffer(response.purchase[index].id, index);
         }
@@ -184,6 +216,7 @@ export class CheckoutComponent implements OnInit {
           }
           this.getTotalPrice(this.shipping, this.subtotal, response.couponId);
         }
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
@@ -199,6 +232,7 @@ export class CheckoutComponent implements OnInit {
           this.purchaseList[i].pricePublic = this.offer.offer;
           this.purchaseList[i].priceMajor = this.offer.offer;
         }
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
@@ -219,6 +253,7 @@ export class CheckoutComponent implements OnInit {
           }
         }
         this.sendCc.totalPrice = this.total;
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
@@ -234,5 +269,6 @@ export class CheckoutComponent implements OnInit {
       }
     }
     this.getPurchase();
+    this.dataCredomatic.type = 'sale';
   }
 }

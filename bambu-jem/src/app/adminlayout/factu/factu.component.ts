@@ -317,6 +317,7 @@ export class FactuComponent implements OnInit {
     this.billing.price += productGet.pricePublic * this.valueQtyBtn;
     this.billing.status = 'incomplete';
     this.total += this.billing.price;
+    console.log(this.billing);
     this.billingService.addNewBilling(this.token, this.billing).subscribe(
       response => {
         if (response.status === 'success' || response.status === 'Exist') {
