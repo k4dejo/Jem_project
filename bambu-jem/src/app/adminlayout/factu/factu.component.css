@@ -19,7 +19,17 @@
   margin-bottom: 3%;
 }
 
+.table-phone {
+  display: none;
+}
+
 @media (max-width: 767px) {
+  .table-pc {
+    display: none;
+  }
+  .table-phone {
+    display: initial;
+  }
   .input-group-desc {
     margin-bottom: 40px;
   }
