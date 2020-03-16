@@ -102,6 +102,9 @@
           </table>
           <pagination-controls class="my-pagination" (pageChange)="p = $event">
           </pagination-controls>
+          <div class="colPhoto">
+            <img class="img-responsive" [src]="ticketPurchase.ticket" alt="">
+          </div>
           <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
         </div>
       </div>

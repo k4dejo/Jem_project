@@ -4,6 +4,7 @@ import { AdminService } from '../../services/admin.service';
 import { PurchaseService } from '../../services/purchase.service';
 import { Purchase } from '../../models/purchase';
 import { PurchaseInfo } from '../../models/purchaseInfo';
+import { Ticket } from '../../models/ticketPurchase';
 
 @Component({
   selector: 'app-orders',
@@ -15,6 +16,7 @@ export class OrdersComponent implements OnInit {
   public token;
   public identity;
   public purchaselist: Array<Purchase>;
+  public ticketPurchase: Ticket;
   public purchaseinfo: PurchaseInfo;
   public productList;
   public p = 1;
@@ -28,6 +30,7 @@ export class OrdersComponent implements OnInit {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
     this.purchaseinfo = new PurchaseInfo('', '', '', '', '', 0, 0);
+    this.ticketPurchase = new Ticket(null, '');
   }
 
   searchPurchase(value) {
@@ -87,12 +90,27 @@ export class OrdersComponent implements OnInit {
   toggleInfo(dataPurchase: any) {
     this.purchaseinfo.id = dataPurchase.id;
     console.log(this.purchaseinfo);
+    this.getTicket();
     if (dataPurchase.status !== 'Enviado') {
       this.sendBtnBool = false;
     } else {
       this.sendBtnBool = true;
     }
     this.getArrayPurchase(dataPurchase.clients_id, dataPurchase.status);
+  }
+
+  getTicket() {
+    console.log(this.purchaseinfo);
+    this.purchaseService.getTicket(this.purchaseinfo.id).subscribe(
+      response => {
+        // agrego formato a la imagen.
+        this.ticketPurchase.ticket = response.img;
+        this.ticketPurchase.ticket = 'data:image/jpeg;base64,' + this.ticketPurchase.ticket;
+        console.log(this.ticketPurchase);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   ngOnInit() {

@@ -49,6 +49,17 @@ class PurchaseController extends Controller
         //
     }
 
+    public function getTicket($idPurchase) {
+        $ticketPurchase = ticket::where('purcharse_id', $idPurchase)->first();
+        $contents = Storage::get($ticketPurchase->ImgTicket);
+        $ticketPurchase->ImgTicket = base64_encode($contents);
+        return response()->json(array(
+            'purchases' => $ticketPurchase,
+            'img'       => $ticketPurchase->ImgTicket,
+            'status'    => 'success'
+        ), 200);
+    }
+
     public function storeTicket(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();

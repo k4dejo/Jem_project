@@ -92,6 +92,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('getShowProductP/{idClient}/{idProduct}',
    'PurchaseController@showSingleProductPurchase');
    Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
+   Route::get('getTicket/{id}', 'PurchaseController@getTicket');
    Route::get('getHistoryPurchaseClient/{id}', 'PurchaseController@getProductHistory');
    Route::get('getStatusPurchase/{id}', 'PurchaseController@getPurchaseStatus');
    Route::get('getClientInfoPurchase/{id}/{status}', 'PurchaseController@getClientInfo');

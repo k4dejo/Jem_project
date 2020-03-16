@@ -61,6 +61,7 @@ export class ShoppingCartComponent implements OnInit {
   public fileBlob: unknown;
   public imgtest: any;
   public nameticket;
+  public boolTicket = false;
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
@@ -140,6 +141,9 @@ export class ShoppingCartComponent implements OnInit {
     const promise = this.getFileBlob(myImg);
     promise.then(Blob => {
       this.fileBlob = Blob;
+      if (this.fileBlob != null) {
+        this.boolTicket = true;
+      }
     });
   }
 
@@ -371,10 +375,23 @@ export class ShoppingCartComponent implements OnInit {
   sendTicket() {
     this.ticketPurchase.ticket = this.fileBlob;
     this.ticketPurchase.purchase_id = this.productCart.id;
-    console.log(this.ticketPurchase);
     this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
       response => {
-        console.log(response);
+        if (response.status === 'success') {
+          this.checkoutPurchase.status = 'procesando';
+          this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
+            response => {
+              console.log(response);
+              if (response.status === 'success') {
+                this.router.navigate(['Home/BJem/']);
+              }
+            // tslint:disable-next-line:no-shadowed-variable
+            }, error => {
+              console.log(<any> error);
+            }
+          );
+        }
       }, error => {
         console.log(<any> error);
       }
