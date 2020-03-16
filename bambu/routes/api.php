@@ -81,6 +81,7 @@ Route::group(['middleware' => 'cors'], function(){
 
    /*PURCHASE*/
    Route::post('Addpurchase', 'PurchaseController@store');
+   Route::post('storeTicket', 'PurchaseController@storeTicket');
    Route::post('editPurchase', 'PurchaseController@edit');
    Route::post('convertHash', 'PurchaseController@convertHash');
    Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');

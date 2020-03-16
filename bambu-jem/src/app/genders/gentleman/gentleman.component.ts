@@ -21,6 +21,9 @@ export class GentlemanComponent implements OnInit {
   public photoViewPan = [];
   public photoViewShort = [];
   public photoViewAcc = [];
+  public photoViewJean = [];
+  public photoViewGorra = [];
+  public photoViewZapa = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +38,44 @@ export class GentlemanComponent implements OnInit {
   }
 
   getProductDepartment(productDpt, photoDpt) {
+    switch (productDpt) {
+      case '1':
+        this.photoViewLevis.push(photoDpt);
+      break;
+      case '2':
+        this.photoViewPan.push(photoDpt);
+      break;
+      case '3':
+        this.photoViewJean.push(photoDpt);
+      break;
+      case '4':
+        this.photoViewCami.push(photoDpt);
+      break;
+      case '5':
+        this.photoViewShort.push(photoDpt);
+      break;
+      case '6':
+        this.photoViewCamiseta.push(photoDpt);
+      break;
+      case '7':
+        this.photoViewAbri.push(photoDpt);
+      break;
+      case '8':
+        this.photoViewAcc.push(photoDpt);
+      break;
+      case '9':
+        this.photoViewGorra.push(photoDpt);
+      break;
+      case '10':
+        this.photoViewZapa.push(photoDpt);
+      break;
+      default:
+        console.log('Fuera de rango');
+      break;
+    }
+  }
+
+  /* getProductDepartment(productDpt, photoDpt) {
     switch (productDpt) {
       case '1':
         this.photoViewLevis.push(photoDpt);
@@ -61,7 +102,7 @@ export class GentlemanComponent implements OnInit {
         console.log('Fuera de rango');
       break;
     }
-  }
+  }*/
 
   getProduct() {
     this.ProductService.getProductGender(1).subscribe(

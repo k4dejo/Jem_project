@@ -6,9 +6,11 @@ import { PurchaseService } from '../../services/purchase.service';
 import { CouponService } from '../../services/coupon.service';
 import { OfferService } from '../../services/offer.service';
 import { Coupon } from '../../models/coupon';
+import { Ticket } from '../../models/ticketPurchase';
 import { Article } from '../../models/article';
 import { Purchase } from '../../models/purchase';
 import { DettachPurchase } from '../../models/dettachPurchase';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -38,6 +40,7 @@ export class ShoppingCartComponent implements OnInit {
   public productPurchase: Array<Article>;
   public dettachPurchaseP: DettachPurchase;
   public checkoutPurchase: Purchase;
+  public ticketPurchase: Ticket;
   public purchasePrice: number;
   public IdProduct;
   public token;
@@ -50,7 +53,14 @@ export class ShoppingCartComponent implements OnInit {
   public day;
   public month;
   public cuponExpirate = false;
+  public product;
   public currentDate = new Date();
+  public blobImgArray: unknown;
+  public images: any;
+  public fileNpm: any;
+  public fileBlob: unknown;
+  public imgtest: any;
+  public nameticket;
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
@@ -63,6 +73,7 @@ export class ShoppingCartComponent implements OnInit {
     this.dettachPurchaseP = new DettachPurchase('', '');
     this.checkoutPurchase = new Purchase('', '', 0, 0, 0, '');
     this.productCart = new Purchase('', '', 0, 0, 0, '');
+    this.ticketPurchase = new Ticket(null, '');
   }
 
   getPurchases() {
@@ -98,6 +109,46 @@ export class ShoppingCartComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  convertFileBlob() {
+    for (let index = 0; index < this.fileNpm.length; index++) {
+      const promise = this.getFileBlob(this.fileNpm[index]);
+      promise.then(Blob => {
+        this.blobImgArray = Blob;
+        this.images.name = this.fileNpm[index].name;
+        this.images.file = this.blobImgArray;
+      });
+    }
+  }
+
+  getFileBlob(file) {
+    const reader = new FileReader();
+    return new Promise (function(resolve, reject) {
+      reader.onload = (function(theFile) {
+        return function(e) {
+          resolve(e.target.result);
+        };
+      })(file);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  onUpload(e) {
+    const myImg = e.target.files[0];
+    this.nameticket = myImg.name;
+    const promise = this.getFileBlob(myImg);
+    promise.then(Blob => {
+      this.fileBlob = Blob;
+    });
+  }
+
+  onRemove(event) {
+    this.fileNpm.splice(this.fileNpm.indexOf(event), 1);
+  }
+
+  onRemoveP() {
+    this.imgtest = null;
   }
 
   calculateWeight() {
@@ -311,6 +362,19 @@ export class ShoppingCartComponent implements OnInit {
           this.productPurchase[i].priceMajor = this.offer.offer;
 
         }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  sendTicket() {
+    this.ticketPurchase.ticket = this.fileBlob;
+    this.ticketPurchase.purchase_id = this.productCart.id;
+    console.log(this.ticketPurchase);
+    this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
+      response => {
+        console.log(response);
       }, error => {
         console.log(<any> error);
       }

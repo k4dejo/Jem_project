@@ -66,6 +66,116 @@ h1 {
   transform: translateX(-10px);
 }
 
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+   .btnfile {
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 50px;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #fff;
+    font-family: inherit;
+  }
+
+  .btn-secondary{
+    margin-top: 10%;
+  }
+
+  .btn--radius {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  .btn--radius-2 {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .btn--pill {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+
+  .btn--green {
+    background: #57b846;
+    color: white;
+  }
+
+  .btn--green:hover {
+    background: #4dae3c;
+  }
+
+  .btn--blue {
+    background: #4272d7;
+  }
+
+  .btn--blue:hover {
+    background: #3868cd;
+  }
+
+  .btn--red {
+    background: #ff4b5a;
+  }
+
+  .btn--red:hover {
+    background: #eb3746;
+  }
+
+  input {
+    outline: none;
+    margin: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    width: 100%;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+/* ==========================================================================
+   #FILE_PHOTO
+   ========================================================================== */
+   .inputFile{
+    display: none;
+  }
+
+  .btnLabel{
+    margin-left: 25%;
+  }
+
+  .colPhoto{
+    display: block;
+    margin-left: 6%;
+    margin-top: 2%;
+    margin-right: 5%;
+    margin-bottom: 6%;
+  }
+
+  .divPhoto{
+    /*height: 260px;
+    width: 200px;*/
+    height: 405px;
+    width: 350px;
+
+    font-size: 20px;
+  }
+
+  td .img-responsive{
+    weight: 55px;
+  }
+
 /*==================================================================
 	#CART_PAGE
 ====================================================================*/

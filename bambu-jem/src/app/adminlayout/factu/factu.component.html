@@ -203,9 +203,55 @@
               </table>
               <h3>Total: ₡ {{billing.price | number: "3."}}</h3>
             </div>
+            <input style="color: white;" type="button" class="btn btn--green btn--pill"
+            value="Facturar" data-toggle="modal" data-target="#Factu">
           </form>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal fadeInDown" id="Factu" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-content wrapper" id="formContent" role="document">
+    <div class="modal-header first">
+      <i class="fa fa-times close" data-dismiss="modal"></i>
+      <h2 id="modalLabel">Información de Factura</h2>
+    </div>
+    <div class="modal-body fadeIn second">
+      <form id="FormFactu">
+        <!--<img src="assets/Images/Logo.png" style="width: 15%; height: 15%; position: relative; left: -35%;" alt="">-->
+        <div class="input-group-desc">
+          <h4 style="text-align: left;"><strong>Nombre:</strong> {{billing.client}}</h4>
+          <h4 style="text-align: left;"><strong>Teléfono:</strong> {{billing.phone}}</h4>
+          <h4 style="text-align: left;"><strong>Correo Eléctronico:</strong> {{billing.email}}</h4>
+          <h4 style="text-align: left;"><strong>Dirección:</strong> {{billing.address}}</h4>
+          <h4 style="text-align: left;"><strong>Dirección Domicilio:</strong> {{billing.addressDetail}}</h4>
+        </div>
+        <div class="date">
+          <h4 style="text-align: right;"><strong>Fecha:</strong> {{date}}</h4>
+        </div>
+        <div class="productList">
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">Producto</th>
+              <th scope="col" class="quy-th">Cantidad</th>
+              <th scope="col" class="size-th">Talla</th>
+              <th scope="col" class="total-th">Precio</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let productBill of arrayBilling">
+                <td>{{productBill.name}}</td>
+                <td>{{productBill.pivot.amount}}</td>
+                <td>{{productBill.pivot.size}}</td>
+                <td>{{productBill.pricePublic * productBill.pivot.amount | number: "3."}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3 style="text-align: right;">Total: {{billing.price | number: "3."}}</h3>
+        </div>
+        <input style="color: white;" type="button" class="btn btn--green btn--pill"
+        value="Emitir Factura" (click)="PrintDoc()">
+      </form>
     </div>
   </div>
 </div>

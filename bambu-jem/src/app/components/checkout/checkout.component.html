@@ -6,7 +6,7 @@
     <app-navbar-b></app-navbar-b>
   </div>
 </header>
-<div class="main" style="overflow: auto;">
+<div class="main" style="overflow: hidden;">
   <div class="checkout">
     <div class="credit-card-box">
       <div class="flip">
@@ -91,48 +91,50 @@
         <label for="card-holder">Propietario</label>
         <input name="holder" #holder="ngModel" [(ngModel)]="Ccholder" type="text" id="card-holder" />
       </fieldset>
-      <fieldset class="fieldset-expiration">
-        <label for="card-expiration-month">Fecha de expiración</label>
-        <div class="select">
-          <select (change)="monthChange($event)" id="card-expiration-month">
-            <option></option>
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="card-expiration-month">Fecha de expiración</label>
+          <div class="select">
+            <select (change)="monthChange($event)" id="card-expiration-month">
+              <option></option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="select">
+            <select (change)="yearChange($event)" id="card-expiration-year">
+              <option></option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+              <option value="2031">2031</option>
+            </select>
+          </div>
         </div>
-        <div class="select">
-          <select (change)="yearChange($event)" id="card-expiration-year">
-            <option></option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-            <option value="2027">2027</option>
-            <option value="2028">2028</option>
-            <option value="2029">2029</option>
-            <option value="2030">2030</option>
-            <option value="2031">2031</option>
-          </select>
+        <div class="col-md-6">
+          <label for="card-ccv">CCV</label>
+          <input name="ccv" #ccv="ngModel" [(ngModel)]="Ccv" (focus)="flipcard()" (focusout)="flipOutCard()" type="text"
+          id="card-ccv" maxlength="3"/>
         </div>
-      </fieldset>
-      <fieldset class="fieldset-ccv">
-        <label for="card-ccv">CCV</label>
-        <input name="ccv" #ccv="ngModel" [(ngModel)]="Ccv" (focus)="flipcard()" (focusout)="flipOutCard()" type="text"
-          id="card-ccv" maxlength="3" />
-      </fieldset><br>
+      </div>
       <div class="col-md-12">
         <h4>Tu Orden</h4>
         <table *ngIf="shipping == 0" class="table table-striped">
@@ -257,17 +259,16 @@ aria-labelledby="sendCredomatic" aria-hidden="true">
           <input type="text" name="type" value=" sale">
           <input type="text" name="key_id" [value]="dataCredomatic.key_id">
           <!--<input type="text" name="key" value="wMZ86zdzku53x76FC557t688Gup3Vag3">-->
-          <input disabled type="text" name="hash" [value]="dataCredomatic.hash">
-          <input disabled type="text" name="time" [value]="dataCredomatic.time">
-          <input disabled type="text" name="amount" [value]="dataCredomatic.amount">
-          <input disabled type="text" name="orderid" [value]="dataCredomatic.orderid">
-          <input disabled type="text" name="processor_id" [value]="dataCredomatic.processor_id">
-          <input disabled type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
-          <input disabled type="text" name="ccexp" [value]="dataCredomatic.ccexp">
-          <input disabled type="text" name="cvv" [value]="dataCredomatic.ccv">
-          <input disabled type="text" name="avs" value="">
-          <!--<input disabled type="text" hidden name="redirect"  value="http://localhost:4200/get/transaccion/credomatic">-->
-          <input disabled type="text" hidden name="redirect" value="http://modajem.com/get/transaccion/credomatic">
+          <input type="text" name="hash" [value]="dataCredomatic.hash">
+          <input type="text" name="time" [value]="dataCredomatic.time">
+          <input type="text" name="amount" [value]="dataCredomatic.amount">
+          <input type="text" name="orderid" [value]="dataCredomatic.orderid">
+          <input type="text" name="processor_id" [value]="dataCredomatic.processor_id">
+          <input type="text" name="ccnumber" [value]="dataCredomatic.ccnumber">
+          <input type="text" name="ccexp" [value]="dataCredomatic.ccexp">
+          <input type="text" name="cvv" [value]="dataCredomatic.ccv">
+          <input type="text" name="avs" value="">
+          <input hidden type="text" name="redirect" value="http://modajem.com/get/transaccion/credomatic">
           <input type="submit" value="Enviar Transacción">
         </form>
       </div>

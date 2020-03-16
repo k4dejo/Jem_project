@@ -14,9 +14,16 @@ export class GirlsComponent implements OnInit {
   public shop_bool = true;
   public routeProduct: string;
   public products: Array<Article>;
-  public photoViewSub = [];
-  public photoViewInf = [];
-  public photoViewEnt = [];
+  public photoViewMameluco = [];
+  public photoViewAcc = [];
+  public photoViewEnagua = [];
+  public photoViewblusa = [];
+  public photoViewSueter = [];
+  public photoViewConjunto = [];
+  public photoViewVestido = [];
+  public photoViewPijama = [];
+  public photoViewShort = [];
+
 
   constructor(
     private ProductService: ArticleService,
@@ -42,6 +49,38 @@ export class GirlsComponent implements OnInit {
   getProductDepartment(productDpt, photoDpt) {
     switch (productDpt) {
       case '1':
+        this.photoViewMameluco.push(photoDpt);
+      break;
+      case '2':
+        this.photoViewAcc.push(photoDpt);
+      break;
+      case '3':
+        this.photoViewblusa.push(photoDpt);
+      break;
+      case '4':
+        this.photoViewSueter.push(photoDpt);
+      break;
+      case '5':
+        this.photoViewShort.push(photoDpt);
+      break;
+      case '6':
+        this.photoViewEnagua.push(photoDpt);
+      break;
+      case '7':
+        this.photoViewConjunto.push(photoDpt);
+      break;
+      case '8':
+        this.photoViewVestido.push(photoDpt);
+      break;
+      case '9':
+        this.photoViewPijama.push(photoDpt);
+      break;
+    }
+  }
+
+  /*getProductDepartment(productDpt, photoDpt) {
+    switch (productDpt) {
+      case '1':
         this.photoViewSub.push(photoDpt);
       break;
       case '2':
@@ -51,7 +90,7 @@ export class GirlsComponent implements OnInit {
         this.photoViewEnt.push(photoDpt);
       break;
     }
-  }
+  }*/
 
   toggleBtn(word: any) {
     const link = '/Home/Articulo/';

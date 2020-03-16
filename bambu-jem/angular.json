@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "bambu-jem"
+  "defaultProject": "bambu-jem",
+  "cli": {
+    "analytics": "7a1fb817-19e7-47fd-9985-99f659aee224"
+  }
 }

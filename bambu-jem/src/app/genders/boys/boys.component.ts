@@ -14,9 +14,15 @@ export class BoysComponent implements OnInit {
   public shop_bool = true;
   public routeProduct: string;
   public products: Array<Article>;
-  public photoViewSub = [];
-  public photoViewInf = [];
-  public photoViewEnt = [];
+  public photoViewMameluco = [];
+  public photoViewAcc = [];
+  public photoViewSueter = [];
+  public photoViewCamiseta = [];
+  public photoViewCamisa = [];
+  public photoViewConjunto = [];
+  public photoViewPantalones = [];
+  public photoViewPijama = [];
+  public photoViewShort = [];
 
   constructor(
     private ProductService: ArticleService,
@@ -42,13 +48,31 @@ export class BoysComponent implements OnInit {
   getProductDepartment(productDpt, photoDpt) {
     switch (productDpt) {
       case '1':
-        this.photoViewSub.push(photoDpt);
+        this.photoViewMameluco.push(photoDpt);
       break;
       case '2':
-        this.photoViewInf.push(photoDpt);
+        this.photoViewAcc.push(photoDpt);
       break;
       case '3':
-        this.photoViewEnt.push(photoDpt);
+        this.photoViewCamiseta.push(photoDpt);
+      break;
+      case '4':
+        this.photoViewCamisa.push(photoDpt);
+      break;
+      case '5':
+        this.photoViewShort.push(photoDpt);
+      break;
+      case '6':
+        this.photoViewSueter.push(photoDpt);
+      break;
+      case '7':
+        this.photoViewConjunto.push(photoDpt);
+      break;
+      case '8':
+        this.photoViewPantalones.push(photoDpt);
+      break;
+      case '9':
+        this.photoViewPijama.push(photoDpt);
       break;
     }
   }
