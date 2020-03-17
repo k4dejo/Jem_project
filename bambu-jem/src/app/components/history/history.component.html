@@ -14,7 +14,7 @@
         <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
         <table style="padding-bottom: 5%;">
           <thead>
-            <th scope="col">Número de orden</th>
+            <th scope="col">Codigo de orden</th>
             <th scope="col">Precio</th>
             <th scope="col">Estado</th>
             <th></th>
@@ -22,7 +22,7 @@
           <tbody>
             <tr *ngFor="let order of orderList">
               <td>
-                # {{order.id}}
+                {{order.orderId}}
               </td>
               <td>
                 ₡ {{order.price | number: '3.'}}

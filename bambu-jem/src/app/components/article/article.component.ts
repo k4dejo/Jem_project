@@ -204,6 +204,54 @@ export class ArticleComponent implements OnInit {
     this.fileUrl = imgProduct;
   }
 
+  filterSizeProduct(sizeResponse: any) {
+    const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    const size = sizeResponse;
+    this.ProductService.filterSizeProduct(department, gender, size).subscribe(
+      response  => {
+        this.products = response.filter;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  cleanFilter() {
+    const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    this.ProductService.getConcreteProduct(department, gender).subscribe(
+      response => {
+        this.products = response.articles;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+          this.getDepartmentView(this.products[index].gender.toString());
+          for (let e = 0; e < this.gender.length; e++) {
+            if (this.products[index].gender.toString() === this.gender[e].id) {
+              this.products[index].gender = this.gender[e].name;
+            }
+          }
+          for (let indexD = 0; indexD < this.department.length; indexD++) {
+            if (this.products[index].department.toString() === this.department[indexD].id) {
+              this.products[index].department = this.department[indexD].name;
+            }
+          }
+          this.genderView = this.products[index].gender;
+          this.DepartmentView = this.products[index].department;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['shopId'];

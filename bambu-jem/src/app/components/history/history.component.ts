@@ -33,6 +33,7 @@ export class HistoryComponent implements OnInit {
     this.purchaseService.getHistoryPurchaseClient(this.identity.sub).subscribe(
       response => {
         this.orderList = response.purchase;
+        console.log(this.orderList);
 
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {

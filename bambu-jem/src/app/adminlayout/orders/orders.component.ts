@@ -19,6 +19,8 @@ export class OrdersComponent implements OnInit {
   public ticketPurchase: Ticket;
   public purchaseinfo: PurchaseInfo;
   public productList;
+  public randomChar: string;
+  public fileUrl;
   public p = 1;
   public sendBtnBool = false;
 
@@ -111,6 +113,21 @@ export class OrdersComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  downloadImg() {
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    const lengthOfCode = 10;
+    this.randomChar = this.makeRandom(lengthOfCode, possible);
+    // this.fileUrl = this.product.photo;
+  }
+
+  makeRandom(lengthOfCode: number, possible: string) {
+    let text = '';
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
   }
 
   ngOnInit() {
