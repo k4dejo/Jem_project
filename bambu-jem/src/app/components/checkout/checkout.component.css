@@ -64,14 +64,13 @@ Form
 }
 
 .form .fieldset-expiration {
-  float: left;
+ float: left;
   width: 60%;
 }
 
 .form .select {
   width: 200px;
   margin-right: 12px;
-  float: left;
 }
 
 .form .fieldset-ccv {
@@ -445,9 +444,18 @@ Credit Card
   text-align: justify;
 }
 
+
 @media (max-width: 767px) {
   .main {
-    margin-top: 52%;
+    margin-top: 30%;
+  }
+
+  .select select  {
+    display: initial;
+  }
+
+  .fieldset-expiration {
+    float: left;
   }
 
   .col-md-12 h4 {

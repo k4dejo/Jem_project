@@ -81,6 +81,7 @@ Route::group(['middleware' => 'cors'], function(){
 
    /*PURCHASE*/
    Route::post('Addpurchase', 'PurchaseController@store');
+   Route::post('storeTicket', 'PurchaseController@storeTicket');
    Route::post('editPurchase', 'PurchaseController@edit');
    Route::post('convertHash', 'PurchaseController@convertHash');
    Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
@@ -91,6 +92,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('getShowProductP/{idClient}/{idProduct}',
    'PurchaseController@showSingleProductPurchase');
    Route::get('getPurchase/{id}', 'PurchaseController@getPurchase');
+   Route::get('getTicket/{id}', 'PurchaseController@getTicket');
    Route::get('getHistoryPurchaseClient/{id}', 'PurchaseController@getProductHistory');
    Route::get('getStatusPurchase/{id}', 'PurchaseController@getPurchaseStatus');
    Route::get('getClientInfoPurchase/{id}/{status}', 'PurchaseController@getClientInfo');
@@ -119,6 +121,8 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('showProductSizeList/{id}' , 'ArticleController@showSizeList');
    Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
    Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
+   Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
+   Route::get('filterSizeProduct/{department}/{gender}/{size}', 'ArticleController@filterSizeProduct');
    /**/
 
    /*OFFER*/

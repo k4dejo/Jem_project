@@ -6,157 +6,176 @@
         <h2 class="title">Facturación</h2>
       </div>
       <div class="card-body">
-        <div class="table-responsive" style="overflow: auto;">
-          <div style="margin-left: 87%; color: white;">
-            <button (click)="gotoApart()" class="btn btn--blue btn--pill">Apartados</button>
-          </div>
-          <div class="formgroup">
-            <form class="form-group" #factu='ngForm'>
-              <div class="row">
-                <div class="col-lg-10">
+        <div style="margin-left: 75%; color: white;">
+          <button (click)="gotoApart()" class="btn btn--blue btn--pill">Apartados</button>
+        </div>
+        <div class="formgroup">
+          <form class="form-group" #factu='ngForm'>
+            <div class="row">
+              <div class="col-lg-10">
+                <div class="input-group-desc">
+                  <h4>Cliente</h4> <button class="btn btn--blue btn--pill" (click)="createClient()" style="color: white;">+</button>
+                  <button data-toggle="modal" data-target="#clientList" class="btn btn--blue btn--pill" style="color: white;">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+                <div *ngIf="clientBool" class="col-md-10">
                   <div class="input-group-desc">
-                    <h4>Cliente</h4> <button class="btn btn--blue btn--pill" (click)="createClient()" style="color: white;">+</button>
-                    <button data-toggle="modal" data-target="#clientList" class="btn btn--blue btn--pill" style="color: white;">
-                      <i class="fas fa-search"></i>
-                    </button>
+                    <label for="">Nombre:</label>
+                    <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="billing.client"
+                    type="text">
                   </div>
-                  <div *ngIf="clientBool" class="col-md-10">
-                    <div class="input-group-desc">
-                      <label for="">Nombre:</label>
-                      <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="billing.client"
-                      type="text">
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">teléfono</label>
-                      <input class="input--style-5" name="phone" type="phone" phone="ngModel" [(ngModel)]="billing.phone" />
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">Correo Electrónico</label>
-                      <input class="input--style-5" name="email" type="email" #email="ngModel" [(ngModel)]="billing.email" />
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">Dirección</label>
-                      <div class="row">
-                        <div class="col-lg-4 col-md-4 dropdown">
-                          <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
-                          (click)="getCant(Province)">
-                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                          <option *ngFor="let province of ArrayProvin" [value]="province.id">
-                            {{province.name}}
-                          </option>
-                        </select>
-                        </div>
-                        <div class="col-lg-4 col-md-4 dropdown">
-                          <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
-                          (click)="getDist(Province, Cant)">
-                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                          <option *ngFor="let cant of ArrayCant" [value]="cant.id">
-                            {{cant.name}}
-                          </option>
-                        </select>
-                        </div>
-                        <div class="col-lg-4 col-md-4 dropdown">
-                          <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
-                          (click)="pushAddress(Province, Cant, District)">
-                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                          <option *ngFor="let dist of ArrayDist" [value]="dist.id">
-                            {{dist.name}}
-                          </option>
-                        </select>
-                        </div>
+                  <div class="input-group-desc">
+                    <label for="">teléfono</label>
+                    <input class="input--style-5" name="phone" type="phone" phone="ngModel" [(ngModel)]="billing.phone" />
+                  </div>
+                  <div class="input-group-desc">
+                    <label for="">Correo Electrónico</label>
+                    <input class="input--style-5" name="email" type="email" #email="ngModel" [(ngModel)]="billing.email" />
+                  </div>
+                  <div class="input-group-desc">
+                    <label for="">Dirección</label>
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 dropdown">
+                        <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                        (click)="getCant(Province)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                          {{province.name}}
+                        </option>
+                      </select>
+                      </div>
+                      <div class="col-lg-4 col-md-4 dropdown">
+                        <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
+                        (click)="getDist(Province, Cant)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                          {{cant.name}}
+                        </option>
+                      </select>
+                      </div>
+                      <div class="col-lg-4 col-md-4 dropdown">
+                        <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
+                        (click)="pushAddress(Province, Cant, District)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                          {{dist.name}}
+                        </option>
+                      </select>
                       </div>
                     </div>
-                    <div class="input-group-desc">
-                      <label for="">Dirección detallada</label>
-                      <textarea class="input--style-5" style="resize: vertical;"
-                      name="addresDetail" #addresDetail="ngModel" [(ngModel)]="billing.addressDetail" id="addresDetail" cols="48" rows="2"></textarea>
-                    </div>
                   </div>
-                  <div *ngIf="!clientBool" class="col-md-10">
-                    <div class="input-group-desc">
-                      <label for="">Nombre:</label>
-                      <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="billing.client"
-                      type="text" disabled>
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">teléfono</label>
-                      <input class="input--style-5" name="phone" type="phone" phone="ngModel"
-                      [(ngModel)]="billing.phone" disabled/>
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">Correo Electrónico</label>
-                      <input class="input--style-5" name="email" type="email" #email="ngModel"
-                      [(ngModel)]="billing.email" disabled/>
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">Dirección</label>
-                      <h4>{{billing.address}}</h4>
-                    </div>
-                    <div class="input-group-desc">
-                      <label for="">Dirección detallada</label>
-                      <textarea class="input--style-5" style="resize: vertical;"
-                      name="addresDetail" #addresDetail="ngModel" [(ngModel)]="billing.addressDetail"
-                      id="addresDetail" cols="48" rows="2" disabled></textarea>
-                    </div>
+                  <div class="input-group-desc">
+                    <textarea class="input--style-5" style="resize: both; overflow: auto;"
+                    name="addresDetail" #addresDetail="ngModel" placeholder="Dirección detallada"
+                    [(ngModel)]="billing.addressDetail" id="addresDetail" cols="25" rows="2"></textarea>
+                  </div>
+                </div>
+                <div *ngIf="!clientBool" class="col-md-10">
+                  <div class="input-group-desc">
+                    <label for="">Nombre:</label>
+                    <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="billing.client"
+                    type="text" disabled>
+                  </div>
+                  <div class="input-group-desc">
+                    <label for="">teléfono</label>
+                    <input class="input--style-5" name="phone" type="phone" phone="ngModel"
+                    [(ngModel)]="billing.phone" disabled/>
+                  </div>
+                  <div class="input-group-desc">
+                    <label for="">Correo Electrónico</label>
+                    <input class="input--style-5" name="email" type="email" #email="ngModel"
+                    [(ngModel)]="billing.email" disabled/>
+                  </div>
+                  <div class="input-group-desc">
+                    <label for="">Dirección</label>
+                    <h4>{{billing.address}}</h4>
+                  </div>
+                  <div class="input-group-desc">
+                    <label for="">Dirección detallada</label>
+                    <textarea class="input--style-5" style="resize: vertical;"
+                    name="addresDetail" #addresDetail="ngModel" [(ngModel)]="billing.addressDetail"
+                    id="addresDetail" cols="48" rows="2" disabled></textarea>
                   </div>
                 </div>
               </div>
-              <div class="search-product">
-                <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
-                  placeholder=" &#61442; Buscar...">
-              </div>
-              <table class="table table-striped">
-                <pagination-controls class="my-pagination" (pageChange)="p = $event">
-                </pagination-controls>
+            </div>
+            <div class="search-product">
+              <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
+                placeholder=" &#61442; Buscar...">
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-phone" style="overflow: auto;">
                 <thead>
-                  <th></th>
                   <th scope="col">Producto</th>
-                  <th scope="col">Género</th>
-                  <th scope="col">Depart</th>
+                  <th>Género</th>
+                  <th>Depart</th>
                   <th scope="col">Público</th>
                   <th scope="col"></th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
-                    <td><img class="img-responsive" [src]="product.photo" alt=""></td>
                     <td>{{product.name}}</td>
                     <td>{{product.gender}}</td>
                     <td>{{product.department}}</td>
                     <td>₡ {{product.pricePublic | number: '3.'}}</td>
                     <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
-                    value="Agregar a compra" (click)="getProduct(product.id)"></td>
+                    value="Agregar" (click)="getProduct(product.id)"></td>
                   </tr>
                 </tbody>
                 <pagination-controls class="my-pagination" (pageChange)="p = $event">
                 </pagination-controls>
               </table>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="input-group-desc">
-                    <h4 for="">Producto</h4>
-                    <input class="input--style-5" name="name" type="text" [placeholder]="productGet.name" disabled/>
-                  </div>
-                  <div class="input-group-desc">
-                    <h4 for="">Precio</h4>
-                    <input class="input--style-5" name="name" type="text" [placeholder]="productGet.pricePublic" disabled/>
-                  </div>
-                  <div class="input-group-desc">
-                    <div class="fw-size-choose">
-                      <h4>Talla: </h4>
-                      <div class="sc-item" *ngFor="let size of productSizes">
-                        <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size)">
-                        <label for="{{size.size}}">{{size.size}}</label>
-                      </div>
+            </div>
+            <table class="table table-striped table-pc">
+              <thead>
+                <th></th>
+                <th>Producto</th>
+                <th>Género</th>
+                <th>Depart</th>
+                <th>Público</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
+                  <td><img class="img-responsive" [src]="product.photo" alt=""></td>
+                  <td>{{product.name}}</td>
+                  <td>{{product.gender}}</td>
+                  <td>{{product.department}}</td>
+                  <td>₡ {{product.pricePublic | number: '3.'}}</td>
+                  <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
+                  value="Agregar a compra" (click)="getProduct(product.id)"></td>
+                </tr>
+              </tbody>
+              <pagination-controls class="my-pagination" (pageChange)="p = $event">
+              </pagination-controls>
+            </table>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="input-group-desc">
+                  <h4 for="">Producto</h4>
+                  <input class="input--style-5" name="name" type="text" [placeholder]="productGet.name" disabled/>
+                </div>
+                <div class="input-group-desc">
+                  <h4 for="">Precio</h4>
+                  <input class="input--style-5" name="name" type="text" [placeholder]="productGet.pricePublic" disabled/>
+                </div>
+                <div class="input-group-desc">
+                  <div class="fw-size-choose">
+                    <h4>Talla: </h4>
+                    <div class="sc-item" *ngFor="let size of productSizes">
+                      <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size)">
+                      <label for="{{size.size}}">{{size.size}}</label>
                     </div>
                   </div>
-                  <div class="input-group-desc">
-                    <h4>Cantidad</h4>
-                    <input class="input--style-5" name="amount" #amount="ngModel" [(ngModel)]="valueQtyBtn" type="number" [placeholder]="0"/>
-                    <input *ngIf="!AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
-                    value="ADD" disabled>
-                    <input *ngIf="AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
-                    value="ADD" (click)="checkoutBilling(productGet)">
-                  </div>
+                </div>
+                <div class="input-group-desc">
+                  <h4>Cantidad</h4>
+                  <input class="input--style-5" name="amount" #amount="ngModel" [(ngModel)]="valueQtyBtn" type="number" [placeholder]="0"/>
+                  <input *ngIf="!AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
+                  value="ADD" disabled>
+                  <input *ngIf="AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
+                  value="ADD" (click)="checkoutBilling(productGet)">
                 </div>
               </div>
               <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
@@ -253,7 +272,22 @@
       </div>
       <pagination-controls class="my-pagination" (pageChange)="pClient = $event">
       </pagination-controls>
-      <table class="table table-striped">
+      <table class="table table-striped table-phone">
+        <thead>
+          <th scope="col">Nombre</th>
+          <th scope="col">Teléfono</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients | filter: searchClient | paginate: { itemsPerPage: 12, currentPage: pClient }">
+            <td>{{client.name}}</td>
+            <td>{{client.phone}}</td>
+            <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
+              value="Agregar" (click)="selectClient(client)" data-dismiss="modal"></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped table-pc">
         <thead>
           <th scope="col">Nombre</th>
           <th scope="col">Correo Electrónico</th>

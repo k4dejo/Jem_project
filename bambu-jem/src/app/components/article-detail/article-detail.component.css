@@ -867,7 +867,11 @@ feature-inner
 	.catalogue{
 		padding-left: 1%;
     padding-top: 32%;
-	}
+  }
+
+  .notifyAlert {
+    margin-top: 12%;
+  }
 
 	.modal .modal-content{
 		margin-top: 40%;

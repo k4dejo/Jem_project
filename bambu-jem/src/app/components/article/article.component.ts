@@ -25,6 +25,8 @@ export class ArticleComponent implements OnInit {
   public fileUrl;
   public randomChar: string;
   public department: Departament[];
+  public minPrice;
+  public maxPrice;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -202,6 +204,80 @@ export class ArticleComponent implements OnInit {
     const lengthOfCode = 10;
     this.randomChar = this.makeRandom(lengthOfCode, possible);
     this.fileUrl = imgProduct;
+  }
+
+  filterSizeProduct(sizeResponse: any) {
+    const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    const size = sizeResponse;
+    this.ProductService.filterSizeProduct(department, gender, size).subscribe(
+      response  => {
+        this.products = response.filter;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  cleanFilter() {
+    const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    this.ProductService.getConcreteProduct(department, gender).subscribe(
+      response => {
+        this.products = response.articles;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+          this.getDepartmentView(this.products[index].gender.toString());
+          for (let e = 0; e < this.gender.length; e++) {
+            if (this.products[index].gender.toString() === this.gender[e].id) {
+              this.products[index].gender = this.gender[e].name;
+            }
+          }
+          for (let indexD = 0; indexD < this.department.length; indexD++) {
+            if (this.products[index].department.toString() === this.department[indexD].id) {
+              this.products[index].department = this.department[indexD].name;
+            }
+          }
+          this.genderView = this.products[index].gender;
+          this.DepartmentView = this.products[index].department;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  filterByPriceMin(price1: any) {
+    this.minPrice = price1.target.value;
+    console.log(this.minPrice);
+  }
+
+  filterByPriceMax(price2: any) {
+    this.maxPrice = price2.target.value;
+    console.log(price2.target.value);
+  }
+
+  sendFilter() {
+    const department = this.route.snapshot.params['dpt'];
+    this.ProductService.filterPriceProduct(department, this.minPrice, this.maxPrice).subscribe(
+      response => {
+        this.products = response.filter;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   ngOnInit() {

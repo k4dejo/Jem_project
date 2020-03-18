@@ -22,6 +22,14 @@ export class PurchaseService {
     return this._http.post(this.url + 'Addpurchase', params, { headers: headers });
   }
 
+  storeTicket(token, dataTicket): Observable<any> {
+    const json = JSON.stringify(dataTicket);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.post(this.url + 'storeTicket', params, { headers: headers });
+  }
+
   editPurchase(token, dataPurchase): Observable<any> {
     const json = JSON.stringify(dataPurchase);
     const params = 'json=' + json;
@@ -61,6 +69,11 @@ export class PurchaseService {
   getPurchase(idClient: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getPurchase/' + idClient, {headers: headers});
+  }
+
+  getTicket(idPurcharse: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getTicket/' + idPurcharse, {headers: headers});
   }
 
   getStatusPurchase(status: any): Observable<any> {

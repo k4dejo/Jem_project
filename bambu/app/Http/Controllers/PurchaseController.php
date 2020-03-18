@@ -11,6 +11,7 @@ use App\purchase;
 use App\client;
 use App\article;
 use App\size;
+use App\ticket;
 
 
 class PurchaseController extends Controller
@@ -46,6 +47,59 @@ class PurchaseController extends Controller
     public function create()
     {
         //
+    }
+
+    public function getTicket($idPurchase) {
+        $ticketPurchase = ticket::where('purcharse_id', $idPurchase)->first();
+        $contents = Storage::get($ticketPurchase->ImgTicket);
+        $ticketPurchase->ImgTicket = base64_encode($contents);
+        return response()->json(array(
+            'purchases' => $ticketPurchase,
+            'img'       => $ticketPurchase->ImgTicket,
+            'status'    => 'success'
+        ), 200);
+    }
+
+    public function storeTicket(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            //recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            //validación
+            $validate = Validator::make($paramsArray, [
+                'ticket'             => 'required',
+                'purchase_id'        => 'required',
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            $img =  $params->ticket;
+            $img = str_replace('data:image/jpeg;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $imgName = time() . '.jpg';
+            Storage::disk('local')->put($imgName, base64_decode($img));
+            $ticket = new ticket();
+            $ticket->ImgTicket = $imgName;
+            $ticket->purcharse_id = $params->purchase_id;
+            $ticket->save();
+            $data = array(
+                'ticket' => $ticket ,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data, 200);
     }
 
     /**
