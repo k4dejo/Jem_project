@@ -1138,6 +1138,11 @@ select {
 .select-options li[rel="hide"] {
   display: none;
 }
+
+.filter-mobile, .dptForMobile
+{
+  display: none;
+}
 /*====================================================
 ======================================================*/
 @media (max-width: 1200px) {
@@ -1190,5 +1195,9 @@ select {
 
   .filter-widget {
     display: none;
+  }
+  .filter-mobile, .dptForMobile
+  {
+    display: initial;
   }
 }
