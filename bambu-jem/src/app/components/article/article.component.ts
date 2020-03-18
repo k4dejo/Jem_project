@@ -25,6 +25,8 @@ export class ArticleComponent implements OnInit {
   public fileUrl;
   public randomChar: string;
   public department: Departament[];
+  public minPrice;
+  public maxPrice;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -248,6 +250,32 @@ export class ArticleComponent implements OnInit {
         console.log(this.products);
       }, error => {
         console.log(<any>error);
+      }
+    );
+  }
+
+  filterByPriceMin(price1: any) {
+    this.minPrice = price1.target.value;
+    console.log(this.minPrice);
+  }
+
+  filterByPriceMax(price2: any) {
+    this.maxPrice = price2.target.value;
+    console.log(price2.target.value);
+  }
+
+  sendFilter() {
+    const department = this.route.snapshot.params['dpt'];
+    this.ProductService.filterPriceProduct(department, this.minPrice, this.maxPrice).subscribe(
+      response => {
+        this.products = response.filter;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any> error);
       }
     );
   }

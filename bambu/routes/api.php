@@ -121,6 +121,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('showProductSizeList/{id}' , 'ArticleController@showSizeList');
    Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
    Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
+   Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
    Route::get('filterSizeProduct/{department}/{gender}/{size}', 'ArticleController@filterSizeProduct');
    /**/
 

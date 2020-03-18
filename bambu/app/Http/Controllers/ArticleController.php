@@ -61,11 +61,37 @@ class ArticleController extends Controller
         return response()->json($data,200);
     }
 
+    public function filterPriceProduct($department, $priceMin, $priceMax) {
+        $filterPrice = article::where('department', $department)
+        ->whereBetween('pricePublic', [$priceMin, $priceMax])->get();
+        $productCount = count($filterPrice);
+        if ($productCount <= 0) {
+            return response()->json(array(
+                'filter' => $filterPrice,
+                'status'   => 'void'
+            ), 200);
+        }
+        if ($productCount > 1) {
+            for ($i=0; $i < $productCount ; $i++) {
+                $contents = Storage::get($filterPrice[$i]->photo);
+                $filterPrice[$i]->photo = base64_encode($contents);
+            }
+        }else{
+            $contents = Storage::get($filterPrice[0]->photo);
+            $filterPrice[0]->photo = base64_encode($contents);
+        }
+        return response()->json(array(
+            'filter' => $filterPrice,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function filterSizeProduct($department, $gender, $size) {
         $size2 = $size;
         $filter = article::whereHas('sizes', function($q) use ($size) {
             $q->where('size', '=', $size);
-        })->where('department', '=', $department)->get();
+        })->where('gender', '=', $gender)
+        ->where('department', '=', $department)->get();
         $productCount = count($filter);
         if ($productCount <= 0) {
             return response()->json(array(
