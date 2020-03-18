@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf'
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { AdminService } from '../../services/admin.service';
@@ -26,6 +27,19 @@ export class FactuComponent implements OnInit {
   public token;
   public identity;
   public productGet: Article;
+  public loading = false;
+  public primaryColour = '#ffffff';
+  public secondaryColour = '#ccc';
+  public PrimaryRed = '#dd0031';
+  public SecondaryBlue = '#006ddd';
+  public status: string;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public config = { animationType: ngxLoadingAnimationTypes.none,
+    primaryColour: this.primaryColour,
+    secondaryColour: this.secondaryColour,
+    tertiaryColour: this.primaryColour,
+    backdropBorderRadius: '3px'
+  };
   public attachBilling: AttachBilling;
   public productSizes;
   public clients;
@@ -323,7 +337,7 @@ export class FactuComponent implements OnInit {
     this.billing.price += productGet.pricePublic * this.valueQtyBtn;
     this.billing.status = 'incomplete';
     this.total += this.billing.price;
-    console.log(this.billing);
+    this.loading = true;
     this.billingService.addNewBilling(this.token, this.billing).subscribe(
       response => {
         if (response.status === 'success' || response.status === 'Exist') {
@@ -396,6 +410,7 @@ export class FactuComponent implements OnInit {
     this.billingService.getBilling(billingId).subscribe(
       response => {
         this.arrayBilling = response.billing;
+        this.loading = false;
       }, error => {
         console.log(<any>error);
       }

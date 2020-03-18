@@ -159,6 +159,10 @@
                   </div>
                 </div>
               </div>
+              <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+                backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
+                primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
+              </ngx-loading>
               <div class="billing">
                 <table class="table table-striped">
                   <thead>
