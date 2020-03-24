@@ -178,38 +178,34 @@
                   value="ADD" (click)="checkoutBilling(productGet)">
                 </div>
               </div>
-              <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
-                backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
-                primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
-              </ngx-loading>
-              <div class="billing">
-                <table class="table table-striped">
-                  <thead>
-                    <th scope="col">Producto</th>
-                    <th scope="col" class="quy-th">Cantidad</th>
-                    <th scope="col" class="size-th">Talla</th>
-                    <th scope="col" class="total-th">Precio</th>
-                    <th scope="col"></th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let productBill of arrayBilling">
-                      <td>{{productBill.name}}</td>
-                      <td>{{productBill.pivot.amount}}</td>
-                      <td>{{productBill.pivot.size}}</td>
-                      <td>₡ {{productBill.pricePublic * productBill.pivot.amount | number: "3."}}</td>
-                      <td>
-                        <input style="color: white;" type="button" class="btn btn--blue btn--pill"
-                        value="Eliminar" (click)="detachProductBilling(productBill)">
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <h3>Total: ₡ {{billing.price | number: "3."}}</h3>
-              </div>
-              <input style="color: white;" type="button" class="btn btn--green btn--pill"
-              value="Facturar" data-toggle="modal" data-target="#Factu">
-            </form>
-          </div>
+            </div>
+            <div class="billing">
+              <table class="table table-striped">
+                <thead>
+                  <th scope="col">Producto</th>
+                  <th scope="col" class="quy-th">Cantidad</th>
+                  <th scope="col" class="size-th">Talla</th>
+                  <th scope="col" class="total-th">Precio</th>
+                  <th scope="col"></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let productBill of arrayBilling">
+                    <td>{{productBill.name}}</td>
+                    <td>{{productBill.pivot.amount}}</td>
+                    <td>{{productBill.pivot.size}}</td>
+                    <td>₡ {{productBill.pricePublic * productBill.pivot.amount | number: "3."}}</td>
+                    <td>
+                      <input style="color: white;" type="button" class="btn btn--blue btn--pill"
+                      value="Eliminar" (click)="detachProductBilling(productBill)">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>Total: ₡ {{billing.price | number: "3."}}</h3>
+            </div>
+            <input style="color: white;" type="button" class="btn btn--green btn--pill"
+            value="Facturar" data-toggle="modal" data-target="#Factu">
+          </form>
         </div>
       </div>
     </div>

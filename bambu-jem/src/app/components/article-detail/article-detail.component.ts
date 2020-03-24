@@ -24,6 +24,7 @@ import { AttachPurchase } from '../../models/attachPurchase';
   styleUrls: ['./article-detail.component.css']
 })
 export class ArticleDetailComponent implements OnInit {
+  public isClient = false;
   public shop_id = '';
   public NotifyUser = false;
   public NotifySuccess = false;
@@ -260,6 +261,7 @@ export class ArticleDetailComponent implements OnInit {
       );
     }
   }
+
   verifyPurchaseStatus() {
     this.purchaseService.verifyStatusPurchase(this.identity.sub).subscribe(
       response => {
@@ -276,7 +278,6 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   editPurchase(purchaseRes) {
-    console.log(purchaseRes);
     this.productCart.id = purchaseRes.purchase.id;
     this.productCart.price = purchaseRes.purchase.price + this.productCart.price;
     this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
@@ -307,7 +308,6 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   attachProductPurchase() {
-    console.log(this.attachPurchase);
     this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       response => {
@@ -331,35 +331,42 @@ export class ArticleDetailComponent implements OnInit {
         this.timeLeft--;
         if (this.timeLeft === 0) {
           this.NotifySuccess = false;
+          this.isClient = false;
         }
       }
     }, 800);
   }
 
   addProductCart() {
-    this.productCart.clients_id = this.identity.sub;
-    this.productCart.status = 'incomplete';
-    this.productCart.coupon_id = 0;
-    this.productCart.shipping = 0;
-    if (this.offerBool) {
-      this.productCart.price = this.offer.offer * this.valueQtyBtn;
-    } else {
-      if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
-        this.productCart.price = this.product.pricePublic * this.valueQtyBtn;
+    if (this.identity != null) {
+      this.isClient = false;
+      this.productCart.clients_id = this.identity.sub;
+      this.productCart.status = 'incomplete';
+      this.productCart.coupon_id = 0;
+      this.productCart.shipping = 0;
+      if (this.offerBool) {
+        this.productCart.price = this.offer.offer * this.valueQtyBtn;
       } else {
-        this.productCart.price = this.product.priceMajor * this.valueQtyBtn;
+        if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
+          this.productCart.price = this.product.pricePublic * this.valueQtyBtn;
+        } else {
+          this.productCart.price = this.product.priceMajor * this.valueQtyBtn;
+        }
       }
+      /* if (this.offerBool) {
+        this.productCart.price = this.offer.offer;
+      } else {
+        if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
+          this.productCart.price = this.product.pricePublic;
+        } else {
+          this.productCart.price = this.product.priceMajor;
+        }
+      }*/
+      this.verifyPurchaseStatus(); 
+    } else {
+      this.isClient = true;
+      this.startTimerSucess();
     }
-    /* if (this.offerBool) {
-      this.productCart.price = this.offer.offer;
-    } else {
-      if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
-        this.productCart.price = this.product.pricePublic;
-      } else {
-        this.productCart.price = this.product.priceMajor;
-      }
-    }*/
-    this.verifyPurchaseStatus();
   }
 
   makeRandom(lengthOfCode: number, possible: string) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { UserServices } from '../../services/user.service';
 import { ArticleService } from '../../services/article.service';
 import { PurchaseService } from '../../services/purchase.service';
@@ -19,6 +20,19 @@ import { from } from 'rxjs';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  public loading = false;
+  public primaryColour = '#ffffff';
+  public secondaryColour = '#ccc';
+  public PrimaryRed = '#dd0031';
+  public SecondaryBlue = '#006ddd';
+  public status: string;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public config = { animationType: ngxLoadingAnimationTypes.none,
+    primaryColour: this.primaryColour,
+    secondaryColour: this.secondaryColour,
+    tertiaryColour: this.primaryColour,
+    backdropBorderRadius: '3px'
+  };
   public shop_id = '';
   public shop_bool = true;
   public productCount = false;
@@ -78,6 +92,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getPurchases() {
+    this.loading = true;
     this.purchaseService.getPurchase(this.identity.sub).subscribe(
       response => {
         this.totalAmount = 0;
@@ -90,6 +105,7 @@ export class ShoppingCartComponent implements OnInit {
         this.checkoutPurchase.clients_id = this.identity.sub;
         this.checkoutPurchase.status = 'incomplete';
         this.dettachPurchaseP.idPurchase = response.purchaseId;
+        this.loading = false;
         for (let i = 0; i < this.productPurchase.length; ++i) {
           this.totalAmount += response.purchase[i].pivot.amount;
           if (response.purchase[i].pivot.amount >= 6) {
@@ -108,6 +124,7 @@ export class ShoppingCartComponent implements OnInit {
         this.CalculateTotalPrice(this.productCount);
       }, error => {
         console.log(<any> error);
+        this.loading = false;
       }
     );
   }
@@ -384,7 +401,8 @@ export class ShoppingCartComponent implements OnInit {
             response => {
               console.log(response);
               if (response.status === 'success') {
-                this.router.navigate(['Home/BJem/']);
+                // this.router.navigate(['Home/BJem/']);
+                this.getPurchases();
               }
             // tslint:disable-next-line:no-shadowed-variable
             }, error => {

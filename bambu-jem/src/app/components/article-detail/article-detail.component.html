@@ -50,9 +50,9 @@
             <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}} <span class="p-stock"
             style="color: grey">+ Envio gratis</span></h3>
             <h4 *ngIf="offerBool" style="color: grey; font-weight: bold;"><del>₡ {{product.pricePublic | number: '3.'}}</del></h4>
-            <h3 *ngIf="offerBool" class="p-price">₡ {{offer.offer | number: '3.'}} <span class="p-stock"
+            <!--<h3 *ngIf="offerBool" class="p-price">₡ {{offer.offer | number: '3.'}} <span class="p-stock"
             style="color: grey">+ Envio gratis</span></h3>
-            <!--<h4 class="p-stock">Precio al por mayor: <span style="color: grey">
+            <h4 class="p-stock">Precio al por mayor: <span style="color: grey">
                 ₡ {{product.priceMajor | number: '3.'}} (Envío dependerá del tamaño de la compra)
               </span>
             </h4>-->
@@ -84,6 +84,9 @@
               </div>
               <h4 *ngIf="NotifyUser" class="notifyAlert p-stock"><span>Inicia sesión para dar like</span></h4>
               <h4 *ngIf="NotifySuccess" class="notifyAlert p-success"><span>Producto añadido al carrito</span></h4>
+              <h4 *ngIf="isClient" class="notifyAlert p-success">
+                <span>Necesitas iniciar sesión antes de añadir una prenda</span>
+              </h4>
             </div>
             <div id="accordion" class="accordion-area">
               <div class="panel">
@@ -97,7 +100,7 @@
                   </div>
                 </div>
               </div>
-              <div class="panel">
+              <!--<div class="panel">
                 <div class="panel-header" id="headingTwo">
                   <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false"
                     aria-controls="collapse2">Cuidados de la prenda <i class="fas fa-chevron-down"></i>
@@ -109,7 +112,7 @@
                     <p>Toda la mercadería que vendemos es original, no hay imitaciones para su tranquilidad..</p>
                   </div>
                 </div>
-              </div>
+              </div>-->
               <div class="panel">
                 <div class="panel-header" id="headingThree">
                   <button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false"
@@ -120,9 +123,9 @@
                     <h4>Todas las prendas tienen de garantía un mes.</h4>
                     <a href="#">Mira nuestras políticas de reembolso.</a>
                     <p>Entrega a domicilio <span>
-                        3-4 días habiles</span></p>
-                    <p>Los envíos se hacen por Correos de Costa Rica y Trali, el costo mínimo de envió es de ₡3.000 y el
-                      máximo es de ₡6.000, si el máxim es sobrepasado nosotros asumimos la diferencia.</p>
+                        1 días después del deposito</span></p>
+                    <p>Los envíos se hacen por Correos de Costa Rica y Trali, el costo mínimo de envió depende del peso del paquete
+                      , si el máximo es sobrepasado nosotros asumimos la diferencia.</p>
                     <p>
                       Los envíos son de Lunes a Viernes, una vez confirmado tu deposito el envió produce al día
                       siguiente, normalmente el transito es de un día al otro para que te llegue el pedido (no incluyen
