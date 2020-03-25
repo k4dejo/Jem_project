@@ -123,6 +123,10 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
    Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
    Route::get('filterSizeProduct/{department}/{gender}/{size}', 'ArticleController@filterSizeProduct');
+   /*tags*/
+   Route::post('storeTag', 'tagController@store');
+   Route::get('getAllTags', 'tagController@index');
+   Route::delete('deleteTag/{id}','tagController@deleteTag');
    /**/
 
    /*OFFER*/

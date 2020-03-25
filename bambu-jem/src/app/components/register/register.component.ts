@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
   public ArrayCant: Cant[];
   public ArrayDist: District[];
   public fileBlob;
+  public btnSuccessBool = false;
+  public registerBool = false;
 
 
   constructor(
@@ -147,6 +149,14 @@ export class RegisterComponent implements OnInit {
   togledBtn() {
     this.id = this.route.snapshot.params['id'];
     this.router.navigate(['Home/', this.id]);
+  }
+
+  changeBtn() {
+    this.registerBool = true;
+  }
+
+  ckeckTerms(event: any) {
+    this.btnSuccessBool = event.target.checked;
   }
 
   Onsubmit(form) {

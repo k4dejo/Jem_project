@@ -54,6 +54,7 @@ import { EditClientComponent } from './components/edit-client/edit-client.compon
 import { OrdersComponent } from './adminlayout/orders/orders.component';
 import { HistoryComponent } from './components/history/history.component';
 import { GetransactionComponent } from './components/getransaction/getransaction.component';
+import { TagComponent } from './adminlayout/tag/tag.component';
 
 
 
@@ -101,7 +102,8 @@ import { GetransactionComponent } from './components/getransaction/getransaction
     EditClientComponent,
     OrdersComponent,
     HistoryComponent,
-    GetransactionComponent
+    GetransactionComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,

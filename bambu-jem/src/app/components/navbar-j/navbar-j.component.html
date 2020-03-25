@@ -24,13 +24,17 @@
         <div class="user-panel login">
           <div class="up-item labelLog">
             <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button">
-              <img [src]="clientPhoto" alt="user" class="profile-pic">
+              <img *ngIf="!imgBoolUser" [src]="clientPhoto" alt="user" class="profile-pic">
+              <img *ngIf="imgBoolUser" src="assets/Images/default.jpg" alt="user" class="profile-pic">
             </a>
             <div class="dropdown-menu">
               <ul class="dropdown-user">
                 <li>
                   <div class="dw-user-box">
-                    <div class="u-img"><img [src]="clientPhoto" alt="user"></div>
+                    <div class="u-img">
+                      <img *ngIf="!imgBoolUser" [src]="clientPhoto" alt="user">
+                      <img *ngIf="imgBoolUser" src="assets/Images/default.jpg" alt="user">
+                    </div>
                     <div class="u-text">
                       <h4>{{identity.name}}</h4>
                       <p class="text-muted">{{identity.phone}}</p>

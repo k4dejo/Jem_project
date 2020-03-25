@@ -271,12 +271,37 @@ class PurchaseController extends Controller
             $paramsArray = json_decode($json,true);
             //Hacer la relación del articulo con la compra con el atributo de cantidad y talla
             $purchase = purchase::findOrFail($params->purchase_id);
-            $purchase->articles()->
-            attach($params->article_id,['amount'=>$params->amount, 'size'=>$params->size]);
-
+            $arrayProductPurchase = purchase::find($params->purchase_id)->articles()->get();
+            $countGetProductPurchase = count($arrayProductPurchase);
+            for ($i=0; $i < $countGetProductPurchase ; $i++) {
+                if ($arrayProductPurchase[$i]->pivot->article_id != $params->article_id) {
+                    $purchase->articles()->
+                    attach($params->article_id,['amount'=>$params->amount, 'size'=>$params->size]);
+                    $data = array(
+                        'article' => $purchase,
+                        'status'  => 'success',
+                        'attach'  => $purchase->articles()->get(),
+                        'code'    => 200,
+                    );
+                    return response()->json($data, 200);
+                }
+                if ($arrayProductPurchase[$i]->pivot->article_id = $params->article_id) {
+                    $arrayProductPurchase[$i]->pivot->amount += $params->amount;
+                    $purchase->articles()
+                    ->updateExistingPivot($params->article_id,['amount' => $arrayProductPurchase[$i]->pivot->amount ]);
+                    $data = array(
+                        'article' => $purchase,
+                        'status'  => 'success',
+                        'attach'  => $purchase->articles()->get(),
+                        'code'    => 200,
+                    );
+                    return response()->json($data, 200);
+                }
+            }
             $data = array(
                 'article' => $purchase,
                 'status'  => 'success',
+                'attach'  => $purchase->articles()->get(),
                 'code'    => 200,
             );
             return response()->json($data, 200);

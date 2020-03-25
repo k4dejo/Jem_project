@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
 import { Article } from '../models/article';
+import { Tag } from '../models/tag';
 
 @Injectable()
 export class ArticleService {
@@ -18,6 +19,24 @@ export class ArticleService {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       .set('Authorization', token);
       return this._http.post(this.url + 'articles', params, { headers: headers });
+    }
+
+    addTag(token, tag: Tag): Observable<any> {
+      const json = JSON.stringify(tag);
+      const params = 'json=' + json;
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
+      return this._http.post(this.url + 'storeTag', params, { headers: headers });
+    }
+
+    getAllTag(): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getAllTags', { headers: headers });
+    }
+
+    deleteTag(id): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.delete(this.url + 'deleteTag/' + id, { headers: headers });
     }
 
     getProduct(): Observable<any> {

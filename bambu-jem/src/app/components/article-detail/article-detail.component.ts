@@ -93,7 +93,7 @@ export class ArticleDetailComponent implements OnInit {
     private _location: Location,
     private router: Router,
   ) {
-    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '');
+    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
     this.favorite = new Like('', '');
     this.productCart = new Purchase('', '', 0, 0, 0, '');
     this.attachPurchase = new AttachPurchase('', '', 0, '');
@@ -362,7 +362,7 @@ export class ArticleDetailComponent implements OnInit {
           this.productCart.price = this.product.priceMajor;
         }
       }*/
-      this.verifyPurchaseStatus(); 
+      this.verifyPurchaseStatus();
     } else {
       this.isClient = true;
       this.startTimerSucess();

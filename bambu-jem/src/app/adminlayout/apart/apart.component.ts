@@ -72,7 +72,7 @@ export class ApartComponent implements OnInit {
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '');
+    this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
     this.client = new Client('', '', '', '', '', '', '', '', null, 1);
     this.apartM = new Apart('', 0, '');
     this.attachApart = new AttachApart('', '', 0, '');

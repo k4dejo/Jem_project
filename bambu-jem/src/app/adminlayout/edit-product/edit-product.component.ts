@@ -174,6 +174,7 @@ public dtDepartmentB: string[] = [
         null,
         this.justString,
         this.justNumber,
+        this.justString,
         this.justString
       );
     }
@@ -423,6 +424,7 @@ public dtDepartmentB: string[] = [
         null,
         this.justString,
         this.justNumber,
+        this.justString,
         this.justString
       );
     editProducts.name        = this.product.name;

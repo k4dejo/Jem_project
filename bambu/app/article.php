@@ -16,7 +16,8 @@ class article extends Model
         'department',
         'weight',
         'photo',
-        'gender'
+        'gender',
+        'tags_id'
     ];
 
     //relations
@@ -54,5 +55,10 @@ class article extends Model
     public function sizes()
     {
         return $this->belongsToMany('App\size','article_size')->withPivot('stock');
+    }
+
+    public function tags()
+    {
+    	return $this->belongsTo('app/tag', 'tags_id');
     }
 }

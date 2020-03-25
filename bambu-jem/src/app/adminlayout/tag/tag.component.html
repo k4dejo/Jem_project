@@ -1,0 +1,37 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Marcas</h2>
+      </div>
+      <div class="card-body">
+        <form class="form-group" #addTag="ngForm" (submit)="saveTag(addTag)" novalidate>
+          <div class="input-group-desc">
+            <label for="">Nombre de marca</label>
+            <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="tag.name"
+              type="text" required>
+          </div><br>
+          <button type="submit" class="btn btn-success">
+            Guardar
+          </button>
+        </form>
+        <table class="table table-striped">
+          <thead>
+            <th scope="col">#</th>
+            <th scope="col">Nombre de Marca</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tag of tags">
+              <td>{{tag.id}}</td>
+              <td>{{tag.name}}</td>
+              <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
+                value="Eliminar"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

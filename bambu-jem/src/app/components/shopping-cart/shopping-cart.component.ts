@@ -251,6 +251,7 @@ export class ShoppingCartComponent implements OnInit {
       }
     }
     this.CalculateTotalPrice(this.productCount);
+    this.calculateWeight();
   }
 
   decQty(idProduct: any) {
@@ -266,9 +267,10 @@ export class ShoppingCartComponent implements OnInit {
       }
     }
     this.CalculateTotalPrice(this.productCount);
+    this.calculateWeight();
   }
 
-  shippingCalculate(weight: any, rate: any, additional: any) {
+  /*shippingCalculate(weight: any, rate: any, additional: any) {
     this.shipping = 0;
     if (this.productCount !== false) {
       if (weight <= 1 && weight > 0) {
@@ -280,6 +282,18 @@ export class ShoppingCartComponent implements OnInit {
       }
     } else {
       this.shipping = 0;
+    }
+    this.checkoutPurchase.price -= this.shipping;
+  }*/
+
+  shippingCalculate(weight: any, rate: any, additional: any) {
+    this.shipping = 0;
+    if (weight <= 1 && weight > 0) {
+      this.shipping += rate;
+    }
+    if (weight > 1) {
+      const weightAdditional = weight - 1;
+      this.shipping += rate + (weightAdditional * additional);
     }
     this.checkoutPurchase.price -= this.shipping;
   }

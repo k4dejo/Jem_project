@@ -22,6 +22,7 @@ export class NavbarJComponent implements OnInit {
   public client: Client;
   public clientPhoto;
   public menuOpen = false;
+  public imgBoolUser = false;
   public primaryColour = '#ffffff';
   public secondaryColour = '#ccc';
   public PrimaryRed = '#dd0031';
@@ -112,6 +113,11 @@ export class NavbarJComponent implements OnInit {
     this.clientService.getClientPhoto(idClient).subscribe(
       response => {
         this.clientPhoto = response.clientPhoto;
+        if (this.clientPhoto === 'assets/Images/default.jpg') {
+          this.imgBoolUser = true;
+        } else {
+          this.imgBoolUser = false;
+        }
         this.clientPhoto = 'data:image/jpeg;base64,' + this.clientPhoto;
       }, error => {
         console.log(<any> error);

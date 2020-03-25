@@ -11,7 +11,7 @@
             <div class="value">
               <div class="row row-space">
                 <div cla  ss="col-2">
-                  <div class="input-group-desc">
+                  <div class="input-group-desc nameMobile">
                     <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="firstName"
                       type="text" required>
                     <label class="label--desc">Primer Nombre</label>
@@ -33,6 +33,8 @@
               <div class="input-group-desc">
                 <input class="input--style-5" type="text" name="dni" #email="ngModel"
                 [(ngModel)]="client.dni" required placeholder="Ej:20xxx0xxx">
+                <label style="font-size: 10px;" class="label--desc">Este dato es necesiario y solamente utilizado para
+                  correos de Costa Rica.</label>
               </div>
             </div>
           </div>
@@ -144,8 +146,10 @@
             <div class="name">Dirección detallada</div>
             <div class="value">
               <div class="input-group-desc">
-                <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail"
+                <textarea class="input--style-5 textarea1" style="resize: vertical;" name="addresDetail" id="addresDetail"
                   cols="55" rows="2" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"></textarea>
+                  <textarea class="input--style-5 textarea2" style="resize: vertical;" name="addresDetail" id="addresDetail"
+                  cols="32" rows="2" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"></textarea>
               </div>
             </div>
           </div>
@@ -157,8 +161,13 @@
           <div class="alert alert-danger" role="alert" *ngIf="status == 'duplicate'">
             <p>El usuario ya existe.</p>
           </div><br>
+          <div class="checkboxs">
+            <span><a style="color: rgb(23, 65, 253); cursor: pointer;" data-toggle="modal"
+                data-target="#termsConditions">Al registrarse aceptará los términos y condiciones</a></span>
+          </div>
           <div>
-            <button class="btn btn--radius-2 btn--red" type="submit" (click)="Onsubmit(registerForm)">Register</button>
+            <button *ngIf="!registerBool" disabled class="btn btn--radius-2 btn--red" type="submit" (click)="Onsubmit(registerForm)">Register</button>
+            <button *ngIf="registerBool" class="btn btn--radius-2 btn--red" type="submit" (click)="Onsubmit(registerForm)">Registrar</button>
           </div>
         </form>
       </div>
@@ -276,6 +285,310 @@
               data-toggle="modal">Register</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="termsConditions" tabindex="-1" role="dialog" aria-labelledby="termsConditionsTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i class="fa fa-times close" data-dismiss="modal"></i>
+        <h5 style="margin-left: 17%; font-weight: bold; font-size: 25px;" class="modal-title"
+          id="terms&conditionsTitle">Términos y Condiciones de Uso</h5>
+      </div>
+      <div class="modal-body">
+        <div class="termStyle">
+          <p>
+            Por favor, tómese un tiempo para revisar estos Términos y Condiciones.
+          </p>
+          <p>
+            El uso de este sitio web y / o la compra de cualquier producto a través de este sitio web
+            constituye su aceptación de los siguientes Términos y condiciones.
+          </p>
+          <p>
+            Al acceder a modajem.com, usted declara y garantiza que ha leído,
+            comprendido y aceptado el cumplimiento de los siguientes términos y condiciones;
+            que tiene el derecho, la autoridad y la capacidad para cumplir con este acuerdo;
+            y que acepta cumplir con todas las leyes y regulaciones aplicables con respecto a su acceso y
+            uso del sitio web.
+          </p><br>
+          <h4 style="font-weight: bold;">CÓDIGOS DE DESCUENTO</h4>
+          <p>
+            Los códigos de descuento deben ser ingresados en la página en la sección de la bolsa de compras.
+          </p>
+          <h4 style="font-weight: bold;">POLÍTICA DE PRECIOS</h4>
+          <p>
+            Todos los precios están en colones costarricenses.
+            Nos reservamos el derecho de modificar los precios en cualquier momento.
+            Cualquier descuento será publicado por nosotros, y no por terceros.
+          </p>
+          <h4 style="font-weight: bold;">INVENTARIO</h4>
+          <p>
+            Mientras hacemos nuestro mejor esfuerzo,
+            ocasionalmente los artículos que se ordenan estarán fuera de stock.
+            Si esto sucede, se le notificará cuando se envíe el resto de su pedido y se le reembolsará el
+            (los) artículo (s) agotado (s).
+            No podemos garantizar el inventario.
+          </p>
+          <h4 style="font-weight: bold;">PRIVACIDAD Y SEGURIDAD</h4>
+          <p>
+            Nunca compartiremos su información personal.
+            Nuestro checkout se asegura utilizando el último SSL.
+            Cualquier información que nos proporcione solo será utilizada para completar su pedido.
+            Si tiene una cuenta con nosotros, toda su información está segura y no será compartida.
+          </p>
+          <h4 style="font-weight: bold;">POLITICA DE DEVOLUCION Y GARANTIA</h4>
+          <ul>
+            <li>
+              <p>
+                NO HACEMOS REEMBOLSOS. En caso de una devolución,
+                se dará un crédito por la MISMA cantidad que el artículo fue comprado, siempre y cuando el
+                artículo se encuentre en las mismas condiciones que fue recibido (en perfecto estado con etiquetas y
+                facturas).
+                El cambio se podrá realizar por cambio de talla o cambio de articulo si no quedara de la talla que
+                necesita.
+              </p>
+            </li>
+            <li>
+              <p>
+                No aplicaremos cambios a prendas que sean devueltas dañadas, usadas y/o sucias.
+              </p>
+            </li>
+            <li>
+              <p>
+                Los artículos deben ser devueltos dentro de los 7 días de la fecha de compra.
+              </p>
+            </li>
+            <li>
+              <p>
+                Todos los artículos deben estar sin usar y sin lavar,
+                con las etiquetas originales adjuntas.
+              </p>
+            </li>
+            <li>
+              <p>
+                NO SE ACEPTAN DEVOLUCIONES en todas las prendas íntimas,
+                trajes de baño, collares, cinturones,
+                accesorios para el cabello, mochilas, gafas, bolsos,
+              </p>
+            </li>
+            <li>
+              <p>
+                Usted es responsable del envío de devolución, y todos los gastos de envío no son reembolsables.
+              </p>
+            </li>
+            <li>
+              <p>
+                Productos en descuento o promoción no se cambian.
+              </p>
+            </li>
+            <li>
+              <p>
+                El tiempo que se otorga para devoluciones de compras en
+                línea es de un plazo máximo de 10 días posteriores a la compra,
+                tomando en cuenta el tiempo de transito del paquete.
+                La prenda debe estar en perfectas condiciones.
+                Los cambios los puede realizar directamente
+                <span style="font-weight:900;">por Correos de CR cubriendo todos los costos de envío</span>,
+                en el momento que se recibe la prenda a cambiar se le envía la prenda nueva.
+              </p>
+            </li>
+            <li>
+              <p>
+                Los apartados no se cambian.
+              </p>
+            </li>
+            <li>
+              <p>
+                Leer bien las instrucciones del lavado de la prenda.
+              </p>
+            </li>
+            <li>
+              <p>
+                La garantía no cubre en los siguientes casos:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Que han sido expuestas al desgaste por el roce del uso continuo.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Al exponer el producto a un peso excesivo.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Si se expone a objetos punzo cortantes como clavos o tijeras.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    A la exposición al agua, fango piedra o fuego.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Ropa en general:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Decoloraciones por cloro
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Desgaste entre las piernas por el roce
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Huecos en la prenda sin etiquetas,
+                    por lo que le recomendamos revisar bien la prenda antes de quitar las etiquetas.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Costuras abiertas que no sean por error de fábrica,
+                    por ejemplo que se vean expuestas a mucha presión cuando no se utiliza la talla adecuada.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <h4 style="font-weight: bold;">POLITICAS DE VENTA </h4>
+          <ul>
+            <li>
+              <p>
+                Vendemos al detalle y con descuento por volumen al comprar al menos 6 unidades,
+                estas pueden ser variadas y mezclar prendas de dama, caballero y niñ@.
+                Después de la primera compra con precio al por mayor,
+                puedes seguir comprando con el mismo descuento después de 3 piezas.
+              </p>
+            </li>
+            <li>
+              <p>
+                Usted podrá efectuar la compra mediante tarjeta de crédito o
+                débito únicamente en ventas al detalle,
+                si deseas aprovechar el descuento por la compra de más de 6 prendas el pago deberá ser
+                únicamente por deposito.
+                Una vez confirmados los fondos conforme cada medio de pago establecido nos
+                comprometemos a efectuar la entrega de su producto en las condiciones establecidas,
+                así como de la entrega de la factura correspondiente.
+              </p>
+            </li>
+            <li>
+              <p>
+                No se realizan reintegros de tarjeta de crédito y/o
+                débito en las compras una vez que la compra fue realizada en línea.
+                En caso de error de pago, se hace un reintegro por medio de una nota de crédito.
+                Si se hace un rebajo extra por parte de la entidad bancaria,
+                se debe contactar directamente al banco.
+              </p>
+            </li>
+            <li>
+              <p>
+                Los precios de nuestros productos están sujetos a cambios sin previo aviso.
+                Nos reservamos el derecho en cualquier momento de modificar o descontinuar el Servicio
+                (o cualquier parte o contenido del mismo) sin previo aviso en cualquier momento.
+              </p>
+            </li>
+            <li>
+              <p>
+                No seremos responsables ante el cliente o terceros por cualquier modificación,
+                cambio de precio,
+                suspensión o interrupción del Servicio.
+              </p>
+            </li>
+            <li>
+              <p>
+                El color y las imágenes de los productos pueden variar dependiendo de la tela
+                o tipo de material de las prendas. También puede que el fabricante tenga algún
+                cambio físico del producto ofertado sin que ello deba alterar la funcionalidad del mismo.
+              </p>
+              <p>
+                No podemos garantizar que la visualización del monitor de su computadora o celular de cualquier color
+                será exacta. Nos reservamos el derecho, pero no estamos obligados, a limitar las ventas de nuestros
+                productos o servicios a cualquier persona.
+                Nos reservamos el derecho de limitar las cantidades de cualquier producto o servicio que ofrecemos.
+              </p>
+              <p>
+                Todas las descripciones de los productos o precios de los productos están sujetas a
+                cambios en cualquier momento sin previo aviso, a discreción exclusiva de nosotros.
+                Nos reservamos el derecho de suspender cualquier producto en cualquier momento.
+                Cualquier oferta para cualquier producto o servicio realizado en este sitio es nula donde está
+                prohibido.
+              </p>
+            </li>
+            <li>
+              <p>
+                No garantizamos que la calidad de los productos, servicios,
+                información u otro material comprado u obtenido por el cliente cumpla con sus expectativas,
+                o que cualquier error en el Servicio será corregido
+              </p>
+            </li>
+            <li>
+              <p>
+                En el caso de pagos por transferencia bancaria contas con un tiempo máximo de
+                4 horas para mantener tu paquete guardado,
+                después de este tiempo si no ha sido cancelado automáticamente el
+                producto vuelve al inventario en línea.
+              </p>
+            </li>
+            <li>
+              <p>
+                Tienes 7 días hábiles para cancelar tus prendas del sistema de apartado.
+              </p>
+            </li>
+          </ul>
+          <h4 style="font-weight: bold;">POLITICAS DE ENVIO</h4>
+          <ul>
+            <li>
+              <p>
+                La entrega de los paquetes se coordina por medio de Correos de Costa Rica.
+                El precio del envío es de 2.510 colones el primer kilo,
+                el kilo adicional se cobra según la tarifa que indique Correos de Costa Rica.
+              </p>
+            </li>
+            <li>
+              <p>
+                El paquete se le enviará al cliente solamente si ya ha sido pagado el pedido,
+                en caso contrario se retendrá el paquete hasta el pago.
+              </p>
+            </li>
+            <li>
+              <p>
+                El plazo de entrega del paquete normalmente es de 24 a 48 horas a partir del pago
+                correspondiente (días hábiles).
+                Si se diera algún atraso se atribuiría a un imprevisto de parte de Correos de CR.
+              </p>
+            </li>
+            <li>
+              <p>
+                El cliente debe estar muy seguro
+                de su compra ya que no se pueden hacer cancelaciones de paquetes una vez efectuado el pago.
+              </p>
+            </li>
+            <li>
+              <p>
+                El paquete se te enviará solamente si has confirmado y pagado el pedido,
+                en caso contrario se retendrá el paquete hasta el pago.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="changeBtn()" type="button" data-dismiss="modal"
+        style="background-color: rgb(132, 238, 83);" class="btn btn--radius-2">¡Entendido!</button>
       </div>
     </div>
   </div>

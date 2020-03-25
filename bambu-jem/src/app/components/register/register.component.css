@@ -397,6 +397,7 @@ h6 {
   font-weight: 700;
   color: #fff;
   font-family: inherit;
+  margin-left: 32%;
 }
 
 .btn--radius {
@@ -791,3 +792,74 @@ input {
   padding-left: 20%;
 
 }
+
+/*==================================================================
+  #CHECKBOX
+===================================================================*/
+
+.checkboxs {
+  position: relative;
+  left: 21%;
+  margin-bottom: 5%
+}
+.checkboxs span {
+  position: absolute;
+  top: 30%;
+  left: 9%;
+}
+
+.checkbox
+{
+  position: absolute;
+  width: 13%;
+  top: 10%;
+  cursor: pointer;
+}
+
+.textarea2 {
+  display: none;
+}
+
+
+/*==================================================================
+  #TERMS
+===================================================================*/
+.termStyle {
+  padding: 11px 20px 13px;
+  text-align: justify;
+}
+
+.modal {
+  left: 151px;
+}
+
+
+@media (max-width: 767px) {
+
+  .nameMobile {
+    margin-left: -27%;
+  }
+
+  .modal {
+    left: 0;
+  }
+
+  .checkboxs{
+    position: relative;
+    left: 16%;
+    margin-bottom: 14%;
+  }
+
+  .textarea1 {
+    display: none;
+  }
+
+  .textarea2 {
+    display: initial;
+  }
+
+  .btn {
+    margin-left: 24%;
+  }
+}
+

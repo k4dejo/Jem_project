@@ -11,6 +11,7 @@ export class Article {
         public file: Blob,
         public size: string,
         public amount: number,
-        public gender: string
+        public gender: string,
+        public tag: string
     ) {}
 }

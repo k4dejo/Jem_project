@@ -128,6 +128,7 @@ export class MangArticleComponent implements OnInit {
   public subscribeTimer: any;
   public interval;
   public timeLeft = 5;
+  public tags: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -155,6 +156,7 @@ export class MangArticleComponent implements OnInit {
       null,
       this.justString,
       this.justNumber,
+      this.justString,
       this.justString
     );
     this.productViewU = new Article(
@@ -169,6 +171,7 @@ export class MangArticleComponent implements OnInit {
       null,
       this.justString,
       this.justNumber,
+      this.justString,
       this.justString
     );
   }
@@ -345,6 +348,12 @@ export class MangArticleComponent implements OnInit {
     }
   }
 
+  pushTag(dataTag: any) {
+    if (dataTag !== undefined) {
+      this.product.tag = dataTag.toString();
+    }
+  }
+
   saveProduct(form) {
     this.product.file = this.fileBlob;
     this.productRelation = [];
@@ -373,7 +382,7 @@ export class MangArticleComponent implements OnInit {
           );
           // vaciar formulario
           this.product = new Article('', '', '', this.justNumber, this.justNumber, this.justNumber,
-          this.justNumber , '', null, '', this.justNumber, '');
+          this.justNumber , '', null, '', this.justNumber, '', '');
           form.reset();
           this.fileBlob = 'assets/Images/default.jpg';
           this.getProductView();
@@ -472,6 +481,16 @@ export class MangArticleComponent implements OnInit {
     );
   }
 
+  getTags() {
+    this.productService.getAllTag().subscribe(
+      response => {
+        this.tags = response.tag;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
@@ -488,6 +507,7 @@ export class MangArticleComponent implements OnInit {
       );
       this.getGender();
       this.getProductView();
+      this.getTags();
       this.fileBlob = 'assets/Images/default.jpg';
     }
   }
