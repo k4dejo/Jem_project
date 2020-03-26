@@ -4,6 +4,7 @@ import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
+import { Tag } from '../../models/tag';
 import {Location} from '@angular/common';
 
 @Component({
@@ -27,6 +28,7 @@ export class ArticleComponent implements OnInit {
   public department: Departament[];
   public minPrice;
   public maxPrice;
+  public tags;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -155,6 +157,7 @@ export class ArticleComponent implements OnInit {
     this.ProductService.getConcreteProduct(department, gender).subscribe(
       response => {
         this.products = response.articles;
+        console.log(this.products);
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
@@ -280,8 +283,36 @@ export class ArticleComponent implements OnInit {
     );
   }
 
+  getTags() {
+    this.ProductService.getAllTag().subscribe(
+      response => {
+        this.tags = response.tag;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  toggleTag(tag: any) {
+    const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    this.ProductService.filterTagProduct(department, gender, tag).subscribe(
+      response => {
+        this.products = response.articles;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
     this.getGender();
+    this.getTags();
     this.shop_id = this.route.snapshot.params['shopId'];
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];

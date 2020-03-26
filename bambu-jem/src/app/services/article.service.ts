@@ -49,6 +49,12 @@ export class ArticleService {
       return this._http.get(this.url + 'getConcreteProduct/' + department + '/ ' + gender, {headers: headers});
     }
 
+    filterTagProduct(department, gender, tag): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'filterTagProduct/' + department + '/ ' + gender + '/' + tag,
+      {headers: headers});
+    }
+
     filterSizeProduct(department, gender, size): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'filterSizeProduct/' + department + '/ ' + gender + '/' + size,

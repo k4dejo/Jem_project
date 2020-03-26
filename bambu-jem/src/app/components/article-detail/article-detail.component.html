@@ -47,8 +47,7 @@
           </div>
           <div class="col-lg-6 product-details">
             <h2 class="p-title">{{product.name}}</h2>
-            <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}} <span class="p-stock"
-            style="color: grey">+ Envio gratis</span></h3>
+            <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}}</h3>
             <h4 *ngIf="offerBool" style="color: grey; font-weight: bold;"><del>₡ {{product.pricePublic | number: '3.'}}</del></h4>
             <!--<h3 *ngIf="offerBool" class="p-price">₡ {{offer.offer | number: '3.'}} <span class="p-stock"
             style="color: grey">+ Envio gratis</span></h3>

@@ -28,33 +28,7 @@
         </div>
 		<div class="row">
 				<div class="col-lg-3 order-2 order-lg-1">
-					<div class="filter-widget">
-						<h2 class="fw-title">Prendas</h2>
-						<ul class="category-menu">
-							<li class="active"><a>Ropa de {{genderView}}</a>
-								<ul class="sub-menu" *ngFor="let departs of department">
-									<li><a (click)="toggleDtp(departs.id)">{{departs.name}}</a></li>
-								</ul>
-							</li>
-						</ul>
-          </div>
-          <div class="dptForMobile" style="margin-top: 5%; padding-left: 12%; margin-bottom: 2%;">
-            <select (change)="toggleDtp($event.target.value)" id="mounth">
-              <option value="hide">-- Departamentos --</option>
-              <option *ngFor="let departs of department"  [value]="departs.id">
-                {{departs.name}}
-              </option>
-            </select>
-          </div>
-          <div class="filter-mobile" style="margin-top: 5%; padding-left: 12%;">
-            <input type="button"
-            style="background-color:rgb(255, 89, 227); margin-top: 2%; margin-right: 2%; color: rgb(253, 253, 253); font-weight: bold;"
-            value="filtros" data-toggle="modal" data-target="#filters" class="btn btn--pill">
-            <input (click)="cleanFilter()" type="button"
-            style="background-color:rgb(194, 89, 255); margin-top: 2%; color: rgb(253, 253, 253); font-weight: bold;"
-            value="Limpiar filtros" class="btn btn--pill">
-          </div>
-					<div class="filter-widget mb-0">
+          <div class="filter-widget mb-0">
             <h2 class="fw-title">Filtros</h2>
             <input (click)="cleanFilter()" type="button" style="background-color:rgb(194, 89, 255); color: rgb(253, 253, 253); font-weight: bold;"
             value="Limpiar filtros" class="btn btn--pill">
@@ -86,6 +60,16 @@
                   <label for="xxl-size">XXL</label>
                 </div>
               </div>
+            </div>
+
+            <div class="filter-widget mb-0">
+              <h2 class="fw-title">MARCAS</h2>
+              <select (change)="toggleTag($event.target.value)" id="mounth">
+                <option value="hide">-- Marcas --</option>
+                <option *ngFor="let tag of tags"  [value]="tag.id">
+                  {{tag.name}}
+                </option>
+              </select>
             </div>
 						<div class="price-range-wrap">
               <h4>Precio</h4>
@@ -120,6 +104,33 @@
 							</div>
             </div>
 					</div>
+					<div class="filter-widget">
+						<h2 class="fw-title">Prendas</h2>
+						<ul class="category-menu">
+							<li class="active"><a>Ropa de {{genderView}}</a>
+								<ul class="sub-menu" *ngFor="let departs of department">
+									<li><a (click)="toggleDtp(departs.id)">{{departs.name}}</a></li>
+								</ul>
+							</li>
+						</ul>
+          </div>
+          <div class="dptForMobile" style="margin-top: 5%; padding-left: 12%; margin-bottom: 2%;">
+            <select (change)="toggleDtp($event.target.value)" id="mounth">
+              <option value="hide">-- Departamentos --</option>
+              <option *ngFor="let departs of department"  [value]="departs.id">
+                {{departs.name}}
+              </option>
+            </select>
+          </div>
+          <div class="filter-mobile" style="margin-top: 5%; padding-left: 12%;">
+            <input type="button"
+            style="background-color:rgb(255, 89, 227); margin-top: 2%; margin-right: 2%; color: rgb(253, 253, 253); font-weight: bold;"
+            value="filtros" data-toggle="modal" data-target="#filters" class="btn btn--pill">
+            <input (click)="cleanFilter()" type="button"
+            style="background-color:rgb(194, 89, 255); margin-top: 2%; color: rgb(253, 253, 253); font-weight: bold;"
+            value="Limpiar filtros" class="btn btn--pill">
+          </div>
+
 				</div>
 			<div class="col-xl-9 col-lg-8 col-md-7 productContainer">
 				<!-- Start Filter Bar -->

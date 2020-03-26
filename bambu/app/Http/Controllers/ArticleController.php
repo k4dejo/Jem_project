@@ -114,6 +114,21 @@ class ArticleController extends Controller
         ), 200);
     }
 
+
+    public function filterTagProduct($department, $gender, $tag) {
+        $productConcrete = DB::table('articles')->where('gender', $gender)
+        ->where('department', $department)->where('tags_id', $tag)->get();
+        $productCount = count($productConcrete);
+        for ($i=0; $i < $productCount ; $i++) {
+            $contents = Storage::get($productConcrete[$i]->photo);
+            $productConcrete[$i]->photo = base64_encode($contents);
+        }
+        return response()->json(array(
+            'articles' => $productConcrete,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function getConcreteProduct($department, $gender) {
         $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->get();
@@ -182,7 +197,7 @@ class ArticleController extends Controller
             $article->weight       = $params->weight;
             $article->photo        = $imgName;
             $article->gender       = $params->gender;
-            $article->tags_id     = $params->tag;
+            $article->tags_id     = $params->tags_id;
 
             $article->save();
             $data = array(

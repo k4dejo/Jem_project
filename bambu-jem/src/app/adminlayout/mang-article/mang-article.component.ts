@@ -350,7 +350,7 @@ export class MangArticleComponent implements OnInit {
 
   pushTag(dataTag: any) {
     if (dataTag !== undefined) {
-      this.product.tag = dataTag.toString();
+      this.product.tags_id = dataTag.toString();
     }
   }
 

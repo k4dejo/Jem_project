@@ -304,7 +304,7 @@ span{
 =======================================================*/
 
 .filter-widget {
-	margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .filter-widget .fw-title {
@@ -312,7 +312,7 @@ span{
 	font-weight: 700;
 	color: #414141;
 	text-transform: uppercase;
-	margin-bottom: 45px;
+  margin-bottom: 6px;
 }
 
 .category-menu {

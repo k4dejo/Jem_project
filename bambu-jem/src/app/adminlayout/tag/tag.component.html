@@ -20,14 +20,11 @@
           <thead>
             <th scope="col">#</th>
             <th scope="col">Nombre de Marca</th>
-            <th></th>
           </thead>
           <tbody>
             <tr *ngFor="let tag of tags">
               <td>{{tag.id}}</td>
               <td>{{tag.name}}</td>
-              <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
-                value="Eliminar"></td>
             </tr>
           </tbody>
         </table>

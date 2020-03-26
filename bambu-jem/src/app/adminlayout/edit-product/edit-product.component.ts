@@ -148,6 +148,7 @@ public dtDepartmentB: string[] = [
   public token;
   public identity;
   public checkBool = false;
+  public tags: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -324,6 +325,7 @@ public dtDepartmentB: string[] = [
     this.productService.getProductU(this.id).subscribe(
       response => {
         this.product = response.articles;
+        console.log(this.product);
         const product_id = response.articles.id;
         this.getImageArray(product_id);
         this.product.photo = 'data:image/jpeg;base64,' + this.product.photo;
@@ -437,6 +439,7 @@ public dtDepartmentB: string[] = [
     editProducts.weight      = this.product.weight;
     editProducts.photo       = this.product.photo;
     editProducts.file        = this.fileBlob;
+    editProducts.tags_id     = this.product.tags_id;
     console.log(editProducts);
     this.productService.editProduct(this.token, this.id, editProducts).subscribe(
       response => {
@@ -446,6 +449,23 @@ public dtDepartmentB: string[] = [
         }
       },
       error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  pushTag(dataTag: any) {
+    if (dataTag !== undefined) {
+      this.product.tags_id = dataTag.toString();
+    }
+    console.log(this.product);
+  }
+
+  getTags() {
+    this.productService.getAllTag().subscribe(
+      response => {
+        this.tags = response.tag;
+      }, error => {
         console.log(<any> error);
       }
     );
@@ -470,8 +490,8 @@ public dtDepartmentB: string[] = [
       this.getProductServer();
       this.getAttachSize();
       this.getGender();
+      this.getTags();
     }
-
   }
 
 }
