@@ -230,7 +230,6 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.productCart.price = this.productCart.price - purchaseRes.priceMajor;
     }
-    console.log(this.productCart);
     this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
       response => {
         console.log(response);
@@ -406,6 +405,7 @@ export class ShoppingCartComponent implements OnInit {
   sendTicket() {
     this.ticketPurchase.ticket = this.fileBlob;
     this.ticketPurchase.purchase_id = this.productCart.id;
+    this.checkoutPurchase.shipping = this.shipping;
     this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
       response => {
         if (response.status === 'success') {

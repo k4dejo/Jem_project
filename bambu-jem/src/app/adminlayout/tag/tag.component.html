@@ -6,7 +6,7 @@
         <h2 class="title">Marcas</h2>
       </div>
       <div class="card-body">
-        <form class="form-group" #addTag="ngForm" (submit)="saveTag(addTag)" novalidate>
+        <form class="form-group" #addTag="ngForm" (submit)="saveTag(addTag)">
           <div class="input-group-desc">
             <label for="">Nombre de marca</label>
             <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="tag.name"

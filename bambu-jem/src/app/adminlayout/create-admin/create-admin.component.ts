@@ -41,10 +41,11 @@ export class CreateAdminComponent implements OnInit {
     if (this.identity.priority === 1) {
       this.newAdmin.priorityAdmin = true;
     }
-    console.log(this.newAdmin);
     this.adminService.createNewAdmin(this.token, this.newAdmin).subscribe(
       response => {
-        console.log(response);
+        if (response.status === 'success') {
+          this.getAdminList(); 
+        }
       }, error => {
         console.log(<any> error);
       }

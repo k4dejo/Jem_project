@@ -26,11 +26,9 @@ export class TagComponent implements OnInit {
       this.tag = new Tag ('');
     }
 
-  saveTag() {
-    console.log(this.tag.name);
+  saveTag(dataTag: any) {
     this.productService.addTag(this.token, this.tag).subscribe(
       response => {
-        console.log(response);
         this.getTags();
       }, error => {
         console.log(<any> error);

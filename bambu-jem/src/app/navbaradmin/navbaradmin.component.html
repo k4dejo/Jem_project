@@ -97,11 +97,11 @@
                 </div>
               </li>
               <li role="separator" class="divider"></li>
-              <li>
+              <li *ngIf="priorityBoolean">
                 <a href="admin/Configuración"><i class="fas fa-user-tie"></i> Mi perfil</a>
               </li>
               <li role="separator" class="divider"></li>
-              <li>
+              <li  *ngIf="priorityBoolean">
                 <a href="admin/mantenimiento_Usuarios">
                   <i class="fas fa-users-cog"></i> configuración de perfiles
                 </a>

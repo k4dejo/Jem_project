@@ -71,6 +71,7 @@ export class OrdersComponent implements OnInit {
         this.purchaseinfo.purchasePrice = response.purchasePrice;
         this.purchaseinfo.PurchaseShiping = response.PurchaseShiping;
         this.productList = response.purchase;
+        console.log(this.purchaseinfo.PurchaseShiping);
       }, error => {
         console.log(<any> error);
       }
