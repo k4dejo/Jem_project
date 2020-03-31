@@ -322,7 +322,7 @@ export class MangArticleComponent implements OnInit {
           console.log('Fuera de rango');
         break;
       }
-    } else { console.log('errosh'); }
+    } else { console.log('error'); }
   }
 
   fillDepartment(data = []) {
@@ -354,9 +354,17 @@ export class MangArticleComponent implements OnInit {
     }
   }
 
+  resetSelect() {
+    const resetSelect = document.getElementById('tagSelect').onreset;
+    console.log(resetSelect);
+  }
+
   saveProduct(form) {
     this.product.file = this.fileBlob;
     this.productRelation = [];
+    if (this.product.tags_id === undefined) {
+      this.product.tags_id = '0';
+    }
     this.productService.add( this.token, this.product).subscribe(
       response => {
         if (response.status === 'success') {

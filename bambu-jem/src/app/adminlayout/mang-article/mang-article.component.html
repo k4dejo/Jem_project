@@ -59,8 +59,9 @@
                   <div class="col-lg-12">
                     <label for="">Marcas</label><br>
                     <div class="selectWrapper">
-                      <select name="genderSelect" id="genderSelect" class="selectpicker"
-                      (change)="pushTag($event.target.value)">
+                      <select name="genderSelect" id="tagSelect" class="selectpicker"
+                      (change)="pushTag($event.target.value)" name="tags_id" #tags_id="ngModel"
+                      [ngModel]="product.tags_id">
                         <option disabled="disabled" selected="selected">-Seleccionar-</option>
                         <option *ngFor="let tag of tags" [value]="tag.id">
                           {{tag.name}}
@@ -72,7 +73,8 @@
                     <label for="">Género</label><br>
                     <div class="selectWrapper">
                       <select name="genderSelect" id="genderSelect" class="selectpicker"
-                      (change)="pushGender($event.target.value)">
+                      (change)="pushGender($event.target.value)" name="gender"
+                      #gender="ngModel" [ngModel]="product.gender">
                         <option disabled="disabled" selected="selected">-Seleccionar-</option>
                         <option *ngFor="let gen of gender" [value]="gen.id">
                           {{gen.name}}
@@ -84,7 +86,8 @@
                     <label for="">Departamento</label><br>
                     <div class="selectWrapper">
                       <select name="department" id="department"
-                      (change)="pushDepart($event.target.value)" class="custom-select">
+                      (change)="pushDepart($event.target.value)" class="custom-select"
+                      name="department" #department="ngModel" [ngModel]="product.department">
                       <option disabled="disabled" selected="selected">--Seleccionar--</option>
                       <option *ngFor="let dpt of department" [value]="dpt.id">
                         {{dpt.name}}
@@ -163,7 +166,6 @@
                 <button type="submit" class="btn btn-success" disabled="true">
                   Guardar
                 </button>
-                <button type="button" class="btn btn-primary" (click)="gotoPanel()">Volver</button>
               </div>
               <div *ngIf="addProduct.valid">
                 <button type="submit" class="btn btn-success">

@@ -197,7 +197,10 @@ class ArticleController extends Controller
             $article->weight       = $params->weight;
             $article->photo        = $imgName;
             $article->gender       = $params->gender;
-            $article->tags_id     = $params->tags_id;
+            if ($params->tags_id != 0) {
+                $article->tags_id     = $params->tags_id;
+            }
+
 
             $article->save();
             $data = array(
