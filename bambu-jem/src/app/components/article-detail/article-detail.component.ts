@@ -95,7 +95,7 @@ export class ArticleDetailComponent implements OnInit {
   ) {
     this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
     this.favorite = new Like('', '');
-    this.productCart = new Purchase('', '', 0, 0, 0, '');
+    this.productCart = new Purchase('', '', 0, 0, 0, '', '');
     this.attachPurchase = new AttachPurchase('', '', 0, '');
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();

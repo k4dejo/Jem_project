@@ -59,7 +59,7 @@ export class CheckoutComponent implements OnInit {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.sendCc = new CC('', 0, '', 0, 0);
-    this.PurchaseEdit = new Purchase('', '', 0, 0, 0, '');
+    this.PurchaseEdit = new Purchase('', '', 0, 0, 0, '', '');
     this.dataCredomatic = new Datacredomatic('', '', '', '', '', '', '', '', '', '', '');
     this.hashCredomatic = new Hash('', '', '', '');
   }

@@ -22,7 +22,9 @@ class CreatePurchasesTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('clients_id');
             $table->unsignedInteger('coupon_id');
+            $table->bigInteger('addresspurchases_id')->unsigned()->nullable();
 
+            $table->foreign('addresspurchases_id')->references('id')->on('address_purchases');
             $table->foreign('coupon_id')->references('id')->on('coupons');
             $table->foreign('clients_id')->references('id')->on('clients');
         });

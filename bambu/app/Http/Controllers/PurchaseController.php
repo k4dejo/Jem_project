@@ -135,6 +135,9 @@ class PurchaseController extends Controller
             $purchase->coupon_id = $params->coupon_id;
             $purchase->shipping = $params->shipping;
             $purchase->orderId  = \Str::random(20);
+            if ($params->addresspurchases_id != 0) {
+                $purchase->addresspurchases_id = $params->addresspurchases_id;
+            }
             $isset_purchase = DB::table('purchases')->where('clients_id', $params->clients_id)
             ->where('status', $params->status)->get();
             $countPurchase = count($isset_purchase);

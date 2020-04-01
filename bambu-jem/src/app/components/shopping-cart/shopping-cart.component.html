@@ -124,6 +124,12 @@
         <a *ngIf="!booleanCoupon" (click)="activeCoupon()" class="coupon-btn">Tienes un cupón?</a>
         <a *ngIf="booleanCoupon" (click)="activeCoupon()" class="coupon-btn">Ocultar</a>
       </div>
+      <a class="coupon-btn" data-toggle="modal"
+      data-target="#address">Agregar Dirección</a>
+      <div class="subtotal-area d-flex align-items-center justify-content-end">
+        <div class="title text-uppercase">Dirección </div>
+        <div class="subtotal">adjuntar direccion del cliente</div>
+      </div>
       <div class="subtotal-area d-flex align-items-center justify-content-end">
         <div class="title text-uppercase">Subtotal</div>
         <div class="subtotal">₡ {{ productCart.price | number: "3." }}</div>
@@ -152,6 +158,88 @@
 <footer>
   <app-footer></app-footer>
 </footer>
+<div class="modal fade" id="address" tabindex="-1" role="dialog" aria-labelledby="addressTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" style="width: 750px;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i class="fa fa-times close" data-dismiss="modal"></i>
+        <h5 style="margin-left: 22%; font-weight: bold; font-size: 25px;" class="modal-title"
+          id="terms&conditionsTitle">Información de Pago</h5>
+      </div>
+      <div class="modal-body" style="text-align: justify;">
+        <div style="font-size: 110%; font-weight: bold;">
+          <p>Puedes añadir una dirección de envío diferente a la original si deseas.
+          </p>
+          <form action="">
+            <div class="name">Dirección</div>
+            <div class="form-row">
+              <div class="value">
+                <div class="row row-refine">
+                  <div class="col-3">
+                    <div class="col-md-3">
+                      <div class="input-group select-dropdown">
+                        <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                        (click)="getCant(Province)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                            {{province.name}}
+                          </option>
+                        </select>
+                        <label class="label--desc">Provincia</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="col-md-3">
+                      <div class="input-group select-dropdown">
+                        <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
+                        (click)="getDist(Province, Cant)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                            {{cant.name}}
+                          </option>
+                        </select>
+                        <label class="label--desc">Cantón</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="input-group">
+                      <div class="input-group select-dropdown">
+                        <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
+                        (click)="pushAddress(Province, Cant, District)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                            {{dist.name}}
+                          </option>
+                        </select>
+                        <label class="label--desc">Distrito</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row m-b-55">
+              <div class="name">Dirección detallada</div>
+              <div class="value">
+                <div class="input-group-desc">
+                  <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail"
+                    cols="55" rows="2" name="addresDetail" #addresDetail="ngModel"
+                    [(ngModel)]="addressPurchase.addressDetail">
+                  </textarea>
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <a style="padding: 10px 61px 5px; margin-left: 248px;" (click)="addAddress()" class="checkout-btn">Agregar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="modal fade" id="alertPayment" tabindex="-1" role="dialog" aria-labelledby="alertPaymentTitle"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -168,7 +256,7 @@
           </p>
           <p>Para realizar el pago de la orden contacta con soporte
             <a style="color: rgb(134, 223, 45); text-decoration: none;" href="https://wa.me/50683364867?" target="_blank"> Aquí
-          </a> para tener en número de cuenta, una vez depositado
+          </a> para obtener en número de cuenta, una vez depositado
             solo tienes que adjuntar una fotografía o imagen del comprobante de pago
           </p>
           <p>Después de dar click en "enviar Documento" nuestro equipo verificará y enviará su pedido</p>

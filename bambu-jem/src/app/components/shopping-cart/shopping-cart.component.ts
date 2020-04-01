@@ -6,16 +6,21 @@ import { ArticleService } from '../../services/article.service';
 import { PurchaseService } from '../../services/purchase.service';
 import { CouponService } from '../../services/coupon.service';
 import { OfferService } from '../../services/offer.service';
+import { AddresServices } from '../../services/addres.service';
 import { Coupon } from '../../models/coupon';
 import { Ticket } from '../../models/ticketPurchase';
 import { Article } from '../../models/article';
 import { Purchase } from '../../models/purchase';
 import { DettachPurchase } from '../../models/dettachPurchase';
+import { AddresPurchases } from '../../models/addressPurchase';
 import { from } from 'rxjs';
+import { Province } from '../../models/province';
+import { Cant } from '../../models/cant';
+import { District } from '../../models/district';
 
 @Component({
   selector: 'app-shopping-cart',
-  providers: [ArticleService, PurchaseService, UserServices, CouponService],
+  providers: [ArticleService, PurchaseService, UserServices, CouponService, AddresServices],
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
@@ -76,20 +81,142 @@ export class ShoppingCartComponent implements OnInit {
   public imgtest: any;
   public nameticket;
   public boolTicket = false;
+  public PronviJson: string[] = [];
+  public CantJson: string[] = [];
+  public DistJson: string[] = [];
+  public ArrayProvin: Province[];
+  public ArrayCant: Cant[];
+  public ArrayDist: District[];
+  public addressPurchase: AddresPurchases;
+  public Province;
+  public Cant;
+  public District;
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
     private offerService: OfferService,
     private couponService: CouponService,
     private clientService: UserServices,
+    private province: AddresServices,
     private router: Router ) {
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
     this.dettachPurchaseP = new DettachPurchase('', '');
-    this.checkoutPurchase = new Purchase('', '', 0, 0, 0, '');
-    this.productCart = new Purchase('', '', 0, 0, 0, '');
+    this.checkoutPurchase = new Purchase('', '', 0, 0, 0, '', '');
+    this.productCart = new Purchase('', '', 0, 0, 0, '', '');
     this.ticketPurchase = new Ticket(null, '');
+    this.addressPurchase = new AddresPurchases('', '', '');
   }
+
+  // ======================addressPurchase==============================
+  getProvin() {
+    let idProvin: number;
+    this.ArrayProvin = [];
+    for (let i = 0; i < this.PronviJson.length; ++i) {
+      idProvin = i + 1;
+      this.ArrayProvin.push(new Province(idProvin.toString(), this.PronviJson[i]));
+    }
+  }
+
+  getInfoProvin() {
+    this.province.getProvinceJson().subscribe(
+      response => {
+        // tslint:disable-next-line:forin
+        for (const key in response) {
+         this.PronviJson.push(response[key]);
+        }
+        this.getProvin();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getCant(any) {
+    if (any !== undefined) {
+      this.CantJson = [];
+      this.province.getCanJson(any).subscribe(
+        response => {
+          // tslint:disable-next-line:forin
+          for (const key in response) {
+           this.CantJson.push(response[key]);
+          }
+          let idCant: number;
+          this.ArrayCant = [];
+          for (let i = 0; i < this.CantJson.length; ++i) {
+            idCant = i + 1;
+            this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
+          }
+
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  getDist(direcPro, direCan) {
+    if (direCan !== undefined) {
+      this.DistJson = [];
+      this.province.getDistJson(direcPro, direCan).subscribe(
+        response => {
+          // tslint:disable-next-line:forin
+          for (const key in response) {
+           this.DistJson.push(response[key]);
+          }
+          let idDist: number;
+          this.ArrayDist = [];
+          for (let i = 0; i < this.DistJson.length; ++i) {
+            idDist = i + 1;
+            this.ArrayDist.push(new District(idDist.toString(), this.DistJson[i]));
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  pushAddress(idProvin, idCant, idDist) {
+    if (idCant !== undefined && idDist !== undefined) {
+      let idReal:  number;
+      for (let i = 0; i < this.PronviJson.length; ++i) {
+        idReal = i + 1;
+        if (idReal.toString() === idProvin) {
+           this.addressPurchase.address = this.PronviJson[i];
+         }
+      }
+      for (let i = 0; i < this.CantJson.length; ++i) {
+       idReal = i + 1;
+       if (idReal.toString() === idCant) {
+         this.addressPurchase.address = this.addressPurchase.address + ', ' + this.CantJson[i];
+       }
+      }
+      for (let i = 0; i < this.DistJson.length; ++i) {
+       idReal = i + 1;
+       if (idReal.toString() === idDist) {
+         this.addressPurchase.address = this.addressPurchase.address + ', ' + this.DistJson[i];
+       }
+      }
+    }
+  }
+
+  addAddress() {
+    this.province.storeAddress(this.token, this.addressPurchase).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.checkoutPurchase.addresspurchases_id = response.AddressPurchase.id;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+
+  }
+  // ====================================================================
 
   getPurchases() {
     this.loading = true;
@@ -445,6 +572,7 @@ export class ShoppingCartComponent implements OnInit {
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.splite = this.identity.address.split(',');
     this.getPurchases();
+    this.getInfoProvin();
     this.viewAddress(this.splite[0] , this.splite[1]);
     if (this.shop_id === 'J') {
         this.shop_bool = true;

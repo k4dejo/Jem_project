@@ -12,7 +12,8 @@ class purchase extends Model
         'client_id',
         'price',
         'status',
-        'orderId'
+        'orderId',
+        'addresspurchases_id'
     ];
 
     public function client()
@@ -31,5 +32,10 @@ class purchase extends Model
     public function articles()
     {
         return $this->belongsToMany('App\article')->withPivot('size', 'amount');;
+    }
+
+    public function address()
+    {
+    	return $this->hasOne('app/address', 'addresspurchases_id');
     }
 }

@@ -130,6 +130,11 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('filterTagProduct/{department}/{gender}/{tag}', 'ArticleController@filterTagProduct');
    /**/
 
+   /*ADDRESS*/
+   Route::post('storeAddress', 'addressController@store');
+   Route::delete('deleteAddress/{id}','addressController@deleteAddress');
+   /**/
+
    /*OFFER*/
    Route::resource('offer', 'offerController');
    Route::get('getOfferProduct/{id}', 'offerController@validateOffer');

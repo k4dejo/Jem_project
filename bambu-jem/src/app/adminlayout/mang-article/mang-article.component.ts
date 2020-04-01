@@ -354,11 +354,6 @@ export class MangArticleComponent implements OnInit {
     }
   }
 
-  resetSelect() {
-    const resetSelect = document.getElementById('tagSelect').onreset;
-    console.log(resetSelect);
-  }
-
   saveProduct(form) {
     this.product.file = this.fileBlob;
     this.productRelation = [];
@@ -392,6 +387,9 @@ export class MangArticleComponent implements OnInit {
           this.product = new Article('', '', '', this.justNumber, this.justNumber, this.justNumber,
           this.justNumber , '', null, '', this.justNumber, '', '');
           form.reset();
+          this.gender = [];
+          this.department = [];
+          this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
           this.getProductView();
         } else {
