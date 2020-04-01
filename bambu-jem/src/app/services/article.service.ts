@@ -72,6 +72,11 @@ export class ArticleService {
       return this._http.get(this.url + 'getproductGender/' + gender, {headers: headers});
     }
 
+    showPhotoProduct(idProduct): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'showPhotoProduct/' + idProduct, {headers: headers});
+    }
+
     editProduct(token, id, product): Observable<any> {
       const json = JSON.stringify(product);
       const params = 'json=' + json;

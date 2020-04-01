@@ -177,6 +177,7 @@
       </div>
     </div>
   </div>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
   <div class="wrapper wrapper--w1150">
     <div class="card card-5">
       <div class="card-heading">
@@ -206,10 +207,10 @@
               <tr
                 *ngFor="let product of productView  | filter: searchProduct | paginate: { itemsPerPage: 10, currentPage: p }">
                 <td>
-                  <img class="img-responsive" [src]="product.photo" alt="">
+                  <!--<img class="img-responsive" [src]="product.photo" alt="">-->
                 </td>
                 <td>
-                  {{product.name}}
+                  <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModal">{{product.name}}</a>
                 </td>
                 <td>
                   {{product.detail}}
@@ -251,4 +252,9 @@
       </div>
     </div>
   </div>
+</div>
+<div id="myModal" class="modal">
+  <span class="close" data-dismiss="modal">&times;</span>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
+  <img class="modal-content" [src]="viewPhoto" id="img01">
 </div>

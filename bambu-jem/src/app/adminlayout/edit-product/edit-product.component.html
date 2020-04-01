@@ -63,7 +63,7 @@
                           -Seleccionar-
                         </option>
                         <option *ngFor="let gen of gender" [value]="gen.id">
-                          {{ gen.name }}
+                          #{{gen.id}} {{ gen.name }}
                         </option>
                       </select>
                     </div>
@@ -75,7 +75,7 @@
                       (change)="pushDepart($event.target.value)" class="custom-select">
                       <option disabled="disabled" selected="selected">--Seleccionar--</option>
                       <option *ngFor="let dpt of department" [value]="dpt.id">
-                        {{dpt.name}}
+                        #{{dpt.id}} {{dpt.name}}
                       </option>
                     </select>
                     </div>

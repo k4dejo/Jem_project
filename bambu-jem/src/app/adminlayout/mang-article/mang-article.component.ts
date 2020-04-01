@@ -11,6 +11,7 @@ import { AmounTotal } from '../../models/amounTotal';
 import { Image } from '../../models/image';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 
 @Component({
@@ -24,6 +25,18 @@ export class MangArticleComponent implements OnInit {
   public product: Article;
   public p = 1;
   public searchProduct;
+  public loading = false;
+  public primaryColour = '#ffffff';
+  public secondaryColour = '#ccc';
+  public PrimaryRed = '#dd0031';
+  public SecondaryBlue = '#006ddd';
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  public config = { animationType: ngxLoadingAnimationTypes.none,
+    primaryColour: this.primaryColour,
+    secondaryColour: this.secondaryColour,
+    tertiaryColour: this.primaryColour,
+    backdropBorderRadius: '3px'
+  };
   public size: Size;
   public images: Image;
   public attachSizeProduct: Attachsize;
@@ -32,10 +45,10 @@ export class MangArticleComponent implements OnInit {
   public productViewU: Article;
   public productRelation: Attachsize[] = [];
   public department: Departament[];
-  public dtDepartmentM: string[] = ['Levis de hombre',
+  public dtDepartmentM: string[] = [
     'Pantalones',
     'Jeans',
-    'Camisa',
+    'Camisas',
     'Short',
     'Camisetas',
     'Abrigos',
@@ -43,7 +56,7 @@ export class MangArticleComponent implements OnInit {
     'Gorras',
     'Zapatos'
   ];
-  public dtDepartmentW: string[] = [
+  /*public dtDepartmentW: string[] = [
     'Blusas',
     'Short',
     'Enaguas',
@@ -81,7 +94,27 @@ export class MangArticleComponent implements OnInit {
     'Plus Pijamas y Lencería',
     'Anteojos',
     'Billeteras o carteras'
-  ];
+  ];*/
+  public dtDepartmentW: string[] = [
+    'Blusas',
+    'Shorts',
+    'Enaguas',
+    'Conjuntos',
+    'Pantalones de tela',
+    'Jeans',
+    'Ropa Interior y Lencería',
+    'Vestidos de baño',
+    'Salidas de playa',
+    'Abrigos y sacos',
+    'Pijamas',
+    'Accesorios',
+    'Camisetas',
+    'Enterizos',
+    'Sueters',
+    'Joyería ',
+    'Vestidos',
+    'Zapatos'
+   ];
   public dtDepartmentG: string[] = [
     'Mamelucos',
     'Accesorios',
@@ -129,6 +162,7 @@ export class MangArticleComponent implements OnInit {
   public interval;
   public timeLeft = 5;
   public tags: any;
+  public viewPhoto;
 
   constructor(
     private route: ActivatedRoute,
@@ -427,6 +461,7 @@ export class MangArticleComponent implements OnInit {
   }
 
   getProductView() {
+    this.loading = true;
     this.productService.getProduct().subscribe(
       response => {
         if (response.status === 'success') {
@@ -434,8 +469,8 @@ export class MangArticleComponent implements OnInit {
           this.statusBool = true;
           for (let i = 0; i < this.productView.length; ++i) {
             // agrego formato a la imagen.
-            this.productView[i].photo = 'data:image/jpeg;base64,' + this.productView[i].photo;
-            const photoView = this.productView[i].photo;
+            /* this.productView[i].photo = 'data:image/jpeg;base64,' + this.productView[i].photo;
+            const photoView = this.productView[i].photo;*/
             this.getDepartmentView(this.productView[i].gender.toString());
             for (let index = 0; index < this.gender.length; index++) {
               if (this.productView[i].gender.toString() === this.gender[index].id) {
@@ -448,6 +483,7 @@ export class MangArticleComponent implements OnInit {
               }
             }
           }
+          this.loading = false;
         } else {
           this.productView = response.articles;
           this.statusBool = false;
@@ -491,6 +527,20 @@ export class MangArticleComponent implements OnInit {
     this.productService.getAllTag().subscribe(
       response => {
         this.tags = response.tag;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  over(idProduct: any) {
+    this.loading = true;
+    this.productService.showPhotoProduct(idProduct).subscribe(
+      response => {
+        console.log(response);
+        this.loading = false;
+        this.viewPhoto = response.productPhoto;
+        this.viewPhoto = 'data:image/jpeg;base64,' + this.viewPhoto;
       }, error => {
         console.log(<any> error);
       }

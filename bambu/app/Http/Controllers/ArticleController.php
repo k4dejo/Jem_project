@@ -13,7 +13,7 @@ use App\size;
 class ArticleController extends Controller
 {
 
-    public function index(Request $request)
+    /*public function index(Request $request)
     {
        //listado de los articulos
         $articles = article::all();
@@ -35,6 +35,26 @@ class ArticleController extends Controller
         }
         return response()->json(array(
             'articles' => $articles,
+            'status'   => 'success'
+        ), 200);
+    }*/
+
+    public function index(Request $request)
+    {
+       //listado de los articulos
+        $articles = article::all();
+        return response()->json(array(
+            'articles' => $articles,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function showPhotoProduct($id) {
+        $articles = article::find($id);
+        $contents = Storage::get($articles->photo);
+        $articles->photo = base64_encode($contents);
+        return response()->json(array(
+            'productPhoto' => $articles->photo,
             'status'   => 'success'
         ), 200);
     }
