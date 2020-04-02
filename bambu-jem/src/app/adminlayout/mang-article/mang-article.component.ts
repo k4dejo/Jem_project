@@ -110,6 +110,7 @@ export class MangArticleComponent implements OnInit {
     'Accesorios',
     'Camisetas',
     'Enterizos',
+    'Overol',
     'Sueters',
     'Joyería ',
     'Vestidos',
@@ -124,6 +125,8 @@ export class MangArticleComponent implements OnInit {
     'Enaguas',
     'Conjuntos',
     'Vestidos',
+    'Overol',
+    'Enterizos',
     'Pijamas'
   ];
   public dtDepartmentB: string[] = [

@@ -46,6 +46,19 @@ export class TagComponent implements OnInit {
     );
   }
 
+  deleteTag(idTag: any) {
+    console.log(idTag);
+    this.productService.deleteTag(idTag).subscribe(
+      response => {
+        if (response.status === 'Delete success') {
+          this.getTags();
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);

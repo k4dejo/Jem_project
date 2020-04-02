@@ -69,44 +69,26 @@ export class EditProductComponent implements OnInit {
 ];
 public dtDepartmentW: string[] = [
   'Blusas',
-  'Short',
+  'Shorts',
   'Enaguas',
-  'Pantalon tela',
-  'Pantalon de mezclilla',
-  'Levis de dama',
+  'Conjuntos',
+  'Pantalones de tela',
+  'Jeans',
+  'Ropa Interior y Lencería',
   'Vestidos de baño',
   'Salidas de playa',
   'Abrigos y sacos',
-  'Conjuntos',
+  'Pijamas',
+  'Accesorios',
   'Camisetas',
   'Enterizos',
-  'Vestidos',
-  'Ropa interior',
-  'Marca Tommy Hilfiger',
-  'Marca Aeropostale',
-  'Marca American Eagle',
-  'Marca Converse',
-  'Marca U.S Polo',
-  'Marca Náutica',
-  'Marca Vans',
-  'Marca Levis',
-  'Marca H y M',
+  'Overol',
   'Sueters',
-  'Zapatos',
-  'Joyería',
-  'Bolsos',
-  'Fajas',
-  'Pijamas',
-  'Lencería',
-  'Gorras',
-  'Accesorios de Cabello',
-  'Plus Blusas',
-  'Plus Vestidos de baño',
-  'Plus Pijamas y Lencería',
-  'Anteojos',
-  'Billeteras o carteras'
-];
-public dtDepartmentG: string[] = [
+  'Joyería ',
+  'Vestidos',
+  'Zapatos'
+ ];
+ public dtDepartmentG: string[] = [
   'Mamelucos',
   'Accesorios',
   'Blusas',
@@ -115,6 +97,8 @@ public dtDepartmentG: string[] = [
   'Enaguas',
   'Conjuntos',
   'Vestidos',
+  'Overol',
+  'Enterizos',
   'Pijamas'
 ];
 public dtDepartmentB: string[] = [
