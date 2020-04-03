@@ -22,6 +22,7 @@ export class EditProductComponent implements OnInit {
   public product: Article;
   public size: Size;
   public img: Image;
+  public loading = false;
   public attachSizeProduct: Attachsize;
   public attachNewProduct: Attachsize;
   public attachSizeArray: Array<Attachsize>;
@@ -373,8 +374,10 @@ public dtDepartmentB: string[] = [
   }
 
   getAttachSize() {
+    this.loading = true;
     this.sizeService.getSizeE(this.id).subscribe(
       response => {
+        this.loading = false;
         this.productViewU = response.products;
         this.attachSizeProduct = response;
         this.viewRelation = this.productViewU[0].sizes;
@@ -385,10 +388,24 @@ public dtDepartmentB: string[] = [
     );
   }
 
+  updateRelationSizeProduct(relation: any) {
+    for (let index = 0; index < this.viewRelation.length; index++) {
+      if (relation.size === this.viewRelation[index].size) {
+        this.viewRelation[index].pivot.stock = relation.pivot.stock;
+      }
+    }
+    this.sizeService.updateSizeAmountProduct(this.token, this.id, relation).subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   deleteRelation(array) {
     this.sizeService.detachRelation(array.pivot).subscribe(
       response => {
-        console.log(response);
         this.getAttachSize();
       },
       error => {

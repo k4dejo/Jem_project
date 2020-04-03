@@ -120,9 +120,9 @@
               </div>
             </div>
           </div>
+          <div *ngIf="loading" class="loading">Loading&#8230;</div>
           <div class="row">
             <div class="col-md-3 navbar-right">
-              <button type="button" class="btn btn-primary">Volver</button>
               <button type="submit" class="btn btn-success">Guardar</button>
             </div>
           </div>
@@ -160,6 +160,7 @@
             <tr>
               <th scope="col">Talla</th>
               <th scope="col">Cantidad</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -168,9 +169,13 @@
                 {{ relationship.size }}
               </td>
               <td style="font-weight: bold;">
-                {{ relationship.pivot.stock }}
+                <input type="number" name="amount" #amount="ngModel"
+                [(ngModel)]="relationship.pivot.stock"/>
               </td>
               <td>
+                <button type="button" (click)="updateRelationSizeProduct(relationship)" class="btn btn-success">
+                   Actualizar
+                </button>
                 <button type="button" (click)="deleteRelation(relationship)" class="btn btn-danger">
                   <i class="far fa-trash-alt"></i> Eliminar
                 </button>

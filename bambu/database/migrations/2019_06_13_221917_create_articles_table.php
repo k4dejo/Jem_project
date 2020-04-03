@@ -25,7 +25,7 @@ class CreateArticlesTable extends Migration
             $table->decimal('weight');
             $table->string('photo'); //extension .jpg .png ..etc
             $table->boolean('gender');
-            $table->bigInteger('tags_id')->unsigned()->nullable();
+            $table->bigInteger('tags_id')->unsigned()->nullable()->onDelete('cascade');
 
             $table->foreign('tags_id')->references('id')->on('tags');
 

@@ -65,6 +65,34 @@ class sizeController extends Controller
         }
     }
 
+    public function changeAmountProduct($idProduct, Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $arrayProduct = article::find($idProduct)->sizes()->get();
+            $countGetProduct = count($arrayProduct);
+            $product = article::find($idProduct);
+            $product->sizes()->updateExistingPivot($params->id,['stock' => $params->pivot->stock ]);
+            $data = array(
+                'article' => $product,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        }else {
+            $data = array(
+                'mgs' => 'token invalido',
+                'status'  => 'fail',
+                'code'    => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
     public function Attachsize(Request $request) {
        // recoger datos del POST
         $json =  $request->input('json', null);
@@ -88,10 +116,16 @@ class sizeController extends Controller
         for ($i=0; $i < $productCount ; $i++) {
             if ($article[$i]->id = $id) {
                 // obteniendo los tasks asociados al producto
-                foreach ($article[$i]->sizes as $size) {
-                    // obteniendo los datos de un task específico
-                    $sizeServe = $size->size;
-                    $amount = $size->pivot->stock;
+                $countSize = count($article[$i]->sizes);
+                if ($countSize != 0) {
+                    foreach ($article[$i]->sizes as $size) {
+                        // obteniendo los datos de un task específico
+                        $sizeServe = $size->size;
+                        $amount = $size->pivot->stock;
+                    }
+                } else {
+                    $sizeServe = null;
+                    $amount = 0;
                 }
                 // intentar traer el blob desde el controller
                 $contents = Storage::get($article[$i]->photo);
