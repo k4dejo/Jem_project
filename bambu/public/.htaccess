@@ -18,4 +18,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    #imagewebP
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_URI} .*(jpe?g|png|gif)$
+    RewriteCond %{REQUEST_FILENAME}\.webp -f
+    RewriteRule (.*) %{REQUEST_FILENAME}\.webp [T=image/webp,E=accept:1]
+
 </IfModule>

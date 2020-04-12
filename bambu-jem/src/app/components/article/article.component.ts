@@ -43,6 +43,27 @@ export class ArticleComponent implements OnInit {
   ];
   public dtDepartmentW: string[] = [
     'Blusas',
+    'Shorts',
+    'Enaguas',
+    'Conjuntos',
+    'Pantalones de tela',
+    'Jeans',
+    'Ropa Interior y Lencería',
+    'Vestidos de baño',
+    'Salidas de playa',
+    'Abrigos y sacos',
+    'Pijamas',
+    'Accesorios',
+    'Camisetas',
+    'Enterizos',
+    'Overol',
+    'Sueters',
+    'Joyería ',
+    'Vestidos',
+    'Zapatos'
+   ];
+  /*public dtDepartmentW: string[] = [
+    'Blusas',
     'Short',
     'Enaguas',
     'Pantalon tela',
@@ -79,7 +100,7 @@ export class ArticleComponent implements OnInit {
     'Plus Pijamas y Lencería',
     'Anteojos',
     'Billeteras o carteras'
-  ];
+  ];*/
   public dtDepartmentG: string[] = [
     'Mamelucos',
     'Accesorios',
@@ -89,6 +110,8 @@ export class ArticleComponent implements OnInit {
     'Enaguas',
     'Conjuntos',
     'Vestidos',
+    'Overol',
+    'Enterizos',
     'Pijamas'
   ];
   public dtDepartmentB: string[] = [

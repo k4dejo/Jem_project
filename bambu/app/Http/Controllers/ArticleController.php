@@ -202,6 +202,150 @@ class ArticleController extends Controller
             }
             //añadir verificacion de guardado del producto antes que la imagen
             $img =  $params->file;
+            $isWebP = explode(';', $img);
+            if ($isWebP[0] === "data:image/webp") {
+                $img = str_replace('data:image/webp;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+            } else {
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+            }
+            $imgName = time() . $params->photo;
+            $resized_image = Image::make(base64_decode($img))->resize(450, 400)->stream('jpg', 80);
+            Storage::disk('local')->put($imgName, $resized_image);
+            //guardar articulo
+            $article = new article();
+            $article->name         = $params->name;
+            $article->detail       = $params->detail;
+            $article->pricePublic  = $params->pricePublic;
+            $article->priceMajor   = $params->priceMajor;
+            $article->priceTuB     = $params->priceTuB;
+            $article->department   = $params->department;
+            $article->weight       = $params->weight;
+            $article->photo        = $imgName;
+            $article->gender       = $params->gender;
+            if ($params->tags_id != 0) {
+                $article->tags_id     = $params->tags_id;
+            }
+
+
+            $article->save();
+            $data = array(
+                'article' => $article ,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data, 200);
+    }
+
+    public function update($id, Request $request)
+    {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+
+        if ($checkToken) {
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+            //validacion
+            $validate = Validator::make($paramsArray, [
+                'name'        => 'required',
+                'detail'      => 'required',
+                'pricePublic' => 'required',
+                'priceMajor'  => 'required',
+                'priceTuB'    => 'required',
+                'department'  => 'required',
+                'weight'      => 'required',
+                'photo'       => 'required',
+                'gender'      => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+
+            $imgDB = article::where('id', $id)->first();
+            $lengthImg = strlen($params->photo);
+            if ($lengthImg <= 100) {
+                $img =  $params->file;
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                $imgName = time() . $params->photo;
+                $paramsArray['photo'] = $imgName;
+                unset($paramsArray['id']);
+                unset($paramsArray['created_at']);
+                unset($paramsArray['file']);
+                Storage::delete($imgDB->photo);
+                $resized_image = Image::make(base64_decode($img))->resize(450, 400)->stream('jpg', 80);
+                Storage::disk('local')->put($imgName, $resized_image);
+                $article = article::where('id', $id)->update($paramsArray);
+            }else {
+                $route = public_path().'\catalogo'.'\/';
+                $imgRoute = str_replace('/', '', $route);
+                $imgRoute = $imgRoute . $paramsArray['photo'];
+                Storage::delete($imgDB->photo);
+                $paramsArray['photo'] = time() .'.jpg';
+                $img = $paramsArray['file'];
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                unset($paramsArray['id']);
+                unset($paramsArray['created_at']);
+                unset($paramsArray['file']);
+                Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                $article = article::where('id', $id)->update($paramsArray);
+            }
+            // Actualizar datos del articulo
+            $data = array(
+                'article' => $paramsArray,
+                'status'  => 'success',
+                'code'    => 200
+            );
+        } else {
+            //Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+
+        return response()->json($data, 200);
+    }
+
+    /*public function store(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            //validacion
+            $validate = \Validator::make($paramsArray, [
+                'name'        => 'required',
+                'detail'      => 'required',
+                'pricePublic' => 'required',
+                'priceMajor'  => 'required',
+                'priceTuB'    => 'required',
+                'department'  => 'required',
+                'weight'      => 'required',
+                'photo'       => 'required',
+                'gender'      => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            //añadir verificacion de guardado del producto antes que la imagen
+            $img =  $params->file;
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $imgName = time() . $params->photo;
@@ -310,7 +454,7 @@ class ArticleController extends Controller
         }
 
         return response()->json($data, 200);
-    }
+    }*/
 
     public function destroy($id, Request $request){
 

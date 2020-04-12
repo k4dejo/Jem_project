@@ -21,6 +21,8 @@ export class GirlsComponent implements OnInit {
   public photoViewSueter = [];
   public photoViewConjunto = [];
   public photoViewVestido = [];
+  public photoViewOverol = [];
+  public photoViewEnterizo = [];
   public photoViewPijama = [];
   public photoViewShort = [];
 
@@ -73,6 +75,12 @@ export class GirlsComponent implements OnInit {
         this.photoViewVestido.push(photoDpt);
       break;
       case '9':
+        this.photoViewOverol.push(photoDpt);
+      break;
+      case '10':
+        this.photoViewEnterizo.push(photoDpt);
+      break;
+      case '11':
         this.photoViewPijama.push(photoDpt);
       break;
     }

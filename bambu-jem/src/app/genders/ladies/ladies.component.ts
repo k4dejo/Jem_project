@@ -14,44 +14,25 @@ export class LadiesComponent implements OnInit {
     public shop_bool = true;
     public routeProduct: string;
     public products: Array<Article>;
-    public photoViewPanMezclilla = [];
-    public photoViewLeviD = [];
     public photoViewBlu = [];
-    public photoViewEna = [];
-    public photoViewAbri = [];
-    public photoViewPanTela = [];
     public photoViewShort = [];
-    public photoViewAcc = [];
-    public photoViewBiq = [];
+    public photoViewEna = [];
+    public photoViewConjunto = [];
+    public photoViewPanTela = [];
+    public photoViewJean = [];
+    public photoViewInterior = [];
+    public photoViewVestidoBa = [];
     public photoViewPlaya = [];
+    public photoViewAbri = [];
+    public photoViewPijama = [];
+    public photoViewAcc = [];
     public photoViewCamiseta = [];
     public photoViewEnterizo = [];
-    public photoViewVestidos = [];
-    public photoViewInterior = [];
-    public photoViewConjunto = [];
-    public photoViewTommy = [];
-    public photoViewAero = [];
-    public photoViewAmerEagle = [];
-    public photoViewConverse = [];
-    public photoViewPolo = [];
-    public photoViewNau = [];
-    public photoViewvans = [];
-    public photoViewlevis = [];
-    public photoViewHyM = [];
-    public photoViewSueter = [];
-    public photoViewzapa = [];
+    public photoViewOverol = [];
+    public photoViewSueters = [];
     public photoViewjoye = [];
-    public photoViewbolso = [];
-    public photoViewFaja = [];
-    public photoViewPijama = [];
-    public photoViewLenceria = [];
-    public photoViewGorra = [];
-    public photoViewAccCabello = [];
-    public photoViewPlusBlusa = [];
-    public photoViewPlusVestidoBa = [];
-    public photoViewPlusPijamaLen = [];
-    public photoViewAnteojo = [];
-    public photoViewBilletera = [];
+    public photoViewVestidos = [];
+    public photoViewzapa = [];
 
     constructor(
         private ProductService: ArticleService,
@@ -64,12 +45,11 @@ export class LadiesComponent implements OnInit {
       const gender = 2;
       this.router.navigate([link, 'J', word, gender]);
     }
-
     getProductDepartment(productDpt, photoDpt) {
       switch (productDpt) {
         case '1':
           this.photoViewBlu.push(photoDpt);
-        break;
+          break;
         case '2':
           this.photoViewShort.push(photoDpt);
         break;
@@ -77,157 +57,58 @@ export class LadiesComponent implements OnInit {
           this.photoViewEna.push(photoDpt);
         break;
         case '4':
-            this.photoViewPanTela.push(photoDpt);
-        break;
-        case '5':
-          this.photoViewPanMezclilla.push(photoDpt);
-        break;
-        case '6':
-          this.photoViewLeviD.push(photoDpt);
-        break;
-        case '7':
-          this.photoViewBiq.push(photoDpt);
-        break;
-        case '8':
-          this.photoViewPlaya.push(photoDpt);
-        break;
-        case '9':
-          this.photoViewAbri.push(photoDpt);
-        break;
-        case '10':
           this.photoViewConjunto.push(photoDpt);
         break;
-        case '11':
-          this.photoViewCamiseta.push(photoDpt);
+        case '5':
+          this.photoViewPanTela.push(photoDpt);
         break;
-        case '12':
-          this.photoViewEnterizo.push(photoDpt);
+        case '6':
+          this.photoViewJean.push(photoDpt);
         break;
-        case '13':
-          this.photoViewVestidos.push(photoDpt);
-        break;
-        case '14':
+        case '7':
           this.photoViewInterior.push(photoDpt);
         break;
-        case '15':
-          this.photoViewTommy.push(photoDpt);
+        case '8':
+          this.photoViewVestidoBa.push(photoDpt);
         break;
-        case '16':
-          this.photoViewAero.push(photoDpt);
+        case '9':
+          this.photoViewPlaya.push(photoDpt);
         break;
-        case '17':
-          this.photoViewAmerEagle.push(photoDpt);
+        case '10':
+          this.photoViewAbri.push(photoDpt);
         break;
-        case '18':
-          this.photoViewConverse.push(photoDpt);
-        break;
-        case '19':
-          this.photoViewPolo.push(photoDpt);
-        break;
-        case '20':
-          this.photoViewNau.push(photoDpt);
-        break;
-        case '21':
-          this.photoViewvans.push(photoDpt);
-        break;
-        case '22':
-          this.photoViewlevis.push(photoDpt);
-        break;
-        case '23':
-          this.photoViewHyM.push(photoDpt);
-        break;
-        case '24':
-          this.photoViewSueter.push(photoDpt);
-        break;
-        case '25':
-          this.photoViewzapa.push(photoDpt);
-        break;
-        case '26':
-          this.photoViewjoye.push(photoDpt);
-        break;
-        case '27':
-          this.photoViewbolso.push(photoDpt);
-        break;
-        case '28':
-          this.photoViewFaja.push(photoDpt);
-        break;
-        case '29':
+        case '11':
           this.photoViewPijama.push(photoDpt);
         break;
-        case '30':
-          this.photoViewLenceria.push(photoDpt);
+        case '12':
+          this.photoViewAcc.push(photoDpt);
         break;
-        case '31':
-          this.photoViewGorra.push(photoDpt);
+        case '13':
+          this.photoViewCamiseta.push(photoDpt);
         break;
-        case '32':
-          this.photoViewAccCabello.push(photoDpt);
+        case '14':
+          this.photoViewEnterizo.push(photoDpt);
         break;
-        case '33':
-          this.photoViewPlusBlusa.push(photoDpt);
+        case '15':
+          this.photoViewOverol.push(photoDpt);
         break;
-        case '34':
-          this.photoViewPlusVestidoBa.push(photoDpt);
+        case '16':
+          this.photoViewSueters.push(photoDpt);
         break;
-        case '35':
-          this.photoViewPlusPijamaLen.push(photoDpt);
+        case '17':
+          this.photoViewjoye.push(photoDpt);
         break;
-        case '36':
-          this.photoViewAnteojo.push(photoDpt);
+        case '18':
+          this.photoViewVestidos.push(photoDpt);
         break;
-        case '37':
-          this.photoViewBilletera.push(photoDpt);
+        case '19':
+          this.photoViewzapa.push(photoDpt);
         break;
         default:
           console.log('Fuera de rango');
         break;
       }
-  }
-
-    /* getProductDepartment(productDpt, photoDpt) {
-        switch (productDpt) {
-          case '1':
-            this.photoViewBlu.push(photoDpt);
-          break;
-          case '2':
-            this.photoViewShort.push(photoDpt);
-          break;
-          case '3':
-            this.photoViewEna.push(photoDpt);
-          break;
-          case '4':
-              this.photoViewPanTela.push(photoDpt);
-          break;
-          case '5':
-            this.photoViewPanMezclilla.push(photoDpt);
-          break;
-          case '6':
-            this.photoViewLeviD.push(photoDpt);
-          break;
-          case '7':
-            this.photoViewPlaya.push(photoDpt);
-          break;
-          case '8':
-            this.photoViewAbri.push(photoDpt);
-          break;
-          case '9':
-            this.photoViewAcc.push(photoDpt);
-          break;
-          case '10':
-            this.photoViewCamiseta.push(photoDpt);
-          break;
-          case '11':
-            this.photoViewEnterizo.push(photoDpt);
-          break;
-          case '12':
-            this.photoViewVestidos.push(photoDpt);
-          break;
-          default:
-            console.log('Fuera de rango');
-          break;
-        }
-    }*/
-
+    }
 
     getProduct() {
         this.ProductService.getProductGender(2).subscribe(

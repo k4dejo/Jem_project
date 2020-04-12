@@ -3,7 +3,7 @@
   <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
 </header>
 <div id="main" class="main">
-  <div class="container-fluid">	
+  <div class="container-fluid">
     <div class="col-lg-12 catalogue">
       <div class="container">
         <h1>Damas</h1>
@@ -19,7 +19,7 @@
       <div class="col-lg-11 types">
         <div class="row">
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(1)">        
+            <a class="carruselHover" (click)="toggleBtn(1)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -45,7 +45,7 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(2)">            
+            <a class="carruselHover" (click)="toggleBtn(2)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -101,84 +101,6 @@
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
-                    <img [src]="photoViewPanTela[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pantalones Tela</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPanTela[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pantalones Tela</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPanTela[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pantalones Tela</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-          	<a class="carruselHover" (click)="toggleBtn(5)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewPanMezclilla[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pantalones Mezclilla</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPanMezclilla[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pantalones Mezclilla</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPanMezclilla[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pantalones Mezclilla</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-          	<a class="carruselHover" (click)="toggleBtn(5)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewLeviD[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Levis de dama</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewLeviD[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Levis de dama</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewLeviD[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Levis de dama</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(10)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
                     <img [src]="photoViewConjunto[0]" class="img-responsive" alt="">
                     <div class="carousel-caption">
                       <h3>Conjunto</h3>
@@ -201,7 +123,59 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(7)">
+            <a class="carruselHover" (click)="toggleBtn(5)">
+              <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <img [src]="photoViewPanTela[0]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Pantalones Tela</h3>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="photoViewPanTela[1]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Pantalones Tela</h3>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="photoViewPanTela[2]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Pantalones Tela</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-3 list-items">
+            <a class="carruselHover" (click)="toggleBtn(6)">
+              <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <img [src]="photoViewJean[0]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Jeans</h3>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="photoViewJean[1]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Jeans</h3>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="photoViewJean[2]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Jeans</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-3 list-items">
+            <a class="carruselHover" (click)="toggleBtn(9)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -227,25 +201,25 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(6)">
+            <a class="carruselHover" (click)="toggleBtn(8)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
-                    <img [src]="photoViewBiq[0]" class="img-responsive" alt="">
+                    <img [src]="photoViewVestidoBa[0]"  class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Vestidos de baño</h3>
+                      <h3>Vestidos de Baño</h3>
                     </div>
                   </div>
                   <div class="item">
-                    <img [src]="photoViewBiq[1]" class="img-responsive" alt="">
+                    <img [src]="photoViewVestidoBa[1]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Vestidos de baño</h3>
+                      <h3>Vestidos de Baño</h3>
                     </div>
                   </div>
                   <div class="item">
-                    <img [src]="photoViewBiq[2]" class="img-responsive" alt="">
+                    <img [src]="photoViewVestidoBa[2]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Vestidos de baño</h3>
+                      <h3>Vestidos de Baño</h3>
                     </div>
                   </div>
                 </div>
@@ -253,7 +227,7 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(8)">
+            <a class="carruselHover" (click)="toggleBtn(10)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -279,7 +253,7 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(12)">
+            <a class="carruselHover" (click)="toggleBtn(18)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -305,7 +279,7 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
+            <a class="carruselHover" (click)="toggleBtn(14)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -331,7 +305,33 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
+            <a class="carruselHover" (click)="toggleBtn(12)">
+              <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <img [src]="photoViewAcc[0]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Accesorios</h3>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="photoViewAcc[1]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Accesorios</h3>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img [src]="photoViewAcc[2]" class="img-responsive" alt="">
+                    <div class="carousel-caption">
+                      <h3>Accesorios</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-xs-3 col-md-3 list-items">
+            <a class="carruselHover" (click)="toggleBtn(7)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -357,267 +357,7 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewTommy[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Tommy Hilfiger</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewTommy[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Tommy Hilfiger</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewTommy[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Tommy Hilfiger</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewAero[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>AeroPostale</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAero[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>AeroPostale</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAero[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>AeroPostale</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewAmerEagle[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>American Eagle</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAmerEagle[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>American Eagle</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAmerEagle[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>American Eagle</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewConverse[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Converse</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewConverse[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Converse</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewConverse[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Converse</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewPolo[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>U.S Polo</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPolo[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>U.S Polo</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPolo[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>U.S Polo</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewNau[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Náutica</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewNau[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Náutica</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewNau[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Náutica</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewvans[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Vans</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewvans[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Vans</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewvans[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Vans</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewlevis[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Levis</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewlevis[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Levis</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewlevis[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Levis</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewHyM[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>HyM</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewHyM[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>HyM</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewHyM[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>HyM</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewSueter[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Sueters</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewSueter[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Sueters</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewSueter[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Sueters</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
+            <a class="carruselHover" (click)="toggleBtn(19)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -643,7 +383,7 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
+            <a class="carruselHover" (click)="toggleBtn(17)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
@@ -662,32 +402,6 @@
                     <img [src]="photoViewjoye[2]" class="img-responsive" alt="">
                     <div class="carousel-caption">
                       <h3>Joyería</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewbolso[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Fajas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewbolso[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Fajas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewbolso[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Fajas</h3>
                     </div>
                   </div>
                 </div>
@@ -721,25 +435,25 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
+            <a class="carruselHover" (click)="toggleBtn(15)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
-                    <img [src]="photoViewLenceria[0]" class="img-responsive" alt="">
+                    <img [src]="photoViewOverol[0]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Lencería</h3>
+                      <h3>Overol</h3>
                     </div>
                   </div>
                   <div class="item">
-                    <img [src]="photoViewLenceria[1]" class="img-responsive" alt="">
+                    <img [src]="photoViewOverol[1]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Lencería</h3>
+                      <h3>Overol</h3>
                     </div>
                   </div>
                   <div class="item">
-                    <img [src]="photoViewLenceria[2]" class="img-responsive" alt="">
+                    <img [src]="photoViewOverol[2]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Lencería</h3>
+                      <h3>Overol</h3>
                     </div>
                   </div>
                 </div>
@@ -747,207 +461,25 @@
             </a>
           </div>
           <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
+            <a class="carruselHover" (click)="toggleBtn(16)">
               <div id="carousel-1" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
                   <div class="item active">
-                    <img [src]="photoViewGorra[0]" class="img-responsive" alt="">
+                    <img [src]="photoViewSueters[0]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Gorra</h3>
+                      <h3>Sueters</h3>
                     </div>
                   </div>
                   <div class="item">
-                    <img [src]="photoViewGorra[1]" class="img-responsive" alt="">
+                    <img [src]="photoViewSueters[1]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Gorra</h3>
+                      <h3>Sueters</h3>
                     </div>
                   </div>
                   <div class="item">
-                    <img [src]="photoViewGorra[2]" class="img-responsive" alt="">
+                    <img [src]="photoViewSueters[2]" class="img-responsive" alt="">
                     <div class="carousel-caption">
-                      <h3>Gorra</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewPlusBlusa[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Blusas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPlusBlusa[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Blusas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPlusBlusa[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Blusas</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewPlusVestidoBa[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Vestido Baño</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPlusVestidoBa[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Vestido Baño</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPlusVestidoBa[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Vestido Baño</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewPlusPijamaLen[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Pijama y Lencería</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPlusPijamaLen[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Pijama y Lencería</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewPlusPijamaLen[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Plus Pijama y Lencería</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewAnteojo[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Anteojos</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAnteojo[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Anteojos</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAnteojo[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Anteojos</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewBilletera[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Billeteras y Carteras</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewBilletera[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Billeteras y Carteras</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewBilletera[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Billeteras y Carteras</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewFaja[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Bolsos</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewFaja[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Bolsos</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewFaja[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Bolsos</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(9)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewAccCabello[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Accesorios Cabello</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAccCabello[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Accesorios Cabello</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewAccCabello[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Accesorios Cabello</h3>
+                      <h3>Sueters</h3>
                     </div>
                   </div>
                 </div>
@@ -959,6 +491,6 @@
     </div>
   </div>
 </div>
-<footer> 
+<footer>
   <app-footer></app-footer>
 </footer>
