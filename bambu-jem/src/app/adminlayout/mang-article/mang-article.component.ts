@@ -397,6 +397,7 @@ export class MangArticleComponent implements OnInit {
     if (this.product.tags_id === undefined) {
       this.product.tags_id = '0';
     }
+    this.loading = true;
     this.productService.add( this.token, this.product).subscribe(
       response => {
         if (response.status === 'success') {
@@ -429,6 +430,7 @@ export class MangArticleComponent implements OnInit {
           this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
           this.getProductView();
+          this.loading = false;
         } else {
           if (response.status === 'duplicate') {
             this.status = 'duplicate';

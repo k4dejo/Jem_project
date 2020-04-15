@@ -415,6 +415,7 @@ public dtDepartmentB: string[] = [
   }
 
   editProduct(modProduct) {
+    this.loading = true;
     const editProducts = new Article(
         this.justString,
         this.justString,
@@ -441,12 +442,12 @@ public dtDepartmentB: string[] = [
     editProducts.photo       = this.product.photo;
     editProducts.file        = this.fileBlob;
     editProducts.tags_id     = this.product.tags_id;
-    console.log(editProducts);
     this.productService.editProduct(this.token, this.id, editProducts).subscribe(
       response => {
         this.product = response.article;
         if (response.status === 'success') {
           this.checkBool = true;
+          this.loading = false;
         }
       },
       error => {
