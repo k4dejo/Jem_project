@@ -83,6 +83,11 @@ export class JempageComponent implements OnInit {
     this.router.navigate([link, 'J']);
   }
 
+  toggleBtnProducts(gender: any) {
+    const link = '/Home/Articulo/';
+    this.router.navigate([link, 'J', '1', gender]);
+  }
+
   gotoOutfits(word: any, gender: any) {
     const link = '/Home/' + word;
     this.router.navigate([link, 'J', gender]);

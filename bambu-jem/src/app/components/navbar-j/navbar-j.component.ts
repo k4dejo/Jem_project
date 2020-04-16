@@ -67,7 +67,11 @@ export class NavbarJComponent implements OnInit {
       menuBtn.classList.remove('open');
       this.menuOpen = false;
     }
+  }
 
+  toggleBtnProducts(gender: any) {
+    const link = '/Home/Articulo/';
+    this.router.navigate([link, 'J', '1', gender]);
   }
 
   Onsubmit(form) {

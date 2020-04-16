@@ -29,6 +29,7 @@ export class ArticleComponent implements OnInit {
   public minPrice;
   public maxPrice;
   public tags;
+  public loading;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -62,45 +63,6 @@ export class ArticleComponent implements OnInit {
     'Vestidos',
     'Zapatos'
    ];
-  /*public dtDepartmentW: string[] = [
-    'Blusas',
-    'Short',
-    'Enaguas',
-    'Pantalon tela',
-    'Pantalon de mezclilla',
-    'Levis de dama',
-    'Vestidos de baño',
-    'Salidas de playa',
-    'Abrigos y sacos',
-    'Conjuntos',
-    'Camisetas',
-    'Enterizos',
-    'Vestidos',
-    'Ropa interior',
-    'Marca Tommy Hilfiger',
-    'Marca Aeropostale',
-    'Marca American Eagle',
-    'Marca Converse',
-    'Marca U.S Polo',
-    'Marca Náutica',
-    'Marca Vans',
-    'Marca Levis',
-    'Marca H y M',
-    'Sueters',
-    'Zapatos',
-    'Joyería',
-    'Bolsos',
-    'Fajas',
-    'Pijamas',
-    'Lencería',
-    'Gorras',
-    'Accesorios de Cabello',
-    'Plus Blusas',
-    'Plus Vestidos de baño',
-    'Plus Pijamas y Lencería',
-    'Anteojos',
-    'Billeteras o carteras'
-  ];*/
   public dtDepartmentG: string[] = [
     'Mamelucos',
     'Accesorios',
@@ -177,10 +139,11 @@ export class ArticleComponent implements OnInit {
   }
 
   getProduct(department: any, gender: any) {
+    this.loading = true;
     this.ProductService.getConcreteProduct(department, gender).subscribe(
       response => {
         this.products = response.articles;
-        console.log(this.products);
+        this.loading = false;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
@@ -198,7 +161,6 @@ export class ArticleComponent implements OnInit {
           this.genderView = this.products[index].gender;
           this.DepartmentView = this.products[index].department;
         }
-        console.log(this.products);
       }, error => {
         console.log(<any>error);
       }
