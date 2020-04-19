@@ -226,11 +226,11 @@
         </div>
 				<section class="pb-40 category-list">
           <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
-          <input *ngIf="btnNextDisabled" (click)="nextPaginate()" type="button" value="Siguiente pagina"
+          <input *ngIf="btnNextDisabled" (click)="nextPaginate()" type="button" value="Cargar pagina"
           style="background-color:rgb(164, 69, 253);
            margin-bottom: 3%; color: rgb(253, 253, 253); font-weight: bold;"
           class="btn btn--pill nextPage">
-          <input *ngIf="!btnNextDisabled" disabled (click)="nextPaginate()" type="button" value="Siguiente pagina"
+          <input *ngIf="!btnNextDisabled" disabled (click)="nextPaginate()" type="button" value="Cargar pagina"
           style="background-color:rgb(164, 69, 253);
            margin-bottom: 3%; color: rgb(253, 253, 253); font-weight: bold;"
           class="btn btn--pill nextPage">

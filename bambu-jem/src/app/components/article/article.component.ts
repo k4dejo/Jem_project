@@ -170,21 +170,22 @@ export class ArticleComponent implements OnInit {
   }*/
 
   nextPaginate() {
+    this.loading = true;
     this.ProductService.getPaginateProduct(this.urlPaginate).subscribe(
       response => {
         const productsAdd = response.articles.data;
         for (let index = 0; index < productsAdd.length; index++) {
           this.products.push(productsAdd[index]);
         }
-        console.log(response);
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
         } else {
           this.btnNextDisabled = true;
           this.urlPaginate = response.NextPaginate;
         }
-        console.log(this.btnNextDisabled);
         this.addPhotoProductList();
+        this.loading = false;
+        this.p = this.p + 1;
       }, error => {
         console.log(<any> error);
       }
@@ -192,7 +193,6 @@ export class ArticleComponent implements OnInit {
   }
 
   addPhotoProductList() {
-    console.log(this.products);
     for (let index = 0; index < this.products.length; index++) {
       // agrego formato a la imagen.
       const splitProduct = this.products[index].photo.split(',');
@@ -220,27 +220,15 @@ export class ArticleComponent implements OnInit {
     this.ProductService.getListProduct(department, gender).subscribe(
       response => {
         this.products = response.articles.data;
-        this.urlPaginate = response.NextPaginate;
         // this.products = response.articles;
         this.loading = false;
+        if (response.NextPaginate == null) {
+          this.btnNextDisabled = false;
+        } else {
+          this.btnNextDisabled = true;
+          this.urlPaginate = response.NextPaginate;
+        }
         this.addPhotoProductList();
-        /*for (let index = 0; index < this.products.length; index++) {
-          // agrego formato a la imagen.
-          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
-          this.getDepartmentView(this.products[index].gender.toString());
-          for (let e = 0; e < this.gender.length; e++) {
-            if (this.products[index].gender.toString() === this.gender[e].id) {
-              this.products[index].gender = this.gender[e].name;
-            }
-          }
-          for (let indexD = 0; indexD < this.department.length; indexD++) {
-            if (this.products[index].department.toString() === this.department[indexD].id) {
-              this.products[index].department = this.department[indexD].name;
-            }
-          }
-          this.genderView = this.products[index].gender;
-          this.DepartmentView = this.products[index].department;
-        }*/
       }, error => {
         console.log(<any>error);
       }
@@ -301,7 +289,8 @@ export class ArticleComponent implements OnInit {
       response => {
         this.products = response.articles;
         this.loading = false;
-        for (let index = 0; index < this.products.length; index++) {
+        this.addPhotoProductList();
+        /* for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
           this.getDepartmentView(this.products[index].gender.toString());
@@ -317,7 +306,7 @@ export class ArticleComponent implements OnInit {
           }
           this.genderView = this.products[index].gender;
           this.DepartmentView = this.products[index].department;
-        }
+        }*/
         console.log(this.products);
       }, error => {
         console.log(<any>error);
