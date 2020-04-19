@@ -39,7 +39,8 @@ body{
 }
 
 .feature:nth-child(2) {
-	background: #2ab6f7;
+  /*background: #2ab6f7;*/
+  background: #b478ec;
 }
 
 .feature:nth-child(2) h2 {

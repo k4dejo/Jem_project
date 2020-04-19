@@ -31,146 +31,148 @@
             <span class="sr-only">Siguiente</span>
           </a>
         </div>
-        <div class="row">
-          <div class="col-md-4 p-0 feature">
-            <div class="feature-inner">
-              <div class="feature-icon">
-                <img src="/assets/Images/1.png" alt="#">
+        <div class="row justify-content-center">
+          <div class="col-12 catalogue">
+            <h2>Catálago</h2>
+          </div>
+          <div class=" col-lg-10 genders">
+            <div class="row">
+              <div class="col-xs-6 col-md-3">
+                <a class="btnhover" (click)="toggleBtnProducts('2')">
+                  <div id="carousel-1" class="carousel slide " data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                      <div class="item active">
+                        <img [src]="photoViewM[1]" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Damas</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img [src]="photoViewM[0]" class="img-responsive"alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Damas</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="assets/Images/cat%C3%A1logo/damas3.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Damas</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
-              <h2>Pago Fácil y Seguro</h2>
-            </div>
-            </div>
-            <div class="col-md-4 p-0 feature">
-              <div class="feature-inner">
-                <div class="feature-icon">
-                  <img src="/assets/Images/2.png" alt="#">
-                </div>
-                <h2>Productos de Calidad</h2>
+              <div class="col-xs-6 col-md-3">
+                <a class="btnhover" (click)="toggleBtnProducts('1')">
+                  <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                      <div class="item active">
+                        <img src="assets/Images/cat%C3%A1logo/caba1.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Caballeros</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="assets/Images/cat%C3%A1logo/caba2.jpg" class="img-responsive"alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Caballeros</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="assets/Images/cat%C3%A1logo/caba3.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Caballeros</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a class="btnhover" (click)="toggleBtnProducts('4')">
+                  <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                      <div class="item active">
+                        <img src="assets/Images/cat%C3%A1logo/boy1.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Niños</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="assets/Images/cat%C3%A1logo/boy2.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Niños</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="https://picsum.photos/721/960" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Niños</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <a class="btnhover" (click)="toggleBtnProducts('3')">
+                  <div id="carousel-1" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                      <div class="item active">
+                        <img src="assets/Images/cat%C3%A1logo/girl1.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Niñas</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="assets/Images/cat%C3%A1logo/girl2.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Niñas</h3>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <img src="assets/Images/cat%C3%A1logo/girl3.jpg" class="img-responsive" alt=""/>
+                        <div class="carousel-caption">
+                          <h3>Niñas</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
             </div>
-            <div class="col-md-4 p-0 feature">
-              <div class="feature-inner">
-                <div class="feature-icon">
-                  <img src="/assets/Images/3.png" alt="#">
-                </div>
-                <h2>Envios a todo el país</h2>
-              </div>
-            </div>
+          </div>
         </div>
+
+
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-12 catalogue">
-        <h2>Catálago</h2>
-      </div>
-      <div class=" col-lg-10 genders">
-        <div class="row">
-          <div class="col-xs-6 col-md-3">
-            <a class="btnhover" (click)="toggleBtnProducts('2')">
-              <div id="carousel-1" class="carousel slide " data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewM[1]" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Damas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img [src]="photoViewM[0]" class="img-responsive"alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Damas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="assets/Images/cat%C3%A1logo/damas3.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Damas</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
+    <div class="row">
+      <div class="col-md-4 p-0 feature">
+        <div class="feature-inner">
+          <div class="feature-icon">
+            <img src="/assets/Images/1.png" alt="#">
           </div>
-          <div class="col-xs-6 col-md-3">
-            <a class="btnhover" (click)="toggleBtnProducts('1')">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img src="assets/Images/cat%C3%A1logo/caba1.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Caballeros</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="assets/Images/cat%C3%A1logo/caba2.jpg" class="img-responsive"alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Caballeros</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="assets/Images/cat%C3%A1logo/caba3.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Caballeros</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-6 col-md-3">
-            <a class="btnhover" (click)="toggleBtnProducts('4')">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img src="assets/Images/cat%C3%A1logo/boy1.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Niños</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="assets/Images/cat%C3%A1logo/boy2.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Niños</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="https://picsum.photos/721/960" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Niños</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-6 col-md-3">
-            <a class="btnhover" (click)="toggleBtnProducts('3')">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img src="assets/Images/cat%C3%A1logo/girl1.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Niñas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="assets/Images/cat%C3%A1logo/girl2.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Niñas</h3>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="assets/Images/cat%C3%A1logo/girl3.jpg" class="img-responsive" alt=""/>
-                    <div class="carousel-caption">
-                      <h3>Niñas</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
+          <h2>Pago Fácil y Seguro</h2>
+        </div>
+        </div>
+        <div class="col-md-4 p-0 feature">
+          <div class="feature-inner">
+            <div class="feature-icon">
+              <img src="/assets/Images/2.png" alt="#">
+            </div>
+            <h2>Productos de Calidad</h2>
           </div>
         </div>
-      </div>
+        <div class="col-md-4 p-0 feature">
+          <div class="feature-inner">
+            <div class="feature-icon">
+              <img src="/assets/Images/3.png" alt="#">
+            </div>
+            <h2>Envios a todo el país</h2>
+          </div>
+        </div>
     </div>
 
   </div>

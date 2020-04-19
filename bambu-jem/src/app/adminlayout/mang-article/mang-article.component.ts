@@ -12,6 +12,7 @@ import { Image } from '../../models/image';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 @Component({
@@ -120,7 +121,7 @@ export class MangArticleComponent implements OnInit {
     'Mamelucos',
     'Accesorios',
     'Blusas',
-    'Sueters',
+    'Abrigos',
     'Shorts',
     'Enaguas',
     'Conjuntos',
@@ -138,7 +139,7 @@ export class MangArticleComponent implements OnInit {
     'Conjuntos',
     'Pijamas',
     'Pantalones',
-    'Sueters'
+    'Abrigos'
   ];
   public gender: Gender[];
   public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
@@ -166,6 +167,8 @@ export class MangArticleComponent implements OnInit {
   public timeLeft = 5;
   public tags: any;
   public viewPhoto;
+  public imgResultBeforeCompress: string;
+  public imgResultAfterCompress: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -173,6 +176,7 @@ export class MangArticleComponent implements OnInit {
     private sizeService: SizeService,
     private adminService: AdminService,
     private imagesService: ImageService,
+    private imageCompress: NgxImageCompressService,
     private productService: ArticleService
   ) {
     this.images = new Image('', '', null);
@@ -211,6 +215,32 @@ export class MangArticleComponent implements OnInit {
       this.justString,
       this.justString
     );
+  }
+
+  makeRandom(lengthOfCode: number, possible: string) {
+    let text = '';
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+
+  compressFile() {
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    const lengthOfCode = 10;
+    this.product.photo = this.makeRandom(lengthOfCode, possible);
+    console.log(this.product.photo);
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+      this.imgResultBeforeCompress = image;
+      this.imageCompress.compressFile(image, orientation, 80, 65).then(
+        result => {
+          // console.log(result);
+          this.imgResultAfterCompress = result;
+          this.fileBlob = result;
+        }
+      );
+
+    });
   }
 
   onSelect(event) {
@@ -378,7 +408,6 @@ export class MangArticleComponent implements OnInit {
   }
 
   pushGender(genderParam: any) {
-    console.log(genderParam);
     if (genderParam !== undefined) {
       this.product.gender = genderParam.toString();
       this.getDepartment();
@@ -542,7 +571,6 @@ export class MangArticleComponent implements OnInit {
     this.loading = true;
     this.productService.showPhotoProduct(idProduct).subscribe(
       response => {
-        console.log(response);
         this.loading = false;
         this.viewPhoto = response.productPhoto;
         this.viewPhoto = 'data:image/jpeg;base64,' + this.viewPhoto;

@@ -123,6 +123,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('getConcreteProduct/{id}/{gender}', 'ArticleController@getConcreteProduct');
    Route::get('getproductGender/{id}', 'ArticleController@getProductGender');
    Route::get('showPhotoProduct/{id}', 'ArticleController@showPhotoProduct');
+   Route::get('getListProduct/{id}/{gender}', 'ArticleController@getListProduct');
    Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
    Route::get('filterSizeProduct/{department}/{gender}/{size}', 'ArticleController@filterSizeProduct');
    /*tags*/

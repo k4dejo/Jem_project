@@ -1,8 +1,7 @@
 .main{
 	padding-top: 3%;
 }
-
-
+price-range-wrap
 /*------- Start Bread Crumb --------*/
 .organic-bread {
 	margin-bottom: 100px;
@@ -437,9 +436,9 @@ span{
 }
 
 .price-range-wrap {
-	border-bottom: 2px solid #ebebeb;
-	padding-bottom: 40px;
-	margin-bottom: 50px;
+	/*border-bottom: 2px solid #ebebeb;*/
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .price-range-wrap h4 {
@@ -468,7 +467,7 @@ span{
 
 .fw-color-choose,
 .fw-size-choose {
-	border-bottom: 2px solid #ebebeb;
+	/*border-bottom: 2px solid #ebebeb;*/
 	padding-bottom: 40px;
 	margin-bottom: 50px;
 }
@@ -811,7 +810,7 @@ span{
 
 .bottom a {
 	display: inline-block;
-	width: 25%;
+	width: 33%;
 	line-height: 40px;
 	text-align: center;
 	color: white;
@@ -961,7 +960,6 @@ span{
   border-radius: 5px;
 }
 
-/* bảng lọc giá trị hiển thị */
 .price-wrap {
   display: inline-flex;
   color: #646464;
@@ -1268,6 +1266,10 @@ select {
   }
 }
 
+.nextPage {
+  margin-left: 70%;
+}
+
 /*====================================================
 ======================================================*/
 
@@ -1285,13 +1287,18 @@ select {
 		padding-left: 2%;
   }
 
+  .nextPage {
+    margin-left: 62%;
+  }
+
   .content .content-overlay {
 	/*left: 37px;*/
-	left: 2px;
+	left: -2px;
 	width: 90%;
   }
   .content-details {
     left: 50%;
+    width: 83%;
   }
   .content-image{
 	  width: 89%;

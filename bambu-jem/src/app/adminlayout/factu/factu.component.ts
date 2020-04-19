@@ -53,6 +53,7 @@ export class FactuComponent implements OnInit {
   public billing: Billing;
   public department: any[];
   public valueQtyBtn = 1;
+  public viewPhoto;
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
     'Camisa',
@@ -114,6 +115,19 @@ export class FactuComponent implements OnInit {
       dptId = i + 1;
       this.department.push(new Departament(dptId.toString(), data[i]));
     }
+  }
+
+  over(idProduct: any) {
+    this.loading = true;
+    this.productService.showPhotoProduct(idProduct).subscribe(
+      response => {
+        this.loading = false;
+        this.viewPhoto = response.productPhoto;
+        this.viewPhoto = 'data:image/jpeg;base64,' + this.viewPhoto;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   gotoApart() {
@@ -433,7 +447,7 @@ export class FactuComponent implements OnInit {
   PrintDoc() {
     const Document = new jsPDF();
     Document.fromHTML(document.getElementById('FormFactu'), 14, 15);
-    //Document.text(document.getElementById('FormFactu'), 14, 15);
+    // Document.text(document.getElementById('FormFactu'), 14, 15);
     Document.save('Factura Boutique Jem');
   }
 

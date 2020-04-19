@@ -77,7 +77,6 @@
             </div>
             <table class="table table-striped table-pc">
               <thead>
-                <th></th>
                 <th scope="col">Producto</th>
                 <th scope="col">Género</th>
                 <th scope="col">Depart</th>
@@ -86,8 +85,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
-                  <td><img class="img-responsive" [src]="product.photo" alt=""></td>
-                  <td>{{product.name}}</td>
+                  <td>
+                    <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModalImg">{{product.name}}</a>
+                  </td>
                   <td>{{product.gender}}</td>
                   <td>{{product.department}}</td>
                   <td>₡ {{product.pricePublic | number: '3.'}}</td>
@@ -206,4 +206,9 @@
       </table>
     </div>
   </div>
+</div>
+<div id="myModalImg" class="modal">
+  <span class="close" data-dismiss="modal">&times;</span>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
+  <img class="modal-content" [src]="viewPhoto" id="img01">
 </div>

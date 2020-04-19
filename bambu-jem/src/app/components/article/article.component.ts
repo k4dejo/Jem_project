@@ -67,7 +67,7 @@ export class ArticleComponent implements OnInit {
     'Mamelucos',
     'Accesorios',
     'Blusas',
-    'Sueters',
+    'Abrigos',
     'Shorts',
     'Enaguas',
     'Conjuntos',
@@ -85,9 +85,11 @@ export class ArticleComponent implements OnInit {
     'Conjuntos',
     'Pijamas',
     'Pantalones',
-    'Sueters'
+    'Abrigos'
   ];
   public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
+  public urlPaginate: any;
+  public btnNextDisabled =  true;
 
   constructor(
     private route: ActivatedRoute,
@@ -138,7 +140,7 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  getProduct(department: any, gender: any) {
+  /* getProduct(department: any, gender: any) {
     this.loading = true;
     this.ProductService.getConcreteProduct(department, gender).subscribe(
       response => {
@@ -161,6 +163,84 @@ export class ArticleComponent implements OnInit {
           this.genderView = this.products[index].gender;
           this.DepartmentView = this.products[index].department;
         }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }*/
+
+  nextPaginate() {
+    this.ProductService.getPaginateProduct(this.urlPaginate).subscribe(
+      response => {
+        const productsAdd = response.articles.data;
+        for (let index = 0; index < productsAdd.length; index++) {
+          this.products.push(productsAdd[index]);
+        }
+        console.log(response);
+        if (response.NextPaginate == null) {
+          this.btnNextDisabled = false;
+        } else {
+          this.btnNextDisabled = true;
+          this.urlPaginate = response.NextPaginate;
+        }
+        console.log(this.btnNextDisabled);
+        this.addPhotoProductList();
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  addPhotoProductList() {
+    console.log(this.products);
+    for (let index = 0; index < this.products.length; index++) {
+      // agrego formato a la imagen.
+      const splitProduct = this.products[index].photo.split(',');
+      if (splitProduct[0] !== 'data:image/jpeg;base64') {
+        this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+        this.getDepartmentView(this.products[index].gender.toString());
+        for (let e = 0; e < this.gender.length; e++) {
+          if (this.products[index].gender.toString() === this.gender[e].id) {
+            this.products[index].gender = this.gender[e].name;
+          }
+        }
+        for (let indexD = 0; indexD < this.department.length; indexD++) {
+          if (this.products[index].department.toString() === this.department[indexD].id) {
+            this.products[index].department = this.department[indexD].name;
+          }
+        }
+        this.genderView = this.products[index].gender;
+        this.DepartmentView = this.products[index].department;
+      }
+    }
+  }
+
+  getProduct(department: any, gender: any) {
+    this.loading = true;
+    this.ProductService.getListProduct(department, gender).subscribe(
+      response => {
+        this.products = response.articles.data;
+        this.urlPaginate = response.NextPaginate;
+        // this.products = response.articles;
+        this.loading = false;
+        this.addPhotoProductList();
+        /*for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+          this.getDepartmentView(this.products[index].gender.toString());
+          for (let e = 0; e < this.gender.length; e++) {
+            if (this.products[index].gender.toString() === this.gender[e].id) {
+              this.products[index].gender = this.gender[e].name;
+            }
+          }
+          for (let indexD = 0; indexD < this.department.length; indexD++) {
+            if (this.products[index].department.toString() === this.department[indexD].id) {
+              this.products[index].department = this.department[indexD].name;
+            }
+          }
+          this.genderView = this.products[index].gender;
+          this.DepartmentView = this.products[index].department;
+        }*/
       }, error => {
         console.log(<any>error);
       }
@@ -198,6 +278,7 @@ export class ArticleComponent implements OnInit {
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
     const size = sizeResponse;
+    this.loading = true;
     this.ProductService.filterSizeProduct(department, gender, size).subscribe(
       response  => {
         this.products = response.filter;
@@ -205,7 +286,7 @@ export class ArticleComponent implements OnInit {
           // agrego formato a la imagen.
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
         }
-        console.log(this.products);
+        this.loading = false;
       }, error => {
         console.log(<any> error);
       }
@@ -215,9 +296,11 @@ export class ArticleComponent implements OnInit {
   cleanFilter() {
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
+    this.loading = true;
     this.ProductService.getConcreteProduct(department, gender).subscribe(
       response => {
         this.products = response.articles;
+        this.loading = false;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
@@ -244,7 +327,6 @@ export class ArticleComponent implements OnInit {
 
   filterByPriceMin(price1: any) {
     this.minPrice = price1.target.value;
-    console.log(this.minPrice);
   }
 
   filterByPriceMax(price2: any) {
@@ -254,14 +336,15 @@ export class ArticleComponent implements OnInit {
 
   sendFilter() {
     const department = this.route.snapshot.params['dpt'];
+    this.loading = true;
     this.ProductService.filterPriceProduct(department, this.minPrice, this.maxPrice).subscribe(
       response => {
         this.products = response.filter;
+        this.loading = false;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
         }
-        console.log(this.products);
       }, error => {
         console.log(<any> error);
       }

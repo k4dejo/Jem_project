@@ -36,6 +36,8 @@ export class ApartComponent implements OnInit {
   public statusBool: boolean;
   public clients;
   public arrayApart;
+  public viewPhoto;
+  public loading = false;
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
     'Camisa',
@@ -82,6 +84,19 @@ export class ApartComponent implements OnInit {
     this.adminService.getClientList().subscribe(
       response => {
         this.clients = response.clients;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  over(idProduct: any) {
+    this.loading = true;
+    this.productService.showPhotoProduct(idProduct).subscribe(
+      response => {
+        this.loading = false;
+        this.viewPhoto = response.productPhoto;
+        this.viewPhoto = 'data:image/jpeg;base64,' + this.viewPhoto;
       }, error => {
         console.log(<any> error);
       }

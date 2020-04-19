@@ -163,6 +163,24 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    public function getListProduct($department, $gender) {
+        /*$productConcrete = DB::table('articles')->where('gender', $gender)
+        ->where('department', $department)->paginate(12);*/
+        $productConcrete = DB::table('articles')->where('gender', $gender)
+        ->where('department', $department)->paginate(5);
+        $productCount = count($productConcrete);
+        for ($i=0; $i < $productCount ; $i++) {
+            $contents = Storage::get($productConcrete[$i]->photo);
+            $productConcrete[$i]->photo = base64_encode($contents);
+        }
+        return response()->json(array(
+            'articles' => $productConcrete,
+            'NextPaginate' => $productConcrete->nextPageUrl(),
+            'status'   => 'success'
+        ), 200);
+
+    }
+
     public function getProductGender($gender) {
         $productGen = article::where('gender', '=', $gender)->get();
         $productCount = count($productGen);
@@ -211,7 +229,8 @@ class ArticleController extends Controller
                 $img = str_replace(' ', '+', $img);
             }
             $imgName = time() . $params->photo;
-            $resized_image = Image::make(base64_decode($img))->resize(450, 400)->stream('jpg', 80);
+            // $resized_image = Image::make(base64_decode($img))->resize(500, 900)->stream('jpg', 90);
+            $resized_image = Image::make(base64_decode($img))->resize(500, 760)->stream('jpg', 100);
             Storage::disk('local')->put($imgName, $resized_image);
             //guardar articulo
             $article = new article();
@@ -276,15 +295,21 @@ class ArticleController extends Controller
             $lengthImg = strlen($params->photo);
             if ($lengthImg <= 100) {
                 $img =  $params->file;
-                $img = str_replace('data:image/jpeg;base64,', '', $img);
-                $img = str_replace(' ', '+', $img);
+                $isWebP = explode(';', $img);
+                if ($isWebP[0] === "data:image/webp") {
+                    $img = str_replace('data:image/webp;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                } else {
+                    $img = str_replace('data:image/jpeg;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                }
                 $imgName = time() . $params->photo;
                 $paramsArray['photo'] = $imgName;
                 unset($paramsArray['id']);
                 unset($paramsArray['created_at']);
                 unset($paramsArray['file']);
                 Storage::delete($imgDB->photo);
-                $resized_image = Image::make(base64_decode($img))->resize(450, 400)->stream('jpg', 80);
+                $resized_image = Image::make(base64_decode($img))->resize(500, 760)->stream('jpg', 100);
                 Storage::disk('local')->put($imgName, $resized_image);
                 $article = article::where('id', $id)->update($paramsArray);
             }else {
