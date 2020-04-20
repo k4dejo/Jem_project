@@ -236,6 +236,7 @@ export class FactuComponent implements OnInit {
     this.billing.email = dataClient.email;
     this.billing.addressDetail = dataClient.addressDetail;
     this.clientBool = false;
+    this.getBilling(this.billing.id);
   }
 
   createClient() {
@@ -248,7 +249,6 @@ export class FactuComponent implements OnInit {
   }
 
   sizeAdd(sizeId: any) {
-    console.log(sizeId);
     this.attachBilling.size = sizeId.size;
     this.AmountInputBool = true;
   }
@@ -267,6 +267,7 @@ export class FactuComponent implements OnInit {
       }
     );
   }
+
   getProvin() {
     let idProvin: number;
     this.ArrayProvin = [];
@@ -291,7 +292,6 @@ export class FactuComponent implements OnInit {
             idCant = i + 1;
             this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
           }
-
         },
         error => {
           console.log(error);
@@ -352,7 +352,8 @@ export class FactuComponent implements OnInit {
     this.billing.status = 'incomplete';
     this.total += this.billing.price;
     this.loading = true;
-    this.billingService.addNewBilling(this.token, this.billing).subscribe(
+    this.checkBillingClient(productGet);
+    /* this.billingService.addNewBilling(this.token, this.billing).subscribe(
       response => {
         if (response.status === 'success' || response.status === 'Exist') {
           this.attachBilling.amount = this.valueQtyBtn;
@@ -363,7 +364,21 @@ export class FactuComponent implements OnInit {
       }, error => {
         console.log(<any> error);
       }
-    );
+    );*/
+  }
+
+  checkBillingClient(productGet: any) {
+    this.billingService.addNewBilling(this.token, this.billing).subscribe(
+      response => {
+        if (response.status === 'success' || response.status === 'Exist') {
+          this.attachBilling.amount = this.valueQtyBtn;
+          this.attachBilling.article_id = productGet.id;
+          this.attachBilling.billing_id = response.billing.id;
+          this.attachBillingProduct(this.token, this.attachBilling);
+        }
+      }, error => {
+        console.log(<any> error);
+    });
   }
 
   attachBillingProduct(token: any, dataBilling: any) {

@@ -279,6 +279,7 @@ export class ArticleDetailComponent implements OnInit {
 
   editPurchase(purchaseRes) {
     this.productCart.id = purchaseRes.purchase.id;
+    this.productCart.addresspurchases_id = null;
     this.productCart.price = purchaseRes.purchase.price + this.productCart.price;
     this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
       response => {
