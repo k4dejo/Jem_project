@@ -38,6 +38,7 @@ export class ApartComponent implements OnInit {
   public arrayApart;
   public viewPhoto;
   public loading = false;
+  public arrayProductSize;
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
     'Camisa',
@@ -65,6 +66,8 @@ export class ApartComponent implements OnInit {
   public department: any[];
   public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
   public clientBool: boolean;
+  public sizeId: string;
+  public isDelete;
 
   constructor(
     private router: Router,
@@ -181,6 +184,7 @@ export class ApartComponent implements OnInit {
     this.productService.getProductU(productId).subscribe(
       response => {
         this.productGet = response.articles;
+        this.arrayProductSize = response.arraySizeArticle;
         this.getSizeProduct(productId);
       }, error => {
         console.log(<any> error);
@@ -190,6 +194,7 @@ export class ApartComponent implements OnInit {
 
   sizeAdd(sizeId: any) {
     this.attachApart.size = sizeId.size;
+    this.sizeId = sizeId.id;
     this.AmountInputBool = true;
   }
 
@@ -206,7 +211,42 @@ export class ApartComponent implements OnInit {
     );
   }
 
+  editAmountProduct(idProduct: any, sizeId, isDelete, product) {
+    this.loading = true;
+    this.apartService.updateAmountApart(this.token, idProduct, sizeId, isDelete, product).subscribe(
+      response => {
+        console.log(response);
+        if (response.status === 'success') {
+          this.loading = false;
+        }
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   checkoutApart(productGet: any) {
+    this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
+    this.attachApart.amount = this.valueQtyBtn;
+    this.isDelete = 'add';
+    this.editAmountProduct(this.attachApart.article_id, this.sizeId, this.isDelete, this.attachApart);
+    this.apartService.addNewApart(this.token, this.apartM).subscribe(
+      response => {
+        if (response.status === 'success' || response.status === 'Exist') {
+          // this.attachApart.amount = this.valueQtyBtn;
+          this.attachApart.article_id = productGet.id;
+          this.attachApart.apart_id = response.apart.id;
+          this.attachApartProduct(this.token, this.attachApart);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  /* checkoutApart(productGet: any) {
+    console.log(productGet);
     this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
     this.apartService.addNewApart(this.token, this.apartM).subscribe(
       response => {
@@ -220,7 +260,7 @@ export class ApartComponent implements OnInit {
         console.log(<any> error);
       }
     );
-  }
+  }*/
 
   getApart(apartId: any) {
     this.apartService.getApart(apartId).subscribe(
@@ -306,10 +346,23 @@ export class ApartComponent implements OnInit {
     );
   }
 
+  checkSizeApart(productId, size, productApart) {
+    this.apartService.checkSizeIdApart(productId, size).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.isDelete = 'rest';
+          this.editAmountProduct(productId, response.sizeId, this.isDelete, productApart);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   detachProductBilling(product: any) {
     this.attachApart.size = product.pivot.size;
     this.attachApart.article_id = product.id;
-    console.log(this.attachApart);
+    this.checkSizeApart(product.id, product.pivot.size, this.attachApart);
     this.apartService.dettachProductApart(this.attachApart).subscribe(
       response => {
         console.log(response);

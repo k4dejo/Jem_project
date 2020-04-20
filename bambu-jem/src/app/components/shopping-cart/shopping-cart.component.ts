@@ -91,6 +91,7 @@ export class ShoppingCartComponent implements OnInit {
   public Province;
   public Cant;
   public District;
+  public purchaseArray;
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
@@ -224,6 +225,7 @@ export class ShoppingCartComponent implements OnInit {
       response => {
         this.totalAmount = 0;
         this.productPurchase = response.purchase;
+        this.purchaseArray = response.purchase;
         this.purchasePrice = response.price;
         this.testProduct = response.purchase;
         this.productCart.price = response.purchasePrice;
@@ -529,7 +531,51 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
+  editAmountProduct(idProduct: any, product) {
+    this.purchaseService.UpdateAmount(this.token, idProduct, product).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.checkoutPurchase.status = 'Procesando';
+          this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
+            response => {
+              if (response.status === 'success') {
+                // this.router.navigate(['Home/BJem/']);
+                this.getPurchases();
+              }
+            // tslint:disable-next-line:no-shadowed-variable
+            }, error => {
+              console.log(<any> error);
+            }
+          );
+        }
+
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   sendTicket() {
+    this.ticketPurchase.ticket = this.fileBlob;
+    this.ticketPurchase.purchase_id = this.productCart.id;
+    this.checkoutPurchase.shipping = this.shipping;
+    this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.checkoutPurchase.status = 'procesando';
+          for (let index = 0; index < this.purchaseArray.length; index++) {
+            this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
+          }
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  /* sendTicket() {
     this.ticketPurchase.ticket = this.fileBlob;
     this.ticketPurchase.purchase_id = this.productCart.id;
     this.checkoutPurchase.shipping = this.shipping;
@@ -555,7 +601,7 @@ export class ShoppingCartComponent implements OnInit {
         console.log(<any> error);
       }
     );
-  }
+  }*/
 
   ngOnInit() {
      this.day = this.currentDate.getDate();

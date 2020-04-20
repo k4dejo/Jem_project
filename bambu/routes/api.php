@@ -114,7 +114,9 @@ Route::group(['middleware' => 'cors'], function(){
     Route::post('AttachApart', 'apartController@attachProductApart');
     Route::post('detachApart', 'apartController@dettachProductApart');
     Route::get('getApart/{id}', 'apartController@getApart');
+    Route::put('ApartChangeAmount/{id}/{sizeId}/{isDelete}', 'apartController@changeAmountProduct');
     Route::get('getApartClient/{id}', 'apartController@getApartClient');
+    Route::get('checkSizeIdApart/{idProduct}/{size}', 'apartController@checkSizeIdApart');
    /**/
 
    /*PRODUCT*/

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\jwtAuthAdmin;
 use App\apart;
+use App\size;
 use App\client;
 use App\article;
 
@@ -165,6 +166,100 @@ class apartController extends Controller
 
         return response()->json($data,200);
     }
+
+    public function checkSizeIdApart( $idProduct, $size) {
+        $productSize = article::find($idProduct)->sizes()->get();
+        $countGetProduct = count($productSize);
+        for ($i=0; $i < $countGetProduct; $i++) {
+            if ($productSize[$i]->size == $size) {
+                $data = array(
+                    'sizeId' => $productSize[$i]->id,
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+                return response()->json($data,200);
+            }
+        }
+        return 'Error';
+    }
+
+    public function changeAmountProduct($idProduct, $sizeId, $isDelete, Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $arrayProduct = article::find($idProduct)->sizes()->get();
+            $countGetProduct = count($arrayProduct);
+            for ($i=0; $i < $countGetProduct; $i++) {
+                //return $sizeId;
+                if ($arrayProduct[$i]->pivot->size_id == $sizeId) {
+                    if ($isDelete == 'rest') {
+                        $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock + $params->amount;
+                    } else {
+                        $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock - $params->amount;
+                    }
+                    $size = size::find($arrayProduct[$i]->pivot->size_id);
+                    $product = article::find($arrayProduct[$i]->pivot->article_id);
+                    // modifica la cantidad del producto en la tabla pivote
+                    $product->sizes()->updateExistingPivot($size->id,['stock' => $arrayProduct[$i]->pivot->stock ]);
+                    $data = array(
+                        'article' => $product,
+                        'status'  => 'success',
+                        'code'    => 200,
+                    );
+                    return response()->json($data,200);
+                }
+            }
+        }else {
+            $data = array(
+                'mgs' => 'token invalido',
+                'status'  => 'fail',
+                'code'    => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
+    /*public function changeAmountProduct($idProduct, $sizeId,Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $arrayProduct = article::find($idProduct)->sizes()->get();
+            $countGetProduct = count($arrayProduct);
+            for ($i=0; $i < $countGetProduct; $i++) {
+                //return $sizeId;
+                if ($arrayProduct[$i]->pivot->size_id == $sizeId) {
+                    $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock - $params->amount;
+                    $size = size::find($arrayProduct[$i]->pivot->size_id);
+                    $product = article::find($arrayProduct[$i]->pivot->article_id);
+                    // modifica la cantidad del producto en la tabla pivote
+                    $product->sizes()->updateExistingPivot($size->id,['stock' => $arrayProduct[$i]->pivot->stock ]);
+                    $data = array(
+                        'article' => $product,
+                        'status'  => 'success',
+                        'code'    => 200,
+                    );
+                    return response()->json($data,200);
+                }
+            }
+        }else {
+            $data = array(
+                'mgs' => 'token invalido',
+                'status'  => 'fail',
+                'code'    => 400,
+            );
+        }
+        return response()->json($data,200);
+    }*/
 
     public function editApart(Request $request) {
         $hash = $request->header('Authorization', null);

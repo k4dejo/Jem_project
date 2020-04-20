@@ -31,10 +31,10 @@ export class ArticleComponent implements OnInit {
   public tags;
   public loading;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
-  public dtDepartmentM: string[] = ['Levis de hombre',
+  public dtDepartmentM: string[] = [
     'Pantalones',
     'Jeans',
-    'Camisa',
+    'Camisas',
     'Short',
     'Camisetas',
     'Abrigos',

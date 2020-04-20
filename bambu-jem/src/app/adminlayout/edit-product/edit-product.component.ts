@@ -34,40 +34,17 @@ export class EditProductComponent implements OnInit {
   public suma;
   public Mprice;
   public department: Departament[];
-  /*public dtDepartmentM: string[] = ['Levis de hombre',
-  'Pantalones',
-  'Camisa',
-  'Short',
-  'Camisetas',
-  'Abrigos',
-  'Accesorios'
+  public dtDepartmentM: string[] = [
+    'Pantalones',
+    'Jeans',
+    'Camisas',
+    'Short',
+    'Camisetas',
+    'Abrigos',
+    'Accesorios',
+    'Gorras',
+    'Zapatos'
   ];
-  public dtDepartmentW: string[] = [
-   'Blusas',
-   'Short',
-   'Enaguas',
-   'Pantalones',
-   'Levis de dama',
-   'Vestidos de baño',
-   'Salidas de playa',
-   'Abrigos y sacos',
-   'Accesorios',
-   'Camisetas',
-   'Enterizos',
-   'Vestidos'
-  ];
-  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];*/
-  public dtDepartmentM: string[] = ['Levis de hombre',
-  'Pantalones',
-  'Jeans',
-  'Camisa',
-  'Short',
-  'Camisetas',
-  'Abrigos',
-  'Accesorios',
-  'Gorras',
-  'Zapatos'
-];
 public dtDepartmentW: string[] = [
   'Blusas',
   'Shorts',

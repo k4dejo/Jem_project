@@ -62,10 +62,12 @@ class ArticleController extends Controller
     public function show($id)
     {
         $articles = article::find($id);
+        $arrayArticle = article::find($id)->sizes()->get();
         $contents = Storage::get($articles->photo);
         $articles->photo = base64_encode($contents);
         return response()->json(array(
             'articles' => $articles,
+            'arraySizeArticle' => $arrayArticle,
             'status'   => 'success'
         ), 200);
     }
