@@ -309,6 +309,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   attachProductPurchase() {
+    console.log(this.attachPurchase);
     this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       response => {

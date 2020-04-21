@@ -58,9 +58,14 @@
             <h4 class="p-stock"><span>Disponible</span></h4>
             <div class="fw-size-choose">
               <p>Talla</p>
-              <div class="sc-item" *ngFor="let size of viewRelation">
+              <div class="sc-item" *ngFor="let size of viewRelation" >
                 <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
-                <label for="{{size.size}}">{{size.size}}</label>
+                <input *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
+                <label *ngIf="size.pivot.stock <= 0" style="border-color: rgb(128, 128, 128);
+                color: rgb(128, 128, 128);"
+                for="{{size.size}}">{{size.size}}</label>
+                <label *ngIf="size.pivot.stock > 0"
+                for="{{size.size}}">{{size.size}}</label>
               </div>
             </div>
             <div class="quantity">

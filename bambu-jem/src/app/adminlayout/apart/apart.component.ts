@@ -192,10 +192,22 @@ export class ApartComponent implements OnInit {
     );
   }
 
-  sizeAdd(sizeId: any) {
+  sizeAdd(sizeId: any, productId: any) {
+    const idProduct = productId.id;
+    console.log(idProduct);
     this.attachApart.size = sizeId.size;
     this.sizeId = sizeId.id;
-    this.AmountInputBool = true;
+    this.apartService.checkAmountProduct(sizeId.id, productId.id).subscribe(
+      response => {
+        if (response.amountCheck === 'success') {
+          this.AmountInputBool = true;
+        } else {
+          this.AmountInputBool = false;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   getSizeProduct(idProduct: any) {
@@ -230,7 +242,7 @@ export class ApartComponent implements OnInit {
     this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
     this.attachApart.amount = this.valueQtyBtn;
     this.isDelete = 'add';
-    this.editAmountProduct(this.attachApart.article_id, this.sizeId, this.isDelete, this.attachApart);
+    this.editAmountProduct(productGet.id, this.sizeId, this.isDelete, this.attachApart);
     this.apartService.addNewApart(this.token, this.apartM).subscribe(
       response => {
         if (response.status === 'success' || response.status === 'Exist') {

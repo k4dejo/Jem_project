@@ -117,9 +117,10 @@ class apartController extends Controller
             return response()->json($validate->errors(),400);
         }
         $apart = apart::findOrFail($params->apart_id);
-        $apart->articles()->detach($params->article_id);
+        $apart->articles()->wherePivot('size', $params->size)->detach($params->article_id);
         $data = array(
             'apart'   => $apart,
+            'request' => $paramsArray,
             'status'  => 'Delete success',
             'code'    => 200
         );
@@ -183,6 +184,31 @@ class apartController extends Controller
         return 'Error';
     }
 
+   public function checkAmountProduct($sizeId, $productId) {
+    $productSize = article::find($productId)->sizes()->get();
+    $countGetProduct = count($productSize);
+    for ($i=0; $i < $countGetProduct; $i++) {
+        if ($productSize[$i]->id == $sizeId) {
+            if ($productSize[$i]->pivot->stock > 0) {
+                $data = array(
+                    'sizeId' => $productSize[$i]->id,
+                    'amountCheck' => 'success',
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+            }else {
+                $data = array(
+                    'sizeId' => $productSize[$i]->id,
+                    'amountCheck' => 'void',
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+            }
+            return response()->json($data,200);
+        }
+    }
+   }
+
     public function changeAmountProduct($idProduct, $sizeId, $isDelete, Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
@@ -198,7 +224,7 @@ class apartController extends Controller
                 //return $sizeId;
                 if ($arrayProduct[$i]->pivot->size_id == $sizeId) {
                     if ($isDelete == 'rest') {
-                        $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock + $params->amount;
+                        $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock   + $params->amount;
                     } else {
                         $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock - $params->amount;
                     }
@@ -214,6 +240,11 @@ class apartController extends Controller
                     return response()->json($data,200);
                 }
             }
+            $data = array(
+                'article' => $product,
+                'code'    => 400,
+            );
+            return response()->json($data,200);
         }else {
             $data = array(
                 'mgs' => 'token invalido',

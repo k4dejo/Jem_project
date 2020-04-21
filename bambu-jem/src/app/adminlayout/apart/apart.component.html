@@ -112,7 +112,7 @@
                   <div class="fw-size-choose">
                     <h4>Talla: </h4>
                     <div class="sc-item" *ngFor="let size of productSizes">
-                      <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size)">
+                      <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size, productGet)">
                       <label for="{{size.size}}">{{size.size}}</label>
                     </div>
                   </div>

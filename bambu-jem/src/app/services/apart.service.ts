@@ -55,6 +55,12 @@ export class ApartService {
      {headers: headers});
   }
 
+  checkAmountProduct(idProduct, sizeId): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'checkAmountProduct/' + sizeId + '/' + idProduct,
+    {headers: headers});
+  }
+
 
   updateAmountApart(token, idProduct, sizeId, isDelete, dataApart): Observable<any> {
     const json = JSON.stringify(dataApart);
