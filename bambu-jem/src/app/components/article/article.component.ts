@@ -90,6 +90,8 @@ export class ArticleComponent implements OnInit {
   public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
   public urlPaginate: any;
   public btnNextDisabled =  true;
+  public lenghtProduct;
+  public pageChange;
 
   constructor(
     private route: ActivatedRoute,
@@ -169,14 +171,14 @@ export class ArticleComponent implements OnInit {
     );
   }*/
 
-  nextPaginate() {
+  nextPaginate(event: any) {
     this.loading = true;
-    this.ProductService.getPaginateProduct(this.urlPaginate).subscribe(
+    var urlSplit = this.urlPaginate.split("=");
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.p = event;
+    this.ProductService.getPaginateProduct(this.pageChange).subscribe(
       response => {
-        const productsAdd = response.articles.data;
-        for (let index = 0; index < productsAdd.length; index++) {
-          this.products.push(productsAdd[index]);
-        }
+        this.products = response.articles.data;
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
         } else {
@@ -185,7 +187,6 @@ export class ArticleComponent implements OnInit {
         }
         this.addPhotoProductList();
         this.loading = false;
-        this.p = this.p + 1;
       }, error => {
         console.log(<any> error);
       }
@@ -215,18 +216,30 @@ export class ArticleComponent implements OnInit {
     }
   }
 
+  like() {
+
+  }
+
   getProduct(department: any, gender: any) {
     this.loading = true;
     this.ProductService.getListProduct(department, gender).subscribe(
       response => {
         this.products = response.articles.data;
+        this.lenghtProduct = response.articles.total;
         // this.products = response.articles;
         this.loading = false;
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
         } else {
           this.btnNextDisabled = true;
-          this.urlPaginate = response.NextPaginate;
+          let sessionPage = sessionStorage.getItem('currentPage');
+          if (sessionPage === null || sessionPage === undefined) {
+            this.urlPaginate = response.NextPaginate; 
+          } else {
+            this.urlPaginate = sessionPage;
+            var sessionSplit = this.urlPaginate.split("=");
+            this.nextPaginate(sessionSplit[1]);
+          }
         }
         this.addPhotoProductList();
       }, error => {
@@ -237,6 +250,11 @@ export class ArticleComponent implements OnInit {
 
   gotoDetail(productId: any) {
     const link = '/Home/producto/detalle/';
+    if (this.pageChange === undefined) {
+      const firtPage = this.urlPaginate.split('=');
+      this.pageChange = firtPage[0] + '=1';
+    }
+    sessionStorage.setItem('currentPage', this.pageChange);
      this.router.navigate([link, this.shop_id, productId]);
   }
 
@@ -252,6 +270,8 @@ export class ArticleComponent implements OnInit {
     const link = '/Home/Articulo/';
     const gender = this.route.snapshot.params['gender'];
     this.router.navigate([link, this.shop_id, dtp, gender]);
+    sessionStorage.removeItem('currentPage');
+    this.p = 1;
     this.getProduct(dtp, gender);
   }
 

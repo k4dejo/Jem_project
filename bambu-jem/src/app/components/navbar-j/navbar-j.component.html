@@ -27,6 +27,11 @@
               <img *ngIf="!imgBoolUser" [src]="clientPhoto" alt="user" class="profile-pic">
               <img *ngIf="imgBoolUser" src="assets/Images/default.jpg" alt="user" class="profile-pic">
             </a>
+            <div class="shopping-card" style="left: -166px; top: 8px; font-size: 25px; cursor:pointer"
+            (click)="gotoCart()">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              <span>{{purchaselenght}}</span>
+            </div>
             <div class="dropdown-menu">
               <ul class="dropdown-user">
                 <li>
@@ -69,10 +74,10 @@
     <div class="navbar-collapse collapse container" id="collapsingNavbar2">
       <ul class="main-menu navbar-nav mx-auto">
         <li class="menuNavBar"><a href="Home/BJem">Inicio</a></li>
-        <li class="menuNavBar"><a href="/Home/Articulo/J/1/2">Damas</a></li>
-        <li class="menuNavBar"><a href="/Home/Articulo/J/1/1">Caballeros</a></li>
-        <li class="menuNavBar"><a href="/Home/Articulo/J/1/4">Niños</a></li>
-        <li class="menuNavBar"><a href="/Home/Articulo/J/1/3">Niñas</a></li>
+        <li class="menuNavBar"><a (click)="toggleBtnProducts(2)" style="cursor: pointer;">Damas</a></li>
+        <li class="menuNavBar"><a (click)="toggleBtnProducts(1)" style="cursor: pointer;">Caballeros</a></li>
+        <li class="menuNavBar"><a (click)="toggleBtnProducts(4)" style="cursor: pointer;">Niñas</a></li>
+        <li class="menuNavBar"><a (click)="toggleBtnProducts(3)" style="cursor: pointer;">Niños</a></li>
       </ul>
     </div>
   </nav>

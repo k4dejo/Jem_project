@@ -85,6 +85,7 @@ export class JempageComponent implements OnInit {
 
   toggleBtnProducts(gender: any) {
     const link = '/Home/Articulo/';
+    sessionStorage.removeItem('currentPage');
     this.router.navigate([link, 'J', '1', gender]);
   }
 

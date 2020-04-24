@@ -141,12 +141,12 @@
                   <img class="img-responsive" [src]="fileBlob" alt="">
                 </div>
               </div>
-              <!--<label class="btnLabel btn btn--green">
+              <label class="btnLabel btn btn--green">
                 <i class="fas fa-file-upload"></i> Subir imagen
                 <input class="inputFile" name="photo" type="file" id="img" accept="image/*" (change)="onUpload($event)">
-              </label>-->
-              <button type="button" class="btn btn-success"
-                (click)="compressFile()">Subir imagen</button>
+              </label>
+              <!--<button type="button" class="btn btn-success"
+                (click)="compressFile()">Subir imagen</button>-->
             </div>
             <div class="col-md-5">
               <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">

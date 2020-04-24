@@ -55,9 +55,16 @@ export class ApartService {
      {headers: headers});
   }
 
-  checkAmountProduct(idProduct, sizeId): Observable<any> {
+  checkAmountProduct(sizeId, idProduct): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'checkAmountProduct/' + sizeId + '/' + idProduct,
+    {headers: headers});
+  }
+
+  compareAmountSizeProduct(sizeId, idProduct, amountCompare): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'compareAmountSizeProduct/' + sizeId + '/' + idProduct
+     + '/' + amountCompare,
     {headers: headers});
   }
 

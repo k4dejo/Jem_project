@@ -32,77 +32,6 @@
             <h2 class="fw-title">Filtros</h2>
             <input (click)="cleanFilter()" type="button" style="background-color:rgb(194, 89, 255); color: rgb(253, 253, 253); font-weight: bold;"
             value="Limpiar filtros" class="btn btn--pill">
-            <!--<div class="filter-widget mb-0">
-              <h2 class="fw-title">TALLA</h2>
-              <div class="fw-size-choose">
-                <div class="sc-item">
-                  <input (click)="filterSizeProduct('xs')" type="radio" name="sc" id="xs-size">
-                  <label for="xs-size">XS</label>
-                </div>
-                <div class="sc-item">
-                  <input (click)="filterSizeProduct('s')" type="radio" name="sc" id="s-size">
-                  <label for="s-size">S</label>
-                </div>
-                <div class="sc-item">
-                  <input (click)="filterSizeProduct('m')" type="radio" name="sc" id="m-size"  checked="">
-                  <label for="m-size">M</label>
-                </div>
-                <div class="sc-item">
-                  <input (click)="filterSizeProduct('l')" type="radio" name="sc" id="l-size">
-                  <label for="l-size">L</label>
-                </div>
-                <div class="sc-item">
-                  <input (click)="filterSizeProduct('xl')" type="radio" name="sc" id="xl-size">
-                  <label for="xl-size">XL</label>
-                </div>
-                <div class="sc-item">
-                  <input (click)="filterSizeProduct('xxl')" type="radio" name="sc" id="xxl-size">
-                  <label for="xxl-size">XXL</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="filter-widget mb-0">
-              <h2 class="fw-title">MARCAS</h2>
-              <select (change)="toggleTag($event.target.value)" id="mounth">
-                <option value="hide">-- Marcas --</option>
-                <option *ngFor="let tag of tags"  [value]="tag.id">
-                  {{tag.name}}
-                </option>
-              </select>
-            </div>
-						<div class="price-range-wrap">
-              <h4>Precio</h4>
-              <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="10" data-max="270">
-                <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
-								<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;">
-								</span>
-								<span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;">
-								</span>
-              </div>
-              <div class="two_sidebar">
-								<fieldset class="filter-price">
-								    <div class="price-field">
-                        <input (change)="filterByPriceMin($event)" type="range"  min="2500" max="50000" value="2500" id="lower">
-								      	<input  (change)="filterByPriceMax($event)" type="range"  min="2500" max="50000" value="45000" id="upper">
-								    </div>
-								     <div class="price-wrap">
-								      	<span class="price-title">Precio : </span>
-								      <div class="price-wrap-1">
-								      		<input id="one">
-								      		<label for="one">₡ {{minPrice | number: '3.'}}</label>
-								      </div>
-								      <div class="price-wrap_line">-</div>
-								      <div class="price-wrap-2">
-								        	<input id="two">
-								        	<label for="two">₡ {{maxPrice | number: '3.'}}</label>
-								      </div>
-								    </div>
-                </fieldset>
-                <input (click)="sendFilter()" type="button" style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;"
-                value="Filtrar" class="btn btn--pill">
-							</div>
-            </div>-->
 					</div>
 					<div class="filter-widget">
 						<h2 class="fw-title">Prendas</h2>
@@ -134,17 +63,6 @@
 			<div class="col-xl-9 col-lg-8 col-md-7 productContainer">
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
-					<!--<a href="#" class="grid-btn active"><i class="fa fa-th" aria-hidden="true"></i></a>
-					<a href="#" class="list-btn"><i class="fa fa-th-list" aria-hidden="true"></i></a>
-					<div class="pagination">
-						<a href="#" class="prev-arrow"><i class="fas fa-arrow-left arrow" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-              			<a href="#">2</a>
-						<a href="#">3</a>
-              			<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-              			<a href="#">6</a>
-						<a href="#" class="next-arrow"><i class="fas fa-arrow-right arrow" aria-hidden="true"></i></a>
-					</div>-->
 				</div>
         <!-- End Filter Bar -->
         <div class="filter-widget mb-0" style="margin-top: 4%;">
@@ -225,24 +143,17 @@
           </div>
         </div>
 				<section class="pb-40 category-list">
-          <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
-          <input *ngIf="btnNextDisabled" (click)="nextPaginate()" type="button" value="Cargar pagina"
-          style="background-color:rgb(164, 69, 253);
-           margin-bottom: 3%; color: rgb(253, 253, 253); font-weight: bold;"
-          class="btn btn--pill nextPage">
-          <input *ngIf="!btnNextDisabled" disabled (click)="nextPaginate()" type="button" value="Cargar pagina"
-          style="background-color:rgb(164, 69, 253);
-           margin-bottom: 3%; color: rgb(253, 253, 253); font-weight: bold;"
-          class="btn btn--pill nextPage">
+          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+          (pageChange)="nextPaginate($event)"></pagination-controls>
 					<div class="row">
-						<div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p }" class="col-lg-4 col-md-12 col-xs-6 single-product">
+						<div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}" class="col-lg-4 col-md-12 col-xs-6 single-product">
 							<div class="content">
 								<div class="content-overlay"></div>
 								<img class="content-image img-fluid d-block mx-auto"
 								[src]="product.photo" alt="">
 								<div class="content-details fadeIn-bottom">
 									<div class="bottom d-flex align-items-center justify-content-center">
-										<a href="#"><i class="far fa-heart"></i></a>
+										<a (click)="like()"><i class="far fa-heart"></i></a>
                     <a (click)="gotoDetail(product.id)"><i class="far fa-eye"></i></a>
 										<a (click)="downloadImg(product.photo)" href="" data-toggle="modal" data-target="#myModal"><i class="fas fa-expand"></i></a>
 									</div>
@@ -253,7 +164,9 @@
 								<h3>₡ {{product.pricePublic | number: '3.'}}</h3>
 							</div>
 						</div>
-					</div>
+          </div>
+          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+          (pageChange)="nextPaginate($event)"></pagination-controls>
 				</section>
 			</div>
 		</div>

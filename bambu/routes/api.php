@@ -118,6 +118,7 @@ Route::group(['middleware' => 'cors'], function(){
     Route::get('getApartClient/{id}', 'apartController@getApartClient');
     Route::get('checkSizeIdApart/{idProduct}/{size}', 'apartController@checkSizeIdApart');
     Route::get('checkAmountProduct/{sizeId}/{idProduct}', 'apartController@checkAmountProduct');
+    Route::get('compareAmountSizeProduct/{sizeId}/{idProduct}/{amountCompare}', 'apartController@compareAmountSizeProduct');
    /**/
 
    /*PRODUCT*/

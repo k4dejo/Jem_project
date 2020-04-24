@@ -209,6 +209,31 @@ class apartController extends Controller
     }
    }
 
+   public function compareAmountSizeProduct($sizeId, $productId, $amountCompare) {
+    $productSize = article::find($productId)->sizes()->get();
+    $countGetProduct = count($productSize);
+    for ($i=0; $i < $countGetProduct; $i++) {
+        if ($productSize[$i]->id == $sizeId) {
+            if ($productSize[$i]->pivot->stock >= $amountCompare) {
+                $data = array(
+                    'sizeId' => $productSize[$i]->id,
+                    'amountCheck' => 'success',
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+            }else {
+                $data = array(
+                    'sizeId' => $productSize[$i]->id,
+                    'amountCheck' => 'void',
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+            }
+            return response()->json($data,200);
+        }
+    }
+   }
+
     public function changeAmountProduct($idProduct, $sizeId, $isDelete, Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();

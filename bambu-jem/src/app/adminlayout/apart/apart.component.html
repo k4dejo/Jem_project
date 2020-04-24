@@ -48,6 +48,23 @@
                 </div>
               </div>
             </div>
+            <div class="input-group-desc">
+              <label for="">Precio de la orden:</label>
+              <div class="row">
+                <div class="col-md-4">
+                  <input style="color: white; background-color: rgb(32, 101, 250);" type="button" class="btn btn--pill"
+                  value="Precio Público" (click)="switchPrice(1)">
+                </div>
+                <div class="col-md-4">
+                  <input style="color: white; background-color:  rgb(32, 101, 250);" type="button" class="btn btn--pill"
+                  value="Precio por mayor" (click)="switchPrice(2)">
+                </div>
+                <div class="col-md-4">
+                  <input style="color: white; background-color:  rgb(32, 101, 250);;" type="button" class="btn btn--pill"
+                  value="Tu boutique" (click)="switchPrice(3)">
+                </div>
+              </div>
+            </div>
             <div class="search-product">
               <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
                 placeholder=" &#61442; Buscar...">
@@ -58,15 +75,21 @@
                   <th scope="col">Producto</th>
                   <th>Género</th>
                   <th>Depart</th>
-                  <th scope="col">Público</th>
+                  <th *ngIf="pPublic" scope="col">Público</th>
+                  <th *ngIf="pMajor" scope="col">Mayoreo</th>
+                  <th *ngIf="pBoutique" scope="col">Tu_boutique</th>
                   <th scope="col"></th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
-                    <td>{{product.name}}</td>
+                    <td>
+                      <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModal">{{product.name}}</a>
+                    </td>
                     <td>{{product.gender}}</td>
                     <td>{{product.department}}</td>
-                    <td>₡ {{product.pricePublic | number: '3.'}}</td>
+                    <td *ngIf="pPublic">₡ {{product.pricePublic | number: '3.'}}</td>
+                    <td *ngIf="pMajor">₡ {{product.priceMajor | number: '3.'}}</td>
+                    <td *ngIf="pBoutique">₡ {{product.priceTuB | number: '3.'}}</td>
                     <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
                     value="Agregar" (click)="getProduct(product.id)"></td>
                   </tr>
@@ -80,7 +103,9 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Género</th>
                 <th scope="col">Depart</th>
-                <th scope="col">Público</th>
+                <th *ngIf="pPublic" scope="col">Público</th>
+                <th *ngIf="pMajor" scope="col">Mayoreo</th>
+                <th *ngIf="pBoutique" scope="col">Tu_boutique</th>
                 <th scope="col"></th>
               </thead>
               <tbody>
@@ -90,7 +115,9 @@
                   </td>
                   <td>{{product.gender}}</td>
                   <td>{{product.department}}</td>
-                  <td>₡ {{product.pricePublic | number: '3.'}}</td>
+                  <td *ngIf="pPublic">₡ {{product.pricePublic | number: '3.'}}</td>
+                  <td *ngIf="pMajor">₡ {{product.priceMajor | number: '3.'}}</td>
+                  <td *ngIf="pBoutique">₡ {{product.priceTuB | number: '3.'}}</td>
                   <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
                   value="Agregar a compra" (click)="getProduct(product.id)"></td>
                 </tr>
@@ -106,7 +133,9 @@
                 </div>
                 <div class="input-group-desc">
                   <h4 for="">Precio</h4>
-                  <input class="input--style-5" name="name" type="text" [placeholder]="productGet.pricePublic" disabled/>
+                  <input *ngIf="pPublic" class="input--style-5" name="name" type="text" [placeholder]="productGet.pricePublic" disabled/>
+                  <input *ngIf="pMajor" class="input--style-5" name="name" type="text" [placeholder]="productGet.priceMajor" disabled/>
+                  <input *ngIf="pBoutique" class="input--style-5" name="name" type="text" [placeholder]="productGet.priceTuB" disabled/>
                 </div>
                 <div class="input-group-desc">
                   <div class="fw-size-choose">
@@ -124,12 +153,14 @@
                   value="ADD" disabled>
                   <input *ngIf="AmountInputBool" style="color: white;" type="button" class="btn btn--blue btn--pill"
                   value="ADD" (click)="checkoutApart(productGet)">
+                  <label *ngIf="messageError" style="color: brown; padding-left: 5%;" for="">inventario insuficiente</label>
                 </div>
               </div>
             </div>
             <div class="billing">
               <table class="table table-striped">
                 <thead>
+                  <th></th>
                   <th scope="col">Producto</th>
                   <th scope="col" class="quy-th">Cantidad</th>
                   <th scope="col" class="size-th">Talla</th>
@@ -138,10 +169,13 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let productApart of arrayApart">
+                    <td><img [src]="productApart.photo" class="img-responsive" alt=""></td>
                     <td>{{productApart.name}}</td>
                     <td>{{productApart.pivot.amount}}</td>
                     <td>{{productApart.pivot.size}}</td>
-                    <td>₡ {{productApart.pricePublic * productApart.pivot.amount | number: "3."}}</td>
+                    <td *ngIf="pPublic">₡ {{productApart.pricePublic * productApart.pivot.amount | number: '3.'}}</td>
+                    <td *ngIf="pMajor">₡ {{productApart.priceMajor * productApart.pivot.amount | number: '3.'}}</td>
+                    <td *ngIf="pBoutique">₡ {{productApart.priceTuB * productApart.pivot.amount | number: '3.'}}</td>
                     <td>
                       <input style="color: white;" type="button" class="btn btn--blue btn--pill"
                       value="Eliminar" (click)="detachProductBilling(productApart)">
@@ -150,6 +184,7 @@
                 </tbody>
               </table>
               <h3>Total: ₡ {{apartM.price | number: "3."}}</h3>
+              <h4>Envío: ₡ {{shipping | number: "3."}}</h4>
             </div>
             <input style="color: white;" type="button" class="btn btn--green btn--pill"
             value="Facturar" data-toggle="modal" data-target="#Factu">

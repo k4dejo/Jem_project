@@ -68,6 +68,22 @@ export class ApartComponent implements OnInit {
   public clientBool: boolean;
   public sizeId: string;
   public isDelete;
+  public messageError = false;
+  public subscribeTimer: any;
+  public interval;
+  public timeLeft = 5;
+  public compareBool = true;
+  public pPublic = true;
+  public pMajor = false;
+  public pBoutique = false;
+  public shipping = 0;
+  public totalPrice = 0;
+  public totalWeight = 0;
+  public rateGAM = 1760;
+  public addGAM = 850;
+  public restRate = 2220;
+  public restAdd = 990;
+  public splite;
 
   constructor(
     private router: Router,
@@ -126,6 +142,33 @@ export class ApartComponent implements OnInit {
       dptId = i + 1;
       this.department.push(new Departament(dptId.toString(), data[i]));
     }
+  }
+
+  switchPrice(event: any) {
+    switch (event) {
+      case 1:
+        this.pPublic = true;
+        this.pMajor = false;
+        this.pBoutique = false;
+        console.log(event);
+      break;
+      case 2:
+        this.pPublic = false;
+        this.pMajor = true;
+        this.pBoutique = false;
+        console.log(event);
+      break;
+      case 3:
+        this.pPublic = false;
+        this.pMajor = false;
+        this.pBoutique = true;
+        console.log(event);
+      break;    
+      default:
+        console.log('Fuera de rango');
+      break;
+    }
+
   }
 
   getGenderString(genderLength: any, productGenIndex: any) {
@@ -194,10 +237,13 @@ export class ApartComponent implements OnInit {
 
   sizeAdd(sizeId: any, productId: any) {
     const idProduct = productId.id;
-    console.log(idProduct);
     this.attachApart.size = sizeId.size;
     this.sizeId = sizeId.id;
-    this.apartService.checkAmountProduct(sizeId.id, productId.id).subscribe(
+    this.checkAmountSizesProduct(sizeId.id, productId.id);
+  }
+
+  checkAmountSizesProduct(sizeId, productId) {
+    this.apartService.checkAmountProduct(sizeId, productId).subscribe(
       response => {
         if (response.amountCheck === 'success') {
           this.AmountInputBool = true;
@@ -227,7 +273,6 @@ export class ApartComponent implements OnInit {
     this.loading = true;
     this.apartService.updateAmountApart(this.token, idProduct, sizeId, isDelete, product).subscribe(
       response => {
-        console.log(response);
         if (response.status === 'success') {
           this.loading = false;
         }
@@ -238,46 +283,90 @@ export class ApartComponent implements OnInit {
     );
   }
 
-  checkoutApart(productGet: any) {
-    this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
-    this.attachApart.amount = this.valueQtyBtn;
-    this.isDelete = 'add';
-    this.editAmountProduct(productGet.id, this.sizeId, this.isDelete, this.attachApart);
-    this.apartService.addNewApart(this.token, this.apartM).subscribe(
+  compareAmountInAdd(sizeId, productId, amountCompare) {
+    this.apartService.compareAmountSizeProduct(sizeId, productId, amountCompare).subscribe(
       response => {
-        if (response.status === 'success' || response.status === 'Exist') {
-          // this.attachApart.amount = this.valueQtyBtn;
-          this.attachApart.article_id = productGet.id;
-          this.attachApart.apart_id = response.apart.id;
-          this.attachApartProduct(this.token, this.attachApart);
+        if (response.amountCheck === 'success') {
+          this.AmountInputBool = true;
+          this.compareBool = true;
+          this.messageError = false;
+          this.editAmountProduct(productId, this.sizeId, this.isDelete, this.attachApart);
+          this.apartService.addNewApart(this.token, this.apartM).subscribe(
+            response => {
+              if (response.status === 'success' || response.status === 'Exist') {
+                // this.attachApart.amount = this.valueQtyBtn;
+                this.attachApart.article_id = productId;
+                this.attachApart.apart_id = response.apart.id;
+                this.attachApartProduct(this.token, this.attachApart);
+              }
+            }, error => {
+              console.log(<any> error);
+            }
+          );  
+        } else {
+          this.AmountInputBool = false;
+          this.compareBool = false;
+          this.messageError = true;
+          this.startTimer();
         }
-      }, error => {
+      }, error => { 
         console.log(<any> error);
       }
     );
   }
+  checkoutApart(productGet: any) {
+    this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
+    this.attachApart.amount = this.valueQtyBtn;
+    this.isDelete = 'add';
+    this.compareAmountInAdd(this.sizeId, productGet.id, this.attachApart.amount);
+  }
 
   /* checkoutApart(productGet: any) {
-    console.log(productGet);
+    this.compareAmount(this.sizeId, productGet.id, this.attachApart.amount);
     this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
-    this.apartService.addNewApart(this.token, this.apartM).subscribe(
-      response => {
-        if (response.status === 'success' || response.status === 'Exist') {
-          this.attachApart.amount = this.valueQtyBtn;
-          this.attachApart.article_id = productGet.id;
-          this.attachApart.apart_id = response.apart.id;
-          this.attachApartProduct(this.token, this.attachApart);
+    this.attachApart.amount = this.valueQtyBtn;
+    this.isDelete = 'add';
+    if (this.compareBool) {
+      this.messageError = false;
+      this.editAmountProduct(productGet.id, this.sizeId, this.isDelete, this.attachApart);
+      this.apartService.addNewApart(this.token, this.apartM).subscribe(
+        response => {
+          if (response.status === 'success' || response.status === 'Exist') {
+            // this.attachApart.amount = this.valueQtyBtn;
+            this.attachApart.article_id = productGet.id;
+            this.attachApart.apart_id = response.apart.id;
+            this.attachApartProduct(this.token, this.attachApart);
+          }
+        }, error => {
+          console.log(<any> error);
         }
-      }, error => {
-        console.log(<any> error);
-      }
-    );
+      );      
+    } else {
+      this.messageError = true;
+      this.startTimer();
+    }
   }*/
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        if (this.timeLeft === 0) {
+          this.messageError = false;
+        }
+      }
+    }, 500);
+  }
 
   getApart(apartId: any) {
     this.apartService.getApart(apartId).subscribe(
       response => {
         this.arrayApart = response.apart;
+        for (let index = 0; index < this.arrayApart.length; index++) {
+          this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
+         this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+        }
+        this.calculateWeight();
       }, error => {
         console.log(<any>error);
       }
@@ -288,11 +377,13 @@ export class ApartComponent implements OnInit {
     this.apartService.getApartClient(clientId).subscribe(
       response => {
         this.arrayApart = response.apart;
+        console.log(this.arrayApart);
         this.attachApart.apart_id = this.arrayApart[0].pivot.apart_id;
         for (let index = 0; index < this.arrayApart.length; index++) {
+            this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
           this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
         }
-
+        this.calculateWeight();
       }, error => {
         console.log(<any>error);
       }
@@ -333,6 +424,8 @@ export class ApartComponent implements OnInit {
     this.apartM.clients_id = dataClient.id;
     this.apartM.price = 0;
     this.clientBool = false;
+    this.splite = this.client.address.split(',');
+    this.viewAddress(this.splite[0] , this.splite[1]);
     this.apartService.addNewApart(this.token, this.apartM).subscribe(
       response => {
         if (response.status === 'success' || response.status === 'Exist') {
@@ -351,6 +444,7 @@ export class ApartComponent implements OnInit {
         if (response.status === 'success') {
           this.getApart(dataApart.apart_id);
           this.editApart(dataApart.apart_id);
+          this.calculateWeight();
         }
       }, error => {
         console.log(<any> error);
@@ -374,10 +468,12 @@ export class ApartComponent implements OnInit {
   detachProductBilling(product: any) {
     this.attachApart.size = product.pivot.size;
     this.attachApart.article_id = product.id;
-    this.checkSizeApart(product.id, product.pivot.size, this.attachApart);
-    this.apartService.dettachProductApart(this.attachApart).subscribe(
+    const arrayDetach = this.attachApart;
+    arrayDetach.amount = product.pivot.amount;
+    this.apartService.dettachProductApart(arrayDetach).subscribe(
       response => {
-        console.log(response);
+        this.calculateWeight();
+        this.checkSizeApart(product.id, product.pivot.size, arrayDetach);
         this.getApart(response.apart.id);
         this.editApart(response.apart.id);
       }, error => {
@@ -385,6 +481,76 @@ export class ApartComponent implements OnInit {
       }
     );
   }
+
+  /*===============================Shipping================================*/
+
+  calculateWeight() {
+    this.totalWeight = 0;
+    for (let index = 0; index < this.arrayApart.length; ++index) {
+      this.totalWeight += Number(this.arrayApart[index].weight) * this.arrayApart[index].pivot.amount;
+    }
+    console.log(this.totalWeight);
+    this.viewAddress(this.splite[0] , this.splite[1]);
+  }
+
+
+  shippingCalculate(weight: any, rate: any, additional: any) {
+    this.shipping = 0;
+    if (weight <= 1 && weight > 0) {
+      this.shipping += rate;
+    }
+    if (weight > 1) {
+      const weightAdditional = weight - 1;
+      this.shipping += rate + (weightAdditional * additional);
+    }
+  }
+
+  viewAddress(province: any, district: any) {
+    switch (province) {
+      case 'San José':
+        if (district === 'central') {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      case 'Alajuela':
+        if (district === 'central' || district === 'Poás' ||  district === 'Atenas') {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      case 'Guanacaste':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+      break;
+      case 'Heredia':
+        if (district === 'central') {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      case 'Puntarenas':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+      break;
+      case 'Limón':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+      break;
+      case 'Cartago':
+        if (district === 'central') {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      default:
+        // tslint:disable-next-line:no-unused-expression
+        'fuera de rango de zona';
+      break;
+    }
+  }
+  /*======================================================================================*/
 
   ngOnInit() {
     if (this.identity == null) {
