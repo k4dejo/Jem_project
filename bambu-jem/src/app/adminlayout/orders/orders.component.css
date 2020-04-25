@@ -541,6 +541,14 @@ td .img-responsive{
     cursor: pointer;
   }
 
+  .mobile-view {
+    display: none;
+  }
+
+  .pc-view {
+    display: initial;
+  }
+
 
   .registerText{
     margin-top: 10px;
@@ -571,6 +579,10 @@ td .img-responsive{
     flex-direction: column;
     justify-content: center;
     padding: 20px;
+  }
+
+  .modal-body {
+    height: 400px;
   }
 
   #formContent {
@@ -1090,6 +1102,18 @@ td .img-responsive{
 ==========================================*/
 
   @media (max-width: 767px) {
+
+    .mobile-view {
+      display: initial;
+    }
+
+    #formContent {
+      height: 750px;
+    }
+
+    .pc-view {
+      display: none;
+    }
 
     #formContent {
       margin-left: 6%;

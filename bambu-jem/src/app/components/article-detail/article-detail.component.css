@@ -1,6 +1,7 @@
 .main{
 	padding-top: 3%;
 }
+
 /*------- Start Bread Crumb --------*/
 .organic-bread {
 	margin-bottom: 100px;
@@ -298,7 +299,8 @@ section .container {
 }
 
 .product-details .fw-size-choose input[type=radio]:checked+label {
-	border: 2px solid #f51167;
+  border: 2px solid #f51167;
+  padding-top: 1px;
 }
 
 .product-details .fw-size-choose .disable label {

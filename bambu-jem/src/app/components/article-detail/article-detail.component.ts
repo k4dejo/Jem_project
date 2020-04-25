@@ -56,6 +56,7 @@ export class ArticleDetailComponent implements OnInit {
   public interval;
   public timeLeft = 5;
   public successModalBool = false;
+  public inventoryEmpty = false;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -265,7 +266,6 @@ export class ArticleDetailComponent implements OnInit {
   verifyPurchaseStatus() {
     this.purchaseService.verifyStatusPurchase(this.identity.sub).subscribe(
       response => {
-        console.log(response);
         if (response.purchase !== null) {
           this.editPurchase(response);
         } else {
@@ -283,7 +283,6 @@ export class ArticleDetailComponent implements OnInit {
     this.productCart.price = purchaseRes.purchase.price + this.productCart.price;
     this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
       response => {
-        console.log(response);
         this.attachPurchase.purchase_id = purchaseRes.purchase.id;
         this.attachPurchase.article_id = this.IdProduct;
         this.attachPurchase.amount = this.valueQtyBtn;
@@ -299,7 +298,7 @@ export class ArticleDetailComponent implements OnInit {
       response => {
         this.attachPurchase.purchase_id = response.purchase.id;
         this.attachPurchase.article_id = this.IdProduct;
-        this.attachPurchase.amount = this.valueQtyBtn;
+        // this.attachPurchase.amount = this.valueQtyBtn;
         console.log(response);
         this.attachProductPurchase();
       }, error => {
@@ -309,7 +308,6 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   attachProductPurchase() {
-    console.log(this.attachPurchase);
     this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       response => {
@@ -355,7 +353,15 @@ export class ArticleDetailComponent implements OnInit {
           this.productCart.price = this.product.priceMajor * this.valueQtyBtn;
         }
       }
-      /* if (this.offerBool) {
+      this.attachPurchase.amount = this.valueQtyBtn;
+      let sizeIdCompare = 0;
+      for (let index = 0; index < this.viewRelation.length; index++) {
+        if (this.viewRelation[index].size === this.attachPurchase.size) {
+          sizeIdCompare = this.viewRelation[index].id;
+        }
+
+      }
+      if (this.offerBool) {
         this.productCart.price = this.offer.offer;
       } else {
         if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
@@ -363,8 +369,22 @@ export class ArticleDetailComponent implements OnInit {
         } else {
           this.productCart.price = this.product.priceMajor;
         }
-      }*/
-      this.verifyPurchaseStatus();
+      }
+      this.purchaseService.compareAmountSizePurchase(sizeIdCompare, this.IdProduct, this.attachPurchase.amount)
+      .subscribe(
+        response => {
+          if (response.amountCheck === 'success') {
+            this.verifyPurchaseStatus();
+            this.inventoryEmpty = false;
+          } else {
+            this.inventoryEmpty = true;
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+
+      // this.verifyPurchaseStatus();
     } else {
       this.isClient = true;
       this.startTimerSucess();

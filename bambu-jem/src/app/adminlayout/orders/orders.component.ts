@@ -5,10 +5,12 @@ import { PurchaseService } from '../../services/purchase.service';
 import { Purchase } from '../../models/purchase';
 import { PurchaseInfo } from '../../models/purchaseInfo';
 import { Ticket } from '../../models/ticketPurchase';
+import { AddresPurchases } from '../../models/addressPurchase';
+import { AddresServices } from '../../services/addres.service';
 
 @Component({
   selector: 'app-orders',
-  providers: [AdminService, PurchaseService],
+  providers: [AdminService, PurchaseService, AddresServices],
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
@@ -18,6 +20,7 @@ export class OrdersComponent implements OnInit {
   public purchaselist: Array<Purchase>;
   public ticketPurchase: Ticket;
   public purchaseinfo: PurchaseInfo;
+  public addressPurchase: AddresPurchases;
   public productList;
   public randomChar: string;
   public fileUrl;
@@ -27,11 +30,13 @@ export class OrdersComponent implements OnInit {
   constructor(
     private router: Router,
     private adminService: AdminService,
+    private addressService: AddresServices,
     private purchaseService: PurchaseService
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
     this.purchaseinfo = new PurchaseInfo('', '', '', '', '', 0, 0);
+    this.addressPurchase = new AddresPurchases('', '', '');
     this.ticketPurchase = new Ticket(null, '');
   }
 
@@ -70,8 +75,19 @@ export class OrdersComponent implements OnInit {
         this.purchaseinfo.clientPhone = response.clientPhone;
         this.purchaseinfo.purchasePrice = response.purchasePrice;
         this.purchaseinfo.PurchaseShiping = response.PurchaseShiping;
+        if (response.addressPurchase != null) {
+          this.addressService.getAddressPurchase(response.addressPurchase).subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
+            response => {
+              this.addressPurchase = response.AddressPurchase;
+              console.log(this.addressPurchase);
+            }, error => {
+              console.log(<any> error);
+            }
+          );
+        }
         this.productList = response.purchase;
-        console.log(this.purchaseinfo.PurchaseShiping);
+        console.log(this.addressPurchase);
       }, error => {
         console.log(<any> error);
       }
@@ -80,7 +96,6 @@ export class OrdersComponent implements OnInit {
 
   submitPurchaseClient() {
     const statusPurchase = 'Enviado';
-    console.log(this.purchaseinfo);
     this.purchaseService.editPurchaseStatus(this.purchaseinfo.id, statusPurchase).subscribe(
       response => {
         console.log(response);
@@ -92,7 +107,6 @@ export class OrdersComponent implements OnInit {
 
   toggleInfo(dataPurchase: any) {
     this.purchaseinfo.id = dataPurchase.id;
-    console.log(this.purchaseinfo);
     this.getTicket();
     if (dataPurchase.status !== 'Enviado') {
       this.sendBtnBool = false;
@@ -103,13 +117,11 @@ export class OrdersComponent implements OnInit {
   }
 
   getTicket() {
-    console.log(this.purchaseinfo);
     this.purchaseService.getTicket(this.purchaseinfo.id).subscribe(
       response => {
         // agrego formato a la imagen.
         this.ticketPurchase.ticket = response.img;
         this.ticketPurchase.ticket = 'data:image/jpeg;base64,' + this.ticketPurchase.ticket;
-        console.log(this.ticketPurchase);
       }, error => {
         console.log(<any> error);
       }

@@ -67,23 +67,125 @@
       <i class="fa fa-times close" data-dismiss="modal"></i>
       <h2 id="modalLabel">Infomación del pedido</h2>
     </div>
-    <div class="modal-body fadeIn second">
+    <div class="modal-body fadeIn second mobile-view">
       <div class="row">
-        <div class="col-md-6" style="text-align: left;">
+        <div class="col-md-12 col-xs-12 col-s-12">
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">Cliente</th>
+              <th scope="col">Teléfono</th>
+            </thead>
+            <tbody>
+              <td>
+                <p>{{purchaseinfo.clientName}}</p>
+              </td>
+              <td>
+                {{purchaseinfo.clientPhone}}
+              </td>
+            </tbody>
+          </table>
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">Dirección del envío</th>
+              <th scope="col">Detalle</th>
+            </thead>
+            <tbody>
+              <td>
+                <p>{{addressPurchase.address}}</p>
+              </td>
+              <td>
+                <p>{{addressPurchase.addressDetail}}</p>
+              </td>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-12 col-s-12 col-xs-12">
+          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          </pagination-controls>
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">producto</th>
+              <th scope="col">Talla</th>
+              <th scope="col">cantidad</th>
+              <th scope="col">precio</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{product.name}}</td>
+                <td>{{product.pivot.size}}</td>
+                <td>{{product.pivot.amount}}</td>
+                <td>₡ {{product.pricePublic | number: '3.'}} </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          </pagination-controls>
+          <a style="padding-top: 2%;" (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
+            <h3>ver recibo</h3>
+          </a>
+          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
+        </div>
+      </div>
+      <!--<div class="row">
+        <div class="col-md-6 col-xs-6 col-s-6" style="text-align: left;">
           <h3>Nombre Cliente:</h3>
           <p>{{purchaseinfo.clientName}}</p>
-          <h3>Dirección:</h3>
-          {{purchaseinfo.clientAddress}}
-          <h3>Dirección detalle</h3>
-          {{purchaseinfo.addressDetail}}
           <h3>Teléfono:</h3>
           {{purchaseinfo.clientPhone}}
+          <h3>Dirección del envío</h3>
+          <p>{{addressPurchase.address}}</p>
+          <h4>Detalle</h4>
+          <p>{{addressPurchase.addressDetail}}</p>
           <h3>Envío</h3>
-           ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}
+            ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}
           <h3>Precio total:</h3>
           ₡ {{purchaseinfo.purchasePrice | number: '3.'}}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-6 col-s-6">
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">producto</th>
+              <th scope="col">Talla</th>
+              <th scope="col">cantidad</th>
+              <th scope="col">precio</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 8, currentPage: p }">
+                <td>{{product.name}}</td>
+                <td>{{product.pivot.size}}</td>
+                <td>{{product.pivot.amount}}</td>
+                <td>₡ {{product.pricePublic | number: '3.'}} </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          </pagination-controls>
+          <div class="colPhoto">
+            <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
+              <img class="img-responsive" [src]="ticketPurchase.ticket" alt="">
+            </a>
+          </div>
+          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
+        </div>
+      </div>-->
+    </div>
+    <div class="modal-body fadeIn second pc-view">
+      <div class="row">
+        <div class="col-md-6 col-xs-6 col-s-6" style="text-align: left;">
+          <h3>Nombre Cliente:</h3>
+          <p>{{purchaseinfo.clientName}}</p>
+          <h3>Teléfono:</h3>
+          {{purchaseinfo.clientPhone}}
+          <h3>Dirección del envío</h3>
+          <p>{{addressPurchase.address}}</p>
+          <h4>Detalle</h4>
+          <p>{{addressPurchase.addressDetail}}</p>
+          <h3>Envío</h3>
+            ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}
+          <h3>Precio total:</h3>
+          ₡ {{purchaseinfo.purchasePrice | number: '3.'}}
+        </div>
+        <div class="col-md-6 col-xs-6 col-s-6">
           <table class="table table-striped">
             <thead>
               <th scope="col">producto</th>

@@ -392,6 +392,31 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
+    public function compareAmountSizePurchase($sizeId, $productId, $amountCompare) {
+        $productSize = article::find($productId)->sizes()->get();
+        $countGetProduct = count($productSize);
+        for ($i=0; $i < $countGetProduct; $i++) {
+            if ($productSize[$i]->id == $sizeId) {
+                if ($productSize[$i]->pivot->stock >= $amountCompare) {
+                    $data = array(
+                        'sizeId' => $productSize[$i]->id,
+                        'amountCheck' => 'success',
+                        'status'  => 'success',
+                        'code'    => 200,
+                    );
+                }else {
+                    $data = array(
+                        'sizeId' => $productSize[$i]->id,
+                        'amountCheck' => 'void',
+                        'status'  => 'success',
+                        'code'    => 200,
+                    );
+                }
+                return response()->json($data,200);
+            }
+        }
+       }
+
     public function getClientInfo($idClient, $status) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
         ->where('status', $status)->first();
@@ -410,6 +435,7 @@ class PurchaseController extends Controller
             'clientPhone'              => $infoClient->phone,
             'purchasePrice'            => $purchaseClient->price,
             'PurchaseShiping'          => $purchaseClient->shipping,
+            'addressPurchase'          => $purchaseClient->addresspurchases_id,
             'status'                   => 'success',
             'code'    => 200,
         );
@@ -424,6 +450,9 @@ class PurchaseController extends Controller
         for ($i=0; $i < $countPurchase; $i++) {
             $contents = Storage::get($arrayPurchase[$i]->photo);
             $arrayPurchase[$i]->photo = base64_encode($contents);
+        }
+        if ($purchaseClient->addresspurchases_id == null) {
+            $purchaseClient->addresspurchases_id = '0';
         }
         $data = array(
             'purchase'       => $arrayPurchase,

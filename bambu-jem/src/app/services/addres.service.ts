@@ -24,6 +24,11 @@ export class AddresServices {
       return this._http.post(this.url + 'storeAddress', params, { headers: headers });
     }
 
+    getAddressPurchase(addressId): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getAddressPurchase/' + addressId, { headers: headers });
+    }
+
     getProvinceJson(): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.province_url, {headers: headers});

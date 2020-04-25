@@ -58,13 +58,13 @@
             <h4 class="p-stock"><span>Disponible</span></h4>
             <div class="fw-size-choose">
               <p>Talla</p>
-              <div class="sc-item" *ngFor="let size of viewRelation" >
+              <div class="sc-item" *ngFor="let size of viewRelation">
                 <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
-                <input *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
-                <label *ngIf="size.pivot.stock <= 0" style="border-color: rgb(128, 128, 128);
-                color: rgb(128, 128, 128);"
+                <input disabled *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
+                <label aria-disabled="true" *ngIf="size.pivot.stock <= 0" style="border-color: rgb(117, 117, 117);
+                color: rgb(131, 130, 130); font-weight: bold; font-size: 18px; cursor:no-drop;"
                 for="{{size.size}}">{{size.size}}</label>
-                <label *ngIf="size.pivot.stock > 0"
+                <label style="font-weight: bold; font-size: 18px;" *ngIf="size.pivot.stock > 0"
                 for="{{size.size}}">{{size.size}}</label>
               </div>
             </div>
@@ -93,6 +93,9 @@
               <h4 *ngIf="NotifySuccess" class="notifyAlert p-success"><span>Producto añadido al carrito</span></h4>
               <h4 *ngIf="isClient" class="notifyAlert p-success">
                 <span>Necesitas iniciar sesión antes de añadir una prenda</span>
+              </h4>
+              <h4 *ngIf="inventoryEmpty" class="notifyAlert p-stock">
+                <span>Lo sentimos esta prenda esta agotada en esta talla</span>
               </h4>
             </div>
             <div id="accordion" class="accordion-area">

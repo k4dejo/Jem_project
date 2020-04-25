@@ -11,6 +11,17 @@ use App\address;
 
 class addressController extends Controller
 {
+    public function getAddressPurchase($addressId) {
+        $addressPurchase = DB::table('address_purchases')->where('id', $addressId)
+        ->first();
+        $data = array(
+            'AddressPurchase' => $addressPurchase,
+            'status'  => 'success',
+            'code'    => 200
+        );
+        return response()->json($data, 200);
+    }
+
     public function store(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();

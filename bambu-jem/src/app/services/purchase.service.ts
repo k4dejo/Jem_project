@@ -59,6 +59,13 @@ export class PurchaseService {
     return this._http.get(this.url + 'getShowProductP/' + idClient + '/' + idProduct, {headers: headers});
   }
 
+  compareAmountSizePurchase(sizeId, idProduct, amountCompare): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'compareAmountSizePurchase/' + sizeId + '/' + idProduct
+     + '/' + amountCompare,
+    {headers: headers});
+  }
+
   dettachProductPurchase(dataDettachPurchase: any): Observable<any> {
     const json = JSON.stringify(dataDettachPurchase);
     const params = 'json=' + json;

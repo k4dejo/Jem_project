@@ -49,10 +49,10 @@ export class ShoppingCartComponent implements OnInit {
   public totalPrice = 0;
   public totalWeight = 0;
   public shipping = 0;
-  public rateGAM = 2400;
-  public addGAM = 1200;
-  public restRate = 3150;
-  public restAdd = 1400;
+  public rateGAM = 1760;
+  public addGAM = 850;
+  public restRate = 2220;
+  public restAdd = 990;
   public countAmountP: number;
   public splite;
   public testProduct;
@@ -92,6 +92,8 @@ export class ShoppingCartComponent implements OnInit {
   public Cant;
   public District;
   public purchaseArray;
+  public viewAddressBool = false;
+  public alertNullAddress = false;
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
@@ -206,10 +208,18 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   addAddress() {
+    console.log(this.addressPurchase);
     this.province.storeAddress(this.token, this.addressPurchase).subscribe(
       response => {
         if (response.status === 'success') {
           this.checkoutPurchase.addresspurchases_id = response.AddressPurchase.id;
+          this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
+            responsePurchase => {
+              console.log(responsePurchase);
+              this.getPurchases();
+              this.alertNullAddress = false;
+            }
+          );
         }
       }, error => {
         console.log(<any> error);
@@ -218,6 +228,13 @@ export class ShoppingCartComponent implements OnInit {
 
   }
   // ====================================================================
+
+  alertAddressNull() {
+    console.log(this.alertNullAddress);
+    if (this.alertNullAddress === false) {
+      this.alertNullAddress = true;
+    }
+  }
 
   getPurchases() {
     this.loading = true;
@@ -234,6 +251,21 @@ export class ShoppingCartComponent implements OnInit {
         this.checkoutPurchase.clients_id = this.identity.sub;
         this.checkoutPurchase.status = 'incomplete';
         this.dettachPurchaseP.idPurchase = response.purchaseId;
+        if (response.dataPurchase.addresspurchases_id !== '0') {
+          this.province.getAddressPurchase(response.dataPurchase.addresspurchases_id)
+          .subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
+            response => {
+              this.addressPurchase = response.AddressPurchase;
+              this.viewAddressBool = true;
+              this.splite = this.addressPurchase.address.split(',');
+              this.viewAddress(this.splite[0] , this.splite[1]);
+              console.log(this.addressPurchase);
+            }, error => {
+              console.log(<any> error);
+            }
+          );
+        }
         this.loading = false;
         for (let i = 0; i < this.productPurchase.length; ++i) {
           this.totalAmount += response.purchase[i].pivot.amount;
@@ -532,6 +564,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   editAmountProduct(idProduct: any, product) {
+    this.checkoutPurchase.addresspurchases_id = this.addressPurchase.id;
     this.purchaseService.UpdateAmount(this.token, idProduct, product).subscribe(
       response => {
         if (response.status === 'success') {

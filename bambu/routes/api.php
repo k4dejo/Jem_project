@@ -97,6 +97,8 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('getHistoryPurchaseClient/{id}', 'PurchaseController@getProductHistory');
    Route::get('getStatusPurchase/{id}', 'PurchaseController@getPurchaseStatus');
    Route::get('getClientInfoPurchase/{id}/{status}', 'PurchaseController@getClientInfo');
+   Route::get('compareAmountSizePurchase/{sizeId}/{idProduct}/{amountCompare}',
+   'PurchaseController@compareAmountSizePurchase');
    Route::get('getProductPurchaseHistory/{id}', 'PurchaseController@ProductListHistoryOrder');
    /**/
 
@@ -139,6 +141,7 @@ Route::group(['middleware' => 'cors'], function(){
 
    /*ADDRESS*/
    Route::post('storeAddress', 'addressController@store');
+   Route::get('getAddressPurchase/{addressId}', 'addressController@getAddressPurchase');
    Route::delete('deleteAddress/{id}','addressController@deleteAddress');
    /**/
 
