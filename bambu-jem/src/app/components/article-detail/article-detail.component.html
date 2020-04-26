@@ -62,9 +62,13 @@
                 <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <input disabled *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <label aria-disabled="true" *ngIf="size.pivot.stock <= 0" style="border-color: rgb(117, 117, 117);
-                color: rgb(131, 130, 130); font-weight: bold; font-size: 18px; cursor:no-drop;"
+                color: rgb(131, 130, 130);
+                font-weight: bold; font-size: 18px; cursor:no-drop;
+                text-transform: uppercase;"
                 for="{{size.size}}">{{size.size}}</label>
-                <label style="font-weight: bold; font-size: 18px;" *ngIf="size.pivot.stock > 0"
+                <label style="font-weight: bold;
+                text-transform: uppercase;
+                font-size: 18px;" *ngIf="size.pivot.stock > 0"
                 for="{{size.size}}">{{size.size}}</label>
               </div>
             </div>

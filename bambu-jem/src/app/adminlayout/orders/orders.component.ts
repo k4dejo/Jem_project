@@ -26,6 +26,7 @@ export class OrdersComponent implements OnInit {
   public fileUrl;
   public p = 1;
   public sendBtnBool = false;
+  public PricePurchase = 0;
 
   constructor(
     private router: Router,
@@ -48,7 +49,6 @@ export class OrdersComponent implements OnInit {
     this.purchaseService.getStatusPurchase(value).subscribe(
       response => {
         this.purchaselist = response.purchases;
-        console.log(this.purchaselist);
         this.getClientPurchase(this.purchaselist);
       }, error => {
         console.log(<any>error);
@@ -66,6 +66,22 @@ export class OrdersComponent implements OnInit {
       );
     }
   }
+
+  processArrayPurchase() {
+    this.PricePurchase = 0;
+    if (this.productList.length >= 6) {
+      for (let index = 0; index < this.productList.length; index++) {
+        this.PricePurchase += this.productList[index].priceMajor * this.productList[index].pivot.amount;
+        this.PricePurchase[index].photo = 'data:image/jpeg;base64,' + this.PricePurchase[index].photo;
+      }   
+    } else {
+      for (let i = 0; i < this.productList.length; i++) {
+        this.PricePurchase += this.productList[i].pricePublic * this.productList[i].pivot.amount;
+        this.PricePurchase[i].photo = 'data:image/jpeg;base64,' + this.PricePurchase[i].photo;
+      }  
+    }
+  }
+
   getArrayPurchase(idClient, status) {
     this.purchaseService.getClientInfoPurchase(idClient, status).subscribe(
       response => {
@@ -80,13 +96,13 @@ export class OrdersComponent implements OnInit {
             // tslint:disable-next-line:no-shadowed-variable
             response => {
               this.addressPurchase = response.AddressPurchase;
-              console.log(this.addressPurchase);
             }, error => {
               console.log(<any> error);
             }
           );
         }
         this.productList = response.purchase;
+        this.processArrayPurchase();
         console.log(this.addressPurchase);
       }, error => {
         console.log(<any> error);
