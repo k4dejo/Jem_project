@@ -24,6 +24,14 @@ export class AddresServices {
       return this._http.post(this.url + 'storeAddress', params, { headers: headers });
     }
 
+    editAddress(token, dataAddress): Observable<any> {
+      const json = JSON.stringify(dataAddress);
+      const params = 'json=' + json;
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
+      return this._http.post(this.url + 'editAddress', params, { headers: headers });
+    }
+
     getAddressPurchase(addressId): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'getAddressPurchase/' + addressId, { headers: headers });

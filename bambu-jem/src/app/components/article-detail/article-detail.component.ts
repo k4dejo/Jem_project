@@ -370,7 +370,7 @@ export class ArticleDetailComponent implements OnInit {
           this.productCart.price = this.product.priceMajor;
         }
       }
-      this.purchaseService.compareAmountSizePurchase(sizeIdCompare, this.IdProduct, this.attachPurchase.amount)
+      this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, this.IdProduct, this.attachPurchase.amount)
       .subscribe(
         response => {
           if (response.amountCheck === 'success') {

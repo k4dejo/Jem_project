@@ -59,6 +59,41 @@ class addressController extends Controller
         return response()->json($data, 200);
     }
 
+    public function edit(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json, true);
+            //validacion
+            $validate = Validator::make($paramsArray, [
+                'address'          => 'required',
+                'addressDetail'    => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            unset($paramsArray['id']);
+            unset($paramsArray['created_at']);
+            $adressPurchases = address::where('id', $params->id)->update($paramsArray);
+            $data = array(
+                'AddressPurchase' => $adressPurchases,
+                'status'  => 'success',
+                'code'    => 200
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
     public function deleteAddress($id) {
         $adressPurchases = address::findOrFail($id);
         $adressPurchases->delete();

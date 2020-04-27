@@ -86,6 +86,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::post('editPurchase', 'PurchaseController@edit');
    Route::post('convertHash', 'PurchaseController@convertHash');
    Route::post('attachPurchase', 'PurchaseController@attachProductPurchase');
+   Route::post('AcumulateProductPurchase', 'PurchaseController@AcumulateProductPurchase');
    Route::post('dettachProductPurchase', 'PurchaseController@dettachProductPurchase');
    Route::put('updateAmountProduct/{id}', 'PurchaseController@changeAmountProduct');
    Route::put('editPurchaseStatus/{id}', 'PurchaseController@editPurchaseClient');
@@ -141,6 +142,7 @@ Route::group(['middleware' => 'cors'], function(){
 
    /*ADDRESS*/
    Route::post('storeAddress', 'addressController@store');
+   Route::post('editAddress', 'addressController@edit');
    Route::get('getAddressPurchase/{addressId}', 'addressController@getAddressPurchase');
    Route::delete('deleteAddress/{id}','addressController@deleteAddress');
    /**/

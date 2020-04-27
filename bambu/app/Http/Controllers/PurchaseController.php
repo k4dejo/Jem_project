@@ -263,6 +263,49 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
+    public function AcumulateProductPurchase(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $purchase = purchase::findOrFail($params->purchase_id);
+            $arrayProductPurchase = purchase::find($params->purchase_id)->articles()->get();
+            $countGetProductPurchase = count($arrayProductPurchase);
+            for ($i=0; $i < $countGetProductPurchase ; $i++) {
+                if ($arrayProductPurchase[$i]->pivot->article_id = $params->article_id) {
+                    $arrayProductPurchase[$i]->pivot->amount = $params->amount;
+                    $purchase->articles()
+                    ->updateExistingPivot($params->article_id,['amount' => $arrayProductPurchase[$i]->pivot->amount ]);
+                    $data = array(
+                        'article' => $purchase,
+                        'status'  => 'success',
+                        'attach'  => $purchase->articles()->get(),
+                        'code'    => 200,
+                    );
+                    return response()->json($data, 200);
+                } else {
+                    $data = array(
+                        'status'  => 'not Found',
+                        'code'    => 404,
+                    );
+                }
+            }
+            return response()->json($data, 200);
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data, 200);
+    }
+
     public function attachProductPurchase(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
@@ -392,11 +435,28 @@ class PurchaseController extends Controller
         return response()->json($data,200);
     }
 
+    public function checkSizeIdPurchase( $idProduct, $size) {
+        $productSize = article::find($idProduct)->sizes()->get();
+        $countGetProduct = count($productSize);
+        for ($i=0; $i < $countGetProduct; $i++) {
+            if ($productSize[$i]->size == $size) {
+                $data = array(
+                    'sizeId' => $productSize[$i]->id,
+                    'status'  => 'success',
+                    'code'    => 200,
+                );
+                return $productSize[$i]->id;
+            }
+        }
+        return 'Error';
+    }
+
     public function compareAmountSizePurchase($sizeId, $productId, $amountCompare) {
         $productSize = article::find($productId)->sizes()->get();
         $countGetProduct = count($productSize);
+        $sizeIdResponse = $this->checkSizeIdPurchase($productId, $sizeId);
         for ($i=0; $i < $countGetProduct; $i++) {
-            if ($productSize[$i]->id == $sizeId) {
+            if ($productSize[$i]->id == $sizeIdResponse) {
                 if ($productSize[$i]->pivot->stock >= $amountCompare) {
                     $data = array(
                         'sizeId' => $productSize[$i]->id,
@@ -408,6 +468,7 @@ class PurchaseController extends Controller
                     $data = array(
                         'sizeId' => $productSize[$i]->id,
                         'amountCheck' => 'void',
+                        'amount' => $productSize[$i],
                         'status'  => 'success',
                         'code'    => 200,
                     );

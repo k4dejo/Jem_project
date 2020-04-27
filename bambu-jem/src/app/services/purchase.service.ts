@@ -54,6 +54,14 @@ export class PurchaseService {
     return this._http.post(this.url + 'attachPurchase', params, { headers: headers });
   }
 
+  AcumulateProductPurchase(token, dataProduct): Observable<any> {
+    const json = JSON.stringify(dataProduct);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.post(this.url + 'AcumulateProductPurchase', params, { headers: headers });
+  }
+
   showProductPurchase(token: any, idClient: any, idProduct: any): Observable<any> {
   const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getShowProductP/' + idClient + '/' + idProduct, {headers: headers});

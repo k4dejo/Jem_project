@@ -17,6 +17,8 @@ import { from } from 'rxjs';
 import { Province } from '../../models/province';
 import { Cant } from '../../models/cant';
 import { District } from '../../models/district';
+import { error } from 'protractor';
+import { AttachPurchase } from 'src/app/models/attachPurchase';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -94,6 +96,11 @@ export class ShoppingCartComponent implements OnInit {
   public purchaseArray;
   public viewAddressBool = false;
   public alertNullAddress = false;
+  public addresAlert =  false;
+  public compareAmountAlert = false;
+  public alertAmountStock: any;
+  public idProductAlert: any;
+  public attachPurchase: AttachPurchase;
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
@@ -109,6 +116,7 @@ export class ShoppingCartComponent implements OnInit {
     this.productCart = new Purchase('', '', 0, 0, 0, '', '');
     this.ticketPurchase = new Ticket(null, '');
     this.addressPurchase = new AddresPurchases('', '', '');
+    this.attachPurchase = new AttachPurchase('', '', 0, '');
   }
 
   // ======================addressPurchase==============================
@@ -208,24 +216,37 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   addAddress() {
-    console.log(this.addressPurchase);
-    this.province.storeAddress(this.token, this.addressPurchase).subscribe(
-      response => {
-        if (response.status === 'success') {
-          this.checkoutPurchase.addresspurchases_id = response.AddressPurchase.id;
-          this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
-            responsePurchase => {
-              console.log(responsePurchase);
-              this.getPurchases();
-              this.alertNullAddress = false;
+    if (this.addressPurchase.address !== '' && this.addressPurchase.addressDetail !== '') {
+      this.addresAlert = false;
+      if (this.addressPurchase.id !== '') {
+        this.province.editAddress(this.token, this.addressPurchase).subscribe(
+          response => {
+            this.getPurchases();
+            this.alertNullAddress = false;
+          }, error => {
+            console.log(<any> error);
+          }
+        );
+      } else {
+        this.province.storeAddress(this.token, this.addressPurchase).subscribe(
+          response => {
+            if (response.status === 'success') {
+              this.checkoutPurchase.addresspurchases_id = response.AddressPurchase.id;
+              this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
+                responsePurchase => {
+                  this.getPurchases();
+                  this.alertNullAddress = false;
+                }
+              );
             }
-          );
-        }
-      }, error => {
-        console.log(<any> error);
+          }, error => {
+            console.log(<any> error);
+          }
+        );
       }
-    );
-
+    } else {
+      this.addresAlert = true;
+    }
   }
   // ====================================================================
 
@@ -247,6 +268,7 @@ export class ShoppingCartComponent implements OnInit {
         this.testProduct = response.purchase;
         this.productCart.price = response.purchasePrice;
         this.productCart.id = response.purchaseId;
+        this.attachPurchase.purchase_id = response.purchaseId;
         this.checkoutPurchase.id = response.purchaseId;
         this.checkoutPurchase.clients_id = this.identity.sub;
         this.checkoutPurchase.status = 'incomplete';
@@ -394,6 +416,7 @@ export class ShoppingCartComponent implements OnInit {
     this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
       response => {
         console.log(response);
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any>error);
       }
@@ -401,17 +424,40 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   incQty(idProduct: any) {
-    idProduct.pivot.amount += 1;
-    this.totalAmount += 1;
-    if (this.totalAmount >= 6) {
-      this.productCount = true;
-    } else {
-      if (idProduct.pivot.amount >= 6) {
-        this.productCount = true;
+    // idProduct.pivot.amount += 1;
+    const amountToPurchase = idProduct.pivot.amount + 1;
+    this.idProductAlert = idProduct.name;
+    this.purchaseService.compareAmountSizePurchase(idProduct.pivot.size,
+      idProduct.id, amountToPurchase).subscribe(
+      response => {
+        if (response.amountCheck === 'success') {
+          this.compareAmountAlert = false;
+          idProduct.pivot.amount += 1;
+          this.totalAmount += 1;
+          if (this.totalAmount >= 6) {
+            this.productCount = true;
+          } else {
+            if (idProduct.pivot.amount >= 6) {
+              this.productCount = true;
+            }
+          }
+          this.attachPurchase.article_id = idProduct.id;
+          this.attachPurchase.amount = idProduct.pivot.amount;
+          this.attachPurchase.size = idProduct.pivot.size;
+          this.changeAmountInListPurchase(this.attachPurchase);
+          this.CalculateTotalPrice(this.productCount);
+          this.calculateWeight();
+        } else {
+          this.alertAmountStock = response.amount.pivot.stock;
+          this.compareAmountAlert = true;
+          // idProduct.pivot.amount -= 1;
+        }
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
       }
-    }
-    this.CalculateTotalPrice(this.productCount);
-    this.calculateWeight();
+    );
+
   }
 
   decQty(idProduct: any) {
@@ -426,6 +472,11 @@ export class ShoppingCartComponent implements OnInit {
         this.productCount = false;
       }
     }
+    this.compareAmountAlert = false;
+    this.attachPurchase.article_id = idProduct.id;
+    this.attachPurchase.amount = idProduct.pivot.amount;
+    this.attachPurchase.size = idProduct.pivot.size;
+    this.changeAmountInListPurchase(this.attachPurchase);
     this.CalculateTotalPrice(this.productCount);
     this.calculateWeight();
   }
@@ -563,6 +614,18 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
+  changeAmountInListPurchase(dataproduct) {
+    this.purchaseService.AcumulateProductPurchase(this.token, dataproduct).subscribe(
+      response => {
+        console.log(response);
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+
+  }
+
   editAmountProduct(idProduct: any, product) {
     this.checkoutPurchase.addresspurchases_id = this.addressPurchase.id;
     this.purchaseService.UpdateAmount(this.token, idProduct, product).subscribe(
@@ -573,8 +636,8 @@ export class ShoppingCartComponent implements OnInit {
             // tslint:disable-next-line:no-shadowed-variable
             response => {
               if (response.status === 'success') {
-                // this.router.navigate(['Home/BJem/']);
-                this.getPurchases();
+              this.router.navigate(['/Carrito/J/0']);
+                // this.getPurchases();
               }
             // tslint:disable-next-line:no-shadowed-variable
             }, error => {
