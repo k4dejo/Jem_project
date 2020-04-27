@@ -25,6 +25,7 @@ import { AttachPurchase } from '../../models/attachPurchase';
 })
 export class ArticleDetailComponent implements OnInit {
   public isClient = false;
+  public loading = false;
   public shop_id = '';
   public NotifyUser = false;
   public NotifySuccess = false;
@@ -189,11 +190,13 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getSizeProduct(idProduct: any) {
+    this.loading = true;
     this.sizeService.getSizeE(idProduct).subscribe(
       response => {
         this.productViewU = response.products;
         // this.attachSizeProduct = response;
         this.viewRelation = this.productViewU[0].sizes;
+        this.loading = false;
       }, error => {
         console.log(<any> error);
       }
@@ -202,6 +205,7 @@ export class ArticleDetailComponent implements OnInit {
 
   sizeAdd(dataSize: any) {
     this.attachPurchase.size = dataSize;
+    console.log(this.attachPurchase.size);
   }
 
   like() {
