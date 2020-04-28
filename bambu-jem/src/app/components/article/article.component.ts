@@ -253,11 +253,18 @@ export class ArticleComponent implements OnInit {
         this.loading = false;
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
+          this.urlPaginate = response.articles.last_page_url;
+          console.log(this.urlPaginate);
         } else {
           this.btnNextDisabled = true;
           const sessionPage = sessionStorage.getItem('currentPage');
           if (sessionPage === null || sessionPage === undefined) {
-            this.urlPaginate = response.NextPaginate;
+            if (response.NexPaginate === undefined) {
+              console.log(response.NexPaginate);
+              this.urlPaginate = response.articles.last_page_url;
+            } else {
+              this.urlPaginate = response.NextPaginate;
+            }
           } else {
             this.urlPaginate = sessionPage;
             // tslint:disable-next-line:prefer-const
@@ -275,6 +282,7 @@ export class ArticleComponent implements OnInit {
   gotoDetail(productId: any) {
     const link = '/Home/producto/detalle/';
     if (this.pageChange === undefined) {
+      console.log(this.urlPaginate);
       const firtPage = this.urlPaginate.split('=');
       this.pageChange = firtPage[0] + '=1';
     }

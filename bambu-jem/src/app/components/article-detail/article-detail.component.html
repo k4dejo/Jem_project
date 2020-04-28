@@ -58,7 +58,7 @@
             <h4 class="p-stock"><span>Disponible</span></h4>
             <div class="fw-size-choose">
               <p>Talla</p>
-              <div class="sc-item" *ngFor="let size of viewRelation">
+              <div class="sc-item pc" *ngFor="let size of viewRelation">
                 <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <input disabled *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <label aria-disabled="true" *ngIf="size.pivot.stock <= 0" style="border-color: rgb(117, 117, 117);
@@ -157,6 +157,7 @@
       </div>
     </section>
   </div>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
   <app-whatsapp></app-whatsapp>
 <footer>
   <app-footer></app-footer>

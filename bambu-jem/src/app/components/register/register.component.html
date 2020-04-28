@@ -71,13 +71,13 @@
             <label for="" style="margin-bottom: 2%;">Dirección</label>
             <div class="row" style="margin-left: 9%;">
               <div class="col-lg-4 col-md-4 dropdown">
-                <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
-                (click)="getCant(Province)" required>
-                <option disabled="disabled" selected="selected">--Provincia--</option>
-                <option *ngFor="let province of ArrayProvin" [value]="province.id">
-                  {{province.name}}
-                </option>
-              </select>
+                 <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                 (click)="getCant(Province)" required>
+                 <option disabled="disabled" selected="selected">--Provincia--</option>
+                 <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                   {{province.name}}
+                 </option>
+               </select>
               </div>
               <div class="col-lg-4 col-md-4 dropdown">
                 <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
