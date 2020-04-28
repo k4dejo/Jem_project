@@ -9,6 +9,7 @@ import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { AmounTotal } from '../../models/amounTotal';
 import { Image } from '../../models/image';
+import { ImgUrl } from '../../models/imgUrl';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
@@ -24,6 +25,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 
 export class MangArticleComponent implements OnInit {
   public product: Article;
+  public imgUrl = ImgUrl;
   public p = 1;
   public searchProduct;
   public loading = false;
@@ -503,8 +505,8 @@ export class MangArticleComponent implements OnInit {
           this.statusBool = true;
           for (let i = 0; i < this.productView.length; ++i) {
             // agrego formato a la imagen.
-            /* this.productView[i].photo = 'data:image/jpeg;base64,' + this.productView[i].photo;
-            const photoView = this.productView[i].photo;*/
+            this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
+            const photoView = this.productView[i].photo;
             this.getDepartmentView(this.productView[i].gender.toString());
             for (let index = 0; index < this.gender.length; index++) {
               if (this.productView[i].gender.toString() === this.gender[index].id) {

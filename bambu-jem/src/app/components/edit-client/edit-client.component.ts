@@ -63,6 +63,7 @@ export class EditClientComponent implements OnInit {
   onUpload(e) {
     const myImg = e.target.files[0];
     this.clientInfo.photo = myImg.name;
+    console.log(myImg);
     const promise = this.getFileBlob(myImg);
     promise.then(Blob => {
       this.fileBlob = Blob;

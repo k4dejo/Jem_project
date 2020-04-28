@@ -272,7 +272,7 @@ body{
     max-width: 1140px; }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 780px) {
   .img-2 {
     position: initial;
   }
@@ -282,8 +282,19 @@ body{
   .promo {
     padding: 13px 26px 8px;
   }
+  .landing {
+    display: none;
+  }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 1000px) {
+  .landing {
+    display: none;
+  }
+  .col-md-12 .row {
+    margin-top: 25%;
+  }
+}
+@media (max-width: 767px) {
   .ftco-choose {
     padding: 3em 0;
   }
@@ -293,9 +304,7 @@ body{
   .ftco-choose .img {
     height: 350px;
   }
-  .carousel{
-    display: ruby;
-  }
+
   .d-flex{
     max-width: 90%;
   }
@@ -308,6 +317,7 @@ body{
   .container {
     max-width: 960px;
   }
+
   .ftco-choose .text {
     margin-left: -200px;
   }

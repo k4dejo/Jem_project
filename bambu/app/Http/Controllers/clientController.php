@@ -98,12 +98,16 @@ class clientController extends Controller
         $client = client::where('id', '=', $idClient)->first();
         if ($client->photo !== 'assets/Images/default.jpg') {
             $contents = Storage::get($client->photo);
+            $link = public_path('\catalogo\/'.$client->photo);
+            $img = \Image::make($link);
+            // $img = Image::make(file_get_contents($link));
             $client->photo = base64_encode($contents);
         }
         if ($client != null) {
             $data = array(
                 'clientPhoto'  => $client->photo,
                 'status'  => 'success',
+                'linkImg' => $img->basename,
                 'code'    => 200,
             );
         } else {

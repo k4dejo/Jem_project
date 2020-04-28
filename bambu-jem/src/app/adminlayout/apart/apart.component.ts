@@ -8,6 +8,7 @@ import { Client } from '../../models/client';
 import { Article } from 'src/app/models/article';
 import { Apart } from 'src/app/models/apart';
 import { Gender } from '../../models/gender';
+import { ImgUrl } from '../../models/imgUrl';
 import { Departament } from '../../models/department';
 import { AttachApart } from '../../models/attachApart';
 
@@ -21,6 +22,7 @@ export class ApartComponent implements OnInit {
   public token;
   public identity;
   public productSizes;
+  public imgUrl = ImgUrl;
   public changeTab = true;
   public client: Client;
   public productGet: Article;
@@ -163,7 +165,7 @@ export class ApartComponent implements OnInit {
         this.pMajor = false;
         this.pBoutique = true;
         console.log(event);
-      break;    
+      break;
       default:
         console.log('Fuera de rango');
       break;
@@ -206,7 +208,7 @@ export class ApartComponent implements OnInit {
         this.statusBool = true;
         for (let index = 0; index < this.productView.length; index++) {
           // agrego formato a la imagen.
-          this.productView[index].photo = 'data:image/jpeg;base64,' + this.productView[index].photo;
+          this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
           const photoView = this.productView[index].photo;
           this.getDepartmentView(this.productView[index].gender.toString());
           this.getGenderString(this.gender.length, index);
@@ -302,14 +304,14 @@ export class ApartComponent implements OnInit {
             }, error => {
               console.log(<any> error);
             }
-          );  
+          );
         } else {
           this.AmountInputBool = false;
           this.compareBool = false;
           this.messageError = true;
           this.startTimer();
         }
-      }, error => { 
+      }, error => {
         console.log(<any> error);
       }
     );
@@ -340,7 +342,7 @@ export class ApartComponent implements OnInit {
         }, error => {
           console.log(<any> error);
         }
-      );      
+      );
     } else {
       this.messageError = true;
       this.startTimer();

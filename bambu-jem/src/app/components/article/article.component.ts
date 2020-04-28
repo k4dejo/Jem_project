@@ -4,6 +4,7 @@ import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
+import { ImgUrl } from '../../models/imgUrl';
 import { Tag } from '../../models/tag';
 import {Location} from '@angular/common';
 
@@ -16,6 +17,7 @@ import {Location} from '@angular/common';
 export class ArticleComponent implements OnInit {
   public shop_id = '';
   public p = 1;
+  public imgUrl = ImgUrl;
   public products: Array<Article>;
   public productMenu: Array<Article>;
   public shop_bool = true;
@@ -197,6 +199,27 @@ export class ArticleComponent implements OnInit {
     for (let index = 0; index < this.products.length; index++) {
       // agrego formato a la imagen.
       const splitProduct = this.products[index].photo.split(',');
+      this.products[index].photo = this.imgUrl.url + this.products[index].photo;
+      this.getDepartmentView(this.products[index].gender.toString());
+      for (let e = 0; e < this.gender.length; e++) {
+        if (this.products[index].gender.toString() === this.gender[e].id) {
+          this.products[index].gender = this.gender[e].name;
+        }
+      }
+      for (let indexD = 0; indexD < this.department.length; indexD++) {
+        if (this.products[index].department.toString() === this.department[indexD].id) {
+          this.products[index].department = this.department[indexD].name;
+        }
+      }
+      this.genderView = this.products[index].gender;
+      this.DepartmentView = this.products[index].department;
+    }
+  }
+
+  /*addPhotoProductList() {
+    for (let index = 0; index < this.products.length; index++) {
+      // agrego formato a la imagen.
+      const splitProduct = this.products[index].photo.split(',');
       if (splitProduct[0] !== 'data:image/jpeg;base64') {
         this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
         this.getDepartmentView(this.products[index].gender.toString());
@@ -214,7 +237,7 @@ export class ArticleComponent implements OnInit {
         this.DepartmentView = this.products[index].department;
       }
     }
-  }
+  }*/
 
   like() {
 
@@ -232,12 +255,13 @@ export class ArticleComponent implements OnInit {
           this.btnNextDisabled = false;
         } else {
           this.btnNextDisabled = true;
-          let sessionPage = sessionStorage.getItem('currentPage');
+          const sessionPage = sessionStorage.getItem('currentPage');
           if (sessionPage === null || sessionPage === undefined) {
-            this.urlPaginate = response.NextPaginate; 
+            this.urlPaginate = response.NextPaginate;
           } else {
             this.urlPaginate = sessionPage;
-            var sessionSplit = this.urlPaginate.split("=");
+            // tslint:disable-next-line:prefer-const
+            let sessionSplit = this.urlPaginate.split('=');
             this.nextPaginate(sessionSplit[1]);
           }
         }

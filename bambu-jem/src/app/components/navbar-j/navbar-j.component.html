@@ -27,7 +27,7 @@
               <img *ngIf="!imgBoolUser" [src]="clientPhoto" alt="user" class="profile-pic">
               <img *ngIf="imgBoolUser" src="assets/Images/default.jpg" alt="user" class="profile-pic">
             </a>
-            <div class="shopping-card" style="left: -166px; top: 8px; font-size: 25px; cursor:pointer"
+            <div class="shopping-card" style="left: -166px; top: 20px; font-size: 25px; cursor:pointer"
             (click)="gotoCart()">
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               <span>{{purchaselenght}}</span>
@@ -37,7 +37,7 @@
                 <li>
                   <div class="dw-user-box">
                     <div class="u-img">
-                      <img *ngIf="!imgBoolUser" [src]="clientPhoto" alt="user">
+                      <img *ngIf="!imgBoolUser" [src]="clientPhoto | safeHtml" alt="user">
                       <img *ngIf="imgBoolUser" src="assets/Images/default.jpg" alt="user">
                     </div>
                     <div class="u-text">
@@ -74,10 +74,10 @@
     <div class="navbar-collapse collapse container" id="collapsingNavbar2">
       <ul class="main-menu navbar-nav mx-auto">
         <li class="menuNavBar"><a href="Home/BJem">Inicio</a></li>
-        <li class="menuNavBar"><a (click)="toggleBtnProducts(2)" style="cursor: pointer;">Damas</a></li>
-        <li class="menuNavBar"><a (click)="toggleBtnProducts(1)" style="cursor: pointer;">Caballeros</a></li>
-        <li class="menuNavBar"><a (click)="toggleBtnProducts(4)" style="cursor: pointer;">Niñas</a></li>
-        <li class="menuNavBar"><a (click)="toggleBtnProducts(3)" style="cursor: pointer;">Niños</a></li>
+        <li  (click)="toggleBtnProducts(2)" class="menuNavBar"><a style="cursor: pointer;">Damas</a></li>
+        <li  (click)="toggleBtnProducts(1)" class="menuNavBar"><a style="cursor: pointer;">Caballeros</a></li>
+        <li  (click)="toggleBtnProducts(4)" class="menuNavBar"><a style="cursor: pointer;">Niñas</a></li>
+        <li  (click)="toggleBtnProducts(3)" class="menuNavBar"><a style="cursor: pointer;">Niños</a></li>
       </ul>
     </div>
   </nav>

@@ -141,10 +141,10 @@ class ArticleController extends Controller
         $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->where('tags_id', $tag)->get();
         $productCount = count($productConcrete);
-        for ($i=0; $i < $productCount ; $i++) {
+        /*for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productConcrete[$i]->photo);
             $productConcrete[$i]->photo = base64_encode($contents);
-        }
+        }*/
         return response()->json(array(
             'articles' => $productConcrete,
             'status'   => 'success'
@@ -155,10 +155,10 @@ class ArticleController extends Controller
         $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->get();
         $productCount = count($productConcrete);
-        for ($i=0; $i < $productCount ; $i++) {
+        /*for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productConcrete[$i]->photo);
             $productConcrete[$i]->photo = base64_encode($contents);
-        }
+        }*/
         return response()->json(array(
             'articles' => $productConcrete,
             'status'   => 'success'
@@ -171,10 +171,10 @@ class ArticleController extends Controller
         $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->paginate(5);
         $productCount = count($productConcrete);
-        for ($i=0; $i < $productCount ; $i++) {
+        /*for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productConcrete[$i]->photo);
             $productConcrete[$i]->photo = base64_encode($contents);
-        }
+        }*/
         return response()->json(array(
             'articles' => $productConcrete,
             'NextPaginate' => $productConcrete->nextPageUrl(),
@@ -232,7 +232,7 @@ class ArticleController extends Controller
             }
             $imgName = time() . $params->photo;
             // $resized_image = Image::make(base64_decode($img))->resize(500, 900)->stream('jpg', 90);
-            $resized_image = Image::make(base64_decode($img))->resize(500, 760)->stream('jpg', 100);
+            $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
             Storage::disk('local')->put($imgName, $resized_image);
             //guardar articulo
             $article = new article();
@@ -311,7 +311,7 @@ class ArticleController extends Controller
                 unset($paramsArray['created_at']);
                 unset($paramsArray['file']);
                 Storage::delete($imgDB->photo);
-                $resized_image = Image::make(base64_decode($img))->resize(500, 760)->stream('jpg', 100);
+                $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
                 Storage::disk('local')->put($imgName, $resized_image);
                 $article = article::where('id', $id)->update($paramsArray);
             }else {

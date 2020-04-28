@@ -5,7 +5,7 @@ import { PurchaseService } from '../../services/purchase.service';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { Client } from '../../models/client';
 import { Purchase } from '../../models/purchase';
-
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-navbar-j',
@@ -16,6 +16,7 @@ import { Purchase } from '../../models/purchase';
 export class NavbarJComponent implements OnInit {
   public navItem = 'hiddenItem';
   public controlNav = false;
+  public imgUrl = ImgUrl;
   public identity;
   public token;
   public status: string;
@@ -71,7 +72,7 @@ export class NavbarJComponent implements OnInit {
 
   toggleBtnProducts(gender: any) {
     const link = '/Home/Articulo/';
-    sessionStorage.removeItem('currentPage');
+    // vigilar si hay complicaciones sessionStorage.removeItem('currentPage');
     this.router.navigate([link, 'J', '1', gender]);
   }
 
@@ -117,13 +118,12 @@ export class NavbarJComponent implements OnInit {
   getClientPhoto(idClient: any) {
     this.clientService.getClientPhoto(idClient).subscribe(
       response => {
-        this.clientPhoto = response.clientPhoto;
         if (this.clientPhoto === 'assets/Images/default.jpg') {
           this.imgBoolUser = true;
         } else {
           this.imgBoolUser = false;
         }
-        this.clientPhoto = 'data:image/jpeg;base64,' + this.clientPhoto;
+        this.clientPhoto = this.imgUrl.url + response.linkImg;
       }, error => {
         console.log(<any> error);
       }
