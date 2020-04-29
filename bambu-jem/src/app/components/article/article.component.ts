@@ -7,15 +7,19 @@ import { Departament } from '../../models/department';
 import { ImgUrl } from '../../models/imgUrl';
 import { Tag } from '../../models/tag';
 import {Location} from '@angular/common';
+import { Like } from '../../models/like';
+import { UserServices } from '../../services/user.service';
 
 @Component({
   selector: 'app-article',
-  providers: [ArticleService],
+  providers: [ArticleService, UserServices],
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
   public shop_id = '';
+  public token;
+  public identity;
   public p = 1;
   public imgUrl = ImgUrl;
   public products: Array<Article>;
@@ -28,6 +32,7 @@ export class ArticleComponent implements OnInit {
   public fileUrl;
   public randomChar: string;
   public department: Departament[];
+  public favorite: Like;
   public minPrice;
   public maxPrice;
   public tags;
@@ -94,13 +99,20 @@ export class ArticleComponent implements OnInit {
   public btnNextDisabled =  true;
   public lenghtProduct;
   public pageChange;
+  public BtnHover = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private clientService: UserServices,
     private ProductService: ArticleService,
-    private _location: Location
-  ) { }
+    private _location: Location,
+    
+  ) {
+    this.favorite = new Like('', '');
+    this.token = this.clientService.getToken();
+    this.identity = this.clientService.getIdentity();
+  }
 
   backClicked() {
     this._location.back();
@@ -216,31 +228,26 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  /*addPhotoProductList() {
-    for (let index = 0; index < this.products.length; index++) {
-      // agrego formato a la imagen.
-      const splitProduct = this.products[index].photo.split(',');
-      if (splitProduct[0] !== 'data:image/jpeg;base64') {
-        this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
-        this.getDepartmentView(this.products[index].gender.toString());
-        for (let e = 0; e < this.gender.length; e++) {
-          if (this.products[index].gender.toString() === this.gender[e].id) {
-            this.products[index].gender = this.gender[e].name;
+  like(product: any) {
+    console.log(product);
+    if (this.identity) {
+      const clickBtn = document.querySelector('.heart');
+      this.favorite.clientId = this.identity.sub;
+      this.favorite.articleId = product.id;
+      if (!this.BtnHover && this.identity) {
+        this.clientService.likeProduct(this.favorite).subscribe(
+          response => {
+            if (response.status = 'success') {
+              clickBtn.classList.add('heart-liked');
+              clickBtn.classList.add('heart-beating');
+              this.BtnHover = true;
+            }
+          }, error => {
+            console.log(<any>error);
           }
-        }
-        for (let indexD = 0; indexD < this.department.length; indexD++) {
-          if (this.products[index].department.toString() === this.department[indexD].id) {
-            this.products[index].department = this.department[indexD].name;
-          }
-        }
-        this.genderView = this.products[index].gender;
-        this.DepartmentView = this.products[index].department;
+        );
       }
     }
-  }*/
-
-  like() {
-
   }
 
   getProduct(department: any, gender: any) {

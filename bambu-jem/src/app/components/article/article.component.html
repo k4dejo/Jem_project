@@ -153,15 +153,15 @@
 								[src]="product.photo" alt="">
 								<div class="content-details fadeIn-bottom">
 									<div class="bottom d-flex align-items-center justify-content-center">
-										<a (click)="like()"><i class="far fa-heart"></i></a>
+										<a (click)="like(product)"><i class="far fa-heart"></i></a>
                     <a (click)="gotoDetail(product.id)"><i class="far fa-eye"></i></a>
 										<a (click)="downloadImg(product.photo)" href="" data-toggle="modal" data-target="#myModal"><i class="fas fa-expand"></i></a>
 									</div>
 								</div>
 							</div>
 							<div class="price" style="text-align: justify;">
-								<h5>{{product.name}}</h5>
-								<h3>₡ {{product.pricePublic | number: '3.'}}</h3>
+								<h5 style="display: none;">{{product.name}}</h5>
+								<h3 style="font-size: 18px;">₡ {{product.pricePublic | number: '3.'}}</h3>
 							</div>
 						</div>
           </div>
@@ -225,3 +225,4 @@ aria-hidden="true">
 <footer>
   <app-footer></app-footer>
 </footer>
+
