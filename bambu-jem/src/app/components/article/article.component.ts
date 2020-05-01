@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { ImgUrl } from '../../models/imgUrl';
-import { Tag } from '../../models/tag';
 import {Location} from '@angular/common';
 import { Like } from '../../models/like';
 import { UserServices } from '../../services/user.service';
+import 'lazysizes/plugins/unveilhooks/ls.unveilhooks';
+import { lazySizes } from 'lazysizes';
 
 @Component({
   selector: 'app-article',
@@ -107,7 +108,6 @@ export class ArticleComponent implements OnInit {
     private clientService: UserServices,
     private ProductService: ArticleService,
     private _location: Location,
-    
   ) {
     this.favorite = new Like('', '');
     this.token = this.clientService.getToken();
@@ -187,7 +187,7 @@ export class ArticleComponent implements OnInit {
 
   nextPaginate(event: any) {
     this.loading = true;
-    var urlSplit = this.urlPaginate.split("=");
+    const urlSplit = this.urlPaginate.split('=');
     this.pageChange = urlSplit[0] + '=' + event;
     this.p = event;
     this.ProductService.getPaginateProduct(this.pageChange).subscribe(
@@ -226,6 +226,7 @@ export class ArticleComponent implements OnInit {
       this.genderView = this.products[index].gender;
       this.DepartmentView = this.products[index].department;
     }
+    console.log(this.products);
   }
 
   like(product: any) {

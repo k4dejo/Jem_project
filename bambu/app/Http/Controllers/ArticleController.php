@@ -169,7 +169,7 @@ class ArticleController extends Controller
         /*$productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->paginate(12);*/
         $productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $department)->paginate(5);
+        ->where('department', $department)->paginate(12);
         $productCount = count($productConcrete);
         /*for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productConcrete[$i]->photo);

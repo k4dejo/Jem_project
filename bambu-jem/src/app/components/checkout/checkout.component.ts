@@ -11,7 +11,6 @@ import { CredomaticService } from '../../services/credomatic.service';
 import { Purchase } from '../../models/purchase';
 import { Hash } from '../../models/hash';
 import { CC } from '../../models/CC';
-import { error } from 'util';
 
 @Component({
   selector: 'app-checkout',

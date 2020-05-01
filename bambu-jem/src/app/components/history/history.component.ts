@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.service';
 import { PurchaseService } from '../../services/purchase.service';
-import { Article } from '../../models/article';
-import { error } from 'util';
 
 @Component({
   selector: 'app-history',

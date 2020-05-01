@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { ImageService } from '../../services/image.service';
@@ -18,6 +19,7 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public id: number;
   public product: Article;
   public size: Size;
@@ -115,6 +117,7 @@ public dtDepartmentB: string[] = [
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private sizeService: SizeService,
     private adminService: AdminService,
     private imageService: ImageService,
@@ -424,13 +427,40 @@ public dtDepartmentB: string[] = [
         this.product = response.article;
         if (response.status === 'success') {
           this.checkBool = true;
+          this.toast(1);
           this.loading = false;
         }
       },
       error => {
         console.log(<any> error);
+        this.toast(2);
       }
     );
+  }
+
+  toast(numberbool: any) {
+    if (numberbool === 1) {
+      this.showSuccess();
+    } else {
+      this.showError();
+    }
+  }
+
+  showSuccess() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('¡Los cambios se han ejecutado!', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showError() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('Ha ocurrido un problema, por favor revise todos los datos o el peso de las imagenes',
+    'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
   }
 
   pushTag(dataTag: any) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
@@ -12,8 +12,7 @@ import { Image } from '../../models/image';
 import { ImgUrl } from '../../models/imgUrl';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
-import { ngxLoadingAnimationTypes } from 'ngx-loading';
-import {NgxImageCompressService} from 'ngx-image-compress';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -24,6 +23,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 })
 
 export class MangArticleComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public product: Article;
   public imgUrl = ImgUrl;
   public p = 1;
@@ -33,13 +33,13 @@ export class MangArticleComponent implements OnInit {
   public secondaryColour = '#ccc';
   public PrimaryRed = '#dd0031';
   public SecondaryBlue = '#006ddd';
-  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+ /*  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public config = { animationType: ngxLoadingAnimationTypes.none,
     primaryColour: this.primaryColour,
     secondaryColour: this.secondaryColour,
     tertiaryColour: this.primaryColour,
     backdropBorderRadius: '3px'
-  };
+  };*/
   public size: Size;
   public images: Image;
   public attachSizeProduct: Attachsize;
@@ -59,45 +59,6 @@ export class MangArticleComponent implements OnInit {
     'Gorras',
     'Zapatos'
   ];
-  /*public dtDepartmentW: string[] = [
-    'Blusas',
-    'Short',
-    'Enaguas',
-    'Pantalon tela',
-    'Pantalon de mezclilla',
-    'Levis de dama',
-    'Vestidos de baño',
-    'Salidas de playa',
-    'Abrigos y sacos',
-    'Conjuntos',
-    'Camisetas',
-    'Enterizos',
-    'Vestidos',
-    'Ropa interior',
-    'Marca Tommy Hilfiger',
-    'Marca Aeropostale',
-    'Marca American Eagle',
-    'Marca Converse',
-    'Marca U.S Polo',
-    'Marca Náutica',
-    'Marca Vans',
-    'Marca Levis',
-    'Marca H y M',
-    'Sueters',
-    'Zapatos',
-    'Joyería',
-    'Bolsos',
-    'Fajas',
-    'Pijamas',
-    'Lencería',
-    'Gorras',
-    'Accesorios de Cabello',
-    'Plus Blusas',
-    'Plus Vestidos de baño',
-    'Plus Pijamas y Lencería',
-    'Anteojos',
-    'Billeteras o carteras'
-  ];*/
   public dtDepartmentW: string[] = [
     'Blusas',
     'Shorts',
@@ -175,10 +136,10 @@ export class MangArticleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private sizeService: SizeService,
     private adminService: AdminService,
     private imagesService: ImageService,
-    private imageCompress: NgxImageCompressService,
     private productService: ArticleService
   ) {
     this.images = new Image('', '', null);
@@ -227,7 +188,7 @@ export class MangArticleComponent implements OnInit {
     return text;
   }
 
-  compressFile() {
+  /* compressFile() {
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     const lengthOfCode = 10;
     this.product.photo = this.makeRandom(lengthOfCode, possible);
@@ -243,7 +204,7 @@ export class MangArticleComponent implements OnInit {
       );
 
     });
-  }
+  }*/
 
   onSelect(event) {
     this.fileNpm.push(...event.addedFiles);
@@ -462,16 +423,20 @@ export class MangArticleComponent implements OnInit {
           this.fileBlob = 'assets/Images/default.jpg';
           this.getProductView();
           this.loading = false;
+          this.toast(1);
         } else {
           if (response.status === 'duplicate') {
             this.status = 'duplicate';
           } else {
             this.status = 'error';
+            this.toast(2);
           }
         }
       },
       error => {
+        this.loading = false;
         console.log(<any>error);
+        this.toast(2);
       }
     );
   }
@@ -495,6 +460,32 @@ export class MangArticleComponent implements OnInit {
       break;
     }
   }
+
+  toast(numberbool: any) {
+    if (numberbool === 1) {
+      this.showSuccess();
+    } else {
+      this.showError();
+    }
+  }
+
+  showSuccess() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Se ha añadido correctamente', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showError() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('Ha ocurrido un problema, por favor revise todos los datos o el peso de las imagenes',
+    'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
+  }
+
 
   getProductView() {
     this.loading = true;
@@ -526,7 +517,7 @@ export class MangArticleComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        console.log(<any> error);
       }
     );
   }

@@ -138,15 +138,13 @@
               <h2 style="text-align: center;">Imagen Principal</h2>
               <div class="divPhoto col-md-4">
                 <div class="colPhoto">
-                  <img class="img-responsive" [src]="fileBlob" alt="">
+                  <img style="width: 300px; height: 350px;" [src]="fileBlob" alt="">
                 </div>
               </div>
               <label class="btnLabel btn btn--green">
                 <i class="fas fa-file-upload"></i> Subir imagen
                 <input class="inputFile" name="photo" type="file" id="img" accept="image/*" (change)="onUpload($event)">
               </label>
-              <!--<button type="button" class="btn btn-success"
-                (click)="compressFile()">Subir imagen</button>-->
             </div>
             <div class="col-md-5">
               <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
@@ -260,3 +258,8 @@
   <div *ngIf="loading" class="loading">Loading&#8230;</div>
   <img class="modal-content" [src]="viewPhoto" id="img01">
 </div>
+<div class="overlay-container toast-top-left toast-container" toastContainer></div>
+<!--<div class="overlay-container">
+  <div id="toast-container" class="toast-top-right toast-container"
+  toastContainer></div>
+</div>-->

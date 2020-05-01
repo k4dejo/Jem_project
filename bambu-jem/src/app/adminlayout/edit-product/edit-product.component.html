@@ -94,7 +94,7 @@
               <h2 style="text-align: center;">Imagen Principal</h2>
               <div class="divPhoto col-md-4">
                 <div class="colPhoto">
-                  <img class="img-responsive" [src]="fileBlob" alt="" />
+                  <img style="width: 300px; height: 350px;" class="img-responsive" [src]="fileBlob" alt="" />
                 </div>
               </div>
               <label class="btnLabel btn btn--green">
@@ -108,7 +108,7 @@
                 <div class="col-xs-5" *ngFor="let img of fileNpm">
                   <i class="fa fa-window-close" aria-hidden="true" (click)="onRemove(img)">
                   </i>
-                  <img class="img-responsive" [src]="img.name" alt="">
+                  <img [src]="img.name" alt="">
                 </div>
                 <div class="col-xs-5">
                   <label class="newImg">
@@ -125,11 +125,6 @@
             <div class="col-md-3 navbar-right">
               <button type="submit" class="btn btn-success">Guardar</button>
             </div>
-          </div>
-          <div class="col-md-3 navbar-right" style="margin-top: 1%;">
-            <div *ngIf="checkBool" class="alert alert-success" role="alert">
-              ¡Los cambios se han ejecutado!
-             </div>
           </div>
         </form>
         <button type="submit" (click)="saveSizeAmount(size)" class="btn btn-primary">
@@ -186,4 +181,5 @@
       </div>
     </div>
   </div>
+  <div class="overlay-container toast-top-left toast-container" toastContainer></div>
 </div>

@@ -148,9 +148,9 @@
 					<div class="row">
 						<div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}" class="col-lg-4 col-md-12 col-xs-6 single-product">
 							<div class="content">
-								<div class="content-overlay"></div>
-								<img class="content-image img-fluid d-block mx-auto"
-								[src]="product.photo" alt="">
+                <div class="content-overlay"></div>
+								<img loading="lazy" ngClass="lazyload" class="content-image img-fluid d-block mx-auto"
+								data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
 								<div class="content-details fadeIn-bottom">
 									<div class="bottom d-flex align-items-center justify-content-center">
 										<a (click)="like(product)"><i class="far fa-heart"></i></a>

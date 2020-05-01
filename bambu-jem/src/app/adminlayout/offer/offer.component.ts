@@ -7,7 +7,6 @@ import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Offer } from '../../models/offer';
-import { error } from 'util';
 
 @Component({
   selector: 'app-offer',

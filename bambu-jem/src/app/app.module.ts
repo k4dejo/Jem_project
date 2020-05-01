@@ -6,10 +6,9 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
-import {NgxImageCompressService} from 'ngx-image-compress';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 
@@ -111,12 +110,13 @@ import { TagComponent } from './adminlayout/tag/tag.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgbModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgxFileDropModule,
     NgxDropzoneModule,
     DropzoneModule,
+    ToastrModule.forRoot({ positionClass: 'inline' }),
+    ToastContainerModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes,
       backdropBackgroundColour: 'rgba(0,0,0,0.1)',
@@ -127,7 +127,7 @@ import { TagComponent } from './adminlayout/tag/tag.component';
     }),
     AppRoutingModule
   ],
-  providers: [NgxImageCompressService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
