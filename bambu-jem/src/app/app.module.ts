@@ -55,6 +55,7 @@ import { OrdersComponent } from './adminlayout/orders/orders.component';
 import { HistoryComponent } from './components/history/history.component';
 import { GetransactionComponent } from './components/getransaction/getransaction.component';
 import { TagComponent } from './adminlayout/tag/tag.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -125,7 +126,8 @@ import { TagComponent } from './adminlayout/tag/tag.component';
       secondaryColour: '#ffffff',
       tertiaryColour: '#ffffff'
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
