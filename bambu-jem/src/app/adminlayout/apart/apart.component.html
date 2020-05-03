@@ -256,6 +256,7 @@
     </div>
     <div class="modal-body fadeIn second">
       <form id="FormFactu">
+        <h2 style="padding-right: 5%;">ModaJem boutique</h2>
         <div class="input-group-desc">
           <h4 style="text-align: left;"><strong>Nombre:</strong> {{billing.client}}</h4>
           <h4 style="text-align: left;"><strong>Teléfono:</strong> {{billing.phone}}</h4>
@@ -267,7 +268,7 @@
           <h4 style="text-align: right;"><strong>Fecha:</strong> {{date}}</h4>
         </div>
         <div class="productList">
-          <table class="table table-striped">
+          <table id="tableBilling" class="FactuT table table-striped">
             <thead>
               <th scope="col"></th>
               <th scope="col">Producto</th>
@@ -277,7 +278,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let productBill of arrayApart">
-                <td><img [src]="productBill.photo" class="img-responsive" alt=""></td>
+                <!--<td><img [src]="productBill.photo" class="img-responsive" alt=""></td>-->
                 <td>{{productBill.name}}</td>
                 <td>{{productBill.pivot.amount}}</td>
                 <td>{{productBill.pivot.size}}</td>

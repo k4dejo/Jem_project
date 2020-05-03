@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { AdminService } from '../../services/admin.service';
@@ -129,8 +130,8 @@ export class ApartComponent implements OnInit {
     this.productService.showPhotoProduct(idProduct).subscribe(
       response => {
         this.loading = false;
-        this.viewPhoto = response.productPhoto;
-        this.viewPhoto = 'data:image/jpeg;base64,' + this.viewPhoto;
+        // this.viewPhoto = response.productPhoto;
+        this.viewPhoto = this.imgUrl + this.viewPhoto;
       }, error => {
         console.log(<any> error);
       }
@@ -351,7 +352,7 @@ export class ApartComponent implements OnInit {
       response => {
         this.arrayApart = response.apart;
         for (let index = 0; index < this.arrayApart.length; index++) {
-          this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
+         this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
          this.billing.price = this.apartM.price;
         }
@@ -368,7 +369,7 @@ export class ApartComponent implements OnInit {
         this.arrayApart = response.apart;
         this.attachApart.apart_id = this.arrayApart[0].pivot.apart_id;
         for (let index = 0; index < this.arrayApart.length; index++) {
-          this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
+          this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
           this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
           this.billing.price = this.apartM.price;
         }
@@ -484,7 +485,20 @@ export class ApartComponent implements OnInit {
   PrintDoc() {
     const Document = new jsPDF();
     Document.fromHTML(document.getElementById('FormFactu'), 14, 15);
-    // Document.text(document.getElementById('FormFactu'), 14, 15);
+    /* Document.text(50, 10, 'Boutique Jem');
+    Document.text(20, 20, 'Nombre:' + this.client.name);
+    Document.text(20, 30, 'Teléfono:' + this.client.phone);
+    Document.text(20, 40, 'Correo Eléctronico:' + this.client.email);
+    Document.text(20, 50, 'Dirección:' + this.client.address);
+    Document.text(20, 60, 'Dirección Domicilio:' + this.client.addressDetail);
+    Document.text(20, 70, 'Fecha:' + this.date);
+    const head = [['Producto', 'Cantidad', 'Talla', 'Precio']];
+    autoTable(Document, {
+      head: head,
+      html: '#tableBilling',
+      tableWidth: 'wrap',
+      styles: { cellPadding: 1, fontSize: 10 },
+    });*/
     Document.save('Factura Boutique Jem');
   }
 
@@ -517,6 +531,7 @@ export class ApartComponent implements OnInit {
             .subscribe(
               responseCleanApart => {
                 if (responseCleanApart.status === 'success') {
+                  this.getApartClient(this.apartM.clients_id);
                   this.PrintDoc();
                 }
               }, error => {
@@ -565,6 +580,7 @@ export class ApartComponent implements OnInit {
       const weightAdditional = weight - 1;
       this.shipping += rate + (weightAdditional * additional);
     }
+    this.billing.price += this.shipping;
   }
 
   viewAddress(province: any, district: any) {

@@ -131,10 +131,10 @@ class apartController extends Controller
         //$ApartClient = DB::table('aparts')->where('clients_id', $idApart)->first();
         $arrayApart = apart::find($idApart)->articles()->get();
         $countApart = count($arrayApart);
-        for ($i=0; $i < $countApart; $i++) {
+        /*for ($i=0; $i < $countApart; $i++) {
             $contents = Storage::get($arrayApart[$i]->photo);
             $arrayApart[$i]->photo = base64_encode($contents);
-        }
+        }*/
         $data = array(
             'apart'       => $arrayApart,
             'status'         => 'success',
@@ -148,10 +148,10 @@ class apartController extends Controller
         $arrayApart = apart::find($ApartClient->id)->articles()->get();
         $countApart = count($arrayApart);
         if ($countApart  > 0) {
-            for ($i=0; $i < $countApart; $i++) {
+            /*for ($i=0; $i < $countApart; $i++) {
                 $contents = Storage::get($arrayApart[$i]->photo);
                 $arrayApart[$i]->photo = base64_encode($contents);
-            }
+            }*/
             $data = array(
                 'apart'       => $arrayApart,
                 'status'         => 'success',
