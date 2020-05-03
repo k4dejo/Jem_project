@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as jsPDF from 'jspdf';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { AdminService } from '../../services/admin.service';
 import { ApartService } from '../../services/apart.service';
+import { BillingService } from '../../services/billing.service';
 import { Client } from '../../models/client';
 import { Article } from 'src/app/models/article';
 import { Apart } from 'src/app/models/apart';
@@ -11,6 +13,8 @@ import { Gender } from '../../models/gender';
 import { ImgUrl } from '../../models/imgUrl';
 import { Departament } from '../../models/department';
 import { AttachApart } from '../../models/attachApart';
+import { Billing } from '../../models/billing';
+
 
 @Component({
   selector: 'app-apart',
@@ -20,6 +24,12 @@ import { AttachApart } from '../../models/attachApart';
 })
 export class ApartComponent implements OnInit {
   public token;
+  public billing: Billing;
+  public arrayBilling;
+  public date: string;
+  public currentDate = new Date();
+  public day;
+  public month;
   public identity;
   public productSizes;
   public imgUrl = ImgUrl;
@@ -86,11 +96,13 @@ export class ApartComponent implements OnInit {
   public restRate = 2220;
   public restAdd = 990;
   public splite;
+  public idCleanApart: string;
 
   constructor(
     private router: Router,
     private adminService: AdminService,
     private apartService: ApartService,
+    private billingService: BillingService,
     private productService: ArticleService
   ) {
     this.token = this.adminService.getToken();
@@ -98,6 +110,7 @@ export class ApartComponent implements OnInit {
     this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
     this.client = new Client('', '', '', '', '', '', '', '', null, 1);
     this.apartM = new Apart('', 0, '');
+    this.billing = new Billing('', 0, '', '', '', '', '', '');
     this.attachApart = new AttachApart('', '', 0, '');
   }
 
@@ -152,19 +165,16 @@ export class ApartComponent implements OnInit {
         this.pPublic = true;
         this.pMajor = false;
         this.pBoutique = false;
-        console.log(event);
       break;
       case 2:
         this.pPublic = false;
         this.pMajor = true;
         this.pBoutique = false;
-        console.log(event);
       break;
       case 3:
         this.pPublic = false;
         this.pMajor = false;
         this.pBoutique = true;
-        console.log(event);
       break;
       default:
         console.log('Fuera de rango');
@@ -294,11 +304,11 @@ export class ApartComponent implements OnInit {
           this.messageError = false;
           this.editAmountProduct(productId, this.sizeId, this.isDelete, this.attachApart);
           this.apartService.addNewApart(this.token, this.apartM).subscribe(
-            response => {
-              if (response.status === 'success' || response.status === 'Exist') {
+            responseApart => {
+              if (responseApart.status === 'success' || responseApart.status === 'Exist') {
                 // this.attachApart.amount = this.valueQtyBtn;
                 this.attachApart.article_id = productId;
-                this.attachApart.apart_id = response.apart.id;
+                this.attachApart.apart_id = responseApart.apart.id;
                 this.attachApartProduct(this.token, this.attachApart);
               }
             }, error => {
@@ -318,36 +328,11 @@ export class ApartComponent implements OnInit {
   }
   checkoutApart(productGet: any) {
     this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
+    this.billing.price = this.apartM.price;
     this.attachApart.amount = this.valueQtyBtn;
     this.isDelete = 'add';
     this.compareAmountInAdd(this.sizeId, productGet.id, this.attachApart.amount);
   }
-
-  /* checkoutApart(productGet: any) {
-    this.compareAmount(this.sizeId, productGet.id, this.attachApart.amount);
-    this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
-    this.attachApart.amount = this.valueQtyBtn;
-    this.isDelete = 'add';
-    if (this.compareBool) {
-      this.messageError = false;
-      this.editAmountProduct(productGet.id, this.sizeId, this.isDelete, this.attachApart);
-      this.apartService.addNewApart(this.token, this.apartM).subscribe(
-        response => {
-          if (response.status === 'success' || response.status === 'Exist') {
-            // this.attachApart.amount = this.valueQtyBtn;
-            this.attachApart.article_id = productGet.id;
-            this.attachApart.apart_id = response.apart.id;
-            this.attachApartProduct(this.token, this.attachApart);
-          }
-        }, error => {
-          console.log(<any> error);
-        }
-      );
-    } else {
-      this.messageError = true;
-      this.startTimer();
-    }
-  }*/
 
   startTimer() {
     this.interval = setInterval(() => {
@@ -361,12 +346,14 @@ export class ApartComponent implements OnInit {
   }
 
   getApart(apartId: any) {
+    this.idCleanApart = apartId;
     this.apartService.getApart(apartId).subscribe(
       response => {
         this.arrayApart = response.apart;
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+         this.billing.price = this.apartM.price;
         }
         this.calculateWeight();
       }, error => {
@@ -384,6 +371,7 @@ export class ApartComponent implements OnInit {
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
           this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+          this.billing.price = this.apartM.price;
         }
         this.calculateWeight();
       }, error => {
@@ -401,6 +389,7 @@ export class ApartComponent implements OnInit {
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
         }
+        this.billing.price = this.apartM.price;
         this.editFunctApart(this.token, this.apartM);
       }, error => {
         console.log(<any>error);
@@ -423,6 +412,12 @@ export class ApartComponent implements OnInit {
     this.client.phone = dataClient.phone;
     this.client.email = dataClient.email;
     this.client.addressDetail = dataClient.addressDetail;
+    this.billing.client = dataClient.name;
+    this.billing.email = dataClient.email;
+    this.billing.address = dataClient.address;
+    this.billing.addressDetail = dataClient.addressDetail;
+    this.billing.phone = dataClient.phone;
+    this.billing.status = 'process';
     this.apartM.clients_id = dataClient.id;
     this.apartM.price = 0;
     this.clientBool = false;
@@ -433,6 +428,7 @@ export class ApartComponent implements OnInit {
         if (response.status === 'success' || response.status === 'Exist') {
           this.attachApart.apart_id = response.apart.id;
           this.getApartClient(dataClient.id);
+          this.idCleanApart = response.apart.id;
         }
       }, error => {
         console.log(<any> error);
@@ -444,7 +440,7 @@ export class ApartComponent implements OnInit {
     this.apartService.attachProductApart(token, dataApart).subscribe(
       response => {
         if (response.status === 'success') {
-          this.getApart(dataApart.apart_id);
+          // this.getApart(dataApart.apart_id);
           this.editApart(dataApart.apart_id);
           this.calculateWeight();
         }
@@ -482,6 +478,71 @@ export class ApartComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  // =============================Facturacion===============================
+
+  PrintDoc() {
+    const Document = new jsPDF();
+    Document.fromHTML(document.getElementById('FormFactu'), 14, 15);
+    // Document.text(document.getElementById('FormFactu'), 14, 15);
+    Document.save('Factura Boutique Jem');
+  }
+
+  addNewBilling() {
+    this.arrayBilling = this.arrayApart;
+    this.billingService.addNewBilling(this.token, this.billing).subscribe(
+      response => {
+        console.log(this.arrayBilling);
+        const newBillingModel = new AttachApart('', '', 0, '');
+        for (let index = 0; index < this.arrayBilling.length; index++) {
+          newBillingModel.article_id = this.arrayBilling[index].id;
+          newBillingModel.size = this.arrayBilling[index].pivot.size;
+          newBillingModel.amount = this.arrayBilling[index].pivot.amount;
+          this.gotoAttachBilling(response.billing.id, newBillingModel, index, this.arrayBilling.length);
+        }
+      }, error => {
+        console.log(<any> error);
+       }
+    );
+  }
+
+  gotoAttachBilling(idBilling, dataAttach, index, lengthArray) {
+    console.log(this.idCleanApart);
+    index += 1;
+    this.billingService.attachArrayBilling(this.token, idBilling, dataAttach).subscribe(
+      responseAttach => {
+        if (responseAttach.status === 'success') {
+          if (index === lengthArray) {
+            this.apartService.cleanApartClient(this.token, this.idCleanApart, this.arrayApart)
+            .subscribe(
+              responseCleanApart => {
+                if (responseCleanApart.status === 'success') {
+                  this.PrintDoc();
+                }
+              }, error => {
+                console.log(error);
+              }
+            );
+          }
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  getDate() {
+    this.day = this.currentDate.getDate();
+    if (this.currentDate.getDate() < 10) {
+      this.day = '0' + this.currentDate.getDate().toString();
+    }
+    if (this.currentDate.getMonth() === 0) {
+      this.month = this.currentDate.getMonth().toString() + '1';
+    } else {
+      this.month = this.currentDate.getMonth() + 1;
+    }
+    this.date = this.currentDate.getFullYear() + '-' + this.month + '-' + this.day;
   }
 
   /*===============================Shipping================================*/
@@ -561,6 +622,7 @@ export class ApartComponent implements OnInit {
       this.getGender();
       this.getProductView();
       this.getClientList();
+      this.getDate();
     }
   }
 

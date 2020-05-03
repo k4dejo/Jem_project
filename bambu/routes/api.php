@@ -106,6 +106,7 @@ Route::group(['middleware' => 'cors'], function(){
    /*BILLING*/
    Route::resource('billing', 'billingController');
    Route::post('attachBillingProduct', 'billingController@attachProductBilling');
+   Route::post('attachArrayBilling/{id}', 'billingController@attachArrayBilling');
    Route::post('detachBillingProduct', 'billingController@dettachProductBilling');
    Route::post('editBilling', 'billingController@editBilling');
    Route::get('getBillingList/{id}', 'billingController@getBilling');
@@ -117,6 +118,7 @@ Route::group(['middleware' => 'cors'], function(){
     Route::post('AttachApart', 'apartController@attachProductApart');
     Route::post('detachApart', 'apartController@dettachProductApart');
     Route::get('getApart/{id}', 'apartController@getApart');
+    Route::put('cleanApartClient/{id}', 'apartController@cleanApartClient');
     Route::put('ApartChangeAmount/{id}/{sizeId}/{isDelete}', 'apartController@changeAmountProduct');
     Route::get('getApartClient/{id}', 'apartController@getApartClient');
     Route::get('checkSizeIdApart/{idProduct}/{size}', 'apartController@checkSizeIdApart');

@@ -118,6 +118,36 @@ class billingController extends Controller
         return response()->json($data,200);
     }
 
+    public function attachArrayBilling($idBilling, Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            //Hacer la relación del articulo con la compra con el atributo de cantidad y talla
+            $billing = billing::findOrFail($idBilling);
+            $billing->articles()->attach($params->article_id,['amount'=>$params->amount,
+            'size'=>$params->size]);
+            $data = array(
+                'billing' => $billing,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+            return response()->json($data, 200);
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
     public function attachProductBilling(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();

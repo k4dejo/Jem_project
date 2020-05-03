@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as jsPDF from 'jspdf'
+import * as jsPDF from 'jspdf';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';

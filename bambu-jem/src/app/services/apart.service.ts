@@ -78,6 +78,14 @@ export class ApartService {
     + '/' + isDelete, params, { headers: headers });
   }
 
+  cleanApartClient(token, idApart, dataApart): Observable<any> {
+    const json = JSON.stringify(dataApart);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.put(this.url + 'cleanApartClient/' + idApart, params, { headers: headers });
+  }
+
   getApartClient(idClient: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getApartClient/' + idClient, {headers: headers});
