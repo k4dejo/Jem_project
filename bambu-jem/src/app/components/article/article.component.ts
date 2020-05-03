@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
@@ -10,6 +10,7 @@ import { Like } from '../../models/like';
 import { UserServices } from '../../services/user.service';
 import 'lazysizes/plugins/unveilhooks/ls.unveilhooks';
 import { lazySizes } from 'lazysizes';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-article',
@@ -18,6 +19,7 @@ import { lazySizes } from 'lazysizes';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public shop_id = '';
   public token;
   public identity;
@@ -105,6 +107,7 @@ export class ArticleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private clientService: UserServices,
     private ProductService: ArticleService,
     private _location: Location,
@@ -239,16 +242,60 @@ export class ArticleComponent implements OnInit {
         this.clientService.likeProduct(this.favorite).subscribe(
           response => {
             if (response.status = 'success') {
-              clickBtn.classList.add('heart-liked');
-              clickBtn.classList.add('heart-beating');
               this.BtnHover = true;
+              this.toast(1);
             }
           }, error => {
             console.log(<any>error);
           }
         );
       }
+    } else {
+      this.toast(3);
     }
+  }
+
+  toast(numberBool: any) {
+    switch (numberBool) {
+      case 1:
+        this.showSuccess();
+      break;
+      case 2:
+        this.showInfo();
+      break;
+      case 3:
+        this.showError();
+      break;
+    
+      default:
+        break;
+    }
+  }
+
+  showSuccess() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Se ha añadido a la lista de deseos', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showInfo() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('La prenda se ha eliminado de la lista de deseos',
+    'Aviso', {
+      timeOut: 4000,
+      progressBar: true
+    });
+  }
+
+  showError() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('Necesitas iniciar sesión para añadir a la lista de deseos',
+    'Alerta', {
+      timeOut: 4000,
+      progressBar: true
+    });
   }
 
   getProduct(department: any, gender: any) {

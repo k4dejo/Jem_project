@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import {Location} from '@angular/common';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { ImageService } from '../../services/image.service';
@@ -24,6 +25,7 @@ import { AttachPurchase } from '../../models/attachPurchase';
   styleUrls: ['./article-detail.component.css']
 })
 export class ArticleDetailComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public isClient = false;
   public loading = false;
   public shop_id = '';
@@ -87,6 +89,7 @@ export class ArticleDetailComponent implements OnInit {
     private ProductService: ArticleService,
     private sanitizer: DomSanitizer,
     private imageService: ImageService,
+    private toastr: ToastrService,
     private clientService: UserServices,
     private purchaseService: PurchaseService,
     private offerService: OfferService,

@@ -366,7 +366,6 @@ export class ApartComponent implements OnInit {
     this.apartService.getApartClient(clientId).subscribe(
       response => {
         this.arrayApart = response.apart;
-        console.log(this.arrayApart);
         this.attachApart.apart_id = this.arrayApart[0].pivot.apart_id;
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.arrayApart[index].photo = 'data:image/jpeg;base64,' + this.arrayApart[index].photo;
