@@ -11,6 +11,7 @@ import { Size } from '../../models/size';
 import { Image } from '../../models/image';
 import {Attachsize} from '../../models/attachsize';
 import { AdminService } from '../../services/admin.service';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-edit-product',
@@ -24,6 +25,7 @@ export class EditProductComponent implements OnInit {
   public product: Article;
   public size: Size;
   public img: Image;
+  public imgUrl = ImgUrl;
   public loading = false;
   public attachSizeProduct: Attachsize;
   public attachNewProduct: Attachsize;
@@ -293,7 +295,7 @@ public dtDepartmentB: string[] = [
         console.log(this.product);
         const product_id = response.articles.id;
         this.getImageArray(product_id);
-        this.product.photo = 'data:image/jpeg;base64,' + this.product.photo;
+        this.product.photo = this.imgUrl.url + this.product.photo;
         this.fileBlob = this.product.photo;
       },
       error => {

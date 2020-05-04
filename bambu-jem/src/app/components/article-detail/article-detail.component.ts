@@ -17,6 +17,7 @@ import { Like } from '../../models/like';
 import { Image } from '../../models/image';
 import { Purchase } from '../../models/purchase';
 import { AttachPurchase } from '../../models/attachPurchase';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-article-detail',
@@ -60,6 +61,7 @@ export class ArticleDetailComponent implements OnInit {
   public timeLeft = 5;
   public successModalBool = false;
   public inventoryEmpty = false;
+  public imgUrl = ImgUrl;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
@@ -149,14 +151,16 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getSingleProduct(ProductId: any) {
+    this.loading = true;
     this.ProductService.getProductU(ProductId).subscribe(
       response => {
         this.product = response.articles;
         const product_id = response.articles.id;
         this.getImageArray(product_id);
         this.getDepartmentView(this.product.gender.toString());
-        this.product.photo = 'data:image/jpeg;base64,' + this.product.photo;
+        this.product.photo = this.imgUrl.url + this.product.photo;
         this.fileBlob = this.product.photo;
+        this.loading = false;
         for (let e = 0; e < this.gender.length; e++) {
           if (this.product.gender.toString() === this.gender[e].id) {
             this.product.gender = this.gender[e].name;
@@ -193,13 +197,13 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getSizeProduct(idProduct: any) {
-    this.loading = true;
+    // this.loading = true;
     this.sizeService.getSizeE(idProduct).subscribe(
       response => {
-        this.productViewU = response.products;
+        //this.productViewU = response.getSizes;
         // this.attachSizeProduct = response;
-        this.viewRelation = this.productViewU[0].sizes;
-        this.loading = false;
+        this.viewRelation = response.getSizes;
+        // this.loading = false;
       }, error => {
         console.log(<any> error);
       }

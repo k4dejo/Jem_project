@@ -108,6 +108,9 @@ export class ApartComponent implements OnInit {
   public ArrayProvin: Province[];
   public ArrayCant: Cant[];
   public ArrayDist: District[];
+  public Province: Province;
+  public Cant: Cant;
+  public District: District;
 
   constructor(
     private router: Router,
