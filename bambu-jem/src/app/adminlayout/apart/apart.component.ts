@@ -7,6 +7,10 @@ import { SizeService } from '../../services/size.service';
 import { AdminService } from '../../services/admin.service';
 import { ApartService } from '../../services/apart.service';
 import { BillingService } from '../../services/billing.service';
+import { AddresServices } from '../../services/addres.service';
+import { Province } from '../../models/province';
+import { Cant } from '../../models/cant';
+import { District } from '../../models/district';
 import { Client } from '../../models/client';
 import { Article } from 'src/app/models/article';
 import { Apart } from 'src/app/models/apart';
@@ -19,7 +23,7 @@ import { Billing } from '../../models/billing';
 
 @Component({
   selector: 'app-apart',
-  providers: [ArticleService, AdminService, SizeService, ApartService],
+  providers: [ArticleService, AdminService, SizeService, ApartService, AddresServices],
   templateUrl: './apart.component.html',
   styleUrls: ['./apart.component.css']
 })
@@ -98,11 +102,18 @@ export class ApartComponent implements OnInit {
   public restAdd = 990;
   public splite;
   public idCleanApart: string;
+  public PronviJson: string[] = [];
+  public CantJson: string[] = [];
+  public DistJson: string[] = [];
+  public ArrayProvin: Province[];
+  public ArrayCant: Cant[];
+  public ArrayDist: District[];
 
   constructor(
     private router: Router,
     private adminService: AdminService,
     private apartService: ApartService,
+    private province: AddresServices,
     private billingService: BillingService,
     private productService: ArticleService
   ) {
@@ -131,7 +142,7 @@ export class ApartComponent implements OnInit {
       response => {
         this.loading = false;
         // this.viewPhoto = response.productPhoto;
-        this.viewPhoto = this.imgUrl + this.viewPhoto;
+        this.viewPhoto = this.imgUrl.url + response.productPhoto;
       }, error => {
         console.log(<any> error);
       }
@@ -181,7 +192,7 @@ export class ApartComponent implements OnInit {
         console.log('Fuera de rango');
       break;
     }
-
+    this.calculatePriceWithShop();
   }
 
   getGenderString(genderLength: any, productGenIndex: any) {
@@ -237,6 +248,7 @@ export class ApartComponent implements OnInit {
   }
 
   getProduct(productId: any) {
+    console.log(this.client);
     this.productService.getProductU(productId).subscribe(
       response => {
         this.productGet = response.articles;
@@ -328,7 +340,18 @@ export class ApartComponent implements OnInit {
     );
   }
   checkoutApart(productGet: any) {
-    this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
+    if (this.pPublic) {
+      console.log('public');
+      this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
+    }
+    if (this.pMajor) {
+      console.log('major');
+      this.apartM.price += productGet.priceMajor * this.valueQtyBtn;
+    }
+    if (this.pBoutique) {
+      console.log('tub');
+      this.apartM.price += productGet.priceTuB * this.valueQtyBtn;
+    }
     this.billing.price = this.apartM.price;
     this.attachApart.amount = this.valueQtyBtn;
     this.isDelete = 'add';
@@ -351,16 +374,51 @@ export class ApartComponent implements OnInit {
     this.apartService.getApart(apartId).subscribe(
       response => {
         this.arrayApart = response.apart;
+        this.calculatePriceWithShop();
         for (let index = 0; index < this.arrayApart.length; index++) {
-         this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
-         this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-         this.billing.price = this.apartM.price;
+          this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
         }
+        /*for (let index = 0; index < this.arrayApart.length; index++) {
+         this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
+         // this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+         if (this.pPublic) {
+          console.log('public');
+          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+        }
+        if (this.pMajor) {
+          console.log('major');
+          this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
+        }
+        if (this.pBoutique) {
+          console.log('tub');
+          this.apartM.price += this.arrayApart[index].priceTub * this.arrayApart[index].pivot.amount;
+        }
+         this.billing.price = this.apartM.price;
+        }*/
         this.calculateWeight();
       }, error => {
         console.log(<any>error);
       }
     );
+  }
+
+  calculatePriceWithShop() {
+    this.apartM.price = 0;
+    for (let index = 0; index < this.arrayApart.length; index++) {
+      // this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
+      // this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+      if (this.pPublic) {
+       this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+     }
+     if (this.pMajor) {
+       this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
+     }
+     if (this.pBoutique) {
+       this.apartM.price += this.arrayApart[index].priceTuB * this.arrayApart[index].pivot.amount;
+     }
+      this.billing.price = this.apartM.price;
+      this.billing.price += this.shipping;
+    }
   }
 
   getApartClient(clientId: any) {
@@ -506,7 +564,6 @@ export class ApartComponent implements OnInit {
     this.arrayBilling = this.arrayApart;
     this.billingService.addNewBilling(this.token, this.billing).subscribe(
       response => {
-        console.log(this.arrayBilling);
         const newBillingModel = new AttachApart('', '', 0, '');
         for (let index = 0; index < this.arrayBilling.length; index++) {
           newBillingModel.article_id = this.arrayBilling[index].id;
@@ -525,23 +582,30 @@ export class ApartComponent implements OnInit {
     index += 1;
     this.billingService.attachArrayBilling(this.token, idBilling, dataAttach).subscribe(
       responseAttach => {
-        if (responseAttach.status === 'success') {
-          if (index === lengthArray) {
-            this.apartService.cleanApartClient(this.token, this.idCleanApart, this.arrayApart)
-            .subscribe(
-              responseCleanApart => {
-                if (responseCleanApart.status === 'success') {
-                  this.getApartClient(this.apartM.clients_id);
-                  this.PrintDoc();
-                }
-              }, error => {
-                console.log(error);
-              }
-            );
-          }
+        if (responseAttach.status === 'success' && index === lengthArray) {
+          this.cleanDataApart();
+        } else {
+          console.log(responseAttach);
         }
       }, error => {
         console.log(<any> error);
+      }
+    );
+  }
+
+  cleanDataApart() {
+    this.apartService.cleanApartClient(this.token, this.idCleanApart, this.arrayApart)
+    .subscribe(
+      responseCleanApart => {
+        if (responseCleanApart.status === 'success') {
+          this.getApartClient(this.apartM.clients_id);
+          this.PrintDoc();
+          this.billing.price = 0;
+          this.shipping = 0;
+          this.apartM.price = 0;
+        }
+      }, error => {
+        console.log(error);
       }
     );
   }
@@ -566,7 +630,6 @@ export class ApartComponent implements OnInit {
     for (let index = 0; index < this.arrayApart.length; ++index) {
       this.totalWeight += Number(this.arrayApart[index].weight) * this.arrayApart[index].pivot.amount;
     }
-    console.log(this.totalWeight);
     this.viewAddress(this.splite[0] , this.splite[1]);
   }
 
@@ -628,7 +691,108 @@ export class ApartComponent implements OnInit {
       break;
     }
   }
-  /*======================================================================================*/
+  /*==========================================Dirección===========================================*/
+  getProvice() {
+    this.province.getProvinceJson().subscribe(
+      response => {
+        // tslint:disable-next-line:forin
+        for (const key in response) {
+         this.PronviJson.push(response[key]);
+        }
+        this.getProvin();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getProvin() {
+    let idProvin: number;
+    this.ArrayProvin = [];
+    for (let i = 0; i < this.PronviJson.length; ++i) {
+      idProvin = i + 1;
+      this.ArrayProvin.push(new Province(idProvin.toString(), this.PronviJson[i]));
+    }
+  }
+
+  getCant(any) {
+    if (any !== undefined) {
+      this.CantJson = [];
+      this.province.getCanJson(any).subscribe(
+        response => {
+          // tslint:disable-next-line:forin
+          for (const key in response) {
+           this.CantJson.push(response[key]);
+          }
+          let idCant: number;
+          this.ArrayCant = [];
+          for (let i = 0; i < this.CantJson.length; ++i) {
+            idCant = i + 1;
+            this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  getDist(direcPro, direCan) {
+    if (direCan !== undefined) {
+      this.DistJson = [];
+      this.province.getDistJson(direcPro, direCan).subscribe(
+        response => {
+          // tslint:disable-next-line:forin
+          for (const key in response) {
+           this.DistJson.push(response[key]);
+          }
+          let idDist: number;
+          this.ArrayDist = [];
+          for (let i = 0; i < this.DistJson.length; ++i) {
+            idDist = i + 1;
+            this.ArrayDist.push(new District(idDist.toString(), this.DistJson[i]));
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  pushAddress(idProvin, idCant, idDist) {
+    if (idCant !== undefined && idDist !== undefined) {
+      let idReal:  number;
+      for (let i = 0; i < this.PronviJson.length; ++i) {
+        idReal = i + 1;
+        if (idReal.toString() === idProvin) {
+           this.client.address = this.PronviJson[i];
+           this.billing.address = this.PronviJson[i];
+         }
+      }
+      for (let i = 0; i < this.CantJson.length; ++i) {
+       idReal = i + 1;
+       if (idReal.toString() === idCant) {
+         this.client.address = this.client.address + ', ' + this.CantJson[i];
+         this.billing.address = this.billing.address + ', ' + this.CantJson[i];
+       }
+      }
+      for (let i = 0; i < this.DistJson.length; ++i) {
+       idReal = i + 1;
+       if (idReal.toString() === idDist) {
+         this.client.address = this.client.address + ', ' + this.DistJson[i];
+         this.billing.address = this.billing.address + ', ' + this.DistJson[i];
+       }
+      }
+    }
+    this.splite = this.client.address.split(',');
+    this.viewAddress(this.splite[0] , this.splite[1]);
+  }
+
+
+  /*=======================================================================================*/
 
   ngOnInit() {
     if (this.identity == null) {
@@ -638,7 +802,7 @@ export class ApartComponent implements OnInit {
       this.getProductView();
       this.getClientList();
       this.getDate();
+      this.getProvice();
     }
   }
-
 }

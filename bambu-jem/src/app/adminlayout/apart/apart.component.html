@@ -37,13 +37,42 @@
                   </div>
                   <div class="input-group-desc">
                     <label for="">Dirección</label>
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 dropdown">
+                        <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                        (click)="getCant(Province)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                          {{province.name}}
+                        </option>
+                      </select>
+                      </div>
+                      <div class="col-lg-4 col-md-4 dropdown">
+                        <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
+                        (click)="getDist(Province, Cant)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                          {{cant.name}}
+                        </option>
+                      </select>
+                      </div>
+                      <div class="col-lg-4 col-md-4 dropdown">
+                        <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
+                        (click)="pushAddress(Province, Cant, District)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                          {{dist.name}}
+                        </option>
+                      </select>
+                      </div>
+                    </div>
                     <h4>{{client.address}}</h4>
                   </div>
                   <div class="input-group-desc">
                     <textarea class="input--style-5" style="resize: both; overflow: auto;"
                     name="addresDetail" #addresDetail="ngModel" [(ngModel)]="client.addressDetail"
                     id="addresDetail" placeholder="Dirección detallada"
-                    cols="25" rows="2" disabled></textarea>
+                    cols="25" rows="2"></textarea>
                   </div>
                 </div>
               </div>
@@ -270,7 +299,6 @@
         <div class="productList">
           <table id="tableBilling" class="FactuT table table-striped">
             <thead>
-              <th scope="col"></th>
               <th scope="col">Producto</th>
               <th scope="col" class="quy-th">Cantidad</th>
               <th scope="col" class="size-th">Talla</th>
@@ -282,11 +310,14 @@
                 <td>{{productBill.name}}</td>
                 <td>{{productBill.pivot.amount}}</td>
                 <td>{{productBill.pivot.size}}</td>
-                <td>{{productBill.pricePublic * productBill.pivot.amount | number: "3."}}</td>
+                <td *ngIf="pPublic">{{productBill.pricePublic * productBill.pivot.amount | number: "3."}}</td>
+                <td *ngIf="pMajor">{{productBill.priceMajor * productBill.pivot.amount | number: "3."}}</td>
+                <td *ngIf="pBoutique">{{productBill.priceTuB * productBill.pivot.amount | number: "3."}}</td>
               </tr>
             </tbody>
           </table>
-          <h3 style="text-align: right;">Total: {{billing.price | number: "3."}}</h3>
+          <h4 style="text-align: right;">Envío: {{shipping | number: "3."}}</h4>
+          <h3 style="text-align: right;">Total <span style="font-size: 14px;">(+envío)</span>: {{billing.price | number: "3."}}</h3>
         </div>
         <input style="color: white;" type="button" class="btn btn--green btn--pill"
         value="Emitir Factura" (click)="addNewBilling()">

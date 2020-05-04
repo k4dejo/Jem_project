@@ -51,8 +51,8 @@ class ArticleController extends Controller
 
     public function showPhotoProduct($id) {
         $articles = article::find($id);
-        $contents = Storage::get($articles->photo);
-        $articles->photo = base64_encode($contents);
+        /*$contents = Storage::get($articles->photo);
+        $articles->photo = base64_encode($contents);*/
         return response()->json(array(
             'productPhoto' => $articles->photo,
             'status'   => 'success'
