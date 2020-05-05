@@ -138,6 +138,7 @@ export class ShoppingCartComponent implements OnInit {
         }
         this.getProvin();
       },
+      // tslint:disable-next-line:no-shadowed-variable
       error => {
         console.log(error);
       }
@@ -159,14 +160,38 @@ export class ShoppingCartComponent implements OnInit {
             idCant = i + 1;
             this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
           }
-
         },
+        // tslint:disable-next-line:no-shadowed-variable
         error => {
           console.log(error);
         }
       );
     }
   }
+
+  /* getCant(any) {
+    if (any !== undefined) {
+      this.CantJson = [];
+      this.province.getCanJson(any).subscribe(
+        response => {
+          // tslint:disable-next-line:forin
+          for (const key in response) {
+           this.CantJson.push(response[key]);
+          }
+          let idCant: number;
+          this.ArrayCant = [];
+          for (let i = 0; i < this.CantJson.length; ++i) {
+            idCant = i + 1;
+            this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
+          }
+          console.log(this.ArrayCant);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }*/
 
   getDist(direcPro, direCan) {
     if (direCan !== undefined) {
@@ -192,6 +217,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   pushAddress(idProvin, idCant, idDist) {
+    this.addressPurchase.address = '';
     if (idCant !== undefined && idDist !== undefined) {
       let idReal:  number;
       for (let i = 0; i < this.PronviJson.length; ++i) {
@@ -273,12 +299,15 @@ export class ShoppingCartComponent implements OnInit {
         this.checkoutPurchase.clients_id = this.identity.sub;
         this.checkoutPurchase.status = 'incomplete';
         this.dettachPurchaseP.idPurchase = response.purchaseId;
-        if (response.dataPurchase.addresspurchases_id !== '0') {
+        if (response.dataPurchase.addresspurchases_id !== '0' || response.dataPurchase.addresspurchases_id !== '') {
           this.province.getAddressPurchase(response.dataPurchase.addresspurchases_id)
           .subscribe(
             // tslint:disable-next-line:no-shadowed-variable
             response => {
-              this.addressPurchase = response.AddressPurchase;
+              if (response.AddressPurchase !== 'void') {
+                this.addressPurchase = response.AddressPurchase;
+              }
+              // this.addressPurchase = response.AddressPurchase;
               this.viewAddressBool = true;
               this.splite = this.addressPurchase.address.split(',');
               this.viewAddress(this.splite[0] , this.splite[1]);
@@ -305,6 +334,7 @@ export class ShoppingCartComponent implements OnInit {
           }
         }
         this.CalculateTotalPrice(this.productCount);
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
         this.loading = false;

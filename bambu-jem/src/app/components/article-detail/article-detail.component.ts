@@ -200,7 +200,7 @@ export class ArticleDetailComponent implements OnInit {
     // this.loading = true;
     this.sizeService.getSizeE(idProduct).subscribe(
       response => {
-        //this.productViewU = response.getSizes;
+        // this.productViewU = response.getSizes;
         // this.attachSizeProduct = response;
         this.viewRelation = response.getSizes;
         // this.loading = false;

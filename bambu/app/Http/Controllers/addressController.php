@@ -14,6 +14,9 @@ class addressController extends Controller
     public function getAddressPurchase($addressId) {
         $addressPurchase = DB::table('address_purchases')->where('id', $addressId)
         ->first();
+        if ($addressPurchase == null) {
+            $addressPurchase = 'void';
+        }
         $data = array(
             'AddressPurchase' => $addressPurchase,
             'status'  => 'success',

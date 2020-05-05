@@ -113,7 +113,7 @@ class sizeController extends Controller
     public function showEditP($id) {
         $article = article::all();
         $productCount = count($article);
-        $testSizes = article::find($productId)->sizes()->get();
+        $getSizes = article::find($id)->sizes()->get();
         for ($i=0; $i < $productCount ; $i++) {
             if ($article[$i]->id = $id) {
                 // obteniendo los tasks asociados al producto
@@ -135,6 +135,7 @@ class sizeController extends Controller
                 return response()->json(array(
                     'products' => $article,
                     'amount'  => $amount,
+                    'getSizes' => $getSizes,
                     'size'    => $sizeServe
                 ), 200);
             }
