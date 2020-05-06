@@ -10,6 +10,9 @@ use Input;
 use Image;
 use App\outfit;
 use App\size;
+use App\apart;
+use App\billing;
+use App\purchase;
 class ArticleController extends Controller
 {
 

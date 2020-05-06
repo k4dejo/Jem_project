@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Helpers\jwtAuthAdmin;
 use App\article;
 use App\size;
+use App\billing;
+use App\purchase;
+use App\apart;
 
 class sizeController extends Controller
 {
@@ -164,8 +167,33 @@ class sizeController extends Controller
         ), 200);
     }
 
+    public function detachIproduct($idProduct) {
+        $detachApar = DB::table('apart_article')->where('article_id', $idProduct)->get();
+        $detachbilling = DB::table('article_billing')->where('article_id', $idProduct)->get();
+        $detachPurchase = DB::table('article_purchase')->where('article_id', $idProduct)->get();
+        $countApar = count($detachApar);
+        $countPurchase = count($detachPurchase);
+        $countBilling = count($detachbilling);
+        for ($i=0; $i < $countApar; $i++) {
+            $apart = apart::findOrFail($detachApar[$i]->apart_id);
+            $apart->articles()->wherePivot('apart_id', $detachApar[$i]->apart_id)->detach();
+        }
+        for ($i=0; $i < $countPurchase; $i++) {
+            $purchase = purchase::findOrFail($detachPurchase[$i]->purchase_id);
+            $purchase->articles()->wherePivot('purchase_id', $detachPurchase[$i]->purchase_id)->detach();
+        }
+        for ($i=0; $i < $countBilling; $i++) {
+            $billing = billing::findOrFail($detachbilling[$i]->billing_id);
+            $billing->articles()->wherePivot('billing_id', $detachbilling[$i]->billing_id)->detach();
+        }
+        return response()->json(array(
+            'mgs' => 'clean relations',
+        ), 200);
+    }
+
     public function detachSize($id){
         //delete the relationships with first.
+        $this->detachIproduct($id);
         $article = article::findOrFail($id);
         $article->sizes()->detach();
         //Borrar registro
@@ -178,6 +206,7 @@ class sizeController extends Controller
         $data = array(
             'article' => $article,
             'status'  => 'Delete success',
+            'responseDetach' => $this->detachIproduct($id),
             'code'    => 200
         );
         return response()->json($data, 200);
