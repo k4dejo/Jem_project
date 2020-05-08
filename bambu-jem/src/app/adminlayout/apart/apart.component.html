@@ -203,7 +203,10 @@
                 <tbody>
                   <tr *ngFor="let productApart of arrayApart">
                     <td><img [src]="productApart.photo" class="img-responsive" alt=""></td>
-                    <td>{{productApart.name}}</td>
+                    <td>
+                      <a (click)='over(productApart.id)' style="cursor: pointer;"
+                      data-toggle="modal" data-target="#myModalImg">{{productApart.name}}</a>
+                    </td>
                     <td>{{productApart.pivot.amount}}</td>
                     <td>{{productApart.pivot.size}}</td>
                     <td *ngIf="pPublic">₡ {{productApart.pricePublic * productApart.pivot.amount | number: '3.'}}</td>
@@ -325,6 +328,7 @@
     </div>
   </div>
 </div>
+<div *ngIf="loading" class="loading">Loading&#8230;</div>
 <div id="myModalImg" class="modal">
   <span class="close" data-dismiss="modal">&times;</span>
   <div *ngIf="loading" class="loading">Loading&#8230;</div>

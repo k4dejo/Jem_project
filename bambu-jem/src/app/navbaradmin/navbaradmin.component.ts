@@ -42,6 +42,11 @@ export class NavbaradminComponent implements OnInit {
     this.router.navigate([link]);
   }
 
+  gotoCompress() {
+    const link = 'admin/CompressImg';
+    this.router.navigate([link]);
+  }
+
   gotoOrders() {
     const link = 'admin/Pedidos';
     this.router.navigate([link]);

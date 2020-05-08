@@ -1,0 +1,24 @@
+<div class="page-wrapper bg-gra-03">
+    <app-navbaradmin></app-navbaradmin>
+    <div class="wrapper wrapper--w1100">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Compresor de imagenes</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <button (click)="compressFile()">Subir y comprimir</button>
+                    <div *ngIf="imgResultBeforeCompress">
+                        <h4>Imagen original: {{sizeBeforeCompress}}</h4>
+                        <img class="img-responsive" [src]="imgResultBeforeCompress" alt="">
+                    </div>
+                    <br>
+                    <div *ngIf="imgResultAfterCompress">
+                        <h4>Imagen comprimida: {{sizeAfterCompress}}</h4>
+                        <img class="img-responsive" [src]="imgResultAfterCompress" alt="">
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>

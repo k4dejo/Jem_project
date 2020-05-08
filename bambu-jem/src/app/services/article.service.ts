@@ -99,6 +99,11 @@ export class ArticleService {
       return this._http.get(this.url + 'articles/' + id, { headers: headers });
     }
 
+    showForClients(id): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'showForClients/' + id, { headers: headers });
+    }
+
     getProductSizeList(id): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'showProductSizeList/' + id, { headers: headers });

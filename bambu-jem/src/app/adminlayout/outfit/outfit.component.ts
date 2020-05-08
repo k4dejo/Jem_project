@@ -8,6 +8,7 @@ import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Outfit } from '../../models/outfit';
 import { AttachOutfitProduct } from '../../models/attachOutfitProduct';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-outfit',
@@ -58,6 +59,7 @@ export class OutfitComponent implements OnInit {
   public statusBool: boolean;
   public department: any[];
   public productOutfit;
+  public imgUrl = ImgUrl;
 
   constructor(
     private router: Router,
@@ -189,7 +191,8 @@ export class OutfitComponent implements OnInit {
         this.statusBool = true;
         for (let index = 0; index < this.productView.length; index++) {
           // agrego formato a la imagen.
-          this.productView[index].photo = 'data:image/jpeg;base64,' + this.productView[index].photo;
+          // this.productView[index].photo = 'data:image/jpeg;base64,' + this.productView[index].photo;
+          this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
           const photoView = this.productView[index].photo;
           this.getDepartmentView(this.productView[index].gender.toString());
           this.getGenderString(this.gender.length, index);

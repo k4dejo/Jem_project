@@ -174,17 +174,23 @@ class sizeController extends Controller
         $countApar = count($detachApar);
         $countPurchase = count($detachPurchase);
         $countBilling = count($detachbilling);
-        for ($i=0; $i < $countApar; $i++) {
-            $apart = apart::findOrFail($detachApar[$i]->apart_id);
-            $apart->articles()->wherePivot('apart_id', $detachApar[$i]->apart_id)->detach();
+        if ($countApar > 0) {
+            for ($i=0; $i < $countApar; $i++) {
+                $apart = apart::findOrFail($detachApar[$i]->apart_id);
+                $apart->articles()->wherePivot('apart_id', $detachApar[$i]->apart_id)->detach();
+            }
         }
-        for ($i=0; $i < $countPurchase; $i++) {
-            $purchase = purchase::findOrFail($detachPurchase[$i]->purchase_id);
-            $purchase->articles()->wherePivot('purchase_id', $detachPurchase[$i]->purchase_id)->detach();
+        if ($countPurchase > 0) {
+            for ($i=0; $i < $countPurchase; $i++) {
+                $purchase = purchase::findOrFail($detachPurchase[$i]->purchase_id);
+                $purchase->articles()->wherePivot('purchase_id', $detachPurchase[$i]->purchase_id)->detach();
+            }
         }
-        for ($i=0; $i < $countBilling; $i++) {
-            $billing = billing::findOrFail($detachbilling[$i]->billing_id);
-            $billing->articles()->wherePivot('billing_id', $detachbilling[$i]->billing_id)->detach();
+        if ($countBilling > 0) {
+            for ($i=0; $i < $countBilling; $i++) {
+                $billing = billing::findOrFail($detachbilling[$i]->billing_id);
+                $billing->articles()->wherePivot('billing_id', $detachbilling[$i]->billing_id)->detach();
+            }
         }
         return response()->json(array(
             'mgs' => 'clean relations',

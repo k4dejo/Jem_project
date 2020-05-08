@@ -152,7 +152,8 @@ export class ArticleDetailComponent implements OnInit {
 
   getSingleProduct(ProductId: any) {
     this.loading = true;
-    this.ProductService.getProductU(ProductId).subscribe(
+    //this.ProductService.getProductU(ProductId).subscribe(
+    this.ProductService.showForClients(ProductId).subscribe(
       response => {
         this.product = response.articles;
         const product_id = response.articles.id;
@@ -370,7 +371,6 @@ export class ArticleDetailComponent implements OnInit {
         if (this.viewRelation[index].size === this.attachPurchase.size) {
           sizeIdCompare = this.viewRelation[index].id;
         }
-
       }
       if (this.offerBool) {
         this.productCart.price = this.offer.offer;
@@ -385,11 +385,15 @@ export class ArticleDetailComponent implements OnInit {
       .subscribe(
         response => {
           if (response.amountCheck === 'success') {
-            this.verifyPurchaseStatus();
             this.inventoryEmpty = false;
+            this.verifyPurchaseStatus();
           } else {
-            this.inventoryEmpty = true;
+            if (response.amountCheck === 'void') {
+              this.inventoryEmpty = true; 
+            }
+            //this.verifyPurchaseStatus();
           }
+          console.log('inventoryEmpty: ' + this.inventoryEmpty);
         }, error => {
           console.log(<any> error);
         }

@@ -252,10 +252,12 @@ export class ApartComponent implements OnInit {
 
   getProduct(productId: any) {
     console.log(this.client);
+    this.loading = true;
     this.productService.getProductU(productId).subscribe(
       response => {
         this.productGet = response.articles;
         this.arrayProductSize = response.arraySizeArticle;
+        this.loading = false;
         this.getSizeProduct(productId);
       }, error => {
         console.log(<any> error);
@@ -344,15 +346,12 @@ export class ApartComponent implements OnInit {
   }
   checkoutApart(productGet: any) {
     if (this.pPublic) {
-      console.log('public');
       this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
     }
     if (this.pMajor) {
-      console.log('major');
       this.apartM.price += productGet.priceMajor * this.valueQtyBtn;
     }
     if (this.pBoutique) {
-      console.log('tub');
       this.apartM.price += productGet.priceTuB * this.valueQtyBtn;
     }
     this.billing.price = this.apartM.price;
@@ -447,6 +446,7 @@ export class ApartComponent implements OnInit {
     this.apartService.getApart(IdApart).subscribe(
       response => {
         this.arrayApart = response.apart;
+        this.calculateWeight();
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
         }
@@ -498,12 +498,14 @@ export class ApartComponent implements OnInit {
   }
 
   attachApartProduct(token: any, dataApart: any) {
+    this.loading = true;
     this.apartService.attachProductApart(token, dataApart).subscribe(
       response => {
         if (response.status === 'success') {
           // this.getApart(dataApart.apart_id);
           this.editApart(dataApart.apart_id);
-          this.calculateWeight();
+          this.loading = false;
+          // this.calculateWeight();
         }
       }, error => {
         console.log(<any> error);
@@ -630,6 +632,7 @@ export class ApartComponent implements OnInit {
 
   calculateWeight() {
     this.totalWeight = 0;
+    console.log(this.arrayApart);
     for (let index = 0; index < this.arrayApart.length; ++index) {
       this.totalWeight += Number(this.arrayApart[index].weight) * this.arrayApart[index].pivot.amount;
     }

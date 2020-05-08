@@ -474,13 +474,13 @@ class PurchaseController extends Controller
                     );
                 }
                 return response()->json($data,200);
-            } else {
+            } /*else {
                 $data = array(
                     'sizeId' => $productSize[$i]->id,
                     'sizeIdrequest' => $sizeIdResponse
                 );
                 return response()->json($data,200);
-            }
+            }*/
         }
        }
 
