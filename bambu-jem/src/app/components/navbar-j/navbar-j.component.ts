@@ -70,10 +70,15 @@ export class NavbarJComponent implements OnInit {
     }
   }
 
-  toggleBtnProducts(gender: any) {
+  /*toggleBtnProducts(gender: any) {
     const link = '/Home/Articulo/';
     // vigilar si hay complicaciones sessionStorage.removeItem('currentPage');
+    sessionStorage.removeItem('currentPage');
     this.router.navigate([link, 'J', '1', gender]);
+  }*/
+
+  toggleBtnProducts() {
+    sessionStorage.removeItem('currentPage');
   }
 
   Onsubmit(form) {

@@ -13,7 +13,7 @@
         <h1>{{DepartmentView}}</h1>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
+            <li class="breadcrumb-item"><a href=""><i class="fas fa-home">Inicio</i></a></li>
             <li (click)="backClicked()" class="breadcrumb-item" aria-current="page"><a>{{genderView}}</a></li>
             <li class="breadcrumb-item" aria-current="page">{{DepartmentView}}</li>
           </ol>
@@ -146,22 +146,23 @@
           <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
           (pageChange)="nextPaginate($event)"></pagination-controls>
 					<div class="row">
-						<div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}" class="col-lg-4 col-md-12 col-xs-6 single-product">
+            <div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
+            class="col-lg-4 col-md-12 col-xs-12 single-product">
 							<div class="content">
                 <div class="content-overlay"></div>
 								<img loading="lazy" ngClass="lazyload" class="content-image img-fluid d-block mx-auto"
 								data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
 								<div class="content-details fadeIn-bottom">
 									<div class="bottom d-flex align-items-center justify-content-center">
-										<a (click)="like(product)"><i class="far fa-heart"></i></a>
-                    <a (click)="gotoDetail(product.id)"><i class="far fa-eye"></i></a>
+										<a style="cursor: pointer;" (click)="like(product)"><i class="far fa-heart"></i></a>
+                    <a style="cursor: pointer;" (click)="gotoDetail(product.id)"><i class="far fa-eye"></i></a>
 										<a (click)="downloadImg(product.photo)" href="" data-toggle="modal" data-target="#myModal"><i class="fas fa-expand"></i></a>
 									</div>
 								</div>
 							</div>
 							<div class="price" style="text-align: justify;">
-								<h5 style="display: none;">{{product.name}}</h5>
-								<h3 style="font-size: 18px;">₡ {{product.pricePublic | number: '3.'}}</h3>
+								<h5 >{{product.name}}</h5>
+								<h3 style="font-size: 18px; margin-left: 24%;">₡ {{product.pricePublic | number: '3.'}}</h3>
 							</div>
 						</div>
           </div>

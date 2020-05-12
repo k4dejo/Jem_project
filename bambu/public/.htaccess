@@ -24,10 +24,4 @@
     RewriteCond %{REQUEST_URI} .*(jpe?g|png|gif)$
     RewriteCond %{REQUEST_FILENAME}\.webp -f
     RewriteRule (.*) %{REQUEST_FILENAME}\.webp [T=image/webp,E=accept:1]
-
-    #carga maxima
-    php_value upload_max_filesize 11M
-    php_value post_max_size 20M
-    php_value max_execution_time 200
-    php_value max_input_time 200
 </IfModule>

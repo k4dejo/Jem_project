@@ -35,7 +35,7 @@ export class JempageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProduct();
+    // this.getProduct();
   }
 
   getProductGender(productGender, photoGender) {
@@ -59,7 +59,7 @@ export class JempageComponent implements OnInit {
   }
 
 
-  getProduct() {
+  /* getProduct() {
     this.ProductService.getProduct().subscribe(
       response => {
         this.product = response.articles;
@@ -76,7 +76,7 @@ export class JempageComponent implements OnInit {
         console.log(<any>error);
       }
     );
-  }
+  }*/
 
   toggleBtn(word: any) {
     const link = '/Home/' + word;
@@ -84,9 +84,10 @@ export class JempageComponent implements OnInit {
   }
 
   toggleBtnProducts(gender: any) {
-    const link = '/Home/Articulo/';
+    //const link = '/Home/Articulo/';
     sessionStorage.removeItem('currentPage');
-    this.router.navigate([link, 'J', '1', gender]);
+    //this.router.navigate([link, 'J', '1', gender]);
+    this.router.navigate(['Home/Damas/', 'J']);
   }
 
   gotoOutfits(word: any, gender: any) {

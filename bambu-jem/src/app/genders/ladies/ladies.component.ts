@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-ladies',
@@ -33,6 +34,7 @@ export class LadiesComponent implements OnInit {
     public photoViewjoye = [];
     public photoViewVestidos = [];
     public photoViewzapa = [];
+    public imgUrl = ImgUrl;
 
     constructor(
         private ProductService: ArticleService,
@@ -116,7 +118,7 @@ export class LadiesComponent implements OnInit {
             this.products = response.articles;
             for (let index = 0; index < this.products.length; index++) {
               // agrego formato a la imagen.
-              this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+              this.products[index].photo = this.imgUrl.url + this.products[index].photo;
               this.getProductDepartment(this.products[index].department, this.products[index].photo);
             }
           }, error => {
@@ -126,7 +128,7 @@ export class LadiesComponent implements OnInit {
       }
 
     ngOnInit() {
-      this.getProduct();
+      // this.getProduct();
       this.shop_id = this.route.snapshot.params['id'];
       if (this.shop_id === 'J') {
           this.shop_bool = true;

@@ -293,6 +293,10 @@ body{
   .col-md-12 .row {
     margin-top: 25%;
   }
+  
+  .carousel {
+    margin-top: 5%;
+  }
 }
 @media (max-width: 767px) {
   .ftco-choose {

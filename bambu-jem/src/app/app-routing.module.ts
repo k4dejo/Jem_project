@@ -39,7 +39,7 @@ import { CompressimgComponent } from './adminlayout/compressimg/compressimg.comp
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
   { path: '', component: JempageComponent},
-  { path: 'Home/BJem', component: JempageComponent},
+  //{ path: 'Home/BJem', component: JempageComponent},
   { path: 'Home/Tu_Boutique', component: BambupageComponent},
   { path: 'Home/Nosotros', component: AboutUsComponent},
   { path: 'admin/marcas', component: TagComponent},
