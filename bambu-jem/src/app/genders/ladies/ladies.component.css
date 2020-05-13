@@ -76,11 +76,9 @@ h3{
 	height: 50px;
 }
 
-.imgLimit {
-	width: 500px;
-	height: 310px;
+.mainMobile {
+	display: none;
 }
-
 
 
 @media (max-width: 767px){
@@ -91,6 +89,12 @@ h3{
 	.types{
 		padding-top: 5%;
 		padding-left: 2%;
+	}
+	.mainMobile {
+		display: initial;
+	}
+	.main {
+		display: none;
 	}
 }
 
