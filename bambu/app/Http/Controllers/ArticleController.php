@@ -182,21 +182,16 @@ class ArticleController extends Controller
     }
 
     public function getListProduct($department, $gender) {
-        /*$productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $department)->paginate(12);*/
-        $productConcrete = DB::table('articles')->where('gender', $gender)
+        /* $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->paginate(12);
-        $productCount = count($productConcrete);
-        /*for ($i=0; $i < $productCount ; $i++) {
-            $contents = Storage::get($productConcrete[$i]->photo);
-            $productConcrete[$i]->photo = base64_encode($contents);
-        }*/
+        $productCount = count($productConcrete);*/
+        $productListEloquent = article::where('department', $department)->where('gender', $gender)
+        ->with('sizes')->paginate(12);
         return response()->json(array(
-            'articles' => $productConcrete,
-            'NextPaginate' => $productConcrete->nextPageUrl(),
+            'articles' => $productListEloquent,
+            'NextPaginate' => $productListEloquent->nextPageUrl(),
             'status'   => 'success'
         ), 200);
-
     }
 
     public function getProductGender($gender) {

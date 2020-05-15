@@ -142,7 +142,45 @@
             </div>
           </div>
         </div>
-				<section class="pb-40 category-list">
+        <section class="pb-40 category-list">
+          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+          (pageChange)="nextPaginate($event)"></pagination-controls>
+          <div class="row">
+            <div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
+            class="col-lg-4 col-md-12 col-xs-12 single-product">
+              <div class="product">
+                <div class="imgbox">
+                  <img (click)="downloadImg(product.photo)" data-toggle="modal" data-target="#myModal" loading="lazy" ngClass="lazyload" style="width: 230px; height: 260px;"
+                  data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
+                </div>
+                <div class="details">
+                  <h5>{{product.name}}</h5>
+                  <div class="brandPrice">
+                    ₡ {{product.pricePublic | number: '3.'}}
+                  </div>
+                  <label for="">Tallas</label>
+                  <ul class="ulProductCard">
+                    <li *ngFor="let sizes of product.sizes">
+                      <h5 style="text-transform: uppercase;" (click)="selectSizes(sizes)">{{sizes.size}}</h5>
+                    </li>
+                  </ul>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <a class="btnCheckout" (click)="gotoDetail(product.id)" style="margin-bottom: 2%;">Ir a detalle</a>
+                    </div>
+                    <div class="col-md-4">
+                      <a style="cursor: pointer;" class="btnCheckout" (click)="like(product)"><i class="far fa-heart"></i></a>
+                    </div>
+                  </div>
+                  <a class="btnCheckout" (click)="addProductCart(product)">Agregar a carrito</a>
+                </div>
+                </div>
+            </div>
+          </div>
+          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+          (pageChange)="nextPaginate($event)"></pagination-controls>
+        </section>
+				<!--<section class="pb-40 category-list">
           <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
           (pageChange)="nextPaginate($event)"></pagination-controls>
 					<div class="row">
@@ -150,8 +188,8 @@
             class="col-lg-4 col-md-12 col-xs-12 single-product">
 							<div class="content">
                 <div class="content-overlay"></div>
-								<!--<img loading="lazy" ngClass="lazyload" class="content-image img-fluid d-block mx-auto"
-                data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">-->
+								<img loading="lazy" ngClass="lazyload" class="content-image img-fluid d-block mx-auto"
+                data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
                 <img loading="lazy" ngClass="lazyload" style="width: 230px; height: 260px;"
 								data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
 								<div class="content-details fadeIn-bottom">
@@ -170,7 +208,7 @@
           </div>
           <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
           (pageChange)="nextPaginate($event)"></pagination-controls>
-				</section>
+				</section>-->
 			</div>
 		</div>
 	</div>

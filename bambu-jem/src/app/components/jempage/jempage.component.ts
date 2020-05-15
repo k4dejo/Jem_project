@@ -84,10 +84,13 @@ export class JempageComponent implements OnInit {
   }
 
   toggleBtnProducts(gender: any) {
-    //const link = '/Home/Articulo/';
+    const link = '/Home/Articulo/';
     sessionStorage.removeItem('currentPage');
-    //this.router.navigate([link, 'J', '1', gender]);
-    this.router.navigate(['Home/Damas/', 'J']);
+    if (gender === '2') {
+      this.router.navigate(['Home/Damas/', 'J']);
+    } else {
+      this.router.navigate([link, 'J', '1', gender]);
+    }
   }
 
   gotoOutfits(word: any, gender: any) {

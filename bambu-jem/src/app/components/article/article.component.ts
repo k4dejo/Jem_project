@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
+import { PurchaseService } from '../../services/purchase.service';
 import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { ImgUrl } from '../../models/imgUrl';
+import { Purchase } from '../../models/purchase';
+import { AttachPurchase } from '../../models/attachPurchase';
 import {Location} from '@angular/common';
 import { Like } from '../../models/like';
 import { UserServices } from '../../services/user.service';
@@ -14,12 +17,13 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-article',
-  providers: [ArticleService, UserServices],
+  providers: [ArticleService, UserServices, PurchaseService],
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
   @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
+  public isClient = false;
   public shop_id = '';
   public token;
   public identity;
@@ -27,6 +31,16 @@ export class ArticleComponent implements OnInit {
   public imgUrl = ImgUrl;
   public products: Array<Article>;
   public productMenu: Array<Article>;
+  public productCart: Purchase;
+  public attachPurchase: AttachPurchase;
+  public NotifyUser = false;
+  public NotifySuccess = false;
+  public IdProduct;
+  public inventoryEmpty = false;
+  public viewRelation;
+  public valueQtyBtn = 1;
+  public offerBool = false;
+  public offer;
   public shop_bool = true;
   public genderView: string;
   public DepartmentView: string;
@@ -36,10 +50,14 @@ export class ArticleComponent implements OnInit {
   public randomChar: string;
   public department: Departament[];
   public favorite: Like;
+  public product: Article;
   public minPrice;
   public maxPrice;
   public tags;
   public loading;
+  public subscribeTimer: any;
+  public interval;
+  public timeLeft = 5;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = [
     'Pantalones',
@@ -109,10 +127,14 @@ export class ArticleComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private clientService: UserServices,
+    private purchaseService: PurchaseService,
     private ProductService: ArticleService,
     private _location: Location,
   ) {
     this.favorite = new Like('', '');
+    this.productCart = new Purchase('', '', 0, 0, 0, '', '');
+    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
+    this.attachPurchase = new AttachPurchase('', '', 0, '');
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
   }
@@ -473,6 +495,174 @@ export class ArticleComponent implements OnInit {
       }
     );
   }
+
+  //===================================ADD_SHOPPING_CART=======================================
+
+  startTimerSucess() {
+    this.timeLeft = 5;
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        if (this.timeLeft === 0) {
+          this.NotifySuccess = false;
+          this.isClient = false;
+        }
+      }
+    }, 800);
+  }
+  
+  editPurchase(purchaseRes) {
+    this.productCart.id = purchaseRes.purchase.id;
+    this.productCart.addresspurchases_id = null;
+    this.productCart.price = purchaseRes.purchase.price + this.productCart.price;
+    this.purchaseService.editPurchase(this.token, this.productCart).subscribe(
+      response => {
+        this.attachPurchase.purchase_id = purchaseRes.purchase.id;
+        // this.attachPurchase.article_id = this.IdProduct;
+        this.attachPurchase.amount = this.valueQtyBtn;
+        this.attachProductPurchase();
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  verifyPurchaseStatus() {
+    this.purchaseService.verifyStatusPurchase(this.identity.sub).subscribe(
+      response => {
+        if (response.purchase !== null) {
+          this.editPurchase(response);
+        } else {
+          this.savePurchase();
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  savePurchase() {
+    this.purchaseService.addNewPurchase(this.token, this.productCart).subscribe(
+      response => {
+        this.attachPurchase.purchase_id = response.purchase.id;
+        this.attachPurchase.article_id = this.IdProduct;
+        // this.attachPurchase.amount = this.valueQtyBtn;
+        console.log(response);
+        this.attachProductPurchase();
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  selectSizes(sizeObject) {
+    this.attachPurchase.size = sizeObject.size;
+  }
+
+  attachProductPurchase() {
+    this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
+      response => {
+        if (response.status === 'success') {
+          this.NotifySuccess = true;
+          this.startTimerSucess();
+        } else {
+          this.NotifySuccess = false;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  addProductCart(productObject: any) {
+    if (this.identity != null) {
+      this.isClient = false;
+      this.productCart.clients_id = this.identity.sub;
+      this.productCart.status = 'incomplete';
+      this.productCart.coupon_id = 0;
+      this.productCart.shipping = 0;
+      this.attachPurchase.amount = this.valueQtyBtn;
+      this.attachPurchase.article_id = productObject.id;
+      this.IdProduct = productObject.id;
+      let sizeIdCompare = 0;
+      console.log(productObject);
+      console.log(this.attachPurchase);
+      this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, productObject.id, this.attachPurchase.amount)
+      .subscribe(
+        response => {
+          if (response.amountCheck === 'success') {
+            this.inventoryEmpty = false;
+            this.verifyPurchaseStatus();
+          } else {
+            if (response.amountCheck === 'void') {
+              this.inventoryEmpty = true; 
+            }
+            //this.verifyPurchaseStatus();
+          }
+          console.log('inventoryEmpty: ' + this.inventoryEmpty);
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+    }
+    /*if (this.identity != null) {
+      this.isClient = false;
+      this.productCart.clients_id = this.identity.sub;
+      this.productCart.status = 'incomplete';
+      this.productCart.coupon_id = 0;
+      this.productCart.shipping = 0;
+      if (this.offerBool) {
+        this.productCart.price = this.offer.offer * this.valueQtyBtn;
+      } else {
+        if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
+          this.productCart.price = this.product.pricePublic * this.valueQtyBtn;
+        } else {
+          this.productCart.price = this.product.priceMajor * this.valueQtyBtn;
+        }
+      }
+      this.attachPurchase.amount = this.valueQtyBtn;
+      let sizeIdCompare = 0;
+      for (let index = 0; index < this.viewRelation.length; index++) {
+        if (this.viewRelation[index].size === this.attachPurchase.size) {
+          sizeIdCompare = this.viewRelation[index].id;
+        }
+      }
+      if (this.offerBool) {
+        this.productCart.price = this.offer.offer;
+      } else {
+        if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
+          this.productCart.price = this.product.pricePublic;
+        } else {
+          this.productCart.price = this.product.priceMajor;
+        }
+      }
+      this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, this.IdProduct, this.attachPurchase.amount)
+      .subscribe(
+        response => {
+          if (response.amountCheck === 'success') {
+            this.inventoryEmpty = false;
+            this.verifyPurchaseStatus();
+          } else {
+            if (response.amountCheck === 'void') {
+              this.inventoryEmpty = true; 
+            }
+            //this.verifyPurchaseStatus();
+          }
+          console.log('inventoryEmpty: ' + this.inventoryEmpty);
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+
+      // this.verifyPurchaseStatus();
+    } else {
+      this.isClient = true;
+      this.startTimerSucess();
+    }*/
+  }
+
+  //===========================================================================================
 
   ngOnInit() {
     this.getGender();

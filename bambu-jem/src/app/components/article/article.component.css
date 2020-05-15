@@ -1334,3 +1334,109 @@ select {
     display: initial;
   }
 }
+
+
+
+
+
+
+/*===================================== NEW_UI_PRODUCT===================================*/
+
+.product {
+  width: 240px;
+  height: 347px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+  border-radius: 5px;
+  margin: 15px 10px 5px;
+  overflow: hidden;
+}
+
+.product .imgbox {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.product .imgbox img {
+  display: block;
+  width: 90%;
+  margin: 20px auto 0;
+  cursor: pointer;
+}
+
+.details {
+  position: sticky;
+  width: 101%;
+  bottom: -125px;
+  background: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: .5s;
+}
+
+.product:hover .details {
+  bottom: 0;
+  box-shadow: 0 -5px -15px rgba(59, 48, 48, 0.25);
+}
+
+.details h5 {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 14px;
+  width: 100%;
+}
+
+.details .brandPrice {
+  /*position: absolute;
+  top: 22px;
+  right: 10px;*/
+  margin-left: 67%;
+  font-weight: bold;
+  color: #ff4faf;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+  margin-top: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+ul li {
+  list-style: none;
+  margin: 5px 5px 7px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #ccc;
+  cursor: pointer;
+
+}
+
+ul li:first-child {
+  margin-left: 0;
+}
+
+.btnCheckout {
+  display: block;
+  padding: 5px;
+  color: #fff;
+  margin: 15px, 0, 0;
+  background: #ff4faf;
+  text-decoration: none;
+  text-align: center;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.btnCheckout:hover {
+  background: #ff209a;
+}
