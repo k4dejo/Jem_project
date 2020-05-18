@@ -824,6 +824,11 @@ webkit-keyframes hover{
 }
 
 
+.fw-size-choose input[type=radio] {
+	visibility: hidden;
+	position: absolute;
+}
+
 /* Accordion */
 
 .accordion-area {

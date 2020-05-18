@@ -280,7 +280,7 @@ export class ArticleComponent implements OnInit {
   toast(numberBool: any) {
     switch (numberBool) {
       case 1:
-        this.showSuccess();
+        this.showSuccessLike();
       break;
       case 2:
         this.showInfo();
@@ -288,13 +288,46 @@ export class ArticleComponent implements OnInit {
       case 3:
         this.showError();
       break;
+      case 4:
+        this.showSuccessAddCart();
+      break;
+      case 5:
+        this.showEmptyInventory();
+      break;
+      case 6:
+        this.showEmptySizes();
+      break;
     
       default:
         break;
     }
   }
 
-  showSuccess() {
+  showSuccessAddCart() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Se ha añadido a tu carrito', 'Producto agregado', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showEmptyInventory() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('Lo sentimos el producto ya no esta disponible en esa talla', 'Producto Agotado', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showEmptySizes() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('Por favor escoge una talla antes de agregar al carrito', 'Faltan datos', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showSuccessLike() {
     this.toastr.overlayContainer = this.toastContainer;
     this.toastr.success('Se ha añadido a la lista de deseos', 'Éxito', {
       timeOut: 3000,
@@ -313,7 +346,7 @@ export class ArticleComponent implements OnInit {
 
   showError() {
     this.toastr.overlayContainer = this.toastContainer;
-    this.toastr.info('Necesitas iniciar sesión para añadir a la lista de deseos',
+    this.toastr.info('Necesitas iniciar sesión para hacer eso',
     'Alerta', {
       timeOut: 4000,
       progressBar: true
@@ -547,7 +580,6 @@ export class ArticleComponent implements OnInit {
         this.attachPurchase.purchase_id = response.purchase.id;
         this.attachPurchase.article_id = this.IdProduct;
         // this.attachPurchase.amount = this.valueQtyBtn;
-        console.log(response);
         this.attachProductPurchase();
       }, error => {
         console.log(<any> error);
@@ -557,6 +589,7 @@ export class ArticleComponent implements OnInit {
 
   selectSizes(sizeObject) {
     this.attachPurchase.size = sizeObject.size;
+    console.log(sizeObject);
   }
 
   attachProductPurchase() {
@@ -565,6 +598,8 @@ export class ArticleComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.NotifySuccess = true;
+          this.loading = false;
+          this.toast(4);
           this.startTimerSucess();
         } else {
           this.NotifySuccess = false;
@@ -586,80 +621,36 @@ export class ArticleComponent implements OnInit {
       this.attachPurchase.article_id = productObject.id;
       this.IdProduct = productObject.id;
       let sizeIdCompare = 0;
-      console.log(productObject);
+      this.loading = true;
       console.log(this.attachPurchase);
-      this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, productObject.id, this.attachPurchase.amount)
-      .subscribe(
-        response => {
-          if (response.amountCheck === 'success') {
-            this.inventoryEmpty = false;
-            this.verifyPurchaseStatus();
-          } else {
-            if (response.amountCheck === 'void') {
-              this.inventoryEmpty = true; 
+      if (this.attachPurchase.size != '') {
+        this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, productObject.id, this.attachPurchase.amount)
+        .subscribe(
+          response => {
+            if (response.amountCheck === 'success') {
+              this.inventoryEmpty = false;
+              this.verifyPurchaseStatus();
+            } else {
+              if (response.amountCheck === 'void') {
+                this.inventoryEmpty = true;
+                this.toast(5);
+              }
+              //this.verifyPurchaseStatus();
             }
-            //this.verifyPurchaseStatus();
+            console.log('inventoryEmpty: ' + this.inventoryEmpty);
+          }, error => {
+            console.log(<any> error);
           }
-          console.log('inventoryEmpty: ' + this.inventoryEmpty);
-        }, error => {
-          console.log(<any> error);
-        }
-      );
-    }
-    /*if (this.identity != null) {
-      this.isClient = false;
-      this.productCart.clients_id = this.identity.sub;
-      this.productCart.status = 'incomplete';
-      this.productCart.coupon_id = 0;
-      this.productCart.shipping = 0;
-      if (this.offerBool) {
-        this.productCart.price = this.offer.offer * this.valueQtyBtn;
+        ); 
       } else {
-        if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
-          this.productCart.price = this.product.pricePublic * this.valueQtyBtn;
-        } else {
-          this.productCart.price = this.product.priceMajor * this.valueQtyBtn;
-        }
+        this.toast(6);
+        this.loading = false;
       }
-      this.attachPurchase.amount = this.valueQtyBtn;
-      let sizeIdCompare = 0;
-      for (let index = 0; index < this.viewRelation.length; index++) {
-        if (this.viewRelation[index].size === this.attachPurchase.size) {
-          sizeIdCompare = this.viewRelation[index].id;
-        }
-      }
-      if (this.offerBool) {
-        this.productCart.price = this.offer.offer;
-      } else {
-        if (this.valueQtyBtn < 6 && this.valueQtyBtn !== 0) {
-          this.productCart.price = this.product.pricePublic;
-        } else {
-          this.productCart.price = this.product.priceMajor;
-        }
-      }
-      this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, this.IdProduct, this.attachPurchase.amount)
-      .subscribe(
-        response => {
-          if (response.amountCheck === 'success') {
-            this.inventoryEmpty = false;
-            this.verifyPurchaseStatus();
-          } else {
-            if (response.amountCheck === 'void') {
-              this.inventoryEmpty = true; 
-            }
-            //this.verifyPurchaseStatus();
-          }
-          console.log('inventoryEmpty: ' + this.inventoryEmpty);
-        }, error => {
-          console.log(<any> error);
-        }
-      );
-
-      // this.verifyPurchaseStatus();
     } else {
       this.isClient = true;
+      this.toast(3);
       this.startTimerSucess();
-    }*/
+    }
   }
 
   //===========================================================================================

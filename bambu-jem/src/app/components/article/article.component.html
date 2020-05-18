@@ -161,7 +161,16 @@
                   <label for="">Tallas</label>
                   <ul class="ulProductCard">
                     <li *ngFor="let sizes of product.sizes">
-                      <h5 style="text-transform: uppercase;" (click)="selectSizes(sizes)">{{sizes.size}}</h5>
+                      <h5 aria-disabled="true" *ngIf="sizes.pivot.stock <= 0"
+                      style="border-color: rgb(117, 117, 117);
+                      color: rgb(131, 130, 130); cursor:no-drop;
+                      text-transform: uppercase;">{{sizes.size}}</h5>
+                      <h5>
+                        <!--<a *ngIf="sizes.pivot.stock > 0"  style="text-transform: uppercase;" (click)="selectSizes(sizes)">
+                          {{sizes.size}}
+                        </a>-->
+                        <input type="button" class="btn btn--pill btn--pink" [value]="sizes.size" (click)="selectSizes(sizes)">
+                      </h5>
                     </li>
                   </ul>
                   <div class="row">

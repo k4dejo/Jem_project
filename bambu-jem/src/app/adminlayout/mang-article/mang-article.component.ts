@@ -566,7 +566,7 @@ export class MangArticleComponent implements OnInit {
       response => {
         this.loading = false;
         this.viewPhoto = response.productPhoto;
-        this.viewPhoto = 'data:image/jpeg;base64,' + this.viewPhoto;
+        this.viewPhoto = this.imgUrl.url + this.viewPhoto;
       }, error => {
         console.log(<any> error);
       }

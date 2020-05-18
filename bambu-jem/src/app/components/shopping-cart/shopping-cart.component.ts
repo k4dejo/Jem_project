@@ -19,6 +19,7 @@ import { Cant } from '../../models/cant';
 import { District } from '../../models/district';
 import { error } from 'protractor';
 import { AttachPurchase } from 'src/app/models/attachPurchase';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -28,6 +29,7 @@ import { AttachPurchase } from 'src/app/models/attachPurchase';
 })
 export class ShoppingCartComponent implements OnInit {
   public loading = false;
+  public imgUrl = ImgUrl;
   public primaryColour = '#ffffff';
   public secondaryColour = '#ccc';
   public PrimaryRed = '#dd0031';
@@ -324,7 +326,7 @@ export class ShoppingCartComponent implements OnInit {
             this.productCount = true;
           }
           this.validateOffer(response.purchase[i].id, i);
-          this.productPurchase[i].photo = 'data:image/jpeg;base64,' + this.productPurchase[i].photo;
+          this.productPurchase[i].photo = this.imgUrl.url + this.productPurchase[i].photo;
         }
         if (response.purchase.length >= 6) {
           this.productCount = true;

@@ -61,7 +61,8 @@
               <div class="sc-item pc" *ngFor="let size of viewRelation">
                 <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <input disabled *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
-                <label aria-disabled="true" *ngIf="size.pivot.stock <= 0" style="border-color: rgb(117, 117, 117);
+                <label aria-disabled="true" *ngIf="size.pivot.stock <= 0"
+                style="border-color: rgb(117, 117, 117);
                 color: rgb(131, 130, 130);
                 font-weight: bold; font-size: 18px; cursor:no-drop;
                 text-transform: uppercase;"

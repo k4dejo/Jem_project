@@ -151,7 +151,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getSingleProduct(ProductId: any) {
-    this.loading = true;
+    // this.loading = true;
     //this.ProductService.getProductU(ProductId).subscribe(
     this.ProductService.showForClients(ProductId).subscribe(
       response => {
@@ -161,7 +161,7 @@ export class ArticleDetailComponent implements OnInit {
         this.getDepartmentView(this.product.gender.toString());
         this.product.photo = this.imgUrl.url + this.product.photo;
         this.fileBlob = this.product.photo;
-        this.loading = false;
+        // this.loading = false;
         for (let e = 0; e < this.gender.length; e++) {
           if (this.product.gender.toString() === this.gender[e].id) {
             this.product.gender = this.gender[e].name;
@@ -198,13 +198,13 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getSizeProduct(idProduct: any) {
-    // this.loading = true;
+    this.loading = true;
     this.sizeService.getSizeE(idProduct).subscribe(
       response => {
         // this.productViewU = response.getSizes;
         // this.attachSizeProduct = response;
         this.viewRelation = response.getSizes;
-        // this.loading = false;
+        this.loading = false;
       }, error => {
         console.log(<any> error);
       }
