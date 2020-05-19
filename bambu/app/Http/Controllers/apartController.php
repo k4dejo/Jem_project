@@ -148,10 +148,6 @@ class apartController extends Controller
         $arrayApart = apart::find($ApartClient->id)->articles()->get();
         $countApart = count($arrayApart);
         if ($countApart  > 0) {
-            /*for ($i=0; $i < $countApart; $i++) {
-                $contents = Storage::get($arrayApart[$i]->photo);
-                $arrayApart[$i]->photo = base64_encode($contents);
-            }*/
             $data = array(
                 'apart'       => $arrayApart,
                 'status'         => 'success',

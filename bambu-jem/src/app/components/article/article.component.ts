@@ -297,7 +297,7 @@ export class ArticleComponent implements OnInit {
       case 6:
         this.showEmptySizes();
       break;
-    
+
       default:
         break;
     }
@@ -494,7 +494,7 @@ export class ArticleComponent implements OnInit {
         this.loading = false;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
-          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+          this.products[index].photo = this.imgUrl.url + this.products[index].photo;
         }
       }, error => {
         console.log(<any> error);
@@ -543,7 +543,7 @@ export class ArticleComponent implements OnInit {
       }
     }, 800);
   }
-  
+
   editPurchase(purchaseRes) {
     this.productCart.id = purchaseRes.purchase.id;
     this.productCart.addresspurchases_id = null;
@@ -641,7 +641,7 @@ export class ArticleComponent implements OnInit {
           }, error => {
             console.log(<any> error);
           }
-        ); 
+        );
       } else {
         this.toast(6);
         this.loading = false;

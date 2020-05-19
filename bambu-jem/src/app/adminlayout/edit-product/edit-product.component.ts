@@ -312,7 +312,7 @@ public dtDepartmentB: string[] = [
         this.fileLength = this.fileNpm.length;
         for (let i = 0; i < this.fileNpm.length; ++i) {
           // agrego formato a la imagen.
-          this.fileNpm[i].name = 'data:image/jpeg;base64,' + this.fileNpm[i].name;
+          this.fileNpm[i].name = this.imgUrl.url + this.fileNpm[i].name;
           this.fileData = new File([this.fileNpm[i].name], 'file_name', {lastModified: 1534584790000});
           this.fileView.push(this.fileData);
         }

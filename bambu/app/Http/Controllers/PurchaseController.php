@@ -484,16 +484,17 @@ class PurchaseController extends Controller
         }
        }
 
-    public function getClientInfo($idClient, $status) {
+    public function getClientInfo($idClient, $status, $idPurchase) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
         ->where('status', $status)->first();
-        $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
+        //$arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
+        $arrayPurchase = purchase::find($idPurchase)->articles()->get();
         $infoClient = client::where('id', $idClient)->first();
-        $countPurchase = count($arrayPurchase);
+        /*$countPurchase = count($arrayPurchase);
         for ($i=0; $i < $countPurchase; $i++) {
             $contents = Storage::get($arrayPurchase[$i]->photo);
             $arrayPurchase[$i]->photo = base64_encode($contents);
-        }
+        }*/
         $data = array(
             'purchase'                 => $arrayPurchase,
             'clientName'               => $infoClient->name,
@@ -514,10 +515,10 @@ class PurchaseController extends Controller
         ->where('status', 'incomplete')->first();
         $arrayPurchase = purchase::find($purchaseClient->id)->articles()->get();
         $countPurchase = count($arrayPurchase);
-        for ($i=0; $i < $countPurchase; $i++) {
+        /*for ($i=0; $i < $countPurchase; $i++) {
             $contents = Storage::get($arrayPurchase[$i]->photo);
             $arrayPurchase[$i]->photo = base64_encode($contents);
-        }
+        }*/
         if ($purchaseClient->addresspurchases_id == null) {
             $purchaseClient->addresspurchases_id = '0';
         }

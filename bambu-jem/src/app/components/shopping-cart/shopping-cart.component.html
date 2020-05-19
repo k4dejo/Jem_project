@@ -175,7 +175,7 @@
 </footer>
 <div class="modal fade" id="address" tabindex="-1" role="dialog" aria-labelledby="addressTitle"
   aria-hidden="true">
-  <div class="modal-dialog" style="width: 750px;" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <i class="fa fa-times close" data-dismiss="modal"></i>
@@ -191,7 +191,45 @@
             <div class="form-row">
               <div class="value">
                 <div class="row row-refine">
-                  <div class="col-3">
+                  <div class="col-md-3 col-s-2">
+                    <div class="input-group select-dropdown">
+                      <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
+                      (click)="getCant(Province)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let province of ArrayProvin" [value]="province.id">
+                          {{province.name}}
+                        </option>
+                      </select>
+                      <label class="label--desc">Provincia</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-s-2">
+                    <div class="input-group select-dropdown">
+                      <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
+                      (click)="getDist(Province, Cant)">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let cant of ArrayCant" [value]="cant.id">
+                          {{cant.name}}
+                        </option>
+                      </select>
+                      <label class="label--desc">Cantón</label>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-s-2">
+                    <div class="input-group">
+                      <div class="input-group select-dropdown">
+                        <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
+                        (click)="pushAddress(Province, Cant, District)">
+                          <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                          <option *ngFor="let dist of ArrayDist" [value]="dist.id">
+                            {{dist.name}}
+                          </option>
+                        </select>
+                        <label class="label--desc">Distrito</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="col-3">
                     <div class="col-md-3">
                       <div class="input-group select-dropdown">
                         <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
@@ -232,7 +270,7 @@
                         <label class="label--desc">Distrito</label>
                       </div>
                     </div>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -241,7 +279,7 @@
               <div class="value">
                 <div class="input-group-desc">
                   <textarea class="input--style-5" style="resize: vertical;" name="addresDetail" id="addresDetail"
-                    cols="55" rows="2" name="addresDetail" #addresDetail="ngModel"
+                    cols="30" rows="2" name="addresDetail" #addresDetail="ngModel"
                     [(ngModel)]="addressPurchase.addressDetail" required>
                   </textarea>
                 </div>
@@ -255,10 +293,7 @@
           (click)="addAddress()" class="checkout-btn">
             Agregar
           </a>
-          <a style="padding: 10px 61px 5px; margin-left: 248px;"
-          data-dismiss="modal"
-          (click)="addAddress()"
-          class="checkout-btn">
+          <a class="btnAddress checkout-btn" data-dismiss="modal" (click)="addAddress()">
             Agregar
           </a>
         </div>

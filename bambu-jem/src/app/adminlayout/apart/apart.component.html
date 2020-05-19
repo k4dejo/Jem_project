@@ -324,6 +324,7 @@
         </div>
         <input style="color: white;" type="button" class="btn btn--green btn--pill"
         value="Emitir Factura" (click)="addNewBilling()">
+        <div *ngIf="loading" class="loading">Loading&#8230;</div>
       </form>
     </div>
   </div>

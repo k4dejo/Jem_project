@@ -5,6 +5,7 @@ import { PurchaseService } from '../../services/purchase.service';
 import { Purchase } from '../../models/purchase';
 import { PurchaseInfo } from '../../models/purchaseInfo';
 import { Ticket } from '../../models/ticketPurchase';
+import { ImgUrl } from '../../models/imgUrl';
 import { AddresPurchases } from '../../models/addressPurchase';
 import { AddresServices } from '../../services/addres.service';
 
@@ -21,6 +22,7 @@ export class OrdersComponent implements OnInit {
   public ticketPurchase: Ticket;
   public purchaseinfo: PurchaseInfo;
   public addressPurchase: AddresPurchases;
+  public imgUrl = ImgUrl;
   public productList;
   public randomChar: string;
   public fileUrl;
@@ -73,17 +75,17 @@ export class OrdersComponent implements OnInit {
       for (let index = 0; index < this.productList.length; index++) {
         this.PricePurchase += this.productList[index].priceMajor * this.productList[index].pivot.amount;
         this.PricePurchase[index].photo = 'data:image/jpeg;base64,' + this.PricePurchase[index].photo;
-      }   
+      }
     } else {
       for (let i = 0; i < this.productList.length; i++) {
         this.PricePurchase += this.productList[i].pricePublic * this.productList[i].pivot.amount;
         this.PricePurchase[i].photo = 'data:image/jpeg;base64,' + this.PricePurchase[i].photo;
-      }  
+      }
     }
   }
 
-  getArrayPurchase(idClient, status) {
-    this.purchaseService.getClientInfoPurchase(idClient, status).subscribe(
+  getArrayPurchase(idClient, status, idPurchase) {
+    this.purchaseService.getClientInfoPurchase(idClient, status, idPurchase).subscribe(
       response => {
         this.purchaseinfo.clientName = response.clientName;
         this.purchaseinfo.clientAddress = response.clientAddress;
@@ -102,8 +104,10 @@ export class OrdersComponent implements OnInit {
           );
         }
         this.productList = response.purchase;
+        for (let index = 0; index < this.productList.length; index++) {
+          this.productList[index].photo = this.imgUrl.url + this.productList[index].photo;
+        }
         this.processArrayPurchase();
-        console.log(this.addressPurchase);
       }, error => {
         console.log(<any> error);
       }
@@ -124,12 +128,13 @@ export class OrdersComponent implements OnInit {
   toggleInfo(dataPurchase: any) {
     this.purchaseinfo.id = dataPurchase.id;
     this.getTicket();
-    if (dataPurchase.status !== 'Enviado') {
+    if (dataPurchase.status === 'Procesando') {
       this.sendBtnBool = false;
     } else {
       this.sendBtnBool = true;
     }
-    this.getArrayPurchase(dataPurchase.clients_id, dataPurchase.status);
+    console.log(dataPurchase.status, '+', this.sendBtnBool);
+    this.getArrayPurchase(dataPurchase.clients_id, dataPurchase.status, dataPurchase.id);
   }
 
   getTicket() {

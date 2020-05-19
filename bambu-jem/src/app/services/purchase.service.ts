@@ -107,9 +107,10 @@ export class PurchaseService {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getProductPurchaseHistory/' + idPurcharse, {headers: headers});
   }
-  getClientInfoPurchase(idClient: any, status): Observable<any> {
+  getClientInfoPurchase(idClient: any, status:any, idPurchase:any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.get(this.url + 'getClientInfoPurchase/' + idClient + '/' + status, {headers: headers});
+    return this._http.get(this.url + 'getClientInfoPurchase/' + idClient + '/' + status + '/' + idPurchase,
+    {headers: headers});
   }
 
 

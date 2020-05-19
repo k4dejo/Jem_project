@@ -188,6 +188,7 @@
         <div class="col-md-6 col-xs-6 col-s-6">
           <table class="table table-striped">
             <thead>
+              <th scope="col"></th>
               <th scope="col">producto</th>
               <th scope="col">Talla</th>
               <th scope="col">cantidad</th>
@@ -195,6 +196,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let product of productList | paginate: { itemsPerPage: 8, currentPage: p }">
+                <td><img class="img-responsive" [src]="product.photo" alt=""></td>
                 <td>{{product.name}}</td>
                 <td>{{product.pivot.size}}</td>
                 <td>{{product.pivot.amount}}</td>
@@ -209,7 +211,8 @@
               <img class="img-responsive" [src]="ticketPurchase.ticket" alt="">
             </a>
           </div>
-          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
+          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill"
+          (click)="submitPurchaseClient()" value="Emitir">
         </div>
       </div>
     </div>

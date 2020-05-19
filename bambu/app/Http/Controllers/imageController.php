@@ -77,10 +77,10 @@ class imageController extends Controller
                 'status' => 'void'
             ), 200);
         } else {
-            for ($i=0; $i < $imageCount ; $i++) { 
+            /*for ($i=0; $i < $imageCount ; $i++) {
                 $contents = Storage::get($img[$i]->name);
                 $img[$i]->name = base64_encode($contents);
-            }
+            }*/
         }
         return $img;
     }
@@ -109,7 +109,7 @@ class imageController extends Controller
         return response()->json($data, 200);
     }
 
-    public function deleteImg($product_id) 
+    public function deleteImg($product_id)
     {
         $img = image::where('article_id', '=', $product_id)->get();
         $imageCount = count($img);
@@ -119,7 +119,7 @@ class imageController extends Controller
                 'status' => 'void'
             ), 200);
         } else {
-            for ($i=0; $i < $imageCount ; $i++) { 
+            for ($i=0; $i < $imageCount ; $i++) {
                 $contents = Storage::get($img[$i]->name);
                 Storage::delete($img[$i]->name);
                 $img[$i]->delete();
@@ -129,6 +129,6 @@ class imageController extends Controller
             'status'  => 'success',
             'message' => 'Imagenes borradas'
         ), 200);
-        
+
     }
 }

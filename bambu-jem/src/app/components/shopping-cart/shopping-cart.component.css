@@ -722,9 +722,24 @@ h1 {
 	color: #f51167;
 }
 
+.modal-dialog {
+  width: 750px;
+}
+
+.btnAddress {
+  padding: 10px 61px 5px;
+  margin-left: 248px;
+}
+
 @media (max-width: 767px) {
   .catalogue{
     padding-top: 56%;
+  }
+  .modal-dialog {
+    width: 335px;
+  }
+  .btnAddress {
+    margin-left:50px;
   }
 }
 

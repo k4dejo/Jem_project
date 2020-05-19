@@ -567,6 +567,7 @@ export class ApartComponent implements OnInit {
 
   addNewBilling() {
     this.arrayBilling = this.arrayApart;
+    this.loading = true;
     this.billingService.addNewBilling(this.token, this.billing).subscribe(
       response => {
         const newBillingModel = new AttachApart('', '', 0, '');
@@ -608,6 +609,7 @@ export class ApartComponent implements OnInit {
           this.billing.price = 0;
           this.shipping = 0;
           this.apartM.price = 0;
+          this.loading = false;
         }
       }, error => {
         console.log(error);

@@ -186,7 +186,7 @@ export class ArticleDetailComponent implements OnInit {
         this.fileLength = this.fileNpm.length;
         for (let i = 0; i < this.fileNpm.length; ++i) {
           // agrego formato a la imagen.
-          this.fileNpm[i].name = 'data:image/jpeg;base64,' + this.fileNpm[i].name;
+          this.fileNpm[i].name = this.imgUrl.url + this.fileNpm[i].name;
           this.fileData = new File([this.fileNpm[i].name], 'file_name', {lastModified: 1534584790000});
           this.fileView.push(this.fileData);
         }
@@ -320,6 +320,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   attachProductPurchase() {
+    console.log(this.attachPurchase);
     this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       response => {
@@ -389,7 +390,7 @@ export class ArticleDetailComponent implements OnInit {
             this.verifyPurchaseStatus();
           } else {
             if (response.amountCheck === 'void') {
-              this.inventoryEmpty = true; 
+              this.inventoryEmpty = true;
             }
             //this.verifyPurchaseStatus();
           }

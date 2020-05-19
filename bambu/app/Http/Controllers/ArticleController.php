@@ -147,7 +147,7 @@ class ArticleController extends Controller
             $filter[0]->photo = base64_encode($contents);
         }
         return response()->json(array(
-            'filter'         => $filter,
+            'filter'   => $filter,
             'status'   => 'success'
         ), 200);
     }
@@ -157,10 +157,6 @@ class ArticleController extends Controller
         $productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->where('tags_id', $tag)->get();
         $productCount = count($productConcrete);
-        /*for ($i=0; $i < $productCount ; $i++) {
-            $contents = Storage::get($productConcrete[$i]->photo);
-            $productConcrete[$i]->photo = base64_encode($contents);
-        }*/
         return response()->json(array(
             'articles' => $productConcrete,
             'status'   => 'success'
@@ -197,10 +193,10 @@ class ArticleController extends Controller
     public function getProductGender($gender) {
         $productGen = article::where('gender', '=', $gender)->get();
         $productCount = count($productGen);
-        for ($i=0; $i < $productCount ; $i++) {
+        /*for ($i=0; $i < $productCount ; $i++) {
             $contents = Storage::get($productGen[$i]->photo);
             $productGen[$i]->photo = base64_encode($contents);
-        }
+        }*/
         return response()->json(array(
             'articles' => $productGen,
             'status'   => 'success'
