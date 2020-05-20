@@ -78,7 +78,11 @@
             <div class="col-md-4">
               <div class="filter-widget mb-0">
                 <div class="fw-size-choose">
-                  <div class="sc-item pc" *ngFor="let size of sizesList">
+                  <select (change)="filterSizeProduct($event.target.value)" name="" id="">
+                    <option value="hide">-- Tallas --</option>
+                    <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
+                  </select>
+                  <!--<div class="sc-item pc" *ngFor="let size of sizesList">
                     <input  type="radio" name="sc" id="{{size.size}}" [value]="size.size"
                     (click)="filterSizeProduct(size.size)">
                     <label style="font-weight: bold;
@@ -86,7 +90,7 @@
                     font-size: 18px;" for="{{size.size}}">
                       {{size.size}}
                     </label>
-                  </div>
+                  </div>-->
                 </div>
               </div>
             </div>
