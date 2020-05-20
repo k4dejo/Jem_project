@@ -416,6 +416,7 @@ export class ArticleComponent implements OnInit {
     this.router.navigate([link, this.shop_id, dtp, gender]);
     sessionStorage.removeItem('currentPage');
     this.p = 1;
+    this.getSizesForDepartment(gender, dtp);
     this.getProduct(dtp, gender);
   }
 
@@ -433,7 +434,9 @@ export class ArticleComponent implements OnInit {
     this.loading = true;
     this.ProductService.filterSizeProduct(department, gender, size, this.tagsId).subscribe(
       response  => {
-        this.products = response.filter;
+        this.products = response.filter.data;
+        this.pageChange = response.NextPaginate;
+        this.lenghtProduct = response.filter.total;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
@@ -451,8 +454,10 @@ export class ArticleComponent implements OnInit {
     this.loading = true;
     this.ProductService.getConcreteProduct(department, gender).subscribe(
       response => {
-        this.products = response.articles;
+        this.products = response.articles.data;
+        this.lenghtProduct = response.articles.total;
         this.loading = false;
+        this.pageChange = response.NextPaginate;
         this.addPhotoProductList();
         /* for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
@@ -521,7 +526,7 @@ export class ArticleComponent implements OnInit {
     this.tagsId = tag;
     this.ProductService.filterTagProduct(department, gender, tag).subscribe(
       response => {
-        this.products = response.articles;
+        this.products = response.articles.data;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;

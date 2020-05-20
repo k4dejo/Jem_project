@@ -131,12 +131,12 @@ class ArticleController extends Controller
                 $q->where('size', '=', $size);
             })->where('gender', '=', $gender)
             ->where('tags_id', $tagsId)
-            ->where('department', '=', $department)->with('sizes')->get();
+            ->where('department', '=', $department)->with('sizes')->paginate(12);
         } else {
             $filter = article::whereHas('sizes', function($q) use ($size) {
                 $q->where('size', '=', $size);
             })->where('gender', '=', $gender)
-            ->where('department', '=', $department)->with('sizes')->get();
+            ->where('department', '=', $department)->with('sizes')->paginate(12);
         }
         $productCount = count($filter);
         if ($productCount <= 0) {
@@ -147,6 +147,7 @@ class ArticleController extends Controller
         }
         return response()->json(array(
             'filter'   => $filter,
+            'NextPaginate' => $filter->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
@@ -156,10 +157,11 @@ class ArticleController extends Controller
         /*$productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $departent)->where('tags_id', $tag)->get();*/
         $productConcrete = article::where('gender', $gender)
-        ->where('department', $department)->where('tags_id', $tag)->with('sizes')->get();
+        ->where('department', $department)->where('tags_id', $tag)->with('sizes')->paginate(12);
         $productCount = count($productConcrete);
         return response()->json(array(
             'articles' => $productConcrete,
+            'NextPaginate' => $productConcrete->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
@@ -168,10 +170,11 @@ class ArticleController extends Controller
         /*$productConcrete = DB::table('articles')->where('gender', $gender)
         ->where('department', $department)->with('sizes')->get();*/
         $productConcrete = article::where('gender', $gender)
-        ->where('department', $department)->with('sizes')->get();
+        ->where('department', $department)->with('sizes')->paginate(12);
         //$productCount = count($productConcrete);
         return response()->json(array(
             'articles' => $productConcrete,
+            'NextPaginate' => $productConcrete->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
