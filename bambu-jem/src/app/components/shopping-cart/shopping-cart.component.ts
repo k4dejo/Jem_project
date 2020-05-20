@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { UserServices } from '../../services/user.service';
@@ -7,6 +7,7 @@ import { PurchaseService } from '../../services/purchase.service';
 import { CouponService } from '../../services/coupon.service';
 import { OfferService } from '../../services/offer.service';
 import { AddresServices } from '../../services/addres.service';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { Coupon } from '../../models/coupon';
 import { Ticket } from '../../models/ticketPurchase';
 import { Article } from '../../models/article';
@@ -28,6 +29,7 @@ import { ImgUrl } from '../../models/imgUrl';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public loading = false;
   public imgUrl = ImgUrl;
   public primaryColour = '#ffffff';
@@ -107,6 +109,7 @@ export class ShoppingCartComponent implements OnInit {
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
     private offerService: OfferService,
+    private toastr: ToastrService,
     private couponService: CouponService,
     private clientService: UserServices,
     private province: AddresServices,
@@ -251,6 +254,7 @@ export class ShoppingCartComponent implements OnInit {
           response => {
             this.getPurchases();
             this.alertNullAddress = false;
+          // tslint:disable-next-line:no-shadowed-variable
           }, error => {
             console.log(<any> error);
           }
@@ -267,6 +271,7 @@ export class ShoppingCartComponent implements OnInit {
                 }
               );
             }
+          // tslint:disable-next-line:no-shadowed-variable
           }, error => {
             console.log(<any> error);
           }
@@ -313,7 +318,7 @@ export class ShoppingCartComponent implements OnInit {
               this.viewAddressBool = true;
               this.splite = this.addressPurchase.address.split(',');
               this.viewAddress(this.splite[0] , this.splite[1]);
-              console.log(this.addressPurchase);
+            // tslint:disable-next-line:no-shadowed-variable
             }, error => {
               console.log(<any> error);
             }
@@ -664,18 +669,23 @@ export class ShoppingCartComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.checkoutPurchase.status = 'Procesando';
-          this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
-            // tslint:disable-next-line:no-shadowed-variable
-            response => {
-              if (response.status === 'success') {
-              this.router.navigate(['/Carrito/J/0']);
-                // this.getPurchases();
+          if (this.checkoutPurchase.addresspurchases_id !== '') {
+            this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
+              // tslint:disable-next-line:no-shadowed-variable
+              response => {
+                if (response.status === 'success') {
+                this.router.navigate(['/Carrito/J/0']);
+                this.toast(2);
+                  // this.getPurchases();
+                }
+              // tslint:disable-next-line:no-shadowed-variable
+              }, error => {
+                console.log(<any> error);
               }
-            // tslint:disable-next-line:no-shadowed-variable
-            }, error => {
-              console.log(<any> error);
-            }
-          );
+            );
+          } else {
+            this.toast(1);
+          }
         }
 
       // tslint:disable-next-line:no-shadowed-variable
@@ -701,6 +711,35 @@ export class ShoppingCartComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  toast(numberBool: any) {
+    switch (numberBool) {
+      case 1:
+        this.showAlertAddress();
+      break;
+      case 2:
+        this.showSuccessPurchase();
+      break;
+      default:
+        break;
+    }
+  }
+
+  showSuccessPurchase() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('La compra se ha realizado satisfactoriamente', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showAlertAddress() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('Necesitas añadir una dirección', 'Alerta', {
+      timeOut: 3000,
+      progressBar: true
+    });
   }
 
   /* sendTicket() {

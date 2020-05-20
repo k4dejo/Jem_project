@@ -58,6 +58,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::post('detachRelation', 'sizeController@detachRelation');
    Route::put('updateSizeAmountProduct/{id}', 'sizeController@changeAmountProduct');
    Route::get('getTalla/{id}','sizeController@showSizeP');
+   Route::get('getSizesForDepart/{gender}/{department}','sizeController@getSizesForDepart');
    Route::get('getTallaEdit/{id}','sizeController@showEditP');
    Route::delete('deleteTalla/{id}','sizeController@detachSize');
    /**/
@@ -136,7 +137,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('showForClients/{id}', 'ArticleController@showForClients');
    Route::get('getListProduct/{id}/{gender}', 'ArticleController@getListProduct');
    Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
-   Route::get('filterSizeProduct/{department}/{gender}/{size}', 'ArticleController@filterSizeProduct');
+   Route::get('filterSizeProduct/{department}/{gender}/{size}/{tagsId}', 'ArticleController@filterSizeProduct');
    /*tags*/
    Route::post('storeTag', 'tagController@store');
    Route::get('getAllTags', 'tagController@index');

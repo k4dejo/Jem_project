@@ -25,6 +25,26 @@ class sizeController extends Controller
         ), 200);
     }
 
+    public function getSizesForDepart($gender, $department) {
+        $filter = size::whereHas('articles', function($q) use ($gender, $department) {
+            $q->where('gender', '=', $gender)->where('department', '=', $department);
+        })->get();
+        $countFilter = count($filter);
+        if ($countFilter > 0) {
+            return response()->json(array(
+                'getSizesDeparment' => $filter,
+                'count' => $countFilter,
+                'status'   => 'success'
+            ), 200);
+        } else {
+            return response()->json(array(
+                'getSizesDeparment' => $filter,
+                'count' => $countFilter,
+                'status'   => 'void'
+            ), 200);
+        }
+    }
+
     public function show($id){
         $sizesAmounts = size::find($id);
         return response()->json(array(

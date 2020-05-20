@@ -14,6 +14,7 @@ import { UserServices } from '../../services/user.service';
 import 'lazysizes/plugins/unveilhooks/ls.unveilhooks';
 import { lazySizes } from 'lazysizes';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
+import { SizeService } from '../../services/size.service';
 
 @Component({
   selector: 'app-article',
@@ -121,11 +122,14 @@ export class ArticleComponent implements OnInit {
   public lenghtProduct;
   public pageChange;
   public BtnHover = false;
+  public tagsId = 0;
+  public sizesList;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
+    private sizesService: SizeService,
     private clientService: UserServices,
     private purchaseService: PurchaseService,
     private ProductService: ArticleService,
@@ -370,7 +374,6 @@ export class ArticleComponent implements OnInit {
           const sessionPage = sessionStorage.getItem('currentPage');
           if (sessionPage === null || sessionPage === undefined) {
             if (response.NexPaginate === undefined) {
-              console.log(response.NexPaginate);
               this.urlPaginate = response.articles.last_page_url;
             } else {
               this.urlPaginate = response.NextPaginate;
@@ -392,7 +395,6 @@ export class ArticleComponent implements OnInit {
   gotoDetail(productId: any) {
     const link = '/Home/producto/detalle/';
     if (this.pageChange === undefined) {
-      console.log(this.urlPaginate);
       const firtPage = this.urlPaginate.split('=');
       this.pageChange = firtPage[0] + '=1';
     }
@@ -429,12 +431,12 @@ export class ArticleComponent implements OnInit {
     const gender = this.route.snapshot.params['gender'];
     const size = sizeResponse;
     this.loading = true;
-    this.ProductService.filterSizeProduct(department, gender, size).subscribe(
+    this.ProductService.filterSizeProduct(department, gender, size, this.tagsId).subscribe(
       response  => {
         this.products = response.filter;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
-          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+          this.products[index].photo = this.imgUrl.url + this.products[index].photo;
         }
         this.loading = false;
       }, error => {
@@ -515,12 +517,14 @@ export class ArticleComponent implements OnInit {
   toggleTag(tag: any) {
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
+    console.log(tag);
+    this.tagsId = tag;
     this.ProductService.filterTagProduct(department, gender, tag).subscribe(
       response => {
         this.products = response.articles;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
-          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
+          this.products[index].photo = this.imgUrl.url + this.products[index].photo;
         }
         console.log(this.products);
       }, error => {
@@ -529,7 +533,7 @@ export class ArticleComponent implements OnInit {
     );
   }
 
-  //===================================ADD_SHOPPING_CART=======================================
+  // ===================================ADD_SHOPPING_CART=======================================
 
   startTimerSucess() {
     this.timeLeft = 5;
@@ -620,10 +624,10 @@ export class ArticleComponent implements OnInit {
       this.attachPurchase.amount = this.valueQtyBtn;
       this.attachPurchase.article_id = productObject.id;
       this.IdProduct = productObject.id;
-      let sizeIdCompare = 0;
+      // let sizeIdCompare = 0;
       this.loading = true;
       console.log(this.attachPurchase);
-      if (this.attachPurchase.size != '') {
+      if (this.attachPurchase.size !== '') {
         this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, productObject.id, this.attachPurchase.amount)
         .subscribe(
           response => {
@@ -635,7 +639,7 @@ export class ArticleComponent implements OnInit {
                 this.inventoryEmpty = true;
                 this.toast(5);
               }
-              //this.verifyPurchaseStatus();
+              // this.verifyPurchaseStatus();
             }
             console.log('inventoryEmpty: ' + this.inventoryEmpty);
           }, error => {
@@ -653,7 +657,18 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  //===========================================================================================
+  // ===========================================================================================
+
+  getSizesForDepartment(gender, department) {
+    this.sizesService.getSizesForDepart(gender, department).subscribe(
+      response => {
+        this.sizesList = response.getSizesDeparment;
+        console.log(this.sizesList);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
 
   ngOnInit() {
     this.getGender();
@@ -661,6 +676,7 @@ export class ArticleComponent implements OnInit {
     this.shop_id = this.route.snapshot.params['shopId'];
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
+    this.getSizesForDepartment(gender, department);
     this.getProduct(department, gender);
     this.getDepartmentView(gender);
     if (this.shop_id === 'J') {

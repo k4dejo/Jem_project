@@ -124,27 +124,26 @@ class ArticleController extends Controller
         ), 200);
     }
 
-    public function filterSizeProduct($department, $gender, $size) {
+    public function filterSizeProduct($department, $gender, $size, $tagsId) {
         $size2 = $size;
-        $filter = article::whereHas('sizes', function($q) use ($size) {
-            $q->where('size', '=', $size);
-        })->where('gender', '=', $gender)
-        ->where('department', '=', $department)->get();
+        if ($tagsId != 0) {
+            $filter = article::whereHas('sizes', function($q) use ($size) {
+                $q->where('size', '=', $size);
+            })->where('gender', '=', $gender)
+            ->where('tags_id', $tagsId)
+            ->where('department', '=', $department)->with('sizes')->get();
+        } else {
+            $filter = article::whereHas('sizes', function($q) use ($size) {
+                $q->where('size', '=', $size);
+            })->where('gender', '=', $gender)
+            ->where('department', '=', $department)->with('sizes')->get();
+        }
         $productCount = count($filter);
         if ($productCount <= 0) {
             return response()->json(array(
                 'filter' => $filter,
                 'status'   => 'void'
             ), 200);
-        }
-        if ($productCount > 1) {
-            for ($i=0; $i < $productCount ; $i++) {
-                $contents = Storage::get($filter[$i]->photo);
-                $filter[$i]->photo = base64_encode($contents);
-            }
-        }else{
-            $contents = Storage::get($filter[0]->photo);
-            $filter[0]->photo = base64_encode($contents);
         }
         return response()->json(array(
             'filter'   => $filter,
@@ -154,8 +153,10 @@ class ArticleController extends Controller
 
 
     public function filterTagProduct($department, $gender, $tag) {
-        $productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $department)->where('tags_id', $tag)->get();
+        /*$productConcrete = DB::table('articles')->where('gender', $gender)
+        ->where('department', $departent)->where('tags_id', $tag)->get();*/
+        $productConcrete = article::where('gender', $gender)
+        ->where('department', $department)->where('tags_id', $tag)->with('sizes')->get();
         $productCount = count($productConcrete);
         return response()->json(array(
             'articles' => $productConcrete,
@@ -164,13 +165,11 @@ class ArticleController extends Controller
     }
 
     public function getConcreteProduct($department, $gender) {
-        $productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $department)->get();
-        $productCount = count($productConcrete);
-        /*for ($i=0; $i < $productCount ; $i++) {
-            $contents = Storage::get($productConcrete[$i]->photo);
-            $productConcrete[$i]->photo = base64_encode($contents);
-        }*/
+        /*$productConcrete = DB::table('articles')->where('gender', $gender)
+        ->where('department', $department)->with('sizes')->get();*/
+        $productConcrete = article::where('gender', $gender)
+        ->where('department', $department)->with('sizes')->get();
+        //$productCount = count($productConcrete);
         return response()->json(array(
             'articles' => $productConcrete,
             'status'   => 'success'
@@ -178,9 +177,6 @@ class ArticleController extends Controller
     }
 
     public function getListProduct($department, $gender) {
-        /* $productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $department)->paginate(12);
-        $productCount = count($productConcrete);*/
         $productListEloquent = article::where('department', $department)->where('gender', $gender)
         ->with('sizes')->paginate(12);
         return response()->json(array(
@@ -193,10 +189,6 @@ class ArticleController extends Controller
     public function getProductGender($gender) {
         $productGen = article::where('gender', '=', $gender)->get();
         $productCount = count($productGen);
-        /*for ($i=0; $i < $productCount ; $i++) {
-            $contents = Storage::get($productGen[$i]->photo);
-            $productGen[$i]->photo = base64_encode($contents);
-        }*/
         return response()->json(array(
             'articles' => $productGen,
             'status'   => 'success'

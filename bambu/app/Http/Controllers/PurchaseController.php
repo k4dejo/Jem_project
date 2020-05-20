@@ -32,9 +32,10 @@ class PurchaseController extends Controller
     }
 
     public function getPurchaseStatus($status) {
-        $purchaseStatus = purchase::where('status', $status)->get();
+        $purchaseStatus = purchase::where('status', $status)->paginate(12);
         return response()->json(array(
             'purchases' => $purchaseStatus,
+            'NextPage' => $purchaseStatus->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }

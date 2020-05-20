@@ -78,29 +78,14 @@
             <div class="col-md-4">
               <div class="filter-widget mb-0">
                 <div class="fw-size-choose">
-                  <div class="sc-item">
-                    <input (click)="filterSizeProduct('xs')" type="radio" name="sc" id="xs-size">
-                    <label for="xs-size">XS</label>
-                  </div>
-                  <div class="sc-item">
-                    <input (click)="filterSizeProduct('s')" type="radio" name="sc" id="s-size">
-                    <label for="s-size">S</label>
-                  </div>
-                  <div class="sc-item">
-                    <input (click)="filterSizeProduct('m')" type="radio" name="sc" id="m-size"  checked="">
-                    <label for="m-size">M</label>
-                  </div>
-                  <div class="sc-item">
-                    <input (click)="filterSizeProduct('l')" type="radio" name="sc" id="l-size">
-                    <label for="l-size">L</label>
-                  </div>
-                  <div class="sc-item">
-                    <input (click)="filterSizeProduct('xl')" type="radio" name="sc" id="xl-size">
-                    <label for="xl-size">XL</label>
-                  </div>
-                  <div class="sc-item">
-                    <input (click)="filterSizeProduct('xxl')" type="radio" name="sc" id="xxl-size">
-                    <label for="xxl-size">XXL</label>
+                  <div class="sc-item pc" *ngFor="let size of sizesList">
+                    <input  type="radio" name="sc" id="{{size.size}}" [value]="size.size"
+                    (click)="filterSizeProduct(size.size)">
+                    <label style="font-weight: bold;
+                    text-transform: uppercase;
+                    font-size: 18px;" for="{{size.size}}">
+                      {{size.size}}
+                    </label>
                   </div>
                 </div>
               </div>
@@ -189,35 +174,6 @@
           <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
           (pageChange)="nextPaginate($event)"></pagination-controls>
         </section>
-				<!--<section class="pb-40 category-list">
-          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
-          (pageChange)="nextPaginate($event)"></pagination-controls>
-					<div class="row">
-            <div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
-            class="col-lg-4 col-md-12 col-xs-12 single-product">
-							<div class="content">
-                <div class="content-overlay"></div>
-								<img loading="lazy" ngClass="lazyload" class="content-image img-fluid d-block mx-auto"
-                data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
-                <img loading="lazy" ngClass="lazyload" style="width: 230px; height: 260px;"
-								data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
-								<div class="content-details fadeIn-bottom">
-									<div class="bottom d-flex align-items-center justify-content-center">
-										<a style="cursor: pointer;" (click)="like(product)"><i class="far fa-heart"></i></a>
-                    <a style="cursor: pointer;" (click)="gotoDetail(product.id)"><i class="far fa-eye"></i></a>
-										<a (click)="downloadImg(product.photo)" href="" data-toggle="modal" data-target="#myModal"><i class="fas fa-expand"></i></a>
-									</div>
-								</div>
-							</div>
-							<div class="price" style="text-align: justify;">
-								<h5 >{{product.name}}</h5>
-								<h3 style="font-size: 18px; margin-left: 24%;">₡ {{product.pricePublic | number: '3.'}}</h3>
-							</div>
-						</div>
-          </div>
-          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
-          (pageChange)="nextPaginate($event)"></pagination-controls>
-				</section>-->
 			</div>
 		</div>
 	</div>
@@ -231,15 +187,10 @@ aria-hidden="true">
       <i class="fa fa-times close" data-dismiss="modal"></i>
       <h2 id="modalLabel">Filtros</h2>
     </div>
-    <div class="modal-body fadeIn second">
+    <div class="modal-body fadeIn second" >
       <select (change)="filterSizeProduct($event.target.value)" name="" id="">
         <option value="hide">-- Tallas --</option>
-        <option value="xs">XS</option>
-        <option value="s">S</option>
-        <option value="m">M</option>
-        <option value="l">L</option>
-        <option value="xl">XL</option>
-        <option value="xxl">XXL</option>
+        <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
       </select>
       <div class="price-mobile" style="margin-top: 5%;">
         <div>

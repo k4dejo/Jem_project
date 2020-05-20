@@ -96,6 +96,11 @@ export class PurchaseService {
     return this._http.get(this.url + 'getStatusPurchase/' + status, {headers: headers});
   }
 
+  getPaginateOrder(url): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(url, {headers: headers});
+  }
+
 
   getHistoryPurchaseClient(idClient: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

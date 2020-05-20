@@ -53,6 +53,11 @@ export class SizeService {
         return this._http.get(this.url + 'getTalla/' + id, {headers: headers});
     }
 
+    getSizesForDepart(gender, department): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getSizesForDepart/' + gender + '/' + department, {headers: headers});
+  }
+
     getSizeE(id): Observable<any> {
         const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
         return this._http.get(this.url + 'getTallaEdit/' + id, {headers: headers});

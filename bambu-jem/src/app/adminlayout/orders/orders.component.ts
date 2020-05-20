@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { PurchaseService } from '../../services/purchase.service';
@@ -8,6 +8,8 @@ import { Ticket } from '../../models/ticketPurchase';
 import { ImgUrl } from '../../models/imgUrl';
 import { AddresPurchases } from '../../models/addressPurchase';
 import { AddresServices } from '../../services/addres.service';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
+import { PaginatePipe } from 'ngx-pagination';
 
 @Component({
   selector: 'app-orders',
@@ -16,6 +18,7 @@ import { AddresServices } from '../../services/addres.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public token;
   public identity;
   public purchaselist: Array<Purchase>;
@@ -29,10 +32,16 @@ export class OrdersComponent implements OnInit {
   public p = 1;
   public sendBtnBool = false;
   public PricePurchase = 0;
+  public lenghtOrders;
+  public urlPaginate: any;
+  public pageChange;
+  public btnNextDisabled =  true;
+  public loading = false;
 
   constructor(
     private router: Router,
     private adminService: AdminService,
+    private toastr: ToastrService,
     private addressService: AddresServices,
     private purchaseService: PurchaseService
   ) {
@@ -47,10 +56,34 @@ export class OrdersComponent implements OnInit {
     this.getPurchaseStatus(value);
   }
 
+  nextPaginate(event: any) {
+    this.loading = true;
+    const urlSplit = this.urlPaginate.split('=');
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.p = event;
+    this.purchaseService.getPaginateOrder(this.pageChange).subscribe(
+      response => {
+        this.purchaselist = response.purchases.data;
+        if (response.NextPaginate == null) {
+          this.btnNextDisabled = false;
+        } else {
+          this.btnNextDisabled = true;
+          this.urlPaginate = response.NextPaginate;
+        }
+      }
+    );
+  }
+
   getPurchaseStatus(value) {
     this.purchaseService.getStatusPurchase(value).subscribe(
       response => {
-        this.purchaselist = response.purchases;
+        this.purchaselist = response.purchases.data;
+        this.lenghtOrders = response.purchases.total;
+        if (response.NextPaginate == null) {
+          // this.btnNextDisabled = false;
+          this.urlPaginate = response.purchases.last_page_url;
+          console.log(this.urlPaginate);
+        } else {}
         this.getClientPurchase(this.purchaselist);
       }, error => {
         console.log(<any>error);
@@ -74,12 +107,12 @@ export class OrdersComponent implements OnInit {
     if (this.productList.length >= 6) {
       for (let index = 0; index < this.productList.length; index++) {
         this.PricePurchase += this.productList[index].priceMajor * this.productList[index].pivot.amount;
-        this.PricePurchase[index].photo = 'data:image/jpeg;base64,' + this.PricePurchase[index].photo;
+        // this.PricePurchase[index].photo = this.imgUrl.url + this.PricePurchase[index].photo;
       }
     } else {
       for (let i = 0; i < this.productList.length; i++) {
         this.PricePurchase += this.productList[i].pricePublic * this.productList[i].pivot.amount;
-        this.PricePurchase[i].photo = 'data:image/jpeg;base64,' + this.PricePurchase[i].photo;
+        // this.PricePurchase[i].photo = this.imgUrl.url + this.PricePurchase[i].photo;
       }
     }
   }
@@ -119,6 +152,8 @@ export class OrdersComponent implements OnInit {
     this.purchaseService.editPurchaseStatus(this.purchaseinfo.id, statusPurchase).subscribe(
       response => {
         console.log(response);
+        this.toast(1);
+        this.searchPurchase(statusPurchase);
       }, error => {
         console.log(<any> error);
       }
@@ -162,6 +197,25 @@ export class OrdersComponent implements OnInit {
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
+  }
+
+  toast(numberBool: any) {
+    switch (numberBool) {
+      case 1:
+        this.showSuccessOrder();
+      break;
+
+      default:
+        break;
+    }
+  }
+
+  showSuccessOrder() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Orden realizada satisfactoriamente', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
   }
 
   ngOnInit() {

@@ -24,6 +24,8 @@
                       Enviado
                     </option>
                   </select><br>
+                  <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+                  (pageChange)="nextPaginate($event)"></pagination-controls>
                   <table class="table table-striped">
                     <thead>
                       <th scope="col">Cliente</th>
@@ -32,7 +34,7 @@
                       <th scope="col">Estado</th>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let purchase of purchaselist">
+                      <tr *ngFor="let purchase of purchaselist | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtOrders}">
                         <td>
                           {{purchase.clients_id}}
                         </td>
@@ -52,6 +54,8 @@
                       </tr>
                     </tbody>
                   </table>
+                  <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+                  (pageChange)="nextPaginate($event)"></pagination-controls>
                 </div>
               </div>
             </div>
@@ -98,12 +102,27 @@
               </td>
             </tbody>
           </table>
+          <table class="table table-striped">
+            <thead>
+              <th scope="col">Envío</th>
+              <th scope="col">Precio Total</th>
+            </thead>
+            <tbody>
+              <td>
+                <p> ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}</p>
+              </td>
+              <td>
+                <p> ₡ {{purchaseinfo.purchasePrice | number: '3.'}}</p>
+              </td>
+            </tbody>
+          </table>
         </div>
         <div class="col-md-12 col-s-12 col-xs-12">
           <pagination-controls class="my-pagination" (pageChange)="p = $event">
           </pagination-controls>
           <table class="table table-striped">
             <thead>
+              <th scope="col"></th>
               <th scope="col">producto</th>
               <th scope="col">Talla</th>
               <th scope="col">cantidad</th>
@@ -111,6 +130,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let product of productList | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td><img class="img-responsive" [src]="product.photo" alt=""></td>
                 <td>{{product.name}}</td>
                 <td>{{product.pivot.size}}</td>
                 <td>{{product.pivot.amount}}</td>
@@ -123,7 +143,8 @@
           <a style="padding-top: 2%;" (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
             <h3>ver recibo</h3>
           </a>
-          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
+          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill"
+          (click)="submitPurchaseClient()" data-dismiss="modal" value="Emitir">
         </div>
       </div>
       <!--<div class="row">
@@ -212,12 +233,13 @@
             </a>
           </div>
           <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill"
-          (click)="submitPurchaseClient()" value="Emitir">
+          (click)="submitPurchaseClient()" data-dismiss="modal" value="Emitir">
         </div>
       </div>
     </div>
   </div>
 </div>
+<div class="overlay-container toast-top-left toast-container" toastContainer></div>
 <div id="myModal" class="modal modalImg">
   <span class="close" data-dismiss="modal">&times;</span>
   <a [href]="fileUrl" download="Prenda_{{randomChar}}.jpg"><i class="fas fa-cloud-download-alt"></i></a>
