@@ -458,6 +458,7 @@ export class ArticleComponent implements OnInit {
         this.lenghtProduct = response.articles.total;
         this.loading = false;
         this.pageChange = response.NextPaginate;
+        this.getProduct(department, gender);
         this.addPhotoProductList();
         /* for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
@@ -517,6 +518,16 @@ export class ArticleComponent implements OnInit {
         console.log(<any> error);
       }
     );
+    /*const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    this.ProductService.getTagsForDeparment(gender, department).subscribe(
+      response => {
+        console.log(response.getTagDeparment);
+      }, error => {
+        console.log(<any> error);
+      }
+    );*/
+
   }
 
   toggleTag(tag: any) {

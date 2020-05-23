@@ -383,14 +383,23 @@ export class MangArticleComponent implements OnInit {
     }
   }
 
-  saveProduct(form) {
-    this.product.file = this.fileBlob;
-    this.productRelation = [];
-    if (this.product.tags_id === undefined) {
-      this.product.tags_id = '0';
-    }
-    this.loading = true;
-    this.productService.add( this.token, this.product).subscribe(
+  attachSizesProduct(attachSizeProduct) {
+    this.sizeService.attachSizeProduct(attachSizeProduct).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
+      response => {
+        const respuesta = response;
+        if (response.status === 'success') {
+          console.log(respuesta.status);
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  addProductService(token, product, form) {
+    this.productService.add(token, product).subscribe(
       response => {
         if (response.status === 'success') {
           this.status = response.status;
@@ -400,29 +409,17 @@ export class MangArticleComponent implements OnInit {
           if (this.fileNpm.length > 0) {
             this.convertFileBlob();
           }
-          // hacer attach de producto y tallaCantidad
-          this.sizeService.attachSizeProduct(this.attachSizeProduct).subscribe(
-            // tslint:disable-next-line:no-shadowed-variable
-            response => {
-              const respuesta = response;
-              if (response.status === 'success') {
-                console.log(respuesta.status);
-              }
-            },
-            error => {
-              console.log(<any>error);
-            }
-          );
+          this.attachSizesProduct(this.attachSizeProduct);
           // vaciar formulario
-          this.product = new Article('', '', '', this.justNumber, this.justNumber, this.justNumber,
-          this.justNumber , '', null, '', this.justNumber, '', '');
-          form.reset();
-          this.gender = [];
+          this.product = new Article('', '', '', 0, 0, 0, 
+          0, '', null, '', 0, '', '');
+          //this.gender = []; 
           this.department = [];
           this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
           this.getProductView();
           this.loading = false;
+          form.reset();
           this.toast(1);
         } else {
           if (response.status === 'duplicate') {
@@ -432,13 +429,37 @@ export class MangArticleComponent implements OnInit {
             this.toast(2);
           }
         }
-      },
-      error => {
+      }, error => {
         this.loading = false;
         console.log(<any>error);
         this.toast(2);
       }
     );
+
+  }
+
+  saveProduct(form) {
+    this.product.file = this.fileBlob;
+    this.productRelation = [];
+    if (this.product.tags_id === undefined) {
+      this.product.tags_id = '0';
+    }
+    this.loading = true;
+    if (this.identity == null) {
+      this.router.navigate(['LoginAdmin']);
+    } else {
+      this.adminService.authAdmin(this.identity).subscribe(
+        response => {
+          if (response.status !== 'admin') {
+            this.router.navigate(['LoginAdmin']);
+          } else {
+            this.addProductService(this.token, this.product, form);
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+    }
   }
 
   getDepartmentView(idGender: any) {
@@ -571,6 +592,24 @@ export class MangArticleComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  authAdminService(identity) {
+    if (identity == null) {
+      this.router.navigate(['LoginAdmin']);
+    } else {
+      this.adminService.authAdmin(identity).subscribe(
+        response => {
+          if (response.status !== 'admin') {
+            this.router.navigate(['LoginAdmin']);
+          } else {
+            return true;
+          }
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+    }
   }
 
   ngOnInit() {

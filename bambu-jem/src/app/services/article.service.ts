@@ -20,7 +20,7 @@ export class ArticleService {
       .set('Authorization', token);
       return this._http.post(this.url + 'articles', params, { headers: headers });
     }
-
+    /*==========================================================================================*/
     addTag(token, tag: Tag): Observable<any> {
       const json = JSON.stringify(tag);
       const params = 'json=' + json;
@@ -34,10 +34,16 @@ export class ArticleService {
       return this._http.get(this.url + 'getAllTags', { headers: headers });
     }
 
+    getTagsForDeparment(gender, department): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getTagsForDeparment/' + gender + '/' + department, {headers: headers});
+    }
+
     deleteTag(id): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.delete(this.url + 'deleteTag/' + id, { headers: headers });
     }
+    /*=======================================================================================*/
 
     getProduct(): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

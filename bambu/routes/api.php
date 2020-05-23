@@ -141,8 +141,9 @@ Route::group(['middleware' => 'cors'], function(){
    /*tags*/
    Route::post('storeTag', 'tagController@store');
    Route::get('getAllTags', 'tagController@index');
-   Route::delete('deleteTag/{id}','tagController@deleteTag');
+   Route::get('getTagsForDeparment/{department}/{gender}', 'tagController@getTagsForDeparment');
    Route::get('filterTagProduct/{department}/{gender}/{tag}', 'ArticleController@filterTagProduct');
+   Route::delete('deleteTag/{id}','tagController@deleteTag');
    /**/
 
    /*ADDRESS*/

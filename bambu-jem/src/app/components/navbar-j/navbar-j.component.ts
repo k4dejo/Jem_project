@@ -123,12 +123,14 @@ export class NavbarJComponent implements OnInit {
   getClientPhoto(idClient: any) {
     this.clientService.getClientPhoto(idClient).subscribe(
       response => {
-        if (this.clientPhoto === 'assets/Images/default.jpg') {
+        if (response.clientPhoto === 'assets/Images/default.jpg') {
+          this.clientPhoto = response.clientPhoto;
           this.imgBoolUser = true;
         } else {
+          this.clientPhoto = this.imgUrl.url + response.clientPhoto;
           this.imgBoolUser = false;
         }
-        this.clientPhoto = this.imgUrl.url + response.linkImg;
+        console.log(response);
       }, error => {
         console.log(<any> error);
       }

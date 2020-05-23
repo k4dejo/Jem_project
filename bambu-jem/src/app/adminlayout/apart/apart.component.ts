@@ -467,7 +467,7 @@ export class ApartComponent implements OnInit {
     );
   }
 
-  selectClient(dataClient: any) {
+  /* selectClient(dataClient: any) {
     this.client.name = dataClient.name;
     this.client.address = dataClient.address;
     this.client.phone = dataClient.phone;
@@ -489,6 +489,50 @@ export class ApartComponent implements OnInit {
         if (response.status === 'success' || response.status === 'Exist') {
           this.attachApart.apart_id = response.apart.id;
           this.getApartClient(dataClient.id);
+          this.idCleanApart = response.apart.id;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }*/
+
+  selectClient(dataClient: any) {
+    this.client.name = dataClient.name;
+    this.client.address = dataClient.address;
+    this.client.phone = dataClient.phone;
+    this.client.email = dataClient.email;
+    this.client.addressDetail = dataClient.addressDetail;
+    this.billing.client = dataClient.name;
+    this.billing.email = dataClient.email;
+    this.billing.address = dataClient.address;
+    this.billing.addressDetail = dataClient.addressDetail;
+    this.billing.phone = dataClient.phone;
+    this.billing.status = 'process';
+    this.apartM.clients_id = dataClient.id;
+    this.apartM.price = 0;
+    this.clientBool = false;
+    this.splite = this.client.address.split(',');
+    this.viewAddress(this.splite[0] , this.splite[1]);
+    this.adminService.authAdmin(this.identity).subscribe(
+      response => {
+        if (response.status !== 'admin') {
+          this.router.navigate(['LoginAdmin']);
+        } else {
+          this.addNewApartService(this.token, this.apartM, dataClient.id);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  addNewApartService(token, apartM, clientId) {
+    this.apartService.addNewApart(token, apartM).subscribe(
+      response => {
+        if (response.status === 'success' || response.status === 'Exist') {
+          this.attachApart.apart_id = response.apart.id;
+          this.getApartClient(clientId);
           this.idCleanApart = response.apart.id;
         }
       }, error => {
