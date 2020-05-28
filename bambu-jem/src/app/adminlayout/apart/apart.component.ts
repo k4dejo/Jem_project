@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -19,6 +19,7 @@ import { ImgUrl } from '../../models/imgUrl';
 import { Departament } from '../../models/department';
 import { AttachApart } from '../../models/attachApart';
 import { Billing } from '../../models/billing';
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -28,6 +29,7 @@ import { Billing } from '../../models/billing';
   styleUrls: ['./apart.component.css']
 })
 export class ApartComponent implements OnInit {
+  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public token;
   public billing: Billing;
   public arrayBilling;
@@ -116,6 +118,7 @@ export class ApartComponent implements OnInit {
     private router: Router,
     private adminService: AdminService,
     private apartService: ApartService,
+    private toastr: ToastrService,
     private province: AddresServices,
     private billingService: BillingService,
     private productService: ArticleService
@@ -251,7 +254,6 @@ export class ApartComponent implements OnInit {
   }
 
   getProduct(productId: any) {
-    console.log(this.client);
     this.loading = true;
     this.productService.getProductU(productId).subscribe(
       response => {
@@ -623,12 +625,41 @@ export class ApartComponent implements OnInit {
         }
       }, error => {
         console.log(<any> error);
+        this.showError(error);
        }
     );
   }
 
+  toast(numberbool: any) {
+    if (numberbool === 1) {
+      this.showSuccess();
+    } else {
+      // this.showError();
+    }
+  }
+
+  showSuccess() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Se ha añadido correctamente', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showError(error) {
+    if (error.error.address[0] === 'The address field is required.') {
+      this.toastr.overlayContainer = this.toastContainer;
+      this.toastr.error('El campo dirección es requerido',
+      'Error', {
+        timeOut: 4000,
+        progressBar: true
+      });
+      this.loading = false;
+    }
+  }
+
+
   gotoAttachBilling(idBilling, dataAttach, index, lengthArray) {
-    console.log(this.idCleanApart);
     index += 1;
     this.billingService.attachArrayBilling(this.token, idBilling, dataAttach).subscribe(
       responseAttach => {
@@ -678,7 +709,6 @@ export class ApartComponent implements OnInit {
 
   calculateWeight() {
     this.totalWeight = 0;
-    console.log(this.arrayApart);
     for (let index = 0; index < this.arrayApart.length; ++index) {
       this.totalWeight += Number(this.arrayApart[index].weight) * this.arrayApart[index].pivot.amount;
     }

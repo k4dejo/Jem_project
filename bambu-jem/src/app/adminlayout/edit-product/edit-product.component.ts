@@ -295,7 +295,8 @@ public dtDepartmentB: string[] = [
         console.log(this.product);
         const product_id = response.articles.id;
         this.getImageArray(product_id);
-        this.product.photo = 'data:image/jpeg;base64,' + this.product.photo;
+        // this.product.photo = 'data:image/jpeg;base64,' + this.product.photo;
+        this.product.photo =  this.imgUrl.url + this.product.photo;
         this.fileBlob = this.product.photo;
       },
       error => {

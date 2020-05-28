@@ -66,8 +66,8 @@ class ArticleController extends Controller
     {
         $articles = article::find($id);
         $arrayArticle = article::find($id)->sizes()->get();
-        $contents = Storage::get($articles->photo);
-        $articles->photo = base64_encode($contents);
+        /*$contents = Storage::get($articles->photo);
+        $articles->photo = base64_encode($contents);*/
         return response()->json(array(
             'articles' => $articles,
             'arraySizeArticle' => $arrayArticle,
@@ -297,39 +297,46 @@ class ArticleController extends Controller
 
             $imgDB = article::where('id', $id)->first();
             $lengthImg = strlen($params->photo);
-            if ($lengthImg <= 100) {
-                $img =  $params->file;
-                $isWebP = explode(';', $img);
-                if ($isWebP[0] === "data:image/webp") {
-                    $img = str_replace('data:image/webp;base64,', '', $img);
-                    $img = str_replace(' ', '+', $img);
-                } else {
+            $isWeb = explode(':', $params->photo);
+            if ($isWeb[0] == 'https') { 
+                $imgName = time() . $params->photo;
+                unset($paramsArray['id']);
+                unset($paramsArray['created_at']);
+                unset($paramsArray['file']);
+                unset($paramsArray['photo']);
+                /*\Storage::delete($imgDB->photo);
+                $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
+                \Storage::disk('public')->put($imgName, $resized_image);*/
+                $article = article::where('id', $id)->update($paramsArray);
+            } else {
+                if ($lengthImg <= 100) {
+                    $img =  $params->file;
                     $img = str_replace('data:image/jpeg;base64,', '', $img);
                     $img = str_replace(' ', '+', $img);
+                    $imgName = time() . $params->photo;
+                    $paramsArray['photo'] = $imgName;
+                    unset($paramsArray['id']);
+                    unset($paramsArray['created_at']);
+                    unset($paramsArray['file']);
+                    Storage::delete($imgDB->photo);
+                    $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
+                    Storage::disk('local')->put($imgName, $resized_image);
+                    $article = article::where('id', $id)->update($paramsArray);
+                }else {
+                    $route = public_path().'\catalogo'.'\/';
+                    $imgRoute = str_replace('/', '', $route);
+                    $imgRoute = $imgRoute . $paramsArray['photo'];
+                    Storage::delete($imgDB->photo);
+                    $paramsArray['photo'] = time() .'.jpg';
+                    $img = $paramsArray['file'];
+                    $img = str_replace('data:image/jpeg;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                    unset($paramsArray['id']);
+                    unset($paramsArray['created_at']);
+                    unset($paramsArray['file']);
+                    Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                    $article = article::where('id', $id)->update($paramsArray);
                 }
-                $imgName = time() . $params->photo;
-                $paramsArray['photo'] = $imgName;
-                unset($paramsArray['id']);
-                unset($paramsArray['created_at']);
-                unset($paramsArray['file']);
-                Storage::delete($imgDB->photo);
-                $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-                Storage::disk('local')->put($imgName, $resized_image);
-                $article = article::where('id', $id)->update($paramsArray);
-            }else {
-                $route = public_path().'\catalogo'.'\/';
-                $imgRoute = str_replace('/', '', $route);
-                $imgRoute = $imgRoute . $paramsArray['photo'];
-                Storage::delete($imgDB->photo);
-                $paramsArray['photo'] = time() .'.jpg';
-                $img = $paramsArray['file'];
-                $img = str_replace('data:image/jpeg;base64,', '', $img);
-                $img = str_replace(' ', '+', $img);
-                unset($paramsArray['id']);
-                unset($paramsArray['created_at']);
-                unset($paramsArray['file']);
-                Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
-                $article = article::where('id', $id)->update($paramsArray);
             }
             // Actualizar datos del articulo
             $data = array(

@@ -136,7 +136,7 @@
           (pageChange)="nextPaginate($event)"></pagination-controls>
           <div class="row">
             <div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
-            class="col-lg-4 col-md-12 col-xs-12 single-product">
+            class="col-lg-4 col-md-12 col-xs-13 single-product">
               <div class="product">
                 <div class="imgbox">
                   <img (click)="downloadImg(product.photo)" data-toggle="modal" data-target="#myModal" loading="lazy" ngClass="lazyload" style="width: 230px; height: 260px;"

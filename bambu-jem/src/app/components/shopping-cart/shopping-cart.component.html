@@ -147,8 +147,14 @@
       </div>
       <div class="shipping-area d-flex justify-content-end">
         <div class="title text-uppercase">Envio</div>
-        <div class="subtotal">
+        <div *ngIf="!boolShippingView" class="subtotal">
           ₡ {{ shipping | number: "3." }}
+        </div>
+        <div *ngIf="boolShippingView" class="subtotal">
+          <p style="color: #ff4faf;">
+            El envío no se calculará sin su dirección,
+            por favor digite su dirección antes de proceder.
+          </p>
         </div>
       </div>
       <div *ngIf="couponView" class="shipping-area d-flex justify-content-end">

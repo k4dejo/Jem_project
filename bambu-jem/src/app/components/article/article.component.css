@@ -1278,7 +1278,9 @@ select {
 
 @media (max-width: 767px){
 	.single-product{
-		text-align: center;
+    text-align: center;
+    padding-bottom: 17px;
+    margin-left: 26px;
 	}
 	.catalogue{
 		padding-left: 1%;

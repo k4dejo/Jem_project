@@ -105,6 +105,8 @@ export class ShoppingCartComponent implements OnInit {
   public alertAmountStock: any;
   public idProductAlert: any;
   public attachPurchase: AttachPurchase;
+  public boolShippingView = false;
+
   constructor(
     private route: ActivatedRoute,
     private purchaseService: PurchaseService,
@@ -313,11 +315,13 @@ export class ShoppingCartComponent implements OnInit {
             response => {
               if (response.AddressPurchase !== 'void') {
                 this.addressPurchase = response.AddressPurchase;
+                this.viewAddressBool = true;
+                this.splite = this.addressPurchase.address.split(','); 
+                this.viewAddress(this.splite[0] , this.splite[1]);
+                this.calculateWeight();
+              } else {
+                this.boolShippingView = true;
               }
-              // this.addressPurchase = response.AddressPurchase;
-              this.viewAddressBool = true;
-              this.splite = this.addressPurchase.address.split(',');
-              this.viewAddress(this.splite[0] , this.splite[1]);
             // tslint:disable-next-line:no-shadowed-variable
             }, error => {
               console.log(<any> error);
@@ -348,6 +352,66 @@ export class ShoppingCartComponent implements OnInit {
       }
     );
   }
+
+  /* getPurchases() {
+    this.loading = true;
+    this.purchaseService.getPurchase(this.identity.sub).subscribe(
+      response => {
+        this.totalAmount = 0;
+        this.productPurchase = response.purchase;
+        this.purchaseArray = response.purchase;
+        this.purchasePrice = response.price;
+        this.testProduct = response.purchase;
+        this.productCart.price = response.purchasePrice;
+        this.productCart.id = response.purchaseId;
+        this.attachPurchase.purchase_id = response.purchaseId;
+        this.checkoutPurchase.id = response.purchaseId;
+        this.checkoutPurchase.clients_id = this.identity.sub;
+        this.checkoutPurchase.status = 'incomplete';
+        this.dettachPurchaseP.idPurchase = response.purchaseId;
+        if (response.dataPurchase.addresspurchases_id !== '0' || response.dataPurchase.addresspurchases_id !== '') {
+          this.province.getAddressPurchase(response.dataPurchase.addresspurchases_id)
+          .subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
+            response => {
+              if (response.AddressPurchase !== 'void') {
+                this.addressPurchase = response.AddressPurchase;
+              }
+              // this.addressPurchase = response.AddressPurchase;
+              this.viewAddressBool = true;
+              this.splite = this.addressPurchase.address.split(','); 
+              // this.viewAddress(this.splite[0] , this.splite[1]);
+              this.calculateWeight();
+            // tslint:disable-next-line:no-shadowed-variable
+            }, error => {
+              console.log(<any> error);
+            }
+          );
+        }
+        this.loading = false;
+        for (let i = 0; i < this.productPurchase.length; ++i) {
+          this.totalAmount += response.purchase[i].pivot.amount;
+          if (response.purchase[i].pivot.amount >= 6) {
+            this.productCount = true;
+          }
+          this.validateOffer(response.purchase[i].id, i);
+          this.productPurchase[i].photo = this.imgUrl.url + this.productPurchase[i].photo;
+        }
+        if (response.purchase.length >= 6) {
+          this.productCount = true;
+        } else {
+          if (this.totalAmount >= 6) {
+            this.productCount = true;
+          }
+        }
+        this.CalculateTotalPrice(this.productCount);
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+        this.loading = false;
+      }
+    );
+  }*/
 
   convertFileBlob() {
     for (let index = 0; index < this.fileNpm.length; index++) {
@@ -544,6 +608,13 @@ export class ShoppingCartComponent implements OnInit {
       this.shipping += rate + (weightAdditional * additional);
     }
     this.checkoutPurchase.price -= this.shipping;
+    let tempShipping = this.shipping;
+    if (tempShipping = 0) {
+      this.boolShippingView = true;
+    } else {
+      this.boolShippingView = false;
+    }
+    console.log(this.boolShippingView);
   }
 
   viewAddress(province: any, district: any) {
