@@ -113,6 +113,7 @@ export class ApartComponent implements OnInit {
   public Province: Province;
   public Cant: Cant;
   public District: District;
+  public lenghtProduct;
 
   constructor(
     private router: Router,
@@ -238,6 +239,7 @@ export class ApartComponent implements OnInit {
           // agrego formato a la imagen.
           this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
           const photoView = this.productView[index].photo;
+          //this.lenghtProduct = response.articles.total;
           this.getDepartmentView(this.productView[index].gender.toString());
           this.getGenderString(this.gender.length, index);
           for (let indexD = 0; indexD < this.department.length; indexD++) {

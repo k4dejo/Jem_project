@@ -20,22 +20,6 @@ class ArticleController extends Controller
     {
        //listado de los articulos
         $articles = article::all();
-        $productCount = count($articles);
-        if ($productCount <= 0) {
-            return response()->json(array(
-                'articles' => $articles,
-                'status'   => 'void'
-            ), 200);
-        }
-        if ($productCount > 1) {
-            for ($i=0; $i < $productCount ; $i++) {
-                $contents = Storage::get($articles[$i]->photo);
-                $articles[$i]->photo = base64_encode($contents);
-            }
-        }else{
-            $contents = Storage::get($articles[0]->photo);
-            $articles[0]->photo = base64_encode($contents);
-        }
         return response()->json(array(
             'articles' => $articles,
             'status'   => 'success'
@@ -45,17 +29,16 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
        //listado de los articulos
-        $articles = article::all();
+        $articles = article::all()->paginate(12);;
         return response()->json(array(
-            'articles' => $articles,
+            'articles'   => $articles,  
+            'NextPaginate' => $articles->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
 
     public function showPhotoProduct($id) {
         $articles = article::find($id);
-        /*$contents = Storage::get($articles->photo);
-        $articles->photo = base64_encode($contents);*/
         return response()->json(array(
             'productPhoto' => $articles->photo,
             'status'   => 'success'
