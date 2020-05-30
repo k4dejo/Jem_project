@@ -65,7 +65,7 @@ class apartController extends Controller
         } else {
             // Error
             $data = array(
-                'message' => 'login incorrecto',
+                'message' => 'Usuario no autorizado',
                 'status' => 'Error',
                 'code'  => 400,
             );
@@ -96,7 +96,7 @@ class apartController extends Controller
         } else {
             // Error
             $data = array(
-                'message' => 'login incorrecto',
+                'message' => 'Usuario no autorizado',
                 'status' => 'Error',
                 'code'  => 400,
             );
@@ -340,7 +340,7 @@ class apartController extends Controller
         } else {
             // Error
             $data = array(
-                'message' => 'login incorrecto',
+                'message' => 'Usuario no autorizado',
                 'status' => 'Error',
                 'code'  => 400,
             );

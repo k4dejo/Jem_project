@@ -110,7 +110,7 @@
                   <th scope="col"></th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
+                  <tr *ngFor="let product of productView | filter: searchProduct | paginate: {itemsPerPage: 8, currentPage: p}">
                     <td>
                       <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModal">{{product.name}}</a>
                     </td>
@@ -123,8 +123,8 @@
                     value="Agregar" (click)="getProduct(product.id)"></td>
                   </tr>
                 </tbody>
-                <pagination-controls class="my-pagination" (pageChange)="p = $event">
-                </pagination-controls>
+                <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+                (pageChange)="nextPaginate($event)"></pagination-controls>
               </table>
             </div>
             <table class="table table-striped table-pc">
@@ -139,7 +139,7 @@
                 <th scope="col"></th>
               </thead>
               <tbody>
-                <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 8, currentPage: p }">
+                <tr *ngFor="let product of productView | filter: searchProduct | paginate: {itemsPerPage: 8, currentPage: p}">
                   <td>
                     <img class="img-responsive" [src]="product.photo" alt="">
                   </td>
@@ -155,9 +155,9 @@
                   value="Agregar a compra" (click)="getProduct(product.id)"></td>
                 </tr>
               </tbody>
-              <pagination-controls class="my-pagination" (pageChange)="p = $event">
-              </pagination-controls>
             </table>
+            <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+            (pageChange)="nextPaginate($event)"></pagination-controls>
             <div class="row">
               <div class="col-md-3">
                 <div class="input-group-desc">
@@ -220,7 +220,8 @@
                 </tbody>
               </table>
               <h3>Total: ₡ {{apartM.price | number: "3."}}</h3>
-              <h4>Envío: ₡ {{shipping | number: "3."}}</h4>
+              <!--<h4>Envío: ₡ {{shipping | number: "3."}}</h4>-->
+              <h4>Envío:  ₡ {{shipping | number: "3."}} <input type="number" name="" id="" [value]="shipping" (change)="editShipping($event)"></h4>
             </div>
             <input style="color: white;" type="button" class="btn btn--green btn--pill"
             value="Facturar" data-toggle="modal" data-target="#Factu">

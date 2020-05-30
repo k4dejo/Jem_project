@@ -114,6 +114,9 @@ export class ApartComponent implements OnInit {
   public Cant: Cant;
   public District: District;
   public lenghtProduct;
+  public urlPaginate: any;
+  public pageChange;
+  public btnNextDisabled =  true;
 
   constructor(
     private router: Router,
@@ -230,7 +233,29 @@ export class ApartComponent implements OnInit {
     }
   }
 
-  getProductView() {
+  nextPaginate(event: any) {
+    this.loading = true;
+    const urlSplit = this.urlPaginate.split('=');
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.p = event;
+    this.productService.getPaginateProduct(this.pageChange).subscribe(
+      response => {
+        this.productView = response.articles.data;
+        if (response.NextPaginate == null) {
+          this.btnNextDisabled = false;
+        } else {
+          this.btnNextDisabled = true;
+          this.urlPaginate = response.NextPaginate;
+        }
+        this.addPhotoProductList();
+        this.loading = false;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  /* getProductView() {
     this.productService.getProduct().subscribe(
       response => {
         this.productView = response.articles;
@@ -239,7 +264,7 @@ export class ApartComponent implements OnInit {
           // agrego formato a la imagen.
           this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
           const photoView = this.productView[index].photo;
-          //this.lenghtProduct = response.articles.total;
+          // this.lenghtProduct = response.articles.total;
           this.getDepartmentView(this.productView[index].gender.toString());
           this.getGenderString(this.gender.length, index);
           for (let indexD = 0; indexD < this.department.length; indexD++) {
@@ -249,6 +274,32 @@ export class ApartComponent implements OnInit {
           }
         }
       // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }*/
+
+  addPhotoProductList() {
+    for (let index = 0; index < this.productView.length; index++) {
+      // agrego formato a la imagen.
+      this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
+      this.getDepartmentView(this.productView[index].gender.toString());
+      this.getGenderString(this.gender.length, index);
+      for (let indexD = 0; indexD < this.department.length; indexD++) {
+        if (this.productView[index].department.toString() === this.department[indexD].id) {
+          this.productView[index].department = this.department[indexD].name;
+        }
+      }
+    }
+  }
+
+  getProductView() {
+    this.productService.getProduct().subscribe(
+      response => {
+        this.productView = response.articles;
+        this.statusBool = true;
+        this.addPhotoProductList();
       }, error => {
         console.log(<any> error);
       }
@@ -313,6 +364,7 @@ export class ApartComponent implements OnInit {
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
+        this.showErrorAdmin(error);
       }
     );
   }
@@ -335,6 +387,7 @@ export class ApartComponent implements OnInit {
               }
             }, error => {
               console.log(<any> error);
+              this.showErrorAdmin(error);
             }
           );
         } else {
@@ -467,8 +520,13 @@ export class ApartComponent implements OnInit {
       response => {
       }, error => {
         console.log(<any>error);
+        this.showErrorAdmin(error);
       }
     );
+  }
+
+  editShipping(e: any) {
+    this.shipping = e.target.value;
   }
 
   /* selectClient(dataClient: any) {
@@ -557,6 +615,7 @@ export class ApartComponent implements OnInit {
         }
       }, error => {
         console.log(<any> error);
+        this.showErrorAdmin(error);
       }
     );
   }
@@ -633,10 +692,12 @@ export class ApartComponent implements OnInit {
   }
 
   toast(numberbool: any) {
-    if (numberbool === 1) {
-      this.showSuccess();
-    } else {
-      // this.showError();
+    switch (numberbool) {
+      case 1:
+        this.showSuccess();
+      break;
+      default:
+      break;
     }
   }
 
@@ -658,6 +719,16 @@ export class ApartComponent implements OnInit {
       });
       this.loading = false;
     }
+  }
+
+  showErrorAdmin(error) {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error(error,
+    'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
+    this.loading = false;
   }
 
 

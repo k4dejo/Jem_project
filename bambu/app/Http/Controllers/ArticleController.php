@@ -16,23 +16,11 @@ use App\purchase;
 class ArticleController extends Controller
 {
 
-    /*public function index(Request $request)
-    {
+    public function index(Request $request) {
        //listado de los articulos
         $articles = article::all();
         return response()->json(array(
             'articles' => $articles,
-            'status'   => 'success'
-        ), 200);
-    }*/
-
-    public function index(Request $request)
-    {
-       //listado de los articulos
-        $articles = article::all()->paginate(12);;
-        return response()->json(array(
-            'articles'   => $articles,  
-            'NextPaginate' => $articles->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
@@ -281,7 +269,7 @@ class ArticleController extends Controller
             $imgDB = article::where('id', $id)->first();
             $lengthImg = strlen($params->photo);
             $isWeb = explode(':', $params->photo);
-            if ($isWeb[0] == 'https') { 
+            if ($isWeb[0] == 'https') {
                 $imgName = time() . $params->photo;
                 unset($paramsArray['id']);
                 unset($paramsArray['created_at']);

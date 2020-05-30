@@ -368,7 +368,6 @@ export class ArticleComponent implements OnInit {
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
           this.urlPaginate = response.articles.last_page_url;
-          console.log(this.urlPaginate);
         } else {
           this.btnNextDisabled = true;
           const sessionPage = sessionStorage.getItem('currentPage');
