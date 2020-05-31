@@ -15,24 +15,69 @@
   <div class="col-xl-12 col-lg-12 col-md-9">
     <section class="pb-40 category-list">
       <div class="row">
-        <div *ngFor="let outfit of outfitList" class="col-lg-4 col-md-12 col-xs-12 single-product">
-          <div class="content">
+        <div *ngFor="let outfit of outfitList"
+        class="col-lg-4 col-md-12 col-xs-12 single-product">
+          <div class="outfit">
+            <div class="imgbox">
+              <img data-toggle="modal" data-target="#outfitModal"
+              (click)="showDataOutfit(outfit)" [src]="outfit.photo" alt=""
+              style="width: 230px; height: 260px;">
+            </div>
+            <div class="details">
+              <h5 style="font-weight: bold;">{{outfit.name}}</h5>
+              <a class="btnCheckout" data-toggle="modal"
+              (click)="showDataOutfit(outfit)" data-target="#outfitModal">
+                <i class="fas fa-search"></i>
+              </a>
+            </div>
+          </div>
+          <!--<div class="content">
             <div class="content-overlay"></div>
             <img class="content-image img-fluid d-block mx-auto" [src]="outfit.photo" alt="">
             <div class="content-details fadeIn-bottom">
               <div class="bottom d-flex align-items-center justify-content-center">
-                <div class="listOutfit" *ngFor="let productLink of outfit.articles">
-                  <a style="cursor:pointer;" (click)="gotoDetail(productLink.id)"><h5>{{productLink.name}}</h5></a>
-                </div>
-                <a data-toggle="modal" data-target="#myModal"><i class="fas fa-expand"></i></a>
+                <a data-toggle="modal" (click)="showDataOutfit(outfit)" data-target="#outfitModal"><i class="fas fa-search"></i></a>
               </div>
             </div>
-          </div>
-          <div class="price">
-            <h5>{{outfit.name}}</h5>
-          </div>
+            <div class="price">
+              <h5>{{outfit.name}}</h5>
+            </div>
+          </div>-->
         </div>
       </div>
     </section>
+  </div>
+</div>
+
+<div class="modal fade" id="outfitModal" tabindex="-1" role="dialog" aria-labelledby="alertPaymentTitle"
+aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i class="fa fa-times close" data-dismiss="modal"></i>
+      </div>
+      <div class="modal-body" style="text-align: justify;">
+        <div class="row">
+          <div class="col-md-6 col-xs-6 col-s-6">
+            <!--<img class="content-image img-fluid d-block mx-auto"
+            [src]="showOutfitModal.photo" alt="">-->
+            <img class="img-responsive" [src]="showOutfitModal.photo" alt="">
+          </div>
+          <div class="col-md-6 col-xs-6 col-s-6">
+            <div *ngFor="let products of showOutfitModal.articles">
+              <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-6 col-xs-6">
+                  <img class="miniature" [src]="products.photo" alt="">
+                </div>
+                <div class="col-md-6 col-xs-6">
+                  <a  class="titleProduct" data-dismiss="modal"
+                  (click)="gotoDetail(products.id)">{{products.name}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

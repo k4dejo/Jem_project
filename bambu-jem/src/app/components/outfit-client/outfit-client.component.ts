@@ -4,6 +4,7 @@ import { ArticleService } from '../../services/article.service';
 import { OutfitService } from '../../services/outfit.service';
 import { Outfit } from '../../models/outfit';
 import { Article } from '../../models/article';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-outfit-client',
@@ -17,6 +18,8 @@ export class OutfitClientComponent implements OnInit {
   public outfitList;
   public productsOutfit: Array<Article>;
   public idOutfit;
+  public imgUrl = ImgUrl;
+  public showOutfitModal;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +27,7 @@ export class OutfitClientComponent implements OnInit {
     private productService: ArticleService,
     private outfitService: OutfitService
   ) {
+    // this.showOutfitModal = new Outfit(0, '', '', null);
   }
 
   /*getOutfitsList() {
@@ -56,11 +60,29 @@ export class OutfitClientComponent implements OnInit {
     this.outfitService.getAttachOutfit().subscribe(
       response => {
         this.outfitList = response.outfit;
-        console.log(response);
+        for (let i = 0; i < this.outfitList.length; ++i) {
+          // agrego formato a la imagen.
+          this.outfitList[i].photo = this.imgUrl.url + this.outfitList[i].photo;
+          this.showOutfitModal = this.outfitList[i];
+          for (let index = 0; index < this.outfitList[i].articles.length; index++) {
+            this.outfitList[i].articles[index].photo = this.imgUrl.url +this.outfitList[i].articles[index].photo;
+          }
+          console.log(this.outfitList);
+        }
       }, error => {
         console.log(<any> error);
       }
     );
+  }
+
+  showDataOutfit(outfit: any) {
+    this.showOutfitModal = outfit;
+    /*const lengthModal =  this.showOutfitModal.articles.length;
+    for (let i = 0; i < lengthModal; ++i) {
+      // agrego formato a la imagen.
+      this.showOutfitModal[i].articles.photo = this.imgUrl.url + this.showOutfitModal[i].articles.photo;
+    }
+    console.log(lengthModal);*/
   }
 
   gotoDetail(productId: any) {

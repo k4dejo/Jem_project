@@ -37,8 +37,6 @@ class ArticleController extends Controller
     {
         $articles = article::find($id);
         $arrayArticle = article::find($id)->sizes()->get();
-        /*$contents = Storage::get($articles->photo);
-        $articles->photo = base64_encode($contents);*/
         return response()->json(array(
             'articles' => $articles,
             'arraySizeArticle' => $arrayArticle,
@@ -49,9 +47,8 @@ class ArticleController extends Controller
     public function showForClients($id)
     {
         $articles = article::find($id);
+        //$arrayArticle = article::find($id)->first()->with('sizes');
         $arrayArticle = article::find($id)->sizes()->get();
-        //$contents = Storage::get($articles->photo);
-        //$articles->photo = base64_encode($contents);
         return response()->json(array(
             'articles' => $articles,
             'arraySizeArticle' => $arrayArticle,
@@ -125,8 +122,6 @@ class ArticleController extends Controller
 
 
     public function filterTagProduct($department, $gender, $tag) {
-        /*$productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $departent)->where('tags_id', $tag)->get();*/
         $productConcrete = article::where('gender', $gender)
         ->where('department', $department)->where('tags_id', $tag)->with('sizes')->paginate(12);
         $productCount = count($productConcrete);
@@ -138,8 +133,6 @@ class ArticleController extends Controller
     }
 
     public function getConcreteProduct($department, $gender) {
-        /*$productConcrete = DB::table('articles')->where('gender', $gender)
-        ->where('department', $department)->with('sizes')->get();*/
         $productConcrete = article::where('gender', $gender)
         ->where('department', $department)->with('sizes')->paginate(12);
         //$productCount = count($productConcrete);

@@ -55,11 +55,13 @@
                 ₡ {{product.priceMajor | number: '3.'}} (Envío dependerá del tamaño de la compra)
               </span>
             </h4>-->
-            <h4 class="p-stock"><span>Disponible</span></h4>
+            <h4 class="p-stock" *ngIf="totalStock > 3"><span>Disponible</span></h4>
+            <h4 class="p-stock" *ngIf="totalStock <= 3 && totalStock != 0"><span>¡Quedan pocas!</span></h4>
+            <h4 class="p-stock" *ngIf="totalStock == 0"><span>¡Agotado!</span></h4>
             <div class="fw-size-choose">
               <p>Talla</p>
               <div class="sc-item pc" *ngFor="let size of viewRelation">
-                <input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
+                <!--<input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <input disabled *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
                 <label aria-disabled="true" *ngIf="size.pivot.stock <= 0"
                 style="border-color: rgb(117, 117, 117);
@@ -70,6 +72,12 @@
                 <label style="font-weight: bold;
                 text-transform: uppercase;
                 font-size: 18px;" *ngIf="size.pivot.stock > 0"
+                for="{{size.size}}">{{size.size}}</label>-->
+                <input  type="radio" name="sc" id="{{size.size}}"
+                [value]="size.size" (click)="sizeAdd(size.size)">
+                <label style="font-weight: bold;
+                text-transform: uppercase;
+                font-size: 18px;"
                 for="{{size.size}}">{{size.size}}</label>
               </div>
             </div>

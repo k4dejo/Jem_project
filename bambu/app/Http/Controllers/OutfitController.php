@@ -18,7 +18,7 @@ class OutfitController extends Controller
        //listado de los outfits
         $outfits = outfit::all();
         $outfitCount = count($outfits);
-        if ($outfitCount <= 0) {
+        /*if ($outfitCount <= 0) {
             return response()->json(array(
                 'outfits' => $outfits,
                 'status'   => 'void'
@@ -32,7 +32,7 @@ class OutfitController extends Controller
         }else{
             $contents = Storage::get($outfits[0]->photo);
             $outfits[0]->photo = base64_encode($contents);
-        }
+        }*/
         return response()->json(array(
             'outfits' => $outfits,
             'status'  => 'success'
@@ -114,32 +114,42 @@ class OutfitController extends Controller
             }
             $imgDB = outfit::where('id', $id)->first();
             $lengthImg = strlen($params->photo);
-            if ($lengthImg <= 100) {
-                $img =  $params->file;
-                $img = str_replace('data:image/jpeg;base64,', '', $img);
-                $img = str_replace(' ', '+', $img);
+            $isWeb = explode(':', $params->file);
+            if ($isWeb[0] == 'http') {
                 $imgName = time() . $params->photo;
-                $paramsArray['photo'] = $imgName;
                 unset($paramsArray['id']);
                 unset($paramsArray['created_at']);
                 unset($paramsArray['file']);
-                Storage::delete($imgDB->photo);
-                Storage::disk('local')->put($imgName, base64_decode($img));
+                unset($paramsArray['photo']);
                 $outfit = outfit::where('id', $id)->update($paramsArray);
-            }else {
-                $route = public_path().'\catalogo'.'\/';
-                $imgRoute = str_replace('/', '', $route);
-                $imgRoute = $imgRoute . $paramsArray['photo'];
-                Storage::delete($imgDB->photo);
-                $paramsArray['photo'] = time() .'.jpg';
-                $img = $paramsArray['file'];
-                $img = str_replace('data:image/jpeg;base64,', '', $img);
-                $img = str_replace(' ', '+', $img);
-                unset($paramsArray['id']);
-                unset($paramsArray['created_at']);
-                unset($paramsArray['file']);
-                Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
-                $outfit = outfit::where('id', $id)->update($paramsArray);
+            } else {
+                if ($lengthImg <= 100) {
+                    $img =  $params->file;
+                    $img = str_replace('data:image/jpeg;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                    $imgName = time() . $params->photo;
+                    $paramsArray['photo'] = $imgName;
+                    unset($paramsArray['id']);
+                    unset($paramsArray['created_at']);
+                    unset($paramsArray['file']);
+                    Storage::delete($imgDB->photo);
+                    Storage::disk('local')->put($imgName, base64_decode($img));
+                    $outfit = outfit::where('id', $id)->update($paramsArray);
+                }else {
+                    $route = public_path().'\catalogo'.'\/';
+                    $imgRoute = str_replace('/', '', $route);
+                    $imgRoute = $imgRoute . $paramsArray['photo'];
+                    Storage::delete($imgDB->photo);
+                    $paramsArray['photo'] = time() .'.jpg';
+                    $img = $paramsArray['file'];
+                    $img = str_replace('data:image/jpeg;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                    unset($paramsArray['id']);
+                    unset($paramsArray['created_at']);
+                    unset($paramsArray['file']);
+                    Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                    $outfit = outfit::where('id', $id)->update($paramsArray);
+                }
             }
             $data = array(
                 'outfit' => $outfit,
@@ -186,9 +196,9 @@ class OutfitController extends Controller
                 $articleRes = $article->outfits;
             }
             //intentar traer el blob desde el controller
-            $contents = Storage::get($outfits[$i]->photo);
+            /*$contents = Storage::get($outfits[$i]->photo);
             $outfits[$i]->photo = base64_encode($contents);
-            $outfits[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents);
+            $outfits[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents);*/
         }
         return response()->json(array(
             'outfit' => $outfits,

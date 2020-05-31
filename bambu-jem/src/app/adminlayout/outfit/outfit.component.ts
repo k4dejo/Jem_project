@@ -147,7 +147,7 @@ export class OutfitComponent implements OnInit {
         this.outfitsView = response.outfits;
         for (let i = 0; i < this.outfitsView.length; ++i) {
           // agrego formato a la imagen.
-          this.outfitsView[i].photo = 'data:image/jpeg;base64,' + this.outfitsView[i].photo;
+          this.outfitsView[i].photo = this.imgUrl.url + this.outfitsView[i].photo;
         }
         console.log(this.outfitsView);
       }, error => {
@@ -215,6 +215,7 @@ export class OutfitComponent implements OnInit {
   saveAttachOutfit() {
     this.outfit.file = this.fileBlob;
     this.outfit.photo = this.outfit.name + 'photo';
+    console.log(this.outfit);
     this.outfitService.editOutfit(this.token, this.outfit, this.idOutfitAttach).subscribe(
       response => {
         console.log(response);
@@ -271,7 +272,7 @@ export class OutfitComponent implements OnInit {
     console.log(dataOutfit);
     this.outfitService.deleteOutfit(dataOutfit.id).subscribe(
       response => {
-        console.log(response);
+        this.getOutfits();
       }, error => {
         console.log(<any> error);
       }

@@ -86,6 +86,7 @@ export class ArticleDetailComponent implements OnInit {
     'Vestidos'
   ];
   public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
+  public totalStock = 0;
 
   constructor(
     private ProductService: ArticleService,
@@ -152,7 +153,7 @@ export class ArticleDetailComponent implements OnInit {
 
   getSingleProduct(ProductId: any) {
     // this.loading = true;
-    //this.ProductService.getProductU(ProductId).subscribe(
+    // this.ProductService.getProductU(ProductId).subscribe(
     this.ProductService.showForClients(ProductId).subscribe(
       response => {
         this.product = response.articles;
@@ -160,6 +161,8 @@ export class ArticleDetailComponent implements OnInit {
         this.getImageArray(product_id);
         this.getDepartmentView(this.product.gender.toString());
         this.product.photo = this.imgUrl.url + this.product.photo;
+        this.viewRelation = response.arraySizeArticle;
+        this.calculateDisponibility();
         this.fileBlob = this.product.photo;
         // this.loading = false;
         for (let e = 0; e < this.gender.length; e++) {
@@ -176,6 +179,19 @@ export class ArticleDetailComponent implements OnInit {
         console.log(<any>error);
       }
     );
+  }
+
+  calculateDisponibility() {
+    this.totalStock = 0;
+    for (let index = 0; index < this.viewRelation.length; index++) {
+      const sizeStock = this.viewRelation[index].pivot.stock;
+      if ( sizeStock === 0) {
+        this.viewRelation.splice(index, 1);
+      }
+      if (this.viewRelation.length !== 0) {
+        this.totalStock = this.totalStock + this.viewRelation[index].pivot.stock;
+      }
+    }
   }
 
   getImageArray(product_id) {
@@ -197,19 +213,19 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
-  getSizeProduct(idProduct: any) {
+  /*getSizeProduct(idProduct: any) {
     this.loading = true;
     this.sizeService.getSizeE(idProduct).subscribe(
       response => {
         // this.productViewU = response.getSizes;
         // this.attachSizeProduct = response;
-        this.viewRelation = response.getSizes;
+        // this.viewRelation = response.getSizes;
         this.loading = false;
       }, error => {
         console.log(<any> error);
       }
     );
-  }
+  }*/
 
   sizeAdd(dataSize: any) {
     this.attachPurchase.size = dataSize;
@@ -320,7 +336,6 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   attachProductPurchase() {
-    console.log(this.attachPurchase);
     this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       response => {
@@ -392,7 +407,7 @@ export class ArticleDetailComponent implements OnInit {
             if (response.amountCheck === 'void') {
               this.inventoryEmpty = true;
             }
-            //this.verifyPurchaseStatus();
+            // this.verifyPurchaseStatus();
           }
           console.log('inventoryEmpty: ' + this.inventoryEmpty);
         }, error => {
@@ -429,7 +444,6 @@ export class ArticleDetailComponent implements OnInit {
     this.purchaseService.showProductPurchase(this.token, this.identity.sub, idProNumber)
     .subscribe(
       response => {
-        console.log(response.status);
         if (response.status === 'success') {
           this.gotoCartBtn = true;
         } else if (response.status === 'void') {
@@ -493,7 +507,7 @@ export class ArticleDetailComponent implements OnInit {
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.validateOffer(this.IdProduct);
     this.getSingleProduct(this.IdProduct);
-    this.getSizeProduct(this.IdProduct);
+    // this.getSizeProduct(this.IdProduct);
     this.showProductPurchase();
     this.showFavorite();
     if (this.shop_id === 'J') {
