@@ -39,7 +39,7 @@ class imageController extends Controller
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $imgName = $params->id.'_'. time() . $params->name;
-            Storage::disk('local')->put($imgName, base64_decode($img));
+            Storage::disk('public')->put($imgName, base64_decode($img));
             $image = new image();
             $image->name       = $imgName;
             $image->article_id = $params->id;

@@ -73,7 +73,7 @@ class OutfitController extends Controller
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $imgName = time() . $params->photo;
-            Storage::disk('local')->put($imgName, base64_decode($img));
+            Storage::disk('public')->put($imgName, base64_decode($img));
             // guardar los datos
             $outfits = new outfit();
             $outfits->name  = $params->name;
@@ -115,7 +115,7 @@ class OutfitController extends Controller
             $imgDB = outfit::where('id', $id)->first();
             $lengthImg = strlen($params->photo);
             $isWeb = explode(':', $params->file);
-            if ($isWeb[0] == 'http') {
+            if ($isWeb[0] == 'https') {
                 $imgName = time() . $params->photo;
                 unset($paramsArray['id']);
                 unset($paramsArray['created_at']);
@@ -133,7 +133,7 @@ class OutfitController extends Controller
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
                     Storage::delete($imgDB->photo);
-                    Storage::disk('local')->put($imgName, base64_decode($img));
+                    Storage::disk('public')->put($imgName, base64_decode($img));
                     $outfit = outfit::where('id', $id)->update($paramsArray);
                 }else {
                     $route = public_path().'\catalogo'.'\/';
@@ -147,7 +147,7 @@ class OutfitController extends Controller
                     unset($paramsArray['id']);
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
-                    Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                    Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
                     $outfit = outfit::where('id', $id)->update($paramsArray);
                 }
             }

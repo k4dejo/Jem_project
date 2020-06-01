@@ -37,7 +37,7 @@ class clientController extends Controller
                     $imgName = time() . $params->photo;
                     $paramsArray['photo'] = $imgName;
                     Storage::delete($imgDB->photo);
-                    Storage::disk('local')->put($imgName, base64_decode($img));
+                    Storage::disk('public')->put($imgName, base64_decode($img));
 
                     //guardar cliente
                     $client_save = client::where('id', $id)->update([
@@ -58,7 +58,7 @@ class clientController extends Controller
                     $img = $paramsArray['file'];
                     $img = str_replace('data:image/jpeg;base64,', '', $img);
                     $img = str_replace(' ', '+', $img);
-                    Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                    Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
 
                     //guardar cliente
                     $client_save = client::where('id', $id)->update([
@@ -174,7 +174,7 @@ class clientController extends Controller
             /*$img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $imgName = time() . $params->photo;
-            Storage::disk('local')->put($imgName, base64_decode($img));*/
+            Storage::disk('public')->put($imgName, base64_decode($img));*/
 
 			$pwd = hash('sha256', $password);
 			$client->password = $pwd;

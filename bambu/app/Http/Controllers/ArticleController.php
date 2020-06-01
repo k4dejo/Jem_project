@@ -229,7 +229,7 @@ class ArticleController extends Controller
             $imgName = time() . $params->photo;
             // $resized_image = Image::make(base64_decode($img))->resize(500, 900)->stream('jpg', 90);
             $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-            Storage::disk('local')->put($imgName, $resized_image);
+            Storage::disk('public')->put($imgName, $resized_image);
             //guardar articulo
             $article = new article();
             $article->name         = $params->name;
@@ -314,7 +314,7 @@ class ArticleController extends Controller
                     unset($paramsArray['file']);
                     Storage::delete($imgDB->photo);
                     $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-                    Storage::disk('local')->put($imgName, $resized_image);
+                    Storage::disk('public')->put($imgName, $resized_image);
                     $article = article::where('id', $id)->update($paramsArray);
                 }else {
                     $route = public_path().'\catalogo'.'\/';
@@ -328,7 +328,7 @@ class ArticleController extends Controller
                     unset($paramsArray['id']);
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
-                    Storage::disk('local')->put($paramsArray['photo'], base64_decode($img));
+                    Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
                     $article = article::where('id', $id)->update($paramsArray);
                 }
             }

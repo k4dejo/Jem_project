@@ -82,7 +82,7 @@ class PurchaseController extends Controller
             $img = str_replace('data:image/jpeg;base64,', '', $img);
             $img = str_replace(' ', '+', $img);
             $imgName = time() . '.jpg';
-            Storage::disk('local')->put($imgName, base64_decode($img));
+            Storage::disk('public')->put($imgName, base64_decode($img));
             $ticket = new ticket();
             $ticket->ImgTicket = $imgName;
             $ticket->purcharse_id = $params->purchase_id;
