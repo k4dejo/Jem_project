@@ -70,10 +70,23 @@ export class ArticleService {
       {headers: headers});
     }
 
+    Onlydepart(gender, department): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'Onlydepart/' + gender + '/' + department,
+      {headers: headers});
+    }
+
     filterSizeProduct(department, gender, size, tagsId): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'filterSizeProduct/' + department + '/ ' + gender +
       '/' + size + '/' + tagsId,
+      {headers: headers});
+    }
+
+    filterSizeProductAdmin(department, gender, size): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'filterSizeProductAdmin/' + department + '/ ' + gender +
+      '/' + size,
       {headers: headers});
     }
 

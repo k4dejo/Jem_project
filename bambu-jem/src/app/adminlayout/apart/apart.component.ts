@@ -98,10 +98,10 @@ export class ApartComponent implements OnInit {
   public shipping = 0;
   public totalPrice = 0;
   public totalWeight = 0;
-  public rateGAM = 1760;
-  public addGAM = 850;
-  public restRate = 2220;
-  public restAdd = 990;
+  public rateGAM = 2200;
+  public addGAM = 1000;
+  public restRate = 2800;
+  public restAdd = 1200;
   public splite;
   public idCleanApart: string;
   public PronviJson: string[] = [];

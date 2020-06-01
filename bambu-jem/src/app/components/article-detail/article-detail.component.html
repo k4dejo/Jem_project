@@ -90,9 +90,16 @@
               </div>
             </div>
             <div class="addCart">
-              <a (click)="addProductCart()" class="site-btn">
-                agregar al carrito</a>
-              <input (click)="addProductCart()" type="button"
+              <a *ngIf="totalStock != 0" (click)="addProductCart()" class="site-btn">
+                agregar al carrito
+              </a>
+              <a style="cursor: no-drop;" *ngIf="totalStock === 0" class="site-btn">
+                agregar al carrito
+              </a>
+              <input *ngIf="totalStock != 0" (click)="addProductCart()" type="button"
+              style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;"
+              value="agregar al carrito" class="btn btn--pill btnMobile">
+              <input *ngIf="totalStock === 0" disabled (click)="addProductCart()" type="button"
               style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;"
               value="agregar al carrito" class="btn btn--pill btnMobile">
               <div class="heart" (click)="like()">

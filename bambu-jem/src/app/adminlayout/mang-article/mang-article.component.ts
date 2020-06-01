@@ -132,6 +132,14 @@ export class MangArticleComponent implements OnInit {
   public viewPhoto;
   public imgResultBeforeCompress: string;
   public imgResultAfterCompress: string;
+  public sizesList;
+  public dptSearch;
+  public genderSearch;
+  public newStateDpt;
+  public newStateGender;
+  public preStateDpt;
+  public preStateGender;
+  public newStateSize;
 
   constructor(
     private route: ActivatedRoute,
@@ -398,6 +406,97 @@ export class MangArticleComponent implements OnInit {
     );
   }
 
+  // =======================================SEARCHING_FILTERS==============================================
+
+  cleanFilter() {
+    this.newStateDpt = 0;
+    this.newStateGender = 0;
+    this.newStateSize = 0;
+    this.getProductView();
+  }
+
+
+  getOnlyGender(gender: any) {
+    this.loading = true;
+    this.productService.getProductGender(gender).subscribe(
+      response => {
+        this.productView = response.articles;
+        this.addPhotoProductList();
+        this.loading = false;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  getOnlydpt(gender, dtp) {
+    this.loading = true;
+    this.productService.Onlydepart(gender, dtp).subscribe(
+      response => {
+        this.productView = response.articles;
+        this.addPhotoProductList();
+        this.loading = false;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  pushGenderSearch(genderParam: any) {
+    if (genderParam !== undefined) {
+     this.genderSearch = genderParam.toString();
+     this.preStateGender = this.newStateGender;
+     this.newStateGender = genderParam;
+     this.getOnlyGender(this.genderSearch);
+      this.getDepartment();
+    }
+  }
+
+  pushDepartSearch(departmentParam: any) {
+    if (departmentParam !== undefined) {
+      this.dptSearch = departmentParam.toString();
+      this.preStateDpt = this.newStateDpt;
+      this.newStateDpt = departmentParam;
+      this.getOnlydpt(this.genderSearch, departmentParam);
+      this.getSizesForDepartment(this.genderSearch, this.dptSearch);
+    }
+  }
+
+  selectedOptionDpt(option) {
+    return this.newStateDpt === option;
+  }
+
+  selectedOptionGender(option) {
+    return this.newStateGender === option;
+  }
+
+  selectedOptionSizes(option) {
+    return this.newStateSize === option;
+  }
+
+  getSizesForDepartment(gender, department) {
+    this.sizeService.getSizesForDepart(gender, department).subscribe(
+      response => {
+        this.sizesList = response.getSizesDeparment;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  filterSizeProduct(e: any) {
+    this.newStateSize = e;
+    this.productService.filterSizeProductAdmin(this.dptSearch, this.genderSearch, e).subscribe(
+      response => {
+        this.productView = response.filter;
+        this.addPhotoProductList();
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  // ==================================================================================
   addProductService(token, product, form) {
     this.productService.add(token, product).subscribe(
       response => {
@@ -411,9 +510,9 @@ export class MangArticleComponent implements OnInit {
           }
           this.attachSizesProduct(this.attachSizeProduct);
           // vaciar formulario
-          this.product = new Article('', '', '', 0, 0, 0, 
+          this.product = new Article('', '', '', 0, 0, 0,
           0, '', null, '', 0, '', '');
-          //this.gender = []; 
+          // his.gender = [];
           this.department = [];
           this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
@@ -507,6 +606,25 @@ export class MangArticleComponent implements OnInit {
     });
   }
 
+  addPhotoProductList() {
+    for (let i = 0; i < this.productView.length; ++i) {
+      // agrego formato a la imagen.
+      this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
+      const photoView = this.productView[i].photo;
+      this.getDepartmentView(this.productView[i].gender.toString());
+      for (let index = 0; index < this.gender.length; index++) {
+        if (this.productView[i].gender.toString() === this.gender[index].id) {
+          this.productView[i].gender = this.gender[index].name;
+        }
+      }
+      for (let indexD = 0; indexD < this.department.length; indexD++) {
+        if (this.productView[i].department.toString() === this.department[indexD].id) {
+          this.productView[i].department = this.department[indexD].name;
+        }
+      }
+    }
+  }
+
 
   getProductView() {
     this.loading = true;
@@ -515,7 +633,8 @@ export class MangArticleComponent implements OnInit {
         if (response.status === 'success') {
           this.productView = response.articles;
           this.statusBool = true;
-          for (let i = 0; i < this.productView.length; ++i) {
+          this.addPhotoProductList();
+          /*for (let i = 0; i < this.productView.length; ++i) {
             // agrego formato a la imagen.
             this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
             const photoView = this.productView[i].photo;
@@ -530,7 +649,7 @@ export class MangArticleComponent implements OnInit {
                 this.productView[i].department = this.department[indexD].name;
               }
             }
-          }
+          }*/
           this.loading = false;
         } else {
           this.productView = response.articles;
@@ -618,7 +737,6 @@ export class MangArticleComponent implements OnInit {
     } else {
       this.adminService.authAdmin(this.identity).subscribe(
         response => {
-          console.log(response);
           if (response.status !== 'admin') {
             this.router.navigate(['LoginAdmin']);
           }

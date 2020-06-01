@@ -92,6 +92,25 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    public function filterSizeProductAdmin($department, $gender, $size) {
+        $size2 = $size;
+        $filter = article::whereHas('sizes', function($q) use ($size) {
+            $q->where('size', '=', $size);
+        })->where('gender', '=', $gender)
+        ->where('department', '=', $department)->with('sizes')->get();
+        $productCount = count($filter);
+        if ($productCount <= 0) {
+            return response()->json(array(
+                'filter' => $filter,
+                'status'   => 'void'
+            ), 200);
+        }
+        return response()->json(array(
+            'filter'   => $filter,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function filterSizeProduct($department, $gender, $size, $tagsId) {
         $size2 = $size;
         if ($tagsId != 0) {
@@ -149,6 +168,17 @@ class ArticleController extends Controller
         return response()->json(array(
             'articles' => $productListEloquent,
             'NextPaginate' => $productListEloquent->nextPageUrl(),
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function Onlydepart($gender, $department) {
+        //$dptGet = article::where('gender', $gender)->where('department', $department)->get();
+        $dptGet = DB::table('articles')->where('department', $department)
+        ->get();
+        return response()->json(array(
+            'articles' => $dptGet,
+            'department' => $department,
             'status'   => 'success'
         ), 200);
     }

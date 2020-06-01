@@ -184,7 +184,53 @@
         <h2 class="title">Lista de producto</h2>
       </div>
       <div class="card-body">
-        <div class="search-product">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="genderSearch">
+                  <div class="selectWrapper">
+                    <select  name="genderSelect" id="SelectSearch" class="selectpicker"
+                    (change)="pushGenderSearch($event.target.value)" name="gender">
+                      <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
+                      <option *ngFor="let gen of gender" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
+                        {{gen.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="dptSearch">
+                  <div class="selectWrapper">
+                    <select name="department" id="SelectSearch"
+                    (change)="pushDepartSearch($event.target.value)" class="custom-select"
+                    name="department">
+                      <option disabled="disabled" [selected]='!newStateDpt'>--Departamento--</option>
+                      <option *ngFor="let dpt of department" [value]="dpt.id" [selected]="selectedOptionDpt(dpt.id)">
+                        {{dpt.name}}
+                      </option>
+                    </select>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="selectWrapper">
+              <select (change)="filterSizeProduct($event.target.value)" name="" id="">
+                <option [selected]='!newStateSize'>-- Tallas --</option>
+                <option *ngFor="let size of sizesList" [value]="size.size"
+                [selected]="selectedOptionSizes(size.id)">{{size.size}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-primary" (click)="cleanFilter()"> Restablecer
+            </button>
+          </div>
+        </div>
+        <div class="search-product" style="margin-top: 5%;">
           <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
             placeholder=" &#61442; Buscar...">
         </div>

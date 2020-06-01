@@ -678,7 +678,6 @@ export class ArticleComponent implements OnInit {
     this.sizesService.getSizesForDepart(gender, department).subscribe(
       response => {
         this.sizesList = response.getSizesDeparment;
-        console.log(this.sizesList);
       }, error => {
         console.log(<any> error);
       }

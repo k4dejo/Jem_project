@@ -55,10 +55,10 @@ export class ShoppingCartComponent implements OnInit {
   public totalPrice = 0;
   public totalWeight = 0;
   public shipping = 0;
-  public rateGAM = 1760;
-  public addGAM = 850;
-  public restRate = 2220;
-  public restAdd = 990;
+  public rateGAM = 2200;
+  public addGAM = 1000;
+  public restRate = 2800;
+  public restAdd = 1200;
   public countAmountP: number;
   public splite;
   public testProduct;
@@ -316,7 +316,7 @@ export class ShoppingCartComponent implements OnInit {
               if (response.AddressPurchase !== 'void') {
                 this.addressPurchase = response.AddressPurchase;
                 this.viewAddressBool = true;
-                this.splite = this.addressPurchase.address.split(','); 
+                this.splite = this.addressPurchase.address.split(',');
                 this.viewAddress(this.splite[0] , this.splite[1]);
                 this.calculateWeight();
               } else {
@@ -379,7 +379,7 @@ export class ShoppingCartComponent implements OnInit {
               }
               // this.addressPurchase = response.AddressPurchase;
               this.viewAddressBool = true;
-              this.splite = this.addressPurchase.address.split(','); 
+              this.splite = this.addressPurchase.address.split(',');
               // this.viewAddress(this.splite[0] , this.splite[1]);
               this.calculateWeight();
             // tslint:disable-next-line:no-shadowed-variable
@@ -500,6 +500,7 @@ export class ShoppingCartComponent implements OnInit {
           }
           this.getPurchases();
         }
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }

@@ -92,6 +92,10 @@ export class FactuComponent implements OnInit {
   public date: string;
   public day;
   public month;
+  public rateGAM = 2200;
+  public addGAM = 1000;
+  public restRate = 2800;
+  public restAdd = 1200;
 
   constructor(
     private router: Router,

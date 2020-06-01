@@ -136,7 +136,9 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('showPhotoProduct/{id}', 'ArticleController@showPhotoProduct');
    Route::get('showForClients/{id}', 'ArticleController@showForClients');
    Route::get('getListProduct/{id}/{gender}', 'ArticleController@getListProduct');
+   Route::get('Onlydepart/{gender}/{department}', 'ArticleController@Onlydepart');
    Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
+   Route::get('filterSizeProductAdmin/{department}/{gender}/{size}', 'ArticleController@filterSizeProductAdmin');
    Route::get('filterSizeProduct/{department}/{gender}/{size}/{tagsId}', 'ArticleController@filterSizeProduct');
    /*tags*/
    Route::post('storeTag', 'tagController@store');
