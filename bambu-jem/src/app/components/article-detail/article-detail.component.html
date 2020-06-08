@@ -11,13 +11,6 @@
     <div class="col-lg-12 catalogue">
       <div class="container">
         <h1>Información de producto</h1>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
-            <li class="breadcrumb-item"><a (click)="gotoBack()">{{product.department}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
-          </ol>
-        </nav>
       </div>
     </div>
     <div id="myModal" class="modal">
@@ -30,15 +23,39 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
-              <img class="prinImg" [src]="product.photo" alt="">
-            </a>
-            <div class="gallery">
+            <div class="mobileView">
               <div class="row">
-                <div class="product-thumbs" style="overflow: hidden;">
-                  <div class="product-thumbs-track" *ngFor="let img of fileNpm">
-                    <div class="pt" (click)="changeImg(img.name, img.id)">
-                      <img class="img-responsive imageStyle" [src]="img.name" alt="">
+                <div class="col-md-10 col-xs-10 col-s-10">
+                  <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
+                    <img class="prinImg" [src]="product.photo" alt="">
+                  </a>
+                </div>
+                <div class="col-md-2 col-xs-2 col-s-2">
+                  <div class="gallery">
+                    <div class="row">
+                      <div class="product-thumbs" style="overflow: hidden;">
+                        <div class="product-thumbs-track" *ngFor="let img of fileNpm">
+                          <div class="pt" (click)="changeImg(img.name, img.id)">
+                            <img class="img-responsive imageStyle" [src]="img.name" alt="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pcView">
+              <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
+                <img class="prinImg" [src]="product.photo" alt="">
+              </a>
+              <div class="gallery">
+                <div class="row">
+                  <div class="product-thumbs" style="overflow: hidden;">
+                    <div class="product-thumbs-track" *ngFor="let img of fileNpm">
+                      <div class="pt" (click)="changeImg(img.name, img.id)">
+                        <img class="img-responsive imageStyle" [src]="img.name" alt="">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -46,39 +63,46 @@
             </div>
           </div>
           <div class="col-lg-6 product-details">
-            <h2 class="p-title">{{product.name}}</h2>
-            <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}}</h3>
-            <h4 *ngIf="offerBool" style="color: grey; font-weight: bold;"><del>₡ {{product.pricePublic | number: '3.'}}</del></h4>
-            <!--<h3 *ngIf="offerBool" class="p-price">₡ {{offer.offer | number: '3.'}} <span class="p-stock"
-            style="color: grey">+ Envio gratis</span></h3>
-            <h4 class="p-stock">Precio al por mayor: <span style="color: grey">
-                ₡ {{product.priceMajor | number: '3.'}} (Envío dependerá del tamaño de la compra)
-              </span>
-            </h4>-->
-            <h4 class="p-stock" *ngIf="totalStock > 3"><span>Disponible</span></h4>
-            <h4 class="p-stock" *ngIf="totalStock <= 3 && totalStock != 0"><span>¡Quedan pocas!</span></h4>
-            <h4 class="p-stock" *ngIf="totalStock == 0"><span>¡Agotado!</span></h4>
-            <div class="fw-size-choose">
-              <p>Talla</p>
-              <div class="sc-item pc" *ngFor="let size of viewRelation">
-                <!--<input type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
-                <input disabled *ngIf="size.pivot.stock <= 0" disabled type="radio" name="sc" id="{{size.size}}" [value]="size.size" (click)="sizeAdd(size.size)">
-                <label aria-disabled="true" *ngIf="size.pivot.stock <= 0"
-                style="border-color: rgb(117, 117, 117);
-                color: rgb(131, 130, 130);
-                font-weight: bold; font-size: 18px; cursor:no-drop;
-                text-transform: uppercase;"
-                for="{{size.size}}">{{size.size}}</label>
-                <label style="font-weight: bold;
-                text-transform: uppercase;
-                font-size: 18px;" *ngIf="size.pivot.stock > 0"
-                for="{{size.size}}">{{size.size}}</label>-->
-                <input  type="radio" name="sc" id="{{size.size}}"
-                [value]="size.size" (click)="sizeAdd(size.size)">
-                <label style="font-weight: bold;
-                text-transform: uppercase;
-                font-size: 18px;"
-                for="{{size.size}}">{{size.size}}</label>
+            <div class="infoMobile">
+              <h2 class="p-title">{{product.name}}</h2>
+              <div class="fw-size-choose">
+                <h3>Talla</h3>
+                <ul class="ulProductCard">
+                  <li style="display: inline-table;" *ngFor="let size of viewRelation">
+                    <h5 style="margin-right: 8px;">
+                      <input type="button" class="btn btn--pill btn--pink"
+                      [value]="size.size" (click)="sizeAdd(size.size)">
+                    </h5>
+                  </li>
+                </ul>
+                <!--<div class="sc-item pc" *ngFor="let size of viewRelation">
+                  <input  type="radio" name="sc" id="{{size.size}}"
+                  [value]="size.size" (click)="sizeAdd(size.size)">
+                  <label style="font-weight: bold;
+                  text-transform: uppercase;
+                  font-size: 18px;"
+                  for="{{size.size}}">{{size.size}}</label>
+                </div>-->
+              </div>
+            </div>
+            <div class="infoPc">
+              <h2 class="p-title">{{product.name}}</h2>
+              <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}}</h3>
+              <h4 *ngIf="offerBool" style="color: grey; font-weight: bold;"><del>₡ {{product.pricePublic | number: '3.'}}</del></h4>
+              <h4 class="p-stock" *ngIf="totalStock > 3"><span>Disponible</span></h4>
+              <h4 class="p-stock" *ngIf="totalStock === 1"><span>¡Queda una!</span></h4>
+              <h4 class="p-stock" *ngIf="totalStock <= 3 && totalStock != 0 && totalStock != 1"><span>¡Quedan pocas!</span></h4>
+              <h4 class="p-stock" *ngIf="totalStock == 0"><span>¡Agotado!</span></h4>
+              <div class="fw-size-choose">
+                <p>Talla</p>
+                <ul class="ulProductCard">
+                  <li style="display: inline-table;" *ngFor="let size of viewRelation">
+                    <h5 style="margin-right: 8px;">
+                      <input type="button" class="btn btn--pill btn--pink"
+                      [value]="size.size" (click)="sizeAdd(size.size)">
+                    </h5>
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="quantity">
@@ -88,6 +112,9 @@
                 <input type="text" value="{{valueQtyBtn}}">
                 <span (click)="incQty()" class="inc qtybtn">+</span>
               </div>
+            </div>
+            <div class="infoMobile">
+              <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}}</h3>
             </div>
             <div class="addCart">
               <a *ngIf="totalStock != 0" (click)="addProductCart()" class="site-btn">
@@ -109,8 +136,9 @@
                     fill-rule="evenodd" clip-rule="evenodd" />
                 </svg>
               </div>
-              <h4 *ngIf="NotifyUser" class="notifyAlert p-stock"><span>Inicia sesión para dar like</span></h4>
-              <h4 *ngIf="NotifySuccess" class="notifyAlert p-success"><span>Producto añadido al carrito</span></h4>
+              <!--<h4 *ngIf="NotifyUser" class="notifyAlert p-stock">
+                <span>Inicia sesión para dar like</span>
+              </h4>-->
               <h4 *ngIf="isClient" class="notifyAlert p-success">
                 <span>Necesitas iniciar sesión antes de añadir una prenda</span>
               </h4>
@@ -130,19 +158,6 @@
                   </div>
                 </div>
               </div>
-              <!--<div class="panel">
-                <div class="panel-header" id="headingTwo">
-                  <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false"
-                    aria-controls="collapse2">Cuidados de la prenda <i class="fas fa-chevron-down"></i>
-                  </button>
-                </div>
-                <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                  <div class="panel-body">
-                    <img src="./img/cards.png" alt="">
-                    <p>Toda la mercadería que vendemos es original, no hay imitaciones para su tranquilidad..</p>
-                  </div>
-                </div>
-              </div>-->
               <div class="panel">
                 <div class="panel-header" id="headingThree">
                   <button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false"

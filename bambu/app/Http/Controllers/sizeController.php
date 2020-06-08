@@ -227,8 +227,8 @@ class sizeController extends Controller
         $imgRoute = str_replace('/', '', $route);
         $imgRoute = $imgRoute . $article->photo;
         Storage::delete($article->photo);
+        //Storage::disk('public')->delete($article->photo');
         $article->delete();
-        // return
         $data = array(
             'article' => $article,
             'status'  => 'Delete success',

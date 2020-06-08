@@ -486,6 +486,11 @@ export class MangArticleComponent implements OnInit {
 
   filterSizeProduct(e: any) {
     this.newStateSize = e;
+    const sizesTem = e.split('/');
+    if (sizesTem.length >= 2) {
+      const sendSizes = sizesTem[0] + '-' + sizesTem[1];
+      e = sendSizes;
+    }
     this.productService.filterSizeProductAdmin(this.dptSearch, this.genderSearch, e).subscribe(
       response => {
         this.productView = response.filter;

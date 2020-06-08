@@ -32,6 +32,10 @@
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               <span>{{purchaselenght}}</span>
             </div>
+            <!--<form id="content" (click)="displaySearch()">
+              <input type="text" name="input" class="input" id="search-input">
+              <button style="color: rgb(34, 32, 32);" type="reset" class="search" id="search-btn"></button>
+            </form>-->
             <div class="dropdown-menu">
               <ul class="dropdown-user">
                 <li>
@@ -59,7 +63,7 @@
                   <a (click)="gotoCart()">Carrito</a>
                 </li>
                 <li role="separator" class="divider"></li>
-                <li><a (click)="logout()" href="/Home/BJem"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
+                <li><a (click)="logout()"><i class="fa fa-power-off"></i> Cerrar Sesión</a></li>
               </ul>
             </div>
           </div>

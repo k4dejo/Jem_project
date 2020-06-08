@@ -20,6 +20,7 @@ export class OutfitClientComponent implements OnInit {
   public idOutfit;
   public imgUrl = ImgUrl;
   public showOutfitModal;
+  public loading;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,9 +58,12 @@ export class OutfitClientComponent implements OnInit {
   }*/
 
   getOutfitsList() {
+    this.loading = true;
     this.outfitService.getAttachOutfit().subscribe(
       response => {
         this.outfitList = response.outfit;
+        this.loading = false;
+        console.log(this.loading);
         for (let i = 0; i < this.outfitList.length; ++i) {
           // agrego formato a la imagen.
           this.outfitList[i].photo = this.imgUrl.url + this.outfitList[i].photo;
@@ -67,7 +71,6 @@ export class OutfitClientComponent implements OnInit {
           for (let index = 0; index < this.outfitList[i].articles.length; index++) {
             this.outfitList[i].articles[index].photo = this.imgUrl.url +this.outfitList[i].articles[index].photo;
           }
-          console.log(this.outfitList);
         }
       }, error => {
         console.log(<any> error);

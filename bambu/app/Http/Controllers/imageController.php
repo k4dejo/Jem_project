@@ -100,6 +100,7 @@ class imageController extends Controller
         $imgRoute = str_replace('/', '', $route);
         $imgRoute = $imgRoute . $img->name;
         Storage::delete($img->name);
+        //Storage::disk('public')->delete($article->photo);
         $img->delete();
         $data = array(
             'images' => $img,

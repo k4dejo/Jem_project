@@ -31,18 +31,6 @@
               </a>
             </div>
           </div>
-          <!--<div class="content">
-            <div class="content-overlay"></div>
-            <img class="content-image img-fluid d-block mx-auto" [src]="outfit.photo" alt="">
-            <div class="content-details fadeIn-bottom">
-              <div class="bottom d-flex align-items-center justify-content-center">
-                <a data-toggle="modal" (click)="showDataOutfit(outfit)" data-target="#outfitModal"><i class="fas fa-search"></i></a>
-              </div>
-            </div>
-            <div class="price">
-              <h5>{{outfit.name}}</h5>
-            </div>
-          </div>-->
         </div>
       </div>
     </section>
@@ -61,7 +49,7 @@ aria-hidden="true">
           <div class="col-md-6 col-xs-6 col-s-6">
             <!--<img class="content-image img-fluid d-block mx-auto"
             [src]="showOutfitModal.photo" alt="">-->
-            <img class="img-responsive" [src]="showOutfitModal.photo" alt="">
+            <img loading="lazy" ngClass="lazyload" class="img-responsive" [src]="showOutfitModal.photo" alt="">
           </div>
           <div class="col-md-6 col-xs-6 col-s-6">
             <div *ngFor="let products of showOutfitModal.articles">
@@ -81,3 +69,4 @@ aria-hidden="true">
     </div>
   </div>
 </div>
+<div *ngIf="loading" class="loading">Loading&#8230;</div>

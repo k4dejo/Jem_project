@@ -94,6 +94,11 @@ class ArticleController extends Controller
 
     public function filterSizeProductAdmin($department, $gender, $size) {
         $size2 = $size;
+        $isWeb = explode('-', $size);
+        $countSizes = count($isWeb);
+        if($countSizes > 1) {
+          $size = $isWeb[0] . '/' . $isWeb[1];
+        }
         $filter = article::whereHas('sizes', function($q) use ($size) {
             $q->where('size', '=', $size);
         })->where('gender', '=', $gender)
@@ -173,9 +178,8 @@ class ArticleController extends Controller
     }
 
     public function Onlydepart($gender, $department) {
-        //$dptGet = article::where('gender', $gender)->where('department', $department)->get();
-        $dptGet = DB::table('articles')->where('department', $department)
-        ->get();
+        $dptGet = article::where('gender', $gender)->where('department', $department)->get();
+        // $dptGet = DB::table('articles')->where('department', $department)->get();
         return response()->json(array(
             'articles' => $dptGet,
             'department' => $department,

@@ -54,6 +54,7 @@ export class NavbarJComponent implements OnInit {
     this.loading = true;
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
+    this.identity = null;
     if (this.identity === null) {
       this.loading = false;
     }
@@ -130,7 +131,6 @@ export class NavbarJComponent implements OnInit {
           this.clientPhoto = this.imgUrl.url + response.clientPhoto;
           this.imgBoolUser = false;
         }
-        console.log(response);
       }, error => {
         console.log(<any> error);
       }
@@ -170,6 +170,16 @@ export class NavbarJComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  displaySearch() {
+    const input = document.getElementById("search-input");
+    const searchBtn = document.getElementById("search-btn");
+    const expand = () => {
+      searchBtn.classList.toggle("close");
+      input.classList.toggle("square");
+    };
+    searchBtn.addEventListener("click", expand);
   }
 
   ngOnInit() {

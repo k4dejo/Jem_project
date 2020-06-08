@@ -87,6 +87,7 @@ export class ArticleDetailComponent implements OnInit {
   ];
   public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
   public totalStock = 0;
+  public productGallery = [];
 
   constructor(
     private ProductService: ArticleService,
@@ -152,7 +153,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getSingleProduct(ProductId: any) {
-    // this.loading = true;
+    this.loading = true;
     // this.ProductService.getProductU(ProductId).subscribe(
     this.ProductService.showForClients(ProductId).subscribe(
       response => {
@@ -161,10 +162,11 @@ export class ArticleDetailComponent implements OnInit {
         this.getImageArray(product_id);
         this.getDepartmentView(this.product.gender.toString());
         this.product.photo = this.imgUrl.url + this.product.photo;
+        this.productGallery.push(this.product.photo);
         this.viewRelation = response.arraySizeArticle;
         this.calculateDisponibility();
         this.fileBlob = this.product.photo;
-        // this.loading = false;
+        this.loading = false;
         for (let e = 0; e < this.gender.length; e++) {
           if (this.product.gender.toString() === this.gender[e].id) {
             this.product.gender = this.gender[e].name;
@@ -205,6 +207,7 @@ export class ArticleDetailComponent implements OnInit {
           this.fileNpm[i].name = this.imgUrl.url + this.fileNpm[i].name;
           this.fileData = new File([this.fileNpm[i].name], 'file_name', {lastModified: 1534584790000});
           this.fileView.push(this.fileData);
+          this.productGallery.push(this.fileNpm[i].name);
         }
       },
       error => {
@@ -213,27 +216,11 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
-  /*getSizeProduct(idProduct: any) {
-    this.loading = true;
-    this.sizeService.getSizeE(idProduct).subscribe(
-      response => {
-        // this.productViewU = response.getSizes;
-        // this.attachSizeProduct = response;
-        // this.viewRelation = response.getSizes;
-        this.loading = false;
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }*/
-
   sizeAdd(dataSize: any) {
     this.attachPurchase.size = dataSize;
-    console.log(this.attachPurchase.size);
   }
 
   like() {
-    console.log(this.identity);
     if (this.identity) {
       this.NotifyUser = false;
       const clickBtn = document.querySelector('.heart');
@@ -266,6 +253,7 @@ export class ArticleDetailComponent implements OnInit {
       }
     } else {
       this.NotifyUser = true;
+      this.toast(5);
       this.startTimer();
     }
   }
@@ -342,6 +330,8 @@ export class ArticleDetailComponent implements OnInit {
         if (response.status === 'success') {
           this.gotoCartBtn = true;
           this.NotifySuccess = true;
+          this.toast(1);
+          this.loading = false;
           this.startTimerSucess();
         } else {
           this.NotifySuccess = false;
@@ -351,6 +341,73 @@ export class ArticleDetailComponent implements OnInit {
       }
     );
   }
+
+  //=====================================TOAST================================================
+  toast(numberBool: any) {
+    switch (numberBool) {
+      case 1:
+        this.showSuccessAddCart();
+      break;
+      case 2:
+        this.showInfo();
+      break;
+      case 3:
+        this.showError();
+      break;
+      case 4:
+        this.showEmptyInventory();
+      break;
+      case 5:
+        this.showNotifyLike();
+      break;
+      default:
+        break;
+    }
+  }
+
+  showSuccessAddCart() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Se ha añadido a tu carrito', 'Producto agregado', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showInfo() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('La prenda se ha eliminado de la lista de deseos',
+    'Aviso', {
+      timeOut: 4000,
+      progressBar: true
+    });
+  }
+
+  showNotifyLike() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('Inicia sesión para da añadir a favoritos',
+    'Aviso', {
+      timeOut: 4000,
+      progressBar: true
+    });
+  }
+
+  showError() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('Necesitas iniciar sesión para hacer eso',
+    'Alerta', {
+      timeOut: 4000,
+      progressBar: true
+    });
+  }
+
+  showEmptyInventory() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('Lo sentimos el producto ya no esta disponible en esa talla', 'Producto Agotado', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+  //==========================================================================================
 
   startTimerSucess() {
     this.timeLeft = 5;
@@ -372,6 +429,7 @@ export class ArticleDetailComponent implements OnInit {
       this.productCart.status = 'incomplete';
       this.productCart.coupon_id = 0;
       this.productCart.shipping = 0;
+      this.loading = true;
       if (this.offerBool) {
         this.productCart.price = this.offer.offer * this.valueQtyBtn;
       } else {
@@ -406,16 +464,14 @@ export class ArticleDetailComponent implements OnInit {
           } else {
             if (response.amountCheck === 'void') {
               this.inventoryEmpty = true;
+              this.toast(4);
             }
-            // this.verifyPurchaseStatus();
           }
           console.log('inventoryEmpty: ' + this.inventoryEmpty);
         }, error => {
           console.log(<any> error);
         }
       );
-
-      // this.verifyPurchaseStatus();
     } else {
       this.isClient = true;
       this.startTimerSucess();
@@ -507,7 +563,6 @@ export class ArticleDetailComponent implements OnInit {
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.validateOffer(this.IdProduct);
     this.getSingleProduct(this.IdProduct);
-    // this.getSizeProduct(this.IdProduct);
     this.showProductPurchase();
     this.showFavorite();
     if (this.shop_id === 'J') {

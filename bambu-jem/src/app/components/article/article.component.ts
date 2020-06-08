@@ -221,6 +221,7 @@ export class ArticleComponent implements OnInit {
     this.p = event;
     this.ProductService.getPaginateProduct(this.pageChange).subscribe(
       response => {
+        window.scroll(0,0);
         this.products = response.articles.data;
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
@@ -260,6 +261,7 @@ export class ArticleComponent implements OnInit {
 
   like(product: any) {
     console.log(product);
+    this.verifyClient();
     if (this.identity) {
       const clickBtn = document.querySelector('.heart');
       this.favorite.clientId = this.identity.sub;
@@ -392,6 +394,7 @@ export class ArticleComponent implements OnInit {
   }
 
   gotoDetail(productId: any) {
+    window.scroll(0,0);
     const link = '/Home/producto/detalle/';
     if (this.pageChange === undefined) {
       const firtPage = this.urlPaginate.split('=');
@@ -417,6 +420,7 @@ export class ArticleComponent implements OnInit {
     this.p = 1;
     this.getSizesForDepartment(gender, dtp);
     this.getProduct(dtp, gender);
+    this.getTags(gender, dtp);
   }
 
   downloadImg(imgProduct: any) {
@@ -476,7 +480,6 @@ export class ArticleComponent implements OnInit {
           this.genderView = this.products[index].gender;
           this.DepartmentView = this.products[index].department;
         }*/
-        console.log(this.products);
       }, error => {
         console.log(<any>error);
       }
@@ -509,23 +512,14 @@ export class ArticleComponent implements OnInit {
     );
   }
 
-  getTags() {
-    this.ProductService.getAllTag().subscribe(
+  getTags(gender, department) {
+    this.ProductService.getTagsForDeparment(gender, department).subscribe(
       response => {
-        this.tags = response.tag;
+        this.tags = response.getTagDeparment;
       }, error => {
         console.log(<any> error);
       }
     );
-    /*const department = this.route.snapshot.params['dpt'];
-    const gender = this.route.snapshot.params['gender'];
-    this.ProductService.getTagsForDeparment(gender, department).subscribe(
-      response => {
-        console.log(response.getTagDeparment);
-      }, error => {
-        console.log(<any> error);
-      }
-    );*/
 
   }
 
@@ -546,6 +540,13 @@ export class ArticleComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  //==========================================VERIFY_IDENTITY_CLIENT====================================================
+
+  verifyClient() {
+    this.token = this.clientService.getToken();
+    this.identity = this.clientService.getIdentity();
   }
 
   // ===================================ADD_SHOPPING_CART=======================================
@@ -594,6 +595,7 @@ export class ArticleComponent implements OnInit {
   }
 
   savePurchase() {
+    this.verifyClient();
     this.purchaseService.addNewPurchase(this.token, this.productCart).subscribe(
       response => {
         this.attachPurchase.purchase_id = response.purchase.id;
@@ -630,6 +632,7 @@ export class ArticleComponent implements OnInit {
   }
 
   addProductCart(productObject: any) {
+    this.verifyClient();
     if (this.identity != null) {
       this.isClient = false;
       this.productCart.clients_id = this.identity.sub;
@@ -686,10 +689,10 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.getGender();
-    this.getTags();
     this.shop_id = this.route.snapshot.params['shopId'];
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
+    this.getTags(gender, department);
     this.getSizesForDepartment(gender, department);
     this.getProduct(department, gender);
     this.getDepartmentView(gender);
