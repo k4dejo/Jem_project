@@ -45,6 +45,7 @@ export class LadiesComponent implements OnInit {
     toggleBtn(word: any) {
       const link = '/Home/Articulo/';
       const gender = 2;
+      window.scroll(0,0);
       this.router.navigate([link, 'J', word, gender]);
     }
     getProductDepartment(productDpt, photoDpt) {

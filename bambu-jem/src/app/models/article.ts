@@ -1,4 +1,6 @@
 export class Article {
+    id: any;
+  sizes: any;
     constructor(
         public name: string,
         public detail: string,

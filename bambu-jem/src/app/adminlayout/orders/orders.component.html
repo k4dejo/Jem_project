@@ -118,7 +118,7 @@
           </table>
         </div>
         <div class="col-md-12 col-s-12 col-xs-12">
-          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          <pagination-controls class="my-pagination" (pageChange)="pModalClient = $event">
           </pagination-controls>
           <table class="table table-striped">
             <thead>
@@ -129,7 +129,7 @@
               <th scope="col">precio</th>
             </thead>
             <tbody>
-              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 5, currentPage: p }">
+              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 2, currentPage: pModalClient }">
                 <td><img class="img-responsive" [src]="product.photo" alt=""></td>
                 <td>{{product.name}}</td>
                 <td>{{product.pivot.size}}</td>
@@ -216,8 +216,8 @@
               <th scope="col">precio</th>
             </thead>
             <tbody>
-              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 8, currentPage: p }">
-                <td><img class="img-responsive" [src]="product.photo" alt=""></td>
+              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 4, currentPage: pModalClient }">
+                <td><img style="width: 40px; height: 50px; color: rgb(211, 34, 34);" [src]="product.photo" alt=""></td>
                 <td>{{product.name}}</td>
                 <td>{{product.pivot.size}}</td>
                 <td>{{product.pivot.amount}}</td>
@@ -225,7 +225,7 @@
               </tr>
             </tbody>
           </table>
-          <pagination-controls class="my-pagination" (pageChange)="p = $event">
+          <pagination-controls class="my-pagination" (pageChange)="pModalClient = $event">
           </pagination-controls>
           <div class="colPhoto">
             <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">

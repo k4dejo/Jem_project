@@ -34,6 +34,7 @@ export class GentlemanComponent implements OnInit {
   toggleBtn(word: any) {
     const link = '/Home/Articulo/';
     const gender = 1;
+    window.scroll(0,0);
     this.router.navigate([link, 'J', word, gender]);
   }
 

@@ -2,1089 +2,232 @@
   <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
   <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
 </header>
+
 <div id="main" class="main">
   <div class="container-fluid">
     <div class="col-lg-12 catalogue">
       <div class="container">
         <h1>Damas</h1>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Damas</li>
-          </ol>
-        </nav>
       </div>
     </div>
-    <div class="boxSlider">
-      <div class="row justify-content-center">
-        <div class="col-lg-11 types">
-          <div class="row">
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(1)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/blusa1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Blusas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/blusa2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Blusas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/blusa3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Blusas</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(2)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/short1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Shorts</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/short2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Shorts</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/short3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Shorts</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(3)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/enagua3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Enaguas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enagua1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Enaguas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enagua2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Enaguas</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(4)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/comjunto1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Conjunto</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/comjunto2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Conjunto</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/comjunto3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Conjunto</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(5)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/pantalonTela.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Pantalones Tela</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pantalonTela2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Pantalones Tela</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pantalonTela3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Pantalones Tela</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(6)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/jeans1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Jeans</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/jeans2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Jeans</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/jeans3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Jeans</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(9)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/playa1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Salidas de playa</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/playa2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Salidas de playa</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/playa3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Salidas de playa</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(8)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/vestidoBaño1.jpg"  style="height: 310px; width: 500px;" class="imgLimit"  alt="">
-                      <div class="carousel-caption">
-                        <h3>Vestidos de Baño</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestidoBaño2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Vestidos de Baño</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestidoBaño3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Vestidos de Baño</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(10)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/abrigo1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Abrigos y sacos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/abrigo2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Abrigos y sacos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/abrigo3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Abrigos y sacos</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(18)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/vestido1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Vestido</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestido2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Vestido</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestido3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Vestido</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(14)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/enterizo01.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Enterizos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enterizo02.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Enterizos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enterizo03.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Enterizos</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(12)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/accesorio1.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Accesorios</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/accesorio4.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Accesorios</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/accesorio5.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Accesorios</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(7)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/lenceria1.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Ropa Interior y Lencería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/lenceria2.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Ropa Interior y Lencería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/lenceria3.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Ropa Interior y Lencería</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(19)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(3).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(4).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(28).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(13)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(1).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Camisetas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(2).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Camisetas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Camisetas</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(17)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(22).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(23).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(24).jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(11)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/pijama1.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Pijamas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pijama2.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Pijamas</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pijama3.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Pijamas</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(15)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/overol01.jpg"  style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Overol</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/overol02.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Overol</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                    <img src="assets/Images/catálogo/imgcompress/overol03.jpg" style="height: 310px; width: 500px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Overol</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-3 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(16)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/sueters1.jpg" alt="">
-                      <div class="carousel-caption">
-                        <h3>Sueters</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/sueters2.jpg" alt="">
-                      <div class="carousel-caption">
-                        <h3>Sueters</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/sueters3.jpg" alt="">
-                      <div class="carousel-caption">
-                        <h3>Sueters</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-        </div>
+    <div class="row">
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(1)">
+            <img src="assets/Images/view_categorias/damas/449daf39-c4d4-4eae-b786-e71924e800b0.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Blusas</h3>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<div id="main" class="mainMobile">
-  <div class="container-fluid">
-    <div class="col-lg-12 catalogue">
-      <div class="container">
-        <h1>Damas</h1>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Damas</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div class="boxSlider">
-      <div class="row justify-content-center">
-        <div class="col-lg-11 types">
-          <div class="row">
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(1)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/blusa1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Blusas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/blusa2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Blusas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/blusa3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Blusas</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(2)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/short1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Shorts</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/short2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Shorts</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/short3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Shorts</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(3)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/enagua3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Enaguas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enagua1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Enaguas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enagua2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Enaguas</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(4)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/comjunto1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Conjunto</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/comjunto2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Conjunto</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/comjunto3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Conjunto</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(5)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/pantalonTela.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Pantalones Tela</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pantalonTela2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Pantalones Tela</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pantalonTela3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Pantalones Tela</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(6)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/jeans1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Jeans</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/jeans2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Jeans</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/jeans3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Jeans</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(9)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/playa1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Salidas de playa</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/playa2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Salidas de playa</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/playa3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Salidas de playa</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(8)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/vestidoBaño1.jpg"  style="height: 150px; width: 600px;" class="imgLimit"  alt="">
-                      <div class="carousel-caption">
-                        <h4>Vestidos de Baño</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestidoBaño2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Vestidos de Baño</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestidoBaño3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Vestidos de Baño</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(10)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/abrigo1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Abrigos y sacos</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/abrigo2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Abrigos y sacos</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/abrigo3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Abrigos y sacos</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(18)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/vestido1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Vestido</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestido2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Vestido</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/vestido3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Vestido</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(14)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/enterizo01.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Enterizos</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enterizo02.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Enterizos</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/enterizo03.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Enterizos</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(12)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/accesorio1.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Accesorios</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/accesorio4.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Accesorios</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/accesorio5.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Accesorios</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(7)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/lenceria1.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Ropa Interior y Lencería</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/lenceria2.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Ropa Interior y Lencería</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/lenceria3.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Ropa Interior y Lencería</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(17)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(22).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(23).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(24).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(19)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(3).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(4).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(28).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(13)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(1).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Camisetas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga(2).jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Camisetas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/descarga.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Camisetas</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!--<div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(19)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img [src]="photoViewzapa[0]" class="img-responsive" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img [src]="photoViewzapa[1]" class="img-responsive" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img [src]="photoViewzapa[2]" class="img-responsive" alt="">
-                      <div class="carousel-caption">
-                        <h3>Zapatos</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>-->
-            <!--<div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(17)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img [src]="photoViewjoye[0]" class="img-responsive" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img [src]="photoViewjoye[1]" class="img-responsive" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img [src]="photoViewjoye[2]" class="img-responsive" alt="">
-                      <div class="carousel-caption">
-                        <h3>Joyería</h3>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>-->
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(11)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/pijama1.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Pijamas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pijama2.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Pijamas</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/pijama3.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Pijamas</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(15)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/overol01.jpg"  style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Overol</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/overol02.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Overol</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                    <img src="assets/Images/catálogo/imgcompress/overol03.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Overol</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4 col-s-5 col-md-3 list-items">
-              <a class="carruselHover" (click)="toggleBtn(16)">
-                <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                      <img src="assets/Images/catálogo/imgcompress/sueters1.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Sueters</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/sueters2.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Sueters</h4>
-                      </div>
-                    </div>
-                    <div class="item">
-                      <img src="assets/Images/catálogo/imgcompress/sueters3.jpg" style="height: 150px; width: 600px;" class="imgLimit" alt="">
-                      <div class="carousel-caption">
-                        <h4>Sueters</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-        </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(2)">
+            <img src="assets/Images/view_categorias/damas/384423a9-6898-42be-b2e1-993e2f448e57.jpg" alt=""
+             class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Shorts</h3>
+          </div>
         </div>
       </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(3)">
+            <img src="assets/Images/view_categorias/damas/ab9a6174-3475-4eaa-8f0e-e23fd2741a8f.jpg" alt=""
+             class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Enaguas</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(4)">
+            <img src="assets/Images/view_categorias/damas/6c30df1e-297d-41c7-a0b7-996505333408.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Conjunto</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(5)">
+            <img src="assets/Images/view_categorias/damas/e3afcca8-07fa-4445-ae83-b9394ef3daec.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Pantalones Tela</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(6)">
+            <img src="assets/Images/view_categorias/damas/abad6ad4-b792-43af-96c7-4c2c2ca878ae.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Jeans</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(9)">
+            <img src="assets/Images/view_categorias/damas/c1d3a2c4-fb6f-4037-bcc0-e40f2aeb8c71.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Salida de playa</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(8)">
+            <img src="assets/Images/view_categorias/damas/abd0b4b2-f1da-48b2-9f21-cfbc98e8e539.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Vestidos de Baño</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(10)">
+            <img src="assets/Images/view_categorias/damas/9dc37ec1-23d8-4a5e-ae49-c187cc627888.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Abrigos y sacos</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(18)">
+            <img src="assets/Images/view_categorias/damas/1589581007.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Vestidos</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(14)">
+            <img src="assets/Images/view_categorias/damas/90c90253-04e3-46ba-b912-e6f32e788f4a.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Enterizos</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(12)">
+            <img src="assets/Images/view_categorias/damas/51801927-9b3c-4d9f-ba0d-d0e88a879c66.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Accesorios</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(7)">
+            <img src="assets/Images/view_categorias/damas/bb791fa4-31e4-4499-80fc-8259eb5f8e87.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Ropa Interior y Lencería</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(17)">
+            <img src="assets/Images/view_categorias/damas/25760660-8992-49bd-9f60-0e5249a9352c.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Joyería</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(19)">
+            <img src="assets/Images/view_categorias/damas/03c0995c-d746-410c-b003-ec48527b34f4.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Zapatos</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(13)">
+            <img src="assets/Images/view_categorias/damas/15905293321590529316.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Camisetas</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(11)">
+            <img src="assets/Images/view_categorias/damas/f7bfc555-5c75-4348-9a01-e711d525aa1b.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Pijamas</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(15)">
+            <img src="assets/Images/view_categorias/damas/d0852a3b-fdc8-4a6e-9a86-447c6c764953.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Overol</h3>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

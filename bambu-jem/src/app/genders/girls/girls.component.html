@@ -2,311 +2,148 @@
   <div *ngIf="shop_bool"><app-navbar-j></app-navbar-j></div>
   <div *ngIf="!shop_bool"><app-navbar-b></app-navbar-b></div>
 </header>
+
 <div id="main" class="main">
   <div class="container-fluid">
     <div class="col-lg-12 catalogue">
       <div class="container">
         <h1>Niñas</h1>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="Home/BJem"><i class="fas fa-home">Inicio</i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Niñas</li>
-          </ol>
-        </nav>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-11 types">
-        <div class="row">
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(1)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewMameluco[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Mameluco</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewMameluco[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Mameluco</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewMameluco[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Mameluco</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(2)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewAcc[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Accesorio</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewAcc[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Accesorio</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewAcc[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Accesorio</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(3)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewblusa[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Blusas</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewblusa[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Blusas</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewblusa[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Blusas</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(4)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewSueter[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Sueters</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewSueter[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Sueters</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewSueter[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Sueters</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(5)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewShort[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Shorts</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewShort[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Shorts</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewShort[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Shorts</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(6)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewEnagua[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Enaguas</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewEnagua[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Enaguas</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewEnagua[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Enaguas</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(7)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewConjunto[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Conjunto</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewConjunto[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Conjunto</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewConjunto[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Conjunto</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(8)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewVestido[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Vestidos</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewVestido[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Vestidos</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewVestido[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Vestidos</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(9)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewOverol[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Overol</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewOverol[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Overol</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewOverol[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Overol</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(10)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewEnterizo[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Enterizos</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewEnterizo[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Enterizos</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewEnterizo[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Enterizos</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
+    <div class="row">
 
-          <div class="col-xs-3 col-md-3 list-items">
-            <a class="carruselHover" (click)="toggleBtn(11)">
-              <div id="carousel-1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                    <img [src]="photoViewPijama[0]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pijama</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewPijama[1]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pijama</h3>
-                    </div>
-                  </div>
-                  <div class="item active">
-                    <img [src]="photoViewPijama[2]" class="img-responsive" alt="">
-                    <div class="carousel-caption">
-                      <h3>Pijama</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(1)">
+            <img src="assets/Images/view_categorias/niñas/b0bf3e70-626c-41c3-8fd0-d3a11891aaf6.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Mameluco</h3>
           </div>
         </div>
       </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(2)">
+            <img src="assets/Images/view_categorias/niñas/5816ed8f-41ff-4eca-bd12-aecf84ad39b5.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Accesorio</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(3)">
+            <img src="assets/Images/view_categorias/niñas/6d4a4903-beff-4653-8a12-64a538fa7e4c.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Blusas</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(4)">
+            <img src="assets/Images/view_categorias/niñas/a07e11b7-93ea-4b1d-9721-16f0299a722c.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Sueters</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(5)">
+            <img src="assets/Images/view_categorias/niñas/e379f010-dbd5-4aeb-9124-fe5ea97c7c0a.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Shorts</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(6)">
+            <img src="assets/Images/view_categorias/niñas/8aa76bd5-ce93-4636-b6bf-80e491fa702a.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Enaguas</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(7)">
+            <img src="assets/Images/view_categorias/niñas/ddfc4c8c-7c80-42c8-ba81-00296844e9be.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Conjunto</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(8)">
+            <img src="assets/Images/view_categorias/niñas/4f1f3e34-6f4d-4f9d-9290-590d0135a452.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Vestidos</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(9)">
+            <img src="assets/Images/view_categorias/niñas/29ec1ca1-bf9f-42b6-b85e-bc3e03639819.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Overol</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(10)">
+            <img src="assets/Images/view_categorias/niñas/91e672f1-c434-43d9-9306-9dbf5c890548.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Enterizos</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-lg-3">
+        <div class="catego">
+          <div class="imgbox" (click)="toggleBtn(11)">
+            <img src="assets/Images/view_categorias/niñas/47564463-687f-4558-bb61-3310ee8027b7.jpg" alt=""
+            class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Pijama</h3>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

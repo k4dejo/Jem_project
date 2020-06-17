@@ -105,6 +105,9 @@
                 </ul>
               </div>
             </div>
+            <div class="infoMobile">
+              <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}}</h3>
+            </div>
             <div class="quantity">
               <p>Cantidad</p>
               <div class="pro-qty">
@@ -112,9 +115,6 @@
                 <input type="text" value="{{valueQtyBtn}}">
                 <span (click)="incQty()" class="inc qtybtn">+</span>
               </div>
-            </div>
-            <div class="infoMobile">
-              <h3 *ngIf="!offerBool" class="p-price">₡ {{product.pricePublic | number: '3.'}}</h3>
             </div>
             <div class="addCart">
               <a *ngIf="totalStock != 0" (click)="addProductCart()" class="site-btn">

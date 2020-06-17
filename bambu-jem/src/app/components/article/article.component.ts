@@ -243,6 +243,7 @@ export class ArticleComponent implements OnInit {
       const splitProduct = this.products[index].photo.split(',');
       this.products[index].photo = this.imgUrl.url + this.products[index].photo;
       this.getDepartmentView(this.products[index].gender.toString());
+      this.calculateDisponibility(this.products[index]);
       for (let e = 0; e < this.gender.length; e++) {
         if (this.products[index].gender.toString() === this.gender[e].id) {
           this.products[index].gender = this.gender[e].name;
@@ -256,7 +257,23 @@ export class ArticleComponent implements OnInit {
       this.genderView = this.products[index].gender;
       this.DepartmentView = this.products[index].department;
     }
-    console.log(this.products);
+  }
+
+  calculateDisponibility(product: any) {
+    for (let index = 0; index < product.sizes.length; index++) {
+      const sizeStock = product.sizes[index].pivot.stock;
+      if ( sizeStock === 0) {
+        for (let i = 0; i < this.products.length; i++) {
+          if (this.products[i].id === product.id) {
+            this.products[i].sizes.splice(index, 1);
+          }
+          /*if (this.products[i].id === product.id) {
+            this.products[i].sizes.splice(index, 1);
+          }*/
+        }
+        // this.products[index].sizes.splice(index, 1);
+      }
+    }
   }
 
   like(product: any) {

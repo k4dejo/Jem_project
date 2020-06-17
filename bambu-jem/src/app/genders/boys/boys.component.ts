@@ -80,6 +80,7 @@ export class BoysComponent implements OnInit {
   toggleBtn(word: any) {
     const link = '/Home/Articulo/';
     const gender = 3;
+    window.scroll(0,0);
     this.router.navigate([link, 'J', word, gender]);
   }
 

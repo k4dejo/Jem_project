@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
   public randomChar: string;
   public fileUrl;
   public p = 1;
+  public pModalClient = 1;
   public sendBtnBool = false;
   public PricePurchase = 0;
   public lenghtOrders;

@@ -86,10 +86,31 @@ export class JempageComponent implements OnInit {
   toggleBtnProducts(gender: any) {
     const link = '/Home/Articulo/';
     sessionStorage.removeItem('currentPage');
-    if (gender === '2') {
+    this.genderSwitch(gender);
+    /* if (gender === '2') {
       this.router.navigate(['Home/Damas/', 'J']);
     } else {
       this.router.navigate([link, 'J', '1', gender]);
+    }*/
+  }
+
+  genderSwitch(gender: any) {
+    switch (gender) {
+      case '1':
+        this.router.navigate(['Home/Caballeros/', 'J']);
+        break;
+      case '2':
+        this.router.navigate(['Home/Damas/', 'J']);
+      break;
+      case '3':
+        this.router.navigate(['Home/Niños/', 'J']);
+      break;
+      case '4':
+        this.router.navigate(['Home/Niñas/', 'J']);
+      break;
+    
+      default:
+        break;
     }
   }
 
