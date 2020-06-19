@@ -61,4 +61,9 @@ class article extends Model
     {
     	return $this->belongsTo('app/tag', 'tags_id');
     }
+
+    public function clients()
+    {
+        return $this->belongsToMany('App\article', 'article_client');
+    }
 }

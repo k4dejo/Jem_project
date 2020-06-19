@@ -31,12 +31,11 @@ h1 {
 	padding-top: 6%;
 	width: 102.3%;
   color: azure;
-  background-image: url('/assets/Images/background.jpg');
-	/*background: -webkit-gradient(linear, left bottom, right top, from(#47c4f1), to(#b92ff8));
-	background: -o-linear-gradient(bottom left, #3dc2f3 0%, #c85afc 100%);
-	background-image: -moz-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: -webkit-linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);
-	background-image: linear-gradient( 45deg, rgb(51, 182, 243) 0%, rgb(111, 155, 250) 45%, rgb(180, 63, 248) 100%);*/
+  background-image: url('/assets/Images/color-2174045_1280.png');
+  background-attachment: fixed;
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .breadcrumbDiv{
@@ -1062,52 +1061,52 @@ feature-inner
     color: #ccc;
     font-family: inherit;
   }
-  
+
   .btn-secondary{
     margin-top: 10%;
   }
 
-  
+
   .btn--radius {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
   }
-  
+
   .btn--radius-2 {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
-  
+
   .btn--pill {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
     transition: 0.5s;
   }
-  
+
   .btn--green {
     background: #57b846;
     color: white;
   }
-  
+
   .btn--green:hover {
     background: #4dae3c;
   }
-  
+
   .btn--blue {
     background: #4272d7;
   }
-  
+
   .btn--blue:hover {
     background: #3868cd;
   }
-  
+
   .btn--red {
     background: #ff4b5a;
   }
-  
+
   .btn--red:hover {
     background: #eb3746;
   }
@@ -1193,11 +1192,11 @@ feature-inner
   .mobileView {
     display: initial;
   }
-  
+
   .gallery {
     margin-left: -49px;
   }
-  
+
   .pcView {
     display: none;
   }

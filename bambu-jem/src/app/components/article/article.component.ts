@@ -124,6 +124,7 @@ export class ArticleComponent implements OnInit {
   public BtnHover = false;
   public tagsId = 0;
   public sizesList;
+  public selectorGender = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -411,7 +412,7 @@ export class ArticleComponent implements OnInit {
   }
 
   gotoDetail(productId: any) {
-    window.scroll(0,0);
+    window.scroll(0,  0);
     const link = '/Home/producto/detalle/';
     if (this.pageChange === undefined) {
       const firtPage = this.urlPaginate.split('=');
@@ -435,6 +436,7 @@ export class ArticleComponent implements OnInit {
     this.router.navigate([link, this.shop_id, dtp, gender]);
     sessionStorage.removeItem('currentPage');
     this.p = 1;
+    window.scroll(0, 0);
     this.getSizesForDepartment(gender, dtp);
     this.getProduct(dtp, gender);
     this.getTags(gender, dtp);
@@ -559,7 +561,7 @@ export class ArticleComponent implements OnInit {
     );
   }
 
-  //==========================================VERIFY_IDENTITY_CLIENT====================================================
+  // ==========================================VERIFY_IDENTITY_CLIENT====================================================
 
   verifyClient() {
     this.token = this.clientService.getToken();
@@ -704,6 +706,27 @@ export class ArticleComponent implements OnInit {
     );
   }
 
+  printBanner(gender: any) {
+    const banner = document.querySelector('.catalogue');
+    switch (gender) {
+      case '1':
+        this.selectorGender = '1';
+      break;
+      case '2':
+        this.selectorGender = '2';
+      break;
+      case '3':
+        this.selectorGender = '3';
+      break;
+      case '4':
+        this.selectorGender = '4';
+      break;
+      default:
+      break;
+    }
+    console.log(banner);
+  }
+
   ngOnInit() {
     this.getGender();
     this.shop_id = this.route.snapshot.params['shopId'];
@@ -712,6 +735,7 @@ export class ArticleComponent implements OnInit {
     this.getTags(gender, department);
     this.getSizesForDepartment(gender, department);
     this.getProduct(department, gender);
+    this.printBanner(gender);
     this.getDepartmentView(gender);
     if (this.shop_id === 'J') {
       this.shop_bool = true;
