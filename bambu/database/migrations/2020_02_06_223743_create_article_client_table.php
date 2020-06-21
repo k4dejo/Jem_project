@@ -20,7 +20,7 @@ class CreateArticleClientTable extends Migration
             $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles');
-            $table->foreign('client_id')->references('id')->on('client');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 

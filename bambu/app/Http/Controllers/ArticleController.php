@@ -169,7 +169,7 @@ class ArticleController extends Controller
 
     public function getListProduct($department, $gender) {
         $productListEloquent = article::where('department', $department)->where('gender', $gender)
-        ->with('sizes')->paginate(12);
+        ->has('sizes')->with('sizes')->paginate(12);
         return response()->json(array(
             'articles' => $productListEloquent,
             'NextPaginate' => $productListEloquent->nextPageUrl(),
@@ -231,9 +231,8 @@ class ArticleController extends Controller
                 $img = str_replace(' ', '+', $img);
             }
             $imgName = time() . $params->photo;
-            // $resized_image = Image::make(base64_decode($img))->resize(500, 900)->stream('jpg', 90);
-            $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-            Storage::disk('public')->put($imgName, $resized_image);
+            //$resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
+            Storage::disk('public')->put($imgName, base64_decode($img));
             //guardar articulo
             $article = new article();
             $article->name         = $params->name;
@@ -248,7 +247,6 @@ class ArticleController extends Controller
             if ($params->tags_id != 0) {
                 $article->tags_id     = $params->tags_id;
             }
-
 
             $article->save();
             $data = array(
@@ -317,8 +315,8 @@ class ArticleController extends Controller
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
                     Storage::delete($imgDB->photo);
-                    $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-                    Storage::disk('public')->put($imgName, $resized_image);
+                    // $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
+                    Storage::disk('public')->put($imgName,base64_decode($img));
                     $article = article::where('id', $id)->update($paramsArray);
                 }else {
                     $route = public_path().'\catalogo'.'\/';
@@ -363,7 +361,15 @@ class ArticleController extends Controller
         $imgRoute = str_replace('/', '', $route);
         $imgRoute = $imgRoute . $article->photo;
         Storage::delete($article->photo);
+        $article->apart()->sync([]);
+        $article->purchases()->update(['article_id' => null]);
+        $article->clients()->detach($id);
+        $article->billing()->sync([]);
+        $article->billing()->sync([]);
+        $article->outfit()->sync([]);
+        $article->sizes()->sync([]);
         $article->delete();
+
         $data = array(
             'article' => $article,
             'status'  => 'success',

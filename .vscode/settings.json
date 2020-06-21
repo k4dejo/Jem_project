@@ -1,24 +1,5 @@
 {
     "cSpell.words": [
         "menos"
-    ],
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#e81010",
-        "activityBar.activeBorder": "#0ed10e",
-        "activityBar.background": "#e81010",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#0ed10e",
-        "activityBarBadge.foreground": "#15202b",
-        "statusBar.background": "#b80d0d",
-        "statusBar.border": "#b80d0d",
-        "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#e81010",
-        "titleBar.activeBackground": "#b80d0d",
-        "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.border": "#b80d0d",
-        "titleBar.inactiveBackground": "#b80d0d99",
-        "titleBar.inactiveForeground": "#e7e7e799"
-    },
-    "peacock.color": "#B80D0D"
+    ]
 }
