@@ -32,7 +32,7 @@ class PurchaseController extends Controller
     }
 
     public function getPurchaseStatus($status) {
-        $purchaseStatus = purchase::where('status', $status)->paginate(12);
+        $purchaseStatus = purchase::where('status', $status)->with('articles')->paginate(12);
         return response()->json(array(
             'purchases' => $purchaseStatus,
             'NextPage' => $purchaseStatus->nextPageUrl(),
@@ -410,8 +410,10 @@ class PurchaseController extends Controller
     }
 
     public function getProductHistory($idClient) {
-        $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
-        ->where('status', '!=','incomplete')->get();
+        /*$purchaseClient = DB::table('purchases')->where('clients_id', $idClient)
+        ->where('status', '!=','incomplete')->get();*/
+        $purchaseClient = purchase::where('clients_id', $idClient)
+        ->where('status', 'procesando')->with('articles')->get();
         $data = array(
             'purchase'                 => $purchaseClient,
             'status'                   => 'success',
@@ -424,10 +426,10 @@ class PurchaseController extends Controller
     public function ProductListHistoryOrder($idPurchase) {
         $arrayPurchase = purchase::find($idPurchase)->articles()->get();
         $countPurchase = count($arrayPurchase);
-        for ($i=0; $i < $countPurchase; $i++) {
+        /*for ($i=0; $i < $countPurchase; $i++) {
             $contents = Storage::get($arrayPurchase[$i]->photo);
             $arrayPurchase[$i]->photo = base64_encode($contents);
-        }
+        }*/
         $data = array(
             'productlist'                 => $arrayPurchase,
             'status'                   => 'success',

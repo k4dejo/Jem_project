@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserServices } from '../../services/user.service';
 import { PurchaseService } from '../../services/purchase.service';
+import { ImgUrl } from '../../models/imgUrl';
 
 @Component({
   selector: 'app-history',
@@ -17,6 +18,16 @@ export class HistoryComponent implements OnInit {
   public identity;
   public token;
   public p = 1;
+  public totalWeight;
+  public imgUrl = ImgUrl;
+  public shipping = 0;
+  public rateGAM = 2200;
+  public addGAM = 1000;
+  public restRate = 2800;
+  public restAdd = 1200;
+  public splite: any;
+  public productCount;
+  public totalAmount;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +38,11 @@ export class HistoryComponent implements OnInit {
     this.identity = this.clientService.getIdentity();
   }
 
-  getPurchase() {
+  getOrders() {
     this.purchaseService.getHistoryPurchaseClient(this.identity.sub).subscribe(
       response => {
         this.orderList = response.purchase;
-        console.log(this.orderList);
+        this.calculatePrice(this.orderList);
 
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
@@ -46,7 +57,7 @@ export class HistoryComponent implements OnInit {
         this.productList = response.productlist;
         console.log(this.productList);
         for (let index = 0; index < this.productList.length; index++) {
-          this.productList[index].photo = 'data:image/jpeg;base64,' + this.productList[index].photo;
+          this.productList[index].photo = this.imgUrl.url + this.productList[index].photo;
         }
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
@@ -56,9 +67,42 @@ export class HistoryComponent implements OnInit {
 
   }
 
+
+  /*============================================CALCULAR_PRECIO==========================================*/
+  
+  calculatePrice(orderList: any) {
+    for (let index = 0; index < this.orderList.length; ++index) {
+      orderList[index].price = 0;
+      for (let i = 0; i < this.orderList[index].articles.length; i++) {
+        this.totalAmount += this.orderList[index].articles[i].pivot.amount;
+        if (this.orderList[index].articles[i].pivot.amount >= 6) {
+          this.productCount = true;
+        }
+        if (this.orderList[index].articles.length >= 6) {
+          this.productCount = true;
+        } else {
+          if (this.totalAmount >= 6) {
+            this.productCount = true;
+          }
+        }
+        this.calculateTotalPrice(this.productCount,index, i);
+      }
+    }
+  }
+
+  calculateTotalPrice(countBool, indexOrderList, indexProductList) {
+    if (countBool !== true) {
+      this.orderList[indexOrderList].price += this.orderList[indexOrderList].articles[indexProductList].pricePublic
+      * this.orderList[indexOrderList].articles[indexProductList].pivot.amount;
+    } else {
+      this.orderList[indexOrderList].price += this.orderList[indexOrderList].articles[indexProductList].priceMajor
+      * this.orderList[indexOrderList].articles[indexProductList].pivot.amount;
+    }
+  }
+
+  //=======================================================================================================
   ngOnInit() {
-    this.shop_id = this.route.snapshot.params['id'];
-    this.getPurchase();
+    this.getOrders();
     if (this.shop_id === 'J') {
       this.shop_bool = true;
     } else {

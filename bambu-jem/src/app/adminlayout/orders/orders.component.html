@@ -10,7 +10,7 @@
           <form class="form-group">
             <div class="row">
               <div class="col-lg-12">
-                <div class="tableAdmin">
+                <div class="tableAdmin" style="overflow: scroll;">
                   <select (change)="searchPurchase($event.target.value)"
                   class="combobox input-medium form-control">
                     <option disabled="disabled" selected="selected">--Seleccionar--</option>
@@ -24,22 +24,27 @@
                       Enviado
                     </option>
                   </select><br>
+                  <div class="search-product" style="margin-top: 5%;">
+                    <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
+                      placeholder=" &#61442; Buscar...">
+                  </div>
                   <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
                   (pageChange)="nextPaginate($event)"></pagination-controls>
-                  <table class="table table-striped">
+                  <table class="table table-striped  table-bordered">
                     <thead>
-                      <th scope="col">Cliente</th>
+                      <th scope="col">Codigo de orden</th>
                       <th scope="col">Envío</th>
                       <th scope="col">Precio</th>
                       <th scope="col">Estado</th>
+                      <th></th>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let purchase of purchaselist | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtOrders}">
+                      <tr *ngFor="let purchase of purchaselist | filter: searchProduct | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtOrders}">
                         <td>
-                          {{purchase.clients_id}}
+                          {{purchase.orderId}}
                         </td>
                         <td>
-                          {{purchase.shipping}}
+                          ₡ {{purchase.shipping}}
                         </td>
                         <td>
                           ₡ {{purchase.price | number: '3.'}}
@@ -147,48 +152,6 @@
           (click)="submitPurchaseClient()" data-dismiss="modal" value="Emitir">
         </div>
       </div>
-      <!--<div class="row">
-        <div class="col-md-6 col-xs-6 col-s-6" style="text-align: left;">
-          <h3>Nombre Cliente:</h3>
-          <p>{{purchaseinfo.clientName}}</p>
-          <h3>Teléfono:</h3>
-          {{purchaseinfo.clientPhone}}
-          <h3>Dirección del envío</h3>
-          <p>{{addressPurchase.address}}</p>
-          <h4>Detalle</h4>
-          <p>{{addressPurchase.addressDetail}}</p>
-          <h3>Envío</h3>
-            ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}
-          <h3>Precio total:</h3>
-          ₡ {{purchaseinfo.purchasePrice | number: '3.'}}
-        </div>
-        <div class="col-md-6 col-xs-6 col-s-6">
-          <table class="table table-striped">
-            <thead>
-              <th scope="col">producto</th>
-              <th scope="col">Talla</th>
-              <th scope="col">cantidad</th>
-              <th scope="col">precio</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let product of productList | paginate: { itemsPerPage: 8, currentPage: p }">
-                <td>{{product.name}}</td>
-                <td>{{product.pivot.size}}</td>
-                <td>{{product.pivot.amount}}</td>
-                <td>₡ {{product.pricePublic | number: '3.'}} </td>
-              </tr>
-            </tbody>
-          </table>
-          <pagination-controls class="my-pagination" (pageChange)="p = $event">
-          </pagination-controls>
-          <div class="colPhoto">
-            <a (click)="downloadImg()" href="" data-toggle="modal" data-target="#myModal">
-              <img class="img-responsive" [src]="ticketPurchase.ticket" alt="">
-            </a>
-          </div>
-          <input *ngIf="!sendBtnBool" type="button" class="btn btn--green btn--pill" (click)="submitPurchaseClient()" value="Emitir">
-        </div>
-      </div>-->
     </div>
     <div class="modal-body fadeIn second pc-view">
       <div class="row">

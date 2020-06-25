@@ -21,7 +21,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public token;
   public identity;
-  public purchaselist: Array<Purchase>;
+  public purchaselist;
   public ticketPurchase: Ticket;
   public purchaseinfo: PurchaseInfo;
   public addressPurchase: AddresPurchases;
@@ -38,6 +38,9 @@ export class OrdersComponent implements OnInit {
   public pageChange;
   public btnNextDisabled =  true;
   public loading = false;
+  public searchProduct;
+  public totalAmount: any;
+  public productCount;
 
   constructor(
     private router: Router,
@@ -65,6 +68,7 @@ export class OrdersComponent implements OnInit {
     this.purchaseService.getPaginateOrder(this.pageChange).subscribe(
       response => {
         this.purchaselist = response.purchases.data;
+        this.calculatePrice(this.purchaselist);
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
         } else {
@@ -80,6 +84,7 @@ export class OrdersComponent implements OnInit {
       response => {
         this.purchaselist = response.purchases.data;
         this.lenghtOrders = response.purchases.total;
+        this.calculatePrice(this.purchaselist);
         if (response.NextPaginate == null) {
           // this.btnNextDisabled = false;
           this.urlPaginate = response.purchases.last_page_url;
@@ -218,6 +223,42 @@ export class OrdersComponent implements OnInit {
       progressBar: true
     });
   }
+
+    /*============================================CALCULAR_PRECIO==========================================*/
+  
+    calculatePrice(orderList: any) {
+      for (let index = 0; index < this.purchaselist.length; ++index) {
+        this.purchaselist[index].price = 0;
+        this.totalAmount = 0;
+        for (let i = 0; i < this.purchaselist[index].articles.length; i++) {
+          this.totalAmount += this.purchaselist[index].articles[i].pivot.amount;
+          if (this.purchaselist[index].articles[i].pivot.amount >= 6) {
+            this.productCount = true;
+          }
+          if (this.purchaselist[index].articles.length >= 6) {
+            this.productCount = true;
+          } else {
+            if (this.totalAmount >= 6) {
+              this.productCount = true;
+            }
+          }
+          this.calculateTotalPrice(this.productCount,index, i);
+        }
+      }
+    }
+  
+    calculateTotalPrice(countBool, indexpurchaselist, indexProductList) {
+      if (countBool !== true) {
+        this.purchaselist[indexpurchaselist].price += this.purchaselist[indexpurchaselist].articles[indexProductList].pricePublic
+        * this.purchaselist[indexpurchaselist].articles[indexProductList].pivot.amount;
+      } else {
+        this.purchaselist[indexpurchaselist].price += this.purchaselist[indexpurchaselist].articles[indexProductList].priceMajor
+        * this.purchaselist[indexpurchaselist].articles[indexProductList].pivot.amount;
+      }
+      console.log(this.purchaselist[indexpurchaselist]);
+    }
+  
+    //=======================================================================================================
 
   ngOnInit() {
     if (this.identity == null) {

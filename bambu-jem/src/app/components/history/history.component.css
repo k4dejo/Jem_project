@@ -17,7 +17,7 @@
 	padding: 0px 34px 0;
 	background: #F8F6F6;
 	border-radius: 8px;
-	overflow: auto;
+	
 	box-shadow: 2.828px 2.828px 15px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -626,4 +626,16 @@ tbody{
     -webkit-animation-delay: 0.4s;
     -moz-animation-delay: 0.4s;
     animation-delay: 0.4s;
+  }
+  
+
+
+
+  /*====================================================================================*/
+  
+  @media (max-width: 767px) {
+
+    .main{
+      padding-top: 35%;
+    }
   }

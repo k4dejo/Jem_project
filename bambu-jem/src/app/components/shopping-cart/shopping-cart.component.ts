@@ -176,29 +176,6 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
-  /* getCant(any) {
-    if (any !== undefined) {
-      this.CantJson = [];
-      this.province.getCanJson(any).subscribe(
-        response => {
-          // tslint:disable-next-line:forin
-          for (const key in response) {
-           this.CantJson.push(response[key]);
-          }
-          let idCant: number;
-          this.ArrayCant = [];
-          for (let i = 0; i < this.CantJson.length; ++i) {
-            idCant = i + 1;
-            this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
-          }
-          console.log(this.ArrayCant);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }*/
 
   getDist(direcPro, direCan) {
     if (direCan !== undefined) {
@@ -286,9 +263,29 @@ export class ShoppingCartComponent implements OnInit {
   // ====================================================================
 
   alertAddressNull() {
-    console.log(this.alertNullAddress);
     if (this.alertNullAddress === false) {
       this.alertNullAddress = true;
+    }
+  }
+
+  verifyAmountProduct(productArray) {
+    for (let index = 0; index < productArray.length; index++) {
+      this.purchaseService.
+      compareAmountSizePurchase(productArray[index].pivot.size, productArray[index].id, productArray[index].pivot.amount)
+      .subscribe(
+        response => {
+          this.deleteProductVoidAmount(productArray[index], response);
+        }, error => {
+          console.log(<any> error);
+        }
+      );
+    }
+  }
+
+  deleteProductVoidAmount(productId, responseForVerifyAmount) {
+    if (responseForVerifyAmount.amountCheck === 'void') {
+      this.deleteProductBtn(productId);
+      this.toast(3);
     }
   }
 
@@ -299,6 +296,7 @@ export class ShoppingCartComponent implements OnInit {
         this.totalAmount = 0;
         this.productPurchase = response.purchase;
         this.purchaseArray = response.purchase;
+        this.verifyAmountProduct(response.purchase);
         this.purchasePrice = response.price;
         this.testProduct = response.purchase;
         this.productCart.price = response.purchasePrice;
@@ -352,66 +350,6 @@ export class ShoppingCartComponent implements OnInit {
       }
     );
   }
-
-  /* getPurchases() {
-    this.loading = true;
-    this.purchaseService.getPurchase(this.identity.sub).subscribe(
-      response => {
-        this.totalAmount = 0;
-        this.productPurchase = response.purchase;
-        this.purchaseArray = response.purchase;
-        this.purchasePrice = response.price;
-        this.testProduct = response.purchase;
-        this.productCart.price = response.purchasePrice;
-        this.productCart.id = response.purchaseId;
-        this.attachPurchase.purchase_id = response.purchaseId;
-        this.checkoutPurchase.id = response.purchaseId;
-        this.checkoutPurchase.clients_id = this.identity.sub;
-        this.checkoutPurchase.status = 'incomplete';
-        this.dettachPurchaseP.idPurchase = response.purchaseId;
-        if (response.dataPurchase.addresspurchases_id !== '0' || response.dataPurchase.addresspurchases_id !== '') {
-          this.province.getAddressPurchase(response.dataPurchase.addresspurchases_id)
-          .subscribe(
-            // tslint:disable-next-line:no-shadowed-variable
-            response => {
-              if (response.AddressPurchase !== 'void') {
-                this.addressPurchase = response.AddressPurchase;
-              }
-              // this.addressPurchase = response.AddressPurchase;
-              this.viewAddressBool = true;
-              this.splite = this.addressPurchase.address.split(',');
-              // this.viewAddress(this.splite[0] , this.splite[1]);
-              this.calculateWeight();
-            // tslint:disable-next-line:no-shadowed-variable
-            }, error => {
-              console.log(<any> error);
-            }
-          );
-        }
-        this.loading = false;
-        for (let i = 0; i < this.productPurchase.length; ++i) {
-          this.totalAmount += response.purchase[i].pivot.amount;
-          if (response.purchase[i].pivot.amount >= 6) {
-            this.productCount = true;
-          }
-          this.validateOffer(response.purchase[i].id, i);
-          this.productPurchase[i].photo = this.imgUrl.url + this.productPurchase[i].photo;
-        }
-        if (response.purchase.length >= 6) {
-          this.productCount = true;
-        } else {
-          if (this.totalAmount >= 6) {
-            this.productCount = true;
-          }
-        }
-        this.CalculateTotalPrice(this.productCount);
-      // tslint:disable-next-line:no-shadowed-variable
-      }, error => {
-        console.log(<any> error);
-        this.loading = false;
-      }
-    );
-  }*/
 
   convertFileBlob() {
     for (let index = 0; index < this.fileNpm.length; index++) {
@@ -581,23 +519,10 @@ export class ShoppingCartComponent implements OnInit {
     this.changeAmountInListPurchase(this.attachPurchase);
     this.CalculateTotalPrice(this.productCount);
     this.calculateWeight();
-  }
-
-  /*shippingCalculate(weight: any, rate: any, additional: any) {
-    this.shipping = 0;
-    if (this.productCount !== false) {
-      if (weight <= 1 && weight > 0) {
-        this.shipping += rate;
-      }
-      if (weight > 1) {
-        const weightAdditional = weight - 1;
-        this.shipping += rate + (weightAdditional * additional);
-      }
-    } else {
-      this.shipping = 0;
+    if (idProduct.pivot.amount === 0) {
+      this.deleteProductBtn(idProduct);
     }
-    this.checkoutPurchase.price -= this.shipping;
-  }*/
+  }
 
   shippingCalculate(weight: any, rate: any, additional: any) {
     this.shipping = 0;
@@ -615,7 +540,6 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.boolShippingView = false;
     }
-    console.log(this.boolShippingView);
   }
 
   viewAddress(province: any, district: any) {
@@ -793,6 +717,9 @@ export class ShoppingCartComponent implements OnInit {
       case 2:
         this.showSuccessPurchase();
       break;
+      case 3:
+        this.alertDeleteProduct();
+      break;
       default:
         break;
     }
@@ -814,33 +741,13 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  /* sendTicket() {
-    this.ticketPurchase.ticket = this.fileBlob;
-    this.ticketPurchase.purchase_id = this.productCart.id;
-    this.checkoutPurchase.shipping = this.shipping;
-    this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
-      response => {
-        if (response.status === 'success') {
-          this.checkoutPurchase.status = 'procesando';
-          this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
-            // tslint:disable-next-line:no-shadowed-variable
-            response => {
-              console.log(response);
-              if (response.status === 'success') {
-                // this.router.navigate(['Home/BJem/']);
-                this.getPurchases();
-              }
-            // tslint:disable-next-line:no-shadowed-variable
-            }, error => {
-              console.log(<any> error);
-            }
-          );
-        }
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }*/
+  alertDeleteProduct() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('algunos productos de tu carrito se han agotado', 'Alerta', {
+      timeOut: 8000,
+      progressBar: true
+    });
+  }
 
   ngOnInit() {
      this.day = this.currentDate.getDate();

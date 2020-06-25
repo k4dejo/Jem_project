@@ -31,7 +31,7 @@ class purchase extends Model
 
     public function articles()
     {
-        return $this->belongsToMany('App\article')->withPivot('size', 'amount');;
+        return $this->belongsToMany('App\article')->withPivot('size', 'amount');
     }
 
     public function address()
