@@ -157,6 +157,10 @@
           </p>
         </div>
       </div>
+      <div class="subtotal-area d-flex align-items-center justify-content-end">
+        <div class="title text-uppercase">Total</div>
+        <div class="subtotal">₡ {{ productCart.price + shipping | number: "3." }}</div>
+      </div>
       <div *ngIf="couponView" class="shipping-area d-flex justify-content-end">
         <div class="title text-uppercase">Cupón</div>
         <div class="subtotal">₡ {{ couponActive.discount | number: "3." }}</div>
@@ -264,6 +268,14 @@
       </div>
     </div>
   </div>
+
+
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
+<div id="myModalImg" class="modal">
+  <span class="close" data-dismiss="modal">&times;</span>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
+  <img class="modal-content" [src]="viewPhoto" id="img01">
+</div>
 </div>
 <div class="modal fade" id="alertPayment" tabindex="-1" role="dialog" aria-labelledby="alertPaymentTitle"
   aria-hidden="true">
@@ -302,7 +314,13 @@
   </div>
 </div>
 <div class="overlay-container toast-top-left toast-container" toastContainer></div>
-<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
+<!--<ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.rectangleBounce,
   backdropBackgroundColour: 'rgba(190,190,186,0.3)', backdropBorderRadius: '10px',
   primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
-</ngx-loading>
+</ngx-loading>-->
+<div *ngIf="loading" class="loading">Loading&#8230;</div>
+<div id="myModalImg" class="modal">
+  <span class="close" data-dismiss="modal">&times;</span>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
+  <img class="modal-content" [src]="viewPhoto" id="img01">
+</div>

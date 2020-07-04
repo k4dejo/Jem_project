@@ -154,6 +154,7 @@ export class ShoppingCartComponent implements OnInit {
 
   getCant(any) {
     if (any !== undefined) {
+      this.loading = true;
       this.CantJson = [];
       this.province.getCanJson(any).subscribe(
         response => {
@@ -163,6 +164,7 @@ export class ShoppingCartComponent implements OnInit {
           }
           let idCant: number;
           this.ArrayCant = [];
+          this.loading = false;
           for (let i = 0; i < this.CantJson.length; ++i) {
             idCant = i + 1;
             this.ArrayCant.push(new Cant(idCant.toString(), this.CantJson[i]));
@@ -180,6 +182,7 @@ export class ShoppingCartComponent implements OnInit {
   getDist(direcPro, direCan) {
     if (direCan !== undefined) {
       this.DistJson = [];
+      this.loading = true;
       this.province.getDistJson(direcPro, direCan).subscribe(
         response => {
           // tslint:disable-next-line:forin
@@ -188,6 +191,7 @@ export class ShoppingCartComponent implements OnInit {
           }
           let idDist: number;
           this.ArrayDist = [];
+          this.loading = false;
           for (let i = 0; i < this.DistJson.length; ++i) {
             idDist = i + 1;
             this.ArrayDist.push(new District(idDist.toString(), this.DistJson[i]));
@@ -398,6 +402,7 @@ export class ShoppingCartComponent implements OnInit {
     this.totalWeight = 0;
     for (let index = 0; index < this.productPurchase.length; ++index) {
       this.totalWeight += Number(this.testProduct[index].weight) * this.testProduct[index].pivot.amount;
+      // console.log('Nombre del producto', this.testProduct[index], this.testProduct[index].weight, '*', this.testProduct[index].pivot.amount, '=', this.totalWeight);
     }
     this.viewAddress(this.splite[0] , this.splite[1]);
   }

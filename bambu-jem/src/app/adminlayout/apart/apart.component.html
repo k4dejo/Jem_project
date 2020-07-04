@@ -141,7 +141,7 @@
               <tbody>
                 <tr *ngFor="let product of productView | filter: searchProduct | paginate: {itemsPerPage: 8, currentPage: p}">
                   <td>
-                    <img class="img-responsive" [src]="product.photo" alt="">
+                    <img class="imgTable" [src]="product.photo" alt="">
                   </td>
                   <td>
                     <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModalImg">{{product.name}}</a>

@@ -167,7 +167,7 @@
           <h3>Envío</h3>
             ₡ {{purchaseinfo.PurchaseShiping | number: '3.'}}
           <h3>Precio total:</h3>
-          ₡ {{PricePurchase | number: '3.'}}
+          ₡ {{PricePurchase + purchaseinfo.PurchaseShiping | number: '3.'}}
         </div>
         <div class="col-md-6 col-xs-6 col-s-6">
           <table class="table table-striped">
@@ -207,4 +207,10 @@
   <span class="close" data-dismiss="modal">&times;</span>
   <a [href]="fileUrl" download="Prenda_{{randomChar}}.jpg"><i class="fas fa-cloud-download-alt"></i></a>
   <img class="modal-content" [src]="ticketPurchase.ticket" id="img01">
+</div>
+<div *ngIf="loading" class="loading">Loading&#8230;</div>
+<div id="myModalImg" class="modal">
+  <span class="close" data-dismiss="modal">&times;</span>
+  <div *ngIf="loading" class="loading">Loading&#8230;</div>
+  <img class="modal-content" [src]="viewPhoto" id="img01">
 </div>

@@ -235,24 +235,8 @@ export class ApartComponent implements OnInit {
 
   nextPaginate(event: any) {
     this.loading = true;
-    const urlSplit = this.urlPaginate.split('=');
-    this.pageChange = urlSplit[0] + '=' + event;
     this.p = event;
-    this.productService.getPaginateProduct(this.pageChange).subscribe(
-      response => {
-        this.productView = response.articles.data;
-        if (response.NextPaginate == null) {
-          this.btnNextDisabled = false;
-        } else {
-          this.btnNextDisabled = true;
-          this.urlPaginate = response.NextPaginate;
-        }
-        this.addPhotoProductList();
-        this.loading = false;
-      }, error => {
-        console.log(<any> error);
-      }
-    );
+    this.loading = false;
   }
 
   /* getProductView() {

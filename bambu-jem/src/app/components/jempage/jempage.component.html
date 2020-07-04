@@ -225,7 +225,7 @@
   </div>
   <app-whatsapp></app-whatsapp>
 </div>
-<div class="promo" style="background-image: url('/assets/Images/promo.jpg'); overflow: hidden;">
+<div class="promo">
   <h2>¡Aprovecha nuestras ofertas!</h2>
   <h4>Siempre estamos renovando nuestro catálogo, no te pierdas lo nuevo en promoción.</h4>
   <a (click)="toggleBtn('ofertas')" class="btn btn--pink btn--pill">Ir</a>
@@ -236,7 +236,7 @@
     	<div class="container">
     		<div class="row ">
     			<div class="col-md-8 d-flex align-items-stretch">
-            <img class="img-responsive" src="assets/Images/about-1.jpg" alt="">
+            <img (click)="gotoOutfits('outfits', 2)" class="img-responsive" src="assets/Images/about-1.jpg" alt="">
     			</div>
     			<div class="col-md-4 py-md-5">
     				<div class="text py-3 py-md-5">
@@ -249,7 +249,7 @@
         </div>
         <div class="row">
     			<div class="col-md-5 order-md-last d-flex align-items-stretch">
-            <img class="img-responsive img-2" src="assets/Images/about-2.jpg" alt="">
+            <img (click)="gotoOutfits('outfits', 1)" class="img-responsive img-2" src="assets/Images/about-2.jpg" alt="">
     			</div>
     			<div class="col-md-7 py-3 py-md-5">
     				<div class="text text-2 py-md-5">
