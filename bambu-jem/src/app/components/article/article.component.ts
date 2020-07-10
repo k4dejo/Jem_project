@@ -606,7 +606,7 @@ export class ArticleComponent implements OnInit {
       response => {
         if (response.purchase !== null) {
           this.editPurchase(response);
-        } else {
+      } else {
           this.savePurchase();
         }
       }, error => {

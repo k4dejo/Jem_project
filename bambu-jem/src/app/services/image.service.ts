@@ -34,4 +34,16 @@ export class ImageService {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.delete(this.url + 'deleteArrayImg/' + product_id, { headers: headers});
   }
+
+  getAllImages(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getListImages', { headers: headers });
+  }
+
+  downloadImage(array): Observable<any> {
+    const json = JSON.stringify(array);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'downloadImage', params,  { headers: headers });
+  }
 }

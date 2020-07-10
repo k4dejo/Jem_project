@@ -421,23 +421,6 @@ export class ApartComponent implements OnInit {
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
         }
-        /*for (let index = 0; index < this.arrayApart.length; index++) {
-         this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
-         // this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-         if (this.pPublic) {
-          console.log('public');
-          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-        }
-        if (this.pMajor) {
-          console.log('major');
-          this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
-        }
-        if (this.pBoutique) {
-          console.log('tub');
-          this.apartM.price += this.arrayApart[index].priceTub * this.arrayApart[index].pivot.amount;
-        }
-         this.billing.price = this.apartM.price;
-        }*/
         this.calculateWeight();
       }, error => {
         console.log(<any>error);

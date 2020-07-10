@@ -78,6 +78,8 @@ Route::group(['middleware' => 'cors'], function(){
    Route::post('addMimage','imageController@store');
    Route::post('deleteArrayImg/{id}', 'imageController@deleteImg');
    Route::get('getImages/{id}','imageController@show');
+   Route::get('getListImages','imageController@getAllImages');
+   Route::get('downloadImage','imageController@downloadImage');
    Route::delete('deleteImg/{id}','imageController@destroy');
    /**/
 

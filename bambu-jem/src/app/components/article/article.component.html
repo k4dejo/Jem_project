@@ -29,169 +29,177 @@
       </div>
     </div>
     <div class="container">
-        <div id="myModal" class="modal">
-            <span class="close" data-dismiss="modal">&times;</span>
-            <a [href]="fileUrl" download="Prenda_{{randomChar}}.jpg"><i class="fas fa-cloud-download-alt"></i></a>
-            <img class="modal-content" [src]="fileUrl" id="img01">
-        </div>
-		<div class="row">
-				<div class="col-lg-3 order-2 order-lg-1">
+      <div id="myModal" class="modal">
+        <span class="close" data-dismiss="modal">&times;</span>
+        <a [href]="fileUrl" downdownload="Prenda_{{randomChar}}.jpg"><i class="fas fa-cloud-download-alt"></i></a>
+        <img class="modal-content" [src]="fileUrl" id="img01">
+      </div>
+      <div class="row">
+        <div class="col-lg-3 order-2 order-lg-1">
           <div class="filter-widget mb-0">
             <h2 class="fw-title">Filtros</h2>
-            <input (click)="cleanFilter()" type="button" style="background-color:rgb(194, 89, 255); color: rgb(253, 253, 253); font-weight: bold;"
-            value="Limpiar filtros" class="btn btn--pill">
-					</div>
-					<div class="filter-widget">
-						<h2 class="fw-title">Prendas</h2>
-						<ul class="category-menu">
-							<li class="active"><a>Ropa de {{genderView}}</a>
-								<ul class="sub-menu" *ngFor="let departs of department">
-									<li><a (click)="toggleDtp(departs.id)">{{departs.name}}</a></li>
-								</ul>
-							</li>
-						</ul>
+            <input (click)="cleanFilter()" type="button"
+              style="background-color:rgb(194, 89, 255); color: rgb(253, 253, 253); font-weight: bold;"
+              value="Limpiar filtros" class="btn btn--pill">
+          </div>
+          <div class="filter-widget">
+            <h2 class="fw-title">Prendas</h2>
+            <ul class="category-menu">
+              <li class="active"><a>Ropa de {{genderView}}</a>
+                <ul class="sub-menu" *ngFor="let departs of department">
+                  <li><a (click)="toggleDtp(departs.id)">{{departs.name}}</a></li>
+                </ul>
+              </li>
+            </ul>
           </div>
           <div class="dptForMobile" style="margin-top: 5%; padding-left: 12%; margin-bottom: 2%;">
             <select (change)="toggleDtp($event.target.value)" id="mounth">
               <option value="hide">-- Departamentos --</option>
-              <option *ngFor="let departs of department"  [value]="departs.id">
+              <option *ngFor="let departs of department" [value]="departs.id">
                 {{departs.name}}
               </option>
             </select>
           </div>
           <div class="filter-mobile" style="margin-top: 5%; padding-left: 12%;">
             <input type="button"
-            style="background-color:rgb(255, 89, 227); margin-top: 2%; margin-right: 2%; color: rgb(253, 253, 253); font-weight: bold;"
-            value="filtros" data-toggle="modal" data-target="#filters" class="btn btn--pill">
+              style="background-color:rgb(255, 89, 227); margin-top: 2%; margin-right: 2%; color: rgb(253, 253, 253); font-weight: bold;"
+              value="filtros" data-toggle="modal" data-target="#filters" class="btn btn--pill">
             <input (click)="cleanFilter()" type="button"
-            style="background-color:rgb(194, 89, 255); margin-top: 2%; color: rgb(253, 253, 253); font-weight: bold;"
-            value="Limpiar filtros" class="btn btn--pill">
+              style="background-color:rgb(194, 89, 255); margin-top: 2%; color: rgb(253, 253, 253); font-weight: bold;"
+              value="Limpiar filtros" class="btn btn--pill">
           </div>
-				</div>
-			<div class="col-xl-9 col-lg-8 col-md-7 productContainer">
-				<!-- Start Filter Bar -->
-				<div class="filter-bar d-flex flex-wrap align-items-center">
-				</div>
-        <!-- End Filter Bar -->
-        <div class="filter-widget mb-0" style="margin-top: 4%;">
-          <div class="row">
-            <div class="col-md-4">
-              <select (change)="toggleTag($event.target.value)" id="mounth">
-                <option value="hide">-- Marcas --</option>
-                <option *ngFor="let tag of tags"  [value]="tag.id">
-                  {{tag.name}}
-                </option>
-              </select>
-            </div>
-            <div class="col-md-4">
-              <div class="filter-widget mb-0">
-                <div class="fw-size-choose">
-                  <select (change)="filterSizeProduct($event.target.value)" name="" id="">
-                    <option value="hide">-- Tallas --</option>
-                    <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
-                  </select>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7 productContainer">
+          <!-- Start Filter Bar -->
+          <div class="filter-bar d-flex flex-wrap align-items-center">
+          </div>
+          <!-- End Filter Bar -->
+          <div class="filter-widget mb-0" style="margin-top: 4%;">
+            <div class="row">
+              <div class="col-md-4">
+                <select (change)="toggleTag($event.target.value)" id="mounth">
+                  <option value="hide">-- Marcas --</option>
+                  <option *ngFor="let tag of tags" [value]="tag.id">
+                    {{tag.name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <div class="filter-widget mb-0">
+                  <div class="fw-size-choose">
+                    <select (change)="filterSizeProduct($event.target.value)" name="" id="">
+                      <option value="hide">-- Tallas --</option>
+                      <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-3">
-              <div class="price-range-wrap">
-                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="10" data-max="270">
-                  <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
-                  <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;">
-                  </span>
-                  <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;">
-                  </span>
-                </div>
-                <div class="two_sidebar">
-                  <fieldset class="filter-price">
+              <div class="col-md-3">
+                <div class="price-range-wrap">
+                  <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                    data-min="10" data-max="270">
+                    <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;">
+                    </span>
+                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;">
+                    </span>
+                  </div>
+                  <div class="two_sidebar">
+                    <fieldset class="filter-price">
                       <div class="price-field">
-                          <input (change)="filterByPriceMin($event)" type="range"  min="2500" max="50000" value="2500" id="lower">
-                          <input  (change)="filterByPriceMax($event)" type="range"  min="2500" max="50000" value="45000" id="upper">
+                        <input (change)="filterByPriceMin($event)" type="range" min="2500" max="50000" value="2500"
+                          id="lower">
+                        <input (change)="filterByPriceMax($event)" type="range" min="2500" max="50000" value="45000"
+                          id="upper">
                       </div>
-                       <div class="price-wrap">
-                          <span class="price-title">Precio : </span>
+                      <div class="price-wrap">
+                        <span class="price-title">Precio : </span>
                         <div class="price-wrap-1">
-                            <input id="one">
-                            <label for="one">₡ {{minPrice | number: '3.'}}</label>
+                          <input id="one">
+                          <label for="one">₡ {{minPrice | number: '3.'}}</label>
                         </div>
                         <div class="price-wrap_line">-</div>
                         <div class="price-wrap-2">
-                            <input id="two">
-                            <label for="two">₡ {{maxPrice | number: '3.'}}</label>
+                          <input id="two">
+                          <label for="two">₡ {{maxPrice | number: '3.'}}</label>
                         </div>
                       </div>
-                  </fieldset>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <input (click)="sendFilter()" type="button"
+                  style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;"
+                  value="Filtrar" class="btn btn--pill">
+              </div>
+            </div>
+          </div>
+          <section class="pb-40 category-list">
+            <pagination-controls class="my-pagination" previousLabel="anterior" nextLabel="Siguiente"
+              (pageChange)="nextPaginate($event)"></pagination-controls>
+            <div class="row">
+              <div
+                *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
+                class="col-lg-4 col-md-12 col-xs-13 single-product">
+                <div class="product">
+                  <div class="imgbox">
+                    <img (click)="downloadImg(product.photo)" data-toggle="modal" data-target="#myModal" loading="lazy"
+                      ngClass="lazyload" style="max-width:100%;width:auto;height:auto;" data-src="{{product.photo}}"
+                      src="../../../assets/tenor.gif" alt="">
+                  </div>
+                  <div class="details">
+                    <h5>{{product.name}}</h5>
+                    <div class="brandPrice">
+                      ₡ {{product.pricePublic | number: '3.'}}
+                    </div>
+                    <label for="">Tallas</label>
+                    <h4 *ngIf="agotadoDispo && product.sizes.length == 0" style="color: cyan; padding-bottom: 5px;">
+                      Agotado
+                    </h4>
+                    <ul class="ulProductCard">
+                      <li *ngFor="let sizes of product.sizes">
+                        <h5>
+                          <input *ngIf="sizes.pivot.stock > 0" type="button" class="btn btn--pill btn--pink"
+                            [value]="sizes.size" (click)="selectSizes(sizes)">
+                        </h5>
+                        <h5 aria-disabled="true">
+                          <input *ngIf="sizes.pivot.stock <= 0" disabled type="button" class="btn btn--pill btn--pink"
+                            [value]="sizes.size" (click)="selectSizes(sizes)">
+                        </h5>
+                      </li>
+                    </ul>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <a class="btnCheckout" (click)="gotoDetail(product.id)" style="margin-bottom: 2%;">Ir a
+                          detalle</a>
+                      </div>
+                      <div class="col-md-4">
+                        <a style="cursor: pointer;" class="btnCheckout" (click)="like(product)"><i
+                            class="far fa-heart"></i></a>
+                      </div>
+                    </div>
+                    <a class="btnCheckout" (click)="addProductCart(product)">Agregar a carrito</a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-1">
-              <input (click)="sendFilter()" type="button" style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;"
-              value="Filtrar" class="btn btn--pill">
-            </div>
-          </div>
+            <pagination-controls class="my-pagination" previousLabel="anterior" nextLabel="Siguiente"
+              (pageChange)="nextPaginate($event)"></pagination-controls>
+          </section>
         </div>
-        <section class="pb-40 category-list">
-          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
-          (pageChange)="nextPaginate($event)"></pagination-controls>
-          <div class="row">
-            <div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
-            class="col-lg-4 col-md-12 col-xs-13 single-product">
-              <div class="product">
-                <div class="imgbox">
-                  <img (click)="downloadImg(product.photo)" data-toggle="modal"
-                  data-target="#myModal" loading="lazy" ngClass="lazyload" style="max-width:100%;width:auto;height:auto;"
-                  data-src="{{product.photo}}" src="../../../assets/tenor.gif" alt="">
-                </div>
-                <div class="details">
-                  <h5>{{product.name}}</h5>
-                  <div class="brandPrice">
-                    ₡ {{product.pricePublic | number: '3.'}}
-                  </div>
-                  <label for="">Tallas</label>
-                  <h4 *ngIf="agotadoDispo && product.sizes.length == 0"
-                  style="color: cyan; padding-bottom: 5px;">
-                    Agotado
-                  </h4>
-                  <ul class="ulProductCard">
-                    <li *ngFor="let sizes of product.sizes">
-                      <h5>
-                        <input *ngIf="sizes.pivot.stock > 0" type="button" class="btn btn--pill btn--pink" [value]="sizes.size" (click)="selectSizes(sizes)">
-                      </h5>
-                      <h5 aria-disabled="true">
-                        <input *ngIf="sizes.pivot.stock <= 0" disabled type="button" class="btn btn--pill btn--pink" [value]="sizes.size" (click)="selectSizes(sizes)">
-                      </h5>
-                    </li>
-                  </ul>
-                  <div class="row">
-                    <div class="col-md-8">
-                      <a class="btnCheckout" (click)="gotoDetail(product.id)" style="margin-bottom: 2%;">Ir a detalle</a>
-                    </div>
-                    <div class="col-md-4">
-                      <a style="cursor: pointer;" class="btnCheckout" (click)="like(product)"><i class="far fa-heart"></i></a>
-                    </div>
-                  </div>
-                  <a class="btnCheckout" (click)="addProductCart(product)">Agregar a carrito</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
-          (pageChange)="nextPaginate($event)"></pagination-controls>
-        </section>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
   </div>
   <app-whatsapp></app-whatsapp>
 </div>
-<div class="modal fadeInDown" id="filters" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-aria-hidden="true">
+<div class="modal fadeInDown" id="filters" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-content wrapper" id="formContent" role="document">
     <div class="modal-header first">
       <i class="fa fa-times close" data-dismiss="modal"></i>
       <h2 id="modalLabel">Filtros</h2>
     </div>
-    <div class="modal-body fadeIn second" >
+    <div class="modal-body fadeIn second">
       <select (change)="filterSizeProduct($event.target.value)" name="" id="">
         <option value="hide">-- Tallas --</option>
         <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
@@ -201,25 +209,26 @@ aria-hidden="true">
           <h4>Precio</h4>
           <div class="two_sidebar">
             <fieldset class="filter-price">
-                <div class="price-field">
-                    <input (change)="filterByPriceMin($event)" type="range"  min="2500" max="50000" value="2500" id="lower">
-                    <input  (change)="filterByPriceMax($event)" type="range"  min="2500" max="50000" value="45000" id="upper">
+              <div class="price-field">
+                <input (change)="filterByPriceMin($event)" type="range" min="2500" max="50000" value="2500" id="lower">
+                <input (change)="filterByPriceMax($event)" type="range" min="2500" max="50000" value="45000" id="upper">
+              </div>
+              <div class="price-wrap">
+                <span class="price-title">Precio : </span>
+                <div class="price-wrap-1">
+                  <input id="one">
+                  <label for="one">₡ {{minPrice | number: '3.'}}</label>
                 </div>
-                 <div class="price-wrap">
-                    <span class="price-title">Precio : </span>
-                  <div class="price-wrap-1">
-                      <input id="one">
-                      <label for="one">₡ {{minPrice | number: '3.'}}</label>
-                  </div>
-                  <div class="price-wrap_line">-</div>
-                  <div class="price-wrap-2">
-                      <input id="two">
-                      <label for="two">₡ {{maxPrice | number: '3.'}}</label>
-                  </div>
+                <div class="price-wrap_line">-</div>
+                <div class="price-wrap-2">
+                  <input id="two">
+                  <label for="two">₡ {{maxPrice | number: '3.'}}</label>
                 </div>
+              </div>
             </fieldset>
-            <input (click)="sendFilter()" type="button" style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;"
-            value="Filtrar" data-dismiss="modal" class="btn btn--pill">
+            <input (click)="sendFilter()" type="button"
+              style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;" value="Filtrar"
+              data-dismiss="modal" class="btn btn--pill">
           </div>
         </div>
       </div>
@@ -231,4 +240,3 @@ aria-hidden="true">
 <footer>
   <app-footer></app-footer>
 </footer>
-

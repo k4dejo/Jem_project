@@ -16,6 +16,7 @@ import { Billing } from '../../models/billing';
 import { AttachBilling } from '../../models/attachBilling';
 import { Departament } from '../../models/department';
 import { $ } from 'protractor';
+import { ImgUrl } from 'src/app/models/imgUrl';
 
 @Component({
   selector: 'app-factu',
@@ -96,6 +97,10 @@ export class FactuComponent implements OnInit {
   public addGAM = 1000;
   public restRate = 2800;
   public restAdd = 1200;
+  public imgUrl = ImgUrl;
+  public pPublic = true;
+  public pMajor = false;
+  public pBoutique = false;
 
   constructor(
     private router: Router,
@@ -137,6 +142,37 @@ export class FactuComponent implements OnInit {
   gotoApart() {
     this.router.navigate(['admin/Apartados']);
   }
+
+  nextPaginate(event: any) {
+    this.loading = true;
+    this.p = event;
+    this.loading = false;
+  }
+
+  switchPrice(event: any) {
+    switch (event) {
+      case 1:
+        this.pPublic = true;
+        this.pMajor = false;
+        this.pBoutique = false;
+      break;
+      case 2:
+        this.pPublic = false;
+        this.pMajor = true;
+        this.pBoutique = false;
+      break;
+      case 3:
+        this.pPublic = false;
+        this.pMajor = false;
+        this.pBoutique = true;
+      break;
+      default:
+        console.log('Fuera de rango');
+      break;
+    }
+    // this.calculatePriceWithShop();
+  }
+
 
 
   getDepartmentView(idGender: any) {
@@ -183,7 +219,7 @@ export class FactuComponent implements OnInit {
         this.statusBool = true;
         for (let index = 0; index < this.productView.length; index++) {
           // agrego formato a la imagen.
-          this.productView[index].photo = 'data:image/jpeg;base64,' + this.productView[index].photo;
+          this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
           const photoView = this.productView[index].photo;
           this.getDepartmentView(this.productView[index].gender.toString());
           this.getGenderString(this.gender.length, index);

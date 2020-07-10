@@ -204,7 +204,7 @@
                   <div class="col-md-3 col-s-2">
                     <div class="input-group select-dropdown">
                       <select name="province" id="province" class="custom-select" [(ngModel)]="Province"
-                      (click)="getCant(Province)">
+                      (change)="getCant(Province)">
                         <option disabled="disabled" selected="selected">--Seleccionar--</option>
                         <option *ngFor="let province of ArrayProvin" [value]="province.id">
                           {{province.name}}
@@ -216,7 +216,7 @@
                   <div class="col-md-3 col-s-2">
                     <div class="input-group select-dropdown">
                       <select name="province_can" id="province_can" class="custom-select" [(ngModel)]="Cant"
-                      (click)="getDist(Province, Cant)">
+                      (change)="getDist(Province, Cant)">
                         <option disabled="disabled" selected="selected">--Seleccionar--</option>
                         <option *ngFor="let cant of ArrayCant" [value]="cant.id">
                           {{cant.name}}
@@ -229,7 +229,7 @@
                     <div class="input-group">
                       <div class="input-group select-dropdown">
                         <select name="distrit" id="distrit" class="custom-select" [(ngModel)]="District"
-                        (click)="pushAddress(Province, Cant, District)">
+                        (change)="pushAddress(Province, Cant, District)">
                           <option disabled="disabled" selected="selected">--Seleccionar--</option>
                           <option *ngFor="let dist of ArrayDist" [value]="dist.id">
                             {{dist.name}}
@@ -268,14 +268,7 @@
       </div>
     </div>
   </div>
-
-
   <div *ngIf="loading" class="loading">Loading&#8230;</div>
-<div id="myModalImg" class="modal">
-  <span class="close" data-dismiss="modal">&times;</span>
-  <div *ngIf="loading" class="loading">Loading&#8230;</div>
-  <img class="modal-content" [src]="viewPhoto" id="img01">
-</div>
 </div>
 <div class="modal fade" id="alertPayment" tabindex="-1" role="dialog" aria-labelledby="alertPaymentTitle"
   aria-hidden="true">
@@ -319,8 +312,3 @@
   primaryColour: '#1D72EC', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }">
 </ngx-loading>-->
 <div *ngIf="loading" class="loading">Loading&#8230;</div>
-<div id="myModalImg" class="modal">
-  <span class="close" data-dismiss="modal">&times;</span>
-  <div *ngIf="loading" class="loading">Loading&#8230;</div>
-  <img class="modal-content" [src]="viewPhoto" id="img01">
-</div>

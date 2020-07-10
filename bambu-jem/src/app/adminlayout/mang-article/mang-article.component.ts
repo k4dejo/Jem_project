@@ -33,13 +33,6 @@ export class MangArticleComponent implements OnInit {
   public secondaryColour = '#ccc';
   public PrimaryRed = '#dd0031';
   public SecondaryBlue = '#006ddd';
- /*  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
-  public config = { animationType: ngxLoadingAnimationTypes.none,
-    primaryColour: this.primaryColour,
-    secondaryColour: this.secondaryColour,
-    tertiaryColour: this.primaryColour,
-    backdropBorderRadius: '3px'
-  };*/
   public size: Size;
   public images: Image;
   public attachSizeProduct: Attachsize;

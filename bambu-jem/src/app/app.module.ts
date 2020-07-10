@@ -58,6 +58,7 @@ import { GetransactionComponent } from './components/getransaction/getransaction
 import { TagComponent } from './adminlayout/tag/tag.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CompressimgComponent } from './adminlayout/compressimg/compressimg.component';
+import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
 
 
 
@@ -107,7 +108,8 @@ import { CompressimgComponent } from './adminlayout/compressimg/compressimg.comp
     HistoryComponent,
     GetransactionComponent,
     TagComponent,
-    CompressimgComponent
+    CompressimgComponent,
+    ImageslistComponent
   ],
   imports: [
     BrowserModule,
