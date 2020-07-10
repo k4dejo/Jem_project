@@ -8,28 +8,28 @@
             <div class="card-body">
                 <div class="container">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-10">
                         <pagination-controls class="my-pagination" (pageChange)="p = $event">
                         </pagination-controls>
                         <table class="table table-striped">
                           <thead>
                             <tr>
+                              <th scope="col"></th>
                               <th scope="col">Imagenes</th>
                               <th scope="col">Nombre de la ruta</th>
-                              <th scope="col"></th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let image of listImage | paginate: { itemsPerPage: 15, currentPage: p }">
                               <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" style="width: 16px; height: 16px;" (change)="addToDownload(image)" id="customCheck1">
+                                </div>
+                              </td>
+                              <td>
                                   <img style="width: 40px; height: 50px; " [src]="image.photo" alt="">
                               </td>
                               <td><p>{{image.photo}}</p></td>
-                              <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" (change)="addToDownload(image)" id="customCheck1">
-                                </div>
-                              </td>
                             </tr>
                           </tbody>
                         </table>
