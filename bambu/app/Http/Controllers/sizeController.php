@@ -222,7 +222,7 @@ class sizeController extends Controller
         $this->detachIproduct($id);
         $article = article::findOrFail($id);
         $article->sizes()->detach();
-        $article->clients()->detach();
+        // $article->clients()->detach();
         //Borrar registro
         $route = public_path().'\catalogo'.'\/';
         $imgRoute = str_replace('/', '', $route);
