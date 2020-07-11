@@ -85,6 +85,27 @@ class imageController extends Controller
         return $img;
     }
 
+    public function getAllImages(Request $request) {
+        $imagesP = DB::table('articles')->select('photo')->get();
+        return response()->json(array(
+            'imagesP' => $imagesP,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function downloadImage(Request $request) {
+        // recoger datos del POST
+        $json =  $request->input('json', null);
+        $params = json_decode($json);
+        $paramsArray = json_decode($json,true);
+        $contents = Storage::disk('public')->get($paramsArray);
+        $imageDownload = base64_encode($contents);
+        return response()->json(array(
+            'download' => $imageDownload,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function update(Request $request, image $image)
     {
         //

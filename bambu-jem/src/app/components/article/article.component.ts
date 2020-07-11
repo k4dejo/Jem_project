@@ -59,6 +59,7 @@ export class ArticleComponent implements OnInit {
   public subscribeTimer: any;
   public interval;
   public timeLeft = 5;
+  public agotadoDispo = false;
   public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = [
     'Pantalones',
@@ -266,13 +267,14 @@ export class ArticleComponent implements OnInit {
       if ( sizeStock === 0) {
         for (let i = 0; i < this.products.length; i++) {
           if (this.products[i].id === product.id) {
-            this.products[i].sizes.splice(index, 1);
+            if (this.products[i].sizes.length <= 1) {
+               this.agotadoDispo = true;
+               this.products[i].sizes.splice(index, 1);
+            } else {
+              this.products[i].sizes.splice(index, 1);
+            }
           }
-          /*if (this.products[i].id === product.id) {
-            this.products[i].sizes.splice(index, 1);
-          }*/
         }
-        // this.products[index].sizes.splice(index, 1);
       }
     }
   }
@@ -604,7 +606,7 @@ export class ArticleComponent implements OnInit {
       response => {
         if (response.purchase !== null) {
           this.editPurchase(response);
-        } else {
+      } else {
           this.savePurchase();
         }
       }, error => {

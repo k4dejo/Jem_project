@@ -35,6 +35,7 @@ import { HistoryComponent } from './components/history/history.component';
 import { GetransactionComponent } from './components/getransaction/getransaction.component';
 import { TagComponent } from './adminlayout/tag/tag.component';
 import { CompressimgComponent } from './adminlayout/compressimg/compressimg.component';
+import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -71,6 +72,7 @@ const routes: Routes = [
   { path: 'admin/Apartados', component: ApartComponent},
   { path: 'admin/Configuración', component: ModAdminComponent},
   { path: 'admin/CompressImg', component: CompressimgComponent},
+  { path: 'admin/ImagesList', component: ImageslistComponent},
   { path: 'admin/mantenimiento_Usuarios', component: CreateAdminComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},

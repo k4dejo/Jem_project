@@ -250,6 +250,12 @@ body{
   font-size: 30px;
   font-weight: bold;
   font-family: 'Roboto Condensed', sans-serif;
+  background-image: url('/assets/Images/promo.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 .promo .btn {
   font-size: 25px;

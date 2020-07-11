@@ -29,6 +29,13 @@
             <i class="fas fa-ticket-alt"></i> Cupones
           </a>
         </li>
+        <li class="nav-item" *ngIf="priorityBoolean">
+          <a (click)="gotoImageList()" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          role="button">
+          <i class="far fa-images"></i>
+            Lista de Imagenes
+          </a>
+        </li>
         <li class="nav-item">
           <a (click)="gotoFact()" class="navbar-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           role="button">

@@ -1454,7 +1454,6 @@ select {
 .product .imgbox img {
   display: block;
   width: 90%;
-  /*margin: 1px auto 0;*/
   margin: 1px auto 0;
   cursor: pointer;
 }

@@ -75,11 +75,13 @@ export class OrdersComponent implements OnInit {
           this.btnNextDisabled = true;
           this.urlPaginate = response.NextPaginate;
         }
+        this.loading = false;
       }
     );
   }
 
   getPurchaseStatus(value) {
+    this.loading = true;
     this.purchaseService.getStatusPurchase(value).subscribe(
       response => {
         this.purchaselist = response.purchases.data;
@@ -88,9 +90,9 @@ export class OrdersComponent implements OnInit {
         if (response.NextPaginate == null) {
           // this.btnNextDisabled = false;
           this.urlPaginate = response.purchases.last_page_url;
-          console.log(this.urlPaginate);
         } else {}
         this.getClientPurchase(this.purchaselist);
+        this.loading = false;
       }, error => {
         console.log(<any>error);
       }

@@ -235,24 +235,8 @@ export class ApartComponent implements OnInit {
 
   nextPaginate(event: any) {
     this.loading = true;
-    const urlSplit = this.urlPaginate.split('=');
-    this.pageChange = urlSplit[0] + '=' + event;
     this.p = event;
-    this.productService.getPaginateProduct(this.pageChange).subscribe(
-      response => {
-        this.productView = response.articles.data;
-        if (response.NextPaginate == null) {
-          this.btnNextDisabled = false;
-        } else {
-          this.btnNextDisabled = true;
-          this.urlPaginate = response.NextPaginate;
-        }
-        this.addPhotoProductList();
-        this.loading = false;
-      }, error => {
-        console.log(<any> error);
-      }
-    );
+    this.loading = false;
   }
 
   /* getProductView() {
@@ -437,23 +421,6 @@ export class ApartComponent implements OnInit {
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
         }
-        /*for (let index = 0; index < this.arrayApart.length; index++) {
-         this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
-         // this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-         if (this.pPublic) {
-          console.log('public');
-          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-        }
-        if (this.pMajor) {
-          console.log('major');
-          this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
-        }
-        if (this.pBoutique) {
-          console.log('tub');
-          this.apartM.price += this.arrayApart[index].priceTub * this.arrayApart[index].pivot.amount;
-        }
-         this.billing.price = this.apartM.price;
-        }*/
         this.calculateWeight();
       }, error => {
         console.log(<any>error);

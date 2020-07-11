@@ -141,7 +141,7 @@
               <tbody>
                 <tr *ngFor="let product of productView | filter: searchProduct | paginate: {itemsPerPage: 8, currentPage: p}">
                   <td>
-                    <img class="img-responsive" [src]="product.photo" alt="">
+                    <img class="imgTable" [src]="product.photo" alt="">
                   </td>
                   <td>
                     <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModalImg">{{product.name}}</a>
@@ -220,7 +220,6 @@
                 </tbody>
               </table>
               <h3>Total: ₡ {{apartM.price | number: "3."}}</h3>
-              <!--<h4>Envío: ₡ {{shipping | number: "3."}}</h4>-->
               <h4>Envío:  ₡ {{shipping | number: "3."}} <input type="number" name="" id="" [value]="shipping" (change)="editShipping($event)"></h4>
             </div>
             <input style="color: white;" type="button" class="btn btn--green btn--pill"

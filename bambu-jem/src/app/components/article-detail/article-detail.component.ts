@@ -183,15 +183,16 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
+
   calculateDisponibility() {
     this.totalStock = 0;
     for (let index = 0; index < this.viewRelation.length; index++) {
-      if (this.viewRelation.length !== 0) {
+      if (this.viewRelation.length > 0) {
         this.totalStock = this.totalStock + this.viewRelation[index].pivot.stock;
       }
-      const sizeStock = this.viewRelation[index].pivot.stock;
-      if ( sizeStock === 0) {
+      if (this.viewRelation[index].pivot.stock <= 0 ) {
         this.viewRelation.splice(index, 1);
+        index = index - 1;
       }
     }
   }
