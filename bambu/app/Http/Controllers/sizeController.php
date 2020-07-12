@@ -190,10 +190,13 @@ class sizeController extends Controller
     public function detachIproduct($idProduct) {
         $detachApar = DB::table('apart_article')->where('article_id', $idProduct)->get();
         $detachbilling = DB::table('article_billing')->where('article_id', $idProduct)->get();
-        $detachPurchase = DB::table('article_purchase')->where('article_id', $idProduct)->get();
+        $detachPurchase = DB::table('article_purchase')->where('article_id', $idProduct)
+        ->get();
+        $article = article::findOrFail($idProduct);
         $countApar = count($detachApar);
-        $countPurchase = count($detachPurchase);
+        $countPurchase = count($article->purchases()->get());
         $countBilling = count($detachbilling);
+        $arrayPurchase = $article->purchases()->get();
         if ($countApar > 0) {
             for ($i=0; $i < $countApar; $i++) {
                 $apart = apart::findOrFail($detachApar[$i]->apart_id);
@@ -201,9 +204,17 @@ class sizeController extends Controller
             }
         }
         if ($countPurchase > 0) {
+            $guiltyPurchase = false;
             for ($i=0; $i < $countPurchase; $i++) {
-                $purchase = purchase::findOrFail($detachPurchase[$i]->purchase_id);
-                $purchase->articles()->wherePivot('purchase_id', $detachPurchase[$i]->purchase_id)->detach();
+                if ($arrayPurchase[$i]->status == 'Procesando') {
+                    $guiltyPurchase =true;
+                }
+            }
+
+            if (!$guiltyPurchase) {
+               $article->clients()->detach();
+            } else {
+                return 'Prenda en carritos';
             }
         }
         if ($countBilling > 0) {
@@ -219,24 +230,29 @@ class sizeController extends Controller
 
     public function detachSize($id){
         //delete the relationships with first.
-        $this->detachIproduct($id);
-        $article = article::findOrFail($id);
-        $article->sizes()->detach();
-        // $article->clients()->detach();
-        //Borrar registro
-        $route = public_path().'\catalogo'.'\/';
-        $imgRoute = str_replace('/', '', $route);
-        $imgRoute = $imgRoute . $article->photo;
-        Storage::delete($article->photo);
-        //Storage::disk('public')->delete($article->photo');
-        $article->delete();
-        $data = array(
-            'article' => $article,
-            'status'  => 'Delete success',
-            'responseDetach' => $this->detachIproduct($id),
-            'code'    => 200
-        );
-        return response()->json($data, 200);
+        $alertDelete = $this->detachIproduct($id);
+        if ($alertDelete != 'Prenda en carritos') {
+            $article = article::findOrFail($id);
+            $article->sizes()->detach();
+            // $article->clients()->detach();
+            //Borrar registro
+            $route = public_path().'\catalogo'.'\/';
+            $imgRoute = str_replace('/', '', $route);
+            $imgRoute = $imgRoute . $article->photo;
+            Storage::delete($article->photo);
+            //Storage::disk('public')->delete($article->photo');
+            $article->delete();
+            $data = array(
+                'status'  => 'Delete success',
+                'code'    => 200
+            );
+            return response()->json($data, 200);
+        }else {
+            return response()->json(array(
+                'mgs' => $alertDelete,
+            ), 200);
+        }
+
     }
 
     public function detachRelation(Request $request){

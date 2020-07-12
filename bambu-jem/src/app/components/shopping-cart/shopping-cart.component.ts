@@ -279,6 +279,7 @@ export class ShoppingCartComponent implements OnInit {
       .subscribe(
         response => {
           this.deleteProductVoidAmount(productArray[index], response);
+        // tslint:disable-next-line:no-shadowed-variable
         }, error => {
           console.log(<any> error);
         }
@@ -402,6 +403,7 @@ export class ShoppingCartComponent implements OnInit {
     this.totalWeight = 0;
     for (let index = 0; index < this.productPurchase.length; ++index) {
       this.totalWeight += Number(this.testProduct[index].weight) * this.testProduct[index].pivot.amount;
+      // tslint:disable-next-line:max-line-length
       // console.log('Nombre del producto', this.testProduct[index], this.testProduct[index].weight, '*', this.testProduct[index].pivot.amount, '=', this.totalWeight);
     }
     this.viewAddress(this.splite[0] , this.splite[1]);

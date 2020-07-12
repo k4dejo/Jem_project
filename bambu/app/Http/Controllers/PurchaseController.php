@@ -458,6 +458,15 @@ class PurchaseController extends Controller
         $productSize = article::find($productId)->sizes()->get();
         $countGetProduct = count($productSize);
         $sizeIdResponse = $this->checkSizeIdPurchase($productId, $sizeId);
+        if ($sizeIdResponse == 'Error') {
+            $data = array(
+                'sizeId' => $productId,
+                'amountCheck' => 'void',
+                'status'  => 'success',
+                'code'    => 200,
+            );
+            return response()->json($data,200);
+        }
         for ($i=0; $i < $countGetProduct; $i++) {
             if ($productSize[$i]->id == $sizeIdResponse) {
                 if ($productSize[$i]->pivot->stock >= $amountCompare) {

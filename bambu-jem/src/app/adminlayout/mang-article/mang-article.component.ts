@@ -580,10 +580,19 @@ export class MangArticleComponent implements OnInit {
   }
 
   toast(numberbool: any) {
-    if (numberbool === 1) {
-      this.showSuccess();
-    } else {
-      this.showError();
+    switch (numberbool) {
+      case 1:
+        this.showSuccess();
+      break;
+      case 2:
+        this.showError();
+      break;
+      case 3:
+        this.showInfo();
+      break;
+
+      default:
+        break;
     }
   }
 
@@ -591,6 +600,14 @@ export class MangArticleComponent implements OnInit {
     this.toastr.overlayContainer = this.toastContainer;
     this.toastr.success('Se ha añadido correctamente', 'Éxito', {
       timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showInfo() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.info('El producto esta el pedidos que no han sido procesados', 'Alerta', {
+      timeOut: 4000,
       progressBar: true
     });
   }
@@ -680,7 +697,12 @@ export class MangArticleComponent implements OnInit {
     );
     this.sizeService.detachSizeProduct(id).subscribe(
       response => {
-        this.getProductView();
+        console.log(response);
+        if (response.mgs !== 'Prenda en carritos') {
+          this.getProductView();
+        } else {
+          this.toast(3);
+        }
       },
       error => {
         console.log(<any>error);
