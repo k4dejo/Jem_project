@@ -261,10 +261,11 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  calculateDisponibility(product: any) {
+  /*calculateDisponibility(product: any) {
     for (let index = 0; index < product.sizes.length; index++) {
       const sizeStock = product.sizes[index].pivot.stock;
-      if ( sizeStock === 0) {
+      if ( sizeStock <= 0) {
+        console.log(product.sizes[index]);
         for (let i = 0; i < this.products.length; i++) {
           if (this.products[i].id === product.id) {
             if (this.products[i].sizes.length <= 1) {
@@ -277,10 +278,37 @@ export class ArticleComponent implements OnInit {
         }
       }
     }
+  }*/
+
+  calculateDisponibility(product: any) {
+    for (let index = 0; index < product.sizes.length; index++) {
+      const sizeStock = product.sizes[index].pivot.stock;
+      if ( sizeStock <= 0) {
+        for (let i = 0; i < this.products.length; i++) {
+          if (this.products[i].id === product.id) {
+            this.products[i].sizes.splice(index, 1);
+            index = index - 1;
+            if (this.products[i].sizes.length <= 0) {
+              this.agotadoDispo = true;
+            }
+          }
+          /*if (this.products[i].id === product.id) {
+            console.log(this.products[i].sizes.length);
+            if (this.products[i].sizes.length <= 0) {
+               this.agotadoDispo = true;
+               this.products[i].sizes.splice(index, 1);
+            } else {
+              this.products[i].sizes.splice(index, 1);
+            }
+            index = index - 1;
+            console.log(this.products[i]);
+          }*/
+        }
+      }
+    }
   }
 
   like(product: any) {
-    console.log(product);
     this.verifyClient();
     if (this.identity) {
       const clickBtn = document.querySelector('.heart');
@@ -385,7 +413,6 @@ export class ArticleComponent implements OnInit {
       response => {
         this.products = response.articles.data;
         this.lenghtProduct = response.articles.total;
-        // this.products = response.articles;
         this.loading = false;
         if (response.NextPaginate == null) {
           this.btnNextDisabled = false;
@@ -464,6 +491,7 @@ export class ArticleComponent implements OnInit {
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
+          this.calculateDisponibility(this.products[index]);
         }
         this.loading = false;
       }, error => {
@@ -555,6 +583,7 @@ export class ArticleComponent implements OnInit {
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
+          this.calculateDisponibility(this.products[index]);
         }
         console.log(this.products);
       }, error => {

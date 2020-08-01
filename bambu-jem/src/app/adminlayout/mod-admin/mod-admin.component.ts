@@ -20,7 +20,7 @@ export class ModAdminComponent implements OnInit {
   constructor( private adminService: AdminService, private router: Router) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.changePass = new ChangeAdmin('', '', '', '');
+    this.changePass = new ChangeAdmin('', '', '', '', '');
   }
 
   showPass() {
@@ -38,6 +38,7 @@ export class ModAdminComponent implements OnInit {
   }
 
   savePass() {
+    this.changePass.user = this.identity.user;
     this.changePass.priority = this.identity.priority;
     if (this.changePass.newPass === this.changePass.rePass) {
       this.secureBool = false;
@@ -61,11 +62,6 @@ export class ModAdminComponent implements OnInit {
   ngOnInit() {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
-    } else {
-      if (this.identity.priority !== 1) {
-        this.router.navigate(['admin']);
-      }
-      console.log(this.identity);
     }
   }
 }
