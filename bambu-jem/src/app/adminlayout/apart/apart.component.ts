@@ -98,15 +98,21 @@ export class ApartComponent implements OnInit {
   public shipping = 0;
   public totalPrice = 0;
   public totalWeight = 0;
-  public rateGAM = 2200;
-  public addGAM = 1000;
-  public restRate = 2800;
-  public restAdd = 1200;
+  public rateGAM = 2485;
+  public addGAM = 1130;
+  public restRate = 3165;
+  public restAdd = 1355;
   public splite;
   public idCleanApart: string;
   public PronviJson: string[] = [];
   public CantJson: string[] = [];
   public DistJson: string[] = [];
+  public arrayGamDis: string[] = ['San José', 'central', 'Escazú', 'Desamparados',
+  'Aserrí', 'Mora', 'Goicoechea', 'Santa Ana', 'Alajuelita', 'Vásquez de Coronado',
+  'Tibás', 'Moravia', 'Montes de Oca', 'Curridabat', 'Alajuela', 'San Ramón', 'Grecia', 'Atenas',
+  'Naranjo', 'Palmares', 'Poás', 'Sarchí', 'Río Cuarto', 'Cartago', 'Paraíso', 'La Unión', 'Alvarado',
+  'Oreamuno', 'El Guarco', 'Heredia', 'Barva', 'Santo Domingo', 'Santa Bárbara', 'San Rafael',
+  'San Isidro', 'Belén', 'Flores', 'San Pablo'];
   public ArrayProvin: Province[];
   public ArrayCant: Cant[];
   public ArrayDist: District[];
@@ -496,36 +502,6 @@ export class ApartComponent implements OnInit {
     this.shipping = e.target.value;
   }
 
-  /* selectClient(dataClient: any) {
-    this.client.name = dataClient.name;
-    this.client.address = dataClient.address;
-    this.client.phone = dataClient.phone;
-    this.client.email = dataClient.email;
-    this.client.addressDetail = dataClient.addressDetail;
-    this.billing.client = dataClient.name;
-    this.billing.email = dataClient.email;
-    this.billing.address = dataClient.address;
-    this.billing.addressDetail = dataClient.addressDetail;
-    this.billing.phone = dataClient.phone;
-    this.billing.status = 'process';
-    this.apartM.clients_id = dataClient.id;
-    this.apartM.price = 0;
-    this.clientBool = false;
-    this.splite = this.client.address.split(',');
-    this.viewAddress(this.splite[0] , this.splite[1]);
-    this.apartService.addNewApart(this.token, this.apartM).subscribe(
-      response => {
-        if (response.status === 'success' || response.status === 'Exist') {
-          this.attachApart.apart_id = response.apart.id;
-          this.getApartClient(dataClient.id);
-          this.idCleanApart = response.apart.id;
-        }
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }*/
-
   selectClient(dataClient: any) {
     this.client.name = dataClient.name;
     this.client.address = dataClient.address;
@@ -768,7 +744,65 @@ export class ApartComponent implements OnInit {
     this.billing.price += this.shipping;
   }
 
+  searchGamDist(dis) {
+    for (let index = 0; index < this.arrayGamDis.length; index++) {
+      let arrayDisGam = this.arrayGamDis[index].toString();
+      if (dis === arrayDisGam) {
+        return true;
+        break;
+      }
+    }
+    return false;
+  }
+
   viewAddress(province: any, district: any) {
+    let responseSearch= this.searchGamDist(district);
+    switch (province) {
+      case 'San José':
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      case 'Alajuela':
+
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      case 'Guanacaste':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+      break;
+      case 'Heredia':
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      case 'Puntarenas':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+      break;
+      case 'Limón':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+      break;
+      case 'Cartago':
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+      break;
+      default:
+        'fuera de rango de zona';
+      break;
+    }
+  }
+
+  /*viewAddress(province: any, district: any) {
     switch (province) {
       case 'San José':
         if (district === 'central') {
@@ -778,7 +812,8 @@ export class ApartComponent implements OnInit {
         }
       break;
       case 'Alajuela':
-        if (district === 'central' || district === 'Poás' ||  district === 'Atenas') {
+        if (district === 'central' || district === 'Poás' ||
+        district === 'Atenas' || district === 'Palmares' || district === 'Grecia' || district === 'Grecia') {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
@@ -812,7 +847,7 @@ export class ApartComponent implements OnInit {
         'fuera de rango de zona';
       break;
     }
-  }
+  }*/
   /*==========================================Dirección===========================================*/
   getProvice() {
     this.province.getProvinceJson().subscribe(
@@ -909,7 +944,7 @@ export class ApartComponent implements OnInit {
        }
       }
     }
-    this.splite = this.client.address.split(',');
+    this.splite = this.client.address.split(', ');
     this.viewAddress(this.splite[0] , this.splite[1]);
   }
 

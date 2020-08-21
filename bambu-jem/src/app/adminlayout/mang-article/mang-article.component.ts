@@ -13,6 +13,7 @@ import { ImgUrl } from '../../models/imgUrl';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 @Component({
@@ -123,8 +124,6 @@ export class MangArticleComponent implements OnInit {
   public timeLeft = 5;
   public tags: any;
   public viewPhoto;
-  public imgResultBeforeCompress: string;
-  public imgResultAfterCompress: string;
   public sizesList;
   public dptSearch;
   public genderSearch;
@@ -133,6 +132,11 @@ export class MangArticleComponent implements OnInit {
   public preStateDpt;
   public preStateGender;
   public newStateSize;
+  public imgResultBeforeCompress: string;
+  public imgResultAfterCompress: string;
+  public sizeBeforeCompress;
+  public sizeAfterCompress;
+  public newBlob;
 
   constructor(
     private route: ActivatedRoute,
@@ -141,7 +145,8 @@ export class MangArticleComponent implements OnInit {
     private sizeService: SizeService,
     private adminService: AdminService,
     private imagesService: ImageService,
-    private productService: ArticleService
+    private productService: ArticleService,
+    private imageCompress: NgxImageCompressService
   ) {
     this.images = new Image('', '', null);
     this.token = this.adminService.getToken();
@@ -244,9 +249,60 @@ export class MangArticleComponent implements OnInit {
     });
   }
 
+  compressFile() {
+    this.loading = true;
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+      const myImg = image;
+      this.imgResultBeforeCompress = image;
+      this.sizeBeforeCompress = this.formatBytes(this.imageCompress.byteCount(image));
+      let sizesFile = this.sizeBeforeCompress.split(' ');
+      let typeFile = sizesFile[1];
+      sizesFile = sizesFile[0];
+      if (typeFile === 'MB') {
+        document.getElementById("openModalButton").click();
+        this.compressImg(image, orientation);      
+      } else {
+        if (typeFile === 'KB' && sizesFile > 500) {
+          this.compressImg(image, orientation);
+        } else {
+          this.fileBlob = image;
+        }
+      }
+    });
+    this.loading = false;
+  }
+
+
+
+  compressImg(image, orientation) {
+    this.imageCompress.compressFile(image, orientation, 75, 50).then(
+      result => {
+        this.imgResultAfterCompress = result;
+        this.sizeAfterCompress = this.formatBytes(this.imageCompress.byteCount(result));
+      }
+    );
+  }
+
+  choseImg(img) { 
+    this.fileBlob = img;
+  }
+
+  formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+ }
+
   onUpload(e) {
+    console.log(e);
     const myImg = e.target.files[0];
+    console.log(myImg);
     this.product.photo = myImg.name;
+    console.log(this.product.photo);
     const promise = this.getFileBlob(myImg);
     promise.then(Blob => {
       this.fileBlob = Blob;
@@ -514,6 +570,7 @@ export class MangArticleComponent implements OnInit {
           this.department = [];
           this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
+          this.newBlob = 'assets/Images/default.jpg';
           this.getProductView();
           this.loading = false;
           form.reset();
@@ -537,6 +594,7 @@ export class MangArticleComponent implements OnInit {
 
   saveProduct(form) {
     this.product.file = this.fileBlob;
+    this.product.photo = this.product.name + '.jpg';
     this.productRelation = [];
     if (this.product.tags_id === undefined) {
       this.product.tags_id = '0';
@@ -649,22 +707,6 @@ export class MangArticleComponent implements OnInit {
           this.productView = response.articles;
           this.statusBool = true;
           this.addPhotoProductList();
-          /*for (let i = 0; i < this.productView.length; ++i) {
-            // agrego formato a la imagen.
-            this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
-            const photoView = this.productView[i].photo;
-            this.getDepartmentView(this.productView[i].gender.toString());
-            for (let index = 0; index < this.gender.length; index++) {
-              if (this.productView[i].gender.toString() === this.gender[index].id) {
-                this.productView[i].gender = this.gender[index].name;
-              }
-            }
-            for (let indexD = 0; indexD < this.department.length; indexD++) {
-              if (this.productView[i].department.toString() === this.department[indexD].id) {
-                this.productView[i].department = this.department[indexD].name;
-              }
-            }
-          }*/
           this.loading = false;
         } else {
           this.productView = response.articles;

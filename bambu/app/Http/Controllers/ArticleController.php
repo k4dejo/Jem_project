@@ -232,7 +232,10 @@ class ArticleController extends Controller
             }
             $imgName = time() . $params->photo;
             //$resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-            Storage::disk('public')->put($imgName, base64_decode($img));
+            $base = base64_decode($img);
+            $imgConvert = Image::make($base)->encode('jpg', 100);
+            Storage::disk('public')->put($imgName, $imgConvert);
+            //Storage::disk('public')->put($imgName, base64_decode($img));
             //guardar articulo
             $article = new article();
             $article->name         = $params->name;

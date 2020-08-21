@@ -194,7 +194,7 @@ class sizeController extends Controller
         ->get();
         $article = article::findOrFail($idProduct);
         $countApar = count($detachApar);
-        $countPurchase = count($article->purchases()->get());
+        $countPurchase = count($detachPurchase);
         $countBilling = count($detachbilling);
         $arrayPurchase = $article->purchases()->get();
         if ($countApar > 0) {

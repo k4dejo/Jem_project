@@ -55,10 +55,10 @@ export class ShoppingCartComponent implements OnInit {
   public totalPrice = 0;
   public totalWeight = 0;
   public shipping = 0;
-  public rateGAM = 2200;
-  public addGAM = 1000;
-  public restRate = 2800;
-  public restAdd = 1200;
+  public rateGAM = 2485;
+  public addGAM = 1130;
+  public restRate = 3165;
+  public restAdd = 1355;
   public countAmountP: number;
   public splite;
   public testProduct;
@@ -106,6 +106,12 @@ export class ShoppingCartComponent implements OnInit {
   public idProductAlert: any;
   public attachPurchase: AttachPurchase;
   public boolShippingView = false;
+  public arrayGamDis: string[] = ['San José', 'Central', 'Escazú', 'Desamparados',
+  'Aserrí', 'Mora', 'Goicoechea', 'Santa Ana', 'Alajuelita', 'Vásquez de Coronado',
+  'Tibás', 'Moravia', 'Montes de Oca', 'Curridabat', 'Alajuela', 'San Ramón', 'Grecia', 'Atenas',
+  'Naranjo', 'Palmares', 'Poás', 'Sarchí', 'Río Cuarto', 'Cartago', 'Paraíso', 'La Unión', 'Alvarado',
+  'Oreamuno', 'El Guarco', 'Heredia', 'Barva', 'Santo Domingo', 'Santa Bárbara', 'San Rafael',
+  'San Isidro', 'Belén', 'Flores', 'San Pablo'];
 
   constructor(
     private route: ActivatedRoute,
@@ -226,6 +232,8 @@ export class ShoppingCartComponent implements OnInit {
          this.addressPurchase.address = this.addressPurchase.address + ', ' + this.DistJson[i];
        }
       }
+      this.splite = this.addressPurchase.address.split(', ');
+      //this.viewAddress(this.splite[0] , this.splite[1]);
     }
   }
 
@@ -319,8 +327,8 @@ export class ShoppingCartComponent implements OnInit {
               if (response.AddressPurchase !== 'void') {
                 this.addressPurchase = response.AddressPurchase;
                 this.viewAddressBool = true;
-                this.splite = this.addressPurchase.address.split(',');
-                this.viewAddress(this.splite[0] , this.splite[1]);
+                /*this.splite = this.addressPurchase.address.split(',');
+                this.viewAddress(this.splite[0] , this.splite[1]);*/
                 this.calculateWeight();
               } else {
                 this.boolShippingView = true;
@@ -403,7 +411,6 @@ export class ShoppingCartComponent implements OnInit {
     this.totalWeight = 0;
     for (let index = 0; index < this.productPurchase.length; ++index) {
       this.totalWeight += Number(this.testProduct[index].weight) * this.testProduct[index].pivot.amount;
-      // tslint:disable-next-line:max-line-length
       // console.log('Nombre del producto', this.testProduct[index], this.testProduct[index].weight, '*', this.testProduct[index].pivot.amount, '=', this.totalWeight);
     }
     this.viewAddress(this.splite[0] , this.splite[1]);
@@ -549,17 +556,30 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
+  searchGamDist(dis) {
+    for (let index = 0; index < this.arrayGamDis.length; index++) {
+      let arrayDisGam = this.arrayGamDis[index].toString();
+      if (dis === arrayDisGam) {
+        return true;
+        break;
+      }
+    }
+    return false;
+  }
+
   viewAddress(province: any, district: any) {
+    let responseSearch= this.searchGamDist(district);
+    console.log(responseSearch);
     switch (province) {
       case 'San José':
-        if (district === 'central') {
+        if (responseSearch) {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
       case 'Alajuela':
-        if (district === 'central') {
+        if (responseSearch) {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
@@ -569,7 +589,7 @@ export class ShoppingCartComponent implements OnInit {
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
       case 'Heredia':
-        if (district === 'central') {
+        if (responseSearch) {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
@@ -582,14 +602,13 @@ export class ShoppingCartComponent implements OnInit {
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
       break;
       case 'Cartago':
-        if (district === 'central') {
+        if (responseSearch) {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
       break;
       default:
-        // tslint:disable-next-line:no-unused-expression
         'fuera de rango de zona';
       break;
     }

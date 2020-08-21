@@ -660,7 +660,6 @@ export class ArticleComponent implements OnInit {
 
   selectSizes(sizeObject) {
     this.attachPurchase.size = sizeObject.size;
-    console.log(sizeObject);
   }
 
   attachProductPurchase() {
@@ -694,7 +693,6 @@ export class ArticleComponent implements OnInit {
       this.IdProduct = productObject.id;
       // let sizeIdCompare = 0;
       this.loading = true;
-      console.log(this.attachPurchase);
       if (this.attachPurchase.size !== '') {
         this.purchaseService.compareAmountSizePurchase(this.attachPurchase.size, productObject.id, this.attachPurchase.amount)
         .subscribe(

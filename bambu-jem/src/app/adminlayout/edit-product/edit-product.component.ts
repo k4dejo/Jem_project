@@ -12,6 +12,7 @@ import { Image } from '../../models/image';
 import {Attachsize} from '../../models/attachsize';
 import { AdminService } from '../../services/admin.service';
 import { ImgUrl } from '../../models/imgUrl';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 @Component({
   selector: 'app-edit-product',
@@ -115,6 +116,10 @@ public dtDepartmentB: string[] = [
   public identity;
   public checkBool = false;
   public tags: any;
+  public imgResultBeforeCompress: string;
+  public imgResultAfterCompress: string;
+  public sizeBeforeCompress;
+  public sizeAfterCompress;
 
   constructor(
     private route: ActivatedRoute,
@@ -123,6 +128,7 @@ public dtDepartmentB: string[] = [
     private sizeService: SizeService,
     private adminService: AdminService,
     private imageService: ImageService,
+    private imageCompress: NgxImageCompressService,
     private productService: ArticleService) {
       this.token = this.adminService.getToken();
       this.identity = this.adminService.getIdentity();
@@ -167,6 +173,53 @@ public dtDepartmentB: string[] = [
       reader.readAsDataURL(file);
     });
   }
+
+  compressFile() {
+    this.loading = true;
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+      const myImg = image;
+      console.log(myImg);
+      this.imgResultBeforeCompress = image;
+      this.sizeBeforeCompress = this.formatBytes(this.imageCompress.byteCount(image));
+      let sizesFile = this.sizeBeforeCompress.split(' ');
+      let typeFile = sizesFile[1];
+      sizesFile = sizesFile[0];
+      if (typeFile === 'MB') {
+        document.getElementById("openModalButton").click();
+        this.compressImg(image, orientation);      
+      } else {
+        if (typeFile === 'KB' && sizesFile > 500) {
+          this.compressImg(image, orientation);
+        } else {
+          this.fileBlob = image;
+        }
+      }
+    });
+    this.loading = false;
+  }
+
+  compressImg(image, orientation) {
+    this.imageCompress.compressFile(image, orientation, 75, 50).then(
+      result => {
+        this.imgResultAfterCompress = result;
+        this.sizeAfterCompress = this.formatBytes(this.imageCompress.byteCount(result));
+      }
+    );
+  }
+
+  choseImg(img) { 
+    this.fileBlob = img;
+  }
+
+  formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+ }
 
   onUpload(e) {
     const myImg = e.target.files[0];

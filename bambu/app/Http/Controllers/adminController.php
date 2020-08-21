@@ -47,6 +47,7 @@ class adminController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
 
+            $user = (!is_null($json) && isset($params->user)) ? $params->user : null;
             $oldPassword = (!is_null($json) && isset($params->oldPass)) ? $params->oldPass : null;
             $newPassword = (!is_null($json) && isset($params->newPass)) ? $params->newPass : null;
             $priority = (!is_null($json) && isset($params->priority)) ? $params->priority : null;
@@ -58,7 +59,7 @@ class adminController extends Controller
                 $DBpass = $jwtAuth->verifyPasswordAuth($Oldpwd, $priority);
                 if ($DBpass != null) {
                     $newPwd = hash('sha256', $newPassword);
-                    $adminPassUpdate = Admin::where('priority', $priority)
+                    $adminPassUpdate = Admin::where('priority', $priority)->where('user', $user)
                     ->update(['password' => $newPwd]);
                     return response()->json(array(
                         'message' => 'contraseña restablecida',

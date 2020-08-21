@@ -544,6 +544,12 @@ td .img-responsive{
 }
 
 
+.modalImgView {
+  padding-left: 122px;
+  padding-bottom: 25px;
+}
+
+
 /* Add Animation */
 .modal-content {
   -webkit-animation-name: zoom;

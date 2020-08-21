@@ -15,11 +15,11 @@ export class LoginAdminComponent implements OnInit {
   public identity;
   public admin: Admin;
   public loading = false;
+  public status: string;
   public primaryColour = '#ffffff';
   public secondaryColour = '#ccc';
   public PrimaryRed = '#dd0031';
   public SecondaryBlue = '#006ddd';
-  public status: string;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
   public config = { animationType: ngxLoadingAnimationTypes.none,
     primaryColour: this.primaryColour,

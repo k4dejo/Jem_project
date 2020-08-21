@@ -494,7 +494,7 @@ class PurchaseController extends Controller
                 return response()->json($data,200);
             }*/
         }
-       }
+    }
 
     public function getClientInfo($idClient, $status, $idPurchase) {
         $purchaseClient = DB::table('purchases')->where('clients_id', $idClient)

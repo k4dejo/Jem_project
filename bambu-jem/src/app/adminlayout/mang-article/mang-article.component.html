@@ -97,7 +97,7 @@
                   <div class="col-lg-5">
                     <div class="input-group-desc">
                       <label for="">Peso</label>
-                      <input class="input--style-5" type="text" name="weight" #weight="ngModel"
+                      <input class="input--style-5" type="text"  name="weight" #weight="ngModel"
                         [(ngModel)]="product.weight" placeholder="Kg" type="text" required>
                     </div>
                   </div>
@@ -141,10 +141,13 @@
                   <img style="width: 300px; height: 350px;" [src]="fileBlob" alt="">
                 </div>
               </div>
-              <label class="btnLabel btn btn--green">
+              <button type="button" class="btnLabel btn btn--green"
+              (click)="compressFile()"><i class="fas fa-file-upload"></i> Subir imagen</button>
+              <!--
+                <label class="btnLabel btn btn--green">
                 <i class="fas fa-file-upload"></i> Subir imagen
                 <input class="inputFile" name="photo" type="file" id="img" accept="image/*" (change)="onUpload($event)">
-              </label>
+              </label>-->
             </div>
             <div class="col-md-5">
               <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
@@ -294,6 +297,31 @@
           <div class="alert alert-success" *ngIf="!statusBool" role="alert">
             No hay productos en inventario!
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModalImg">Open Modal</button>
+<div class="modal fadeInDown" id="myModalImg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-content wrapper" id="formContent" role="document">
+    <div class="modal-header first">
+      <i class="fa fa-times close" data-dismiss="modal"></i>
+      <p>El peso de la imagen puede provocar lentitud a la hora de cargarla,
+        puedes elegir cual de las dos versiones subir dando click en ellas
+      </p>
+    </div>
+    <div class="modal-body fadeIn second">
+      <div class="row">
+        <div class="col-md-12 modalImgView">
+          <img style="width: 300px; height: 350px; cursor: pointer;" [src]="imgResultBeforeCompress"
+          (click)="choseImg(imgResultBeforeCompress)" data-dismiss="modal" alt="">
+          <h4>Tamaño de imagen sin procesar: <span>{{sizeBeforeCompress}}</span></h4>
+        </div>
+        <div class="col-md-12 modalImgView">
+          <img style="width: 300px; height: 350px; cursor: pointer;" [src]="imgResultAfterCompress"
+          (click)="choseImg(imgResultAfterCompress)" data-dismiss="modal" alt="">
+          <h4>Tamaño de imagen procesada: <span>{{sizeAfterCompress}}</span></h4>
         </div>
       </div>
     </div>
