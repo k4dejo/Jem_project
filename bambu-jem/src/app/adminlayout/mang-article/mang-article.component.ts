@@ -438,6 +438,7 @@ export class MangArticleComponent implements OnInit {
     if (dataTag !== undefined) {
       this.product.tags_id = dataTag.toString();
     }
+    console.log(dataTag);
   }
 
   attachSizesProduct(attachSizeProduct) {

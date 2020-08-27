@@ -200,11 +200,30 @@
       <h2 id="modalLabel">Filtros</h2>
     </div>
     <div class="modal-body fadeIn second">
-      <select (change)="filterSizeProduct($event.target.value)" name="" id="">
-        <option value="hide">-- Tallas --</option>
-        <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
-      </select>
-      <div class="price-mobile" style="margin-top: 5%;">
+      <div class="row">
+        <div class="col-md-12">
+          <select (change)="toggleTag($event.target.value)" id="mounth">
+            <option value="hide">-- Marcas --</option>
+            <option *ngFor="let tag of tags" [value]="tag.id">
+              {{tag.name}}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <select (change)="filterSizeProduct($event.target.value)" name="" id="">
+            <option value="hide">-- Tallas --</option>
+            <option *ngFor="let size of sizesList" [value]="size.size">{{size.size}}</option>
+          </select>
+        </div>
+        <br>
+        <br>
+        <div class="col-md-12">
+          <button class="btn btn-success" data-dismiss="modal">Listo</button>
+        </div>
+      </div>
+
+
+      <!--<div class="price-mobile" style="margin-top: 5%;">
         <div>
           <h4>Precio</h4>
           <div class="two_sidebar">
@@ -231,7 +250,7 @@
               data-dismiss="modal" class="btn btn--pill">
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </div>

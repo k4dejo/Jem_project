@@ -55,9 +55,11 @@ class offerController extends Controller
             $paramsArray = json_decode($json,true);
             //validacion
             $validate = Validator::make($paramsArray, [
-                'name'         => 'required',
-                'offer'        => 'required',
-                'articleId'    => 'required'
+                'name'              => 'required',
+                'offer'             => 'required',
+                'offerMajor'        => 'required',
+                'offerTBoutique'    => 'required',
+                'articleId'         => 'required'
             ]);
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
@@ -65,6 +67,8 @@ class offerController extends Controller
             $offer = new offer();
             $offer->name = $params->name;
             $offer->offer = $params->offer;
+            $offer->offerMajor = $params->offerMajor;
+            $offer->offerTBoutique = $params->offerTBoutique;
             $offer->article_id = $params->articleId;
             $offer->save();
             $data = array(

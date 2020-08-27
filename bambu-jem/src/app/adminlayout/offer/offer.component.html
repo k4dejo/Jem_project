@@ -35,7 +35,7 @@
             <form class="form-group" action="">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-xs-12">
-                  <div class="input-goup-desc">
+                  <div class="input-goup-desc"> 
                     <label for="">Titulo de la promoción</label>
                     <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="offer.name"
                       type="text" required>
@@ -46,8 +46,20 @@
                       type="text" style="color: rgb(141, 141, 141);" disabled>
                   </div>
                   <div class="input-goup-desc">
-                    <label for="">Valor de la Promo</label>
+                    <label for="">Precio Promo Público</label>
                     <input class="input--style-5" type="text" name="offer" offer="ngModel" [(ngModel)]="offer.offer"
+                      type="text" placeholder="₡ 0.00" required>
+                  </div>
+                  <div class="input-goup-desc">
+                    <label for="">Precio Promo Major</label>
+                    <input class="input--style-5" type="text" name="offerMajor" offerMajor="ngModel"
+                    [(ngModel)]="offer.offerMajor"
+                      type="text" placeholder="₡ 0.00" required>
+                  </div>
+                  <div class="input-goup-desc">
+                    <label for="">Precio Promo TuBoutique</label>
+                    <input class="input--style-5" type="text" name="offer"
+                    offerTuBoutique="ngModel" [(ngModel)]="offer.offerTBoutique"
                       type="text" placeholder="₡ 0.00" required>
                   </div>
                 </div>
@@ -69,7 +81,9 @@
               <thead>
                 <th scope="col">Promo</th>
                 <th scope="col">Producto</th>
-                <th scope="col">Precio promocional</th>
+                <th scope="col">Precio Público</th>
+                <th scope="col">Precio Mayoreo</th>
+                <th scope="col">Precio TuBoutique</th>
                 <th scope="col"></th>
               </thead>
               <tbody>
@@ -77,6 +91,8 @@
                   <td><a (click)="sendEditPromo(promo)">{{promo.name}}</a></td>
                   <td>{{promo.articleName}}</td>
                   <td>₡ {{promo.offer | number: '3.'}}</td>
+                  <td>₡ {{promo.offerMajor | number: '3.'}}</td>
+                  <td>₡ {{promo.offerTBoutique | number: '3.'}}</td>
                   <td>
                     <svg (click)="deleteOffer(promo.id)" class="icon-trash" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40" width="40" height="40">
                       <path class="trash-lid" fill-rule="evenodd"

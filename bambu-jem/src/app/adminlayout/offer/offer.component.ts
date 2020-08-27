@@ -7,6 +7,7 @@ import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Offer } from '../../models/offer';
+import { off } from 'process';
 
 @Component({
   selector: 'app-offer',
@@ -61,7 +62,7 @@ export class OfferComponent implements OnInit {
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.offer = new Offer('', 0, 0, 0, '');
+    this.offer = new Offer('', 0, 0, 0, '', '', '');
   }
 
   fillDepartment(data = []) {
@@ -149,6 +150,7 @@ export class OfferComponent implements OnInit {
   }
 
   savePromo() {
+    console.log(this.offer);
     this.offerService.addOffer(this.token, this.offer).subscribe(
       response => {
         if (response.status === 'success') {
@@ -165,6 +167,7 @@ export class OfferComponent implements OnInit {
     this.offerService.getOffer().subscribe(
       response => {
         this.offerList = response.offer;
+        console.log(this.offerList);
         for (let index = 0; index < this.offerList.length; index++) {
           this.getProductPromoView(response.offer[index].article_id, index);
         }

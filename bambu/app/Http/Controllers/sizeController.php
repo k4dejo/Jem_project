@@ -207,7 +207,7 @@ class sizeController extends Controller
             $guiltyPurchase = false;
             for ($i=0; $i < $countPurchase; $i++) {
                 if ($arrayPurchase[$i]->status == 'Procesando') {
-                    $guiltyPurchase =true;
+                    $guiltyPurchase = true;
                 }
             }
 
