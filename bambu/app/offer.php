@@ -10,6 +10,8 @@ class offer extends Model
     protected $fillable = [
         'name',
         'offer',
+        'offerMajor',
+        'offerTBoutique',
         'article_id'
     ];
 

@@ -192,6 +192,7 @@ public dtDepartmentB: string[] = [
           this.compressImg(image, orientation);
         } else {
           this.fileBlob = image;
+          this.product.photo = this.product.name + '.jpg';
         }
       }
     });
@@ -209,6 +210,7 @@ public dtDepartmentB: string[] = [
 
   choseImg(img) { 
     this.fileBlob = img;
+    this.product.photo = this.product.name + '.jpg';
   }
 
   formatBytes(bytes, decimals = 2) {
@@ -328,12 +330,15 @@ public dtDepartmentB: string[] = [
   }
 
   attachNewR() {
+    this.loading = true;
     this.attachNewProduct.product_id = this.id.toString();
     this.sizeService.attachSizeProduct(this.attachNewProduct).subscribe(
       response => {
         if (response.status === 'success') {
           this.size = new Size('', 0);
-          this.getAttachSize();
+          //this.getAttachSize();
+          this.loading = false;
+          this.getProductServer();
         }
       },
       error => {
@@ -345,6 +350,7 @@ public dtDepartmentB: string[] = [
     this.productService.getProductU(this.id).subscribe(
       response => {
         this.product = response.articles;
+        this.viewRelation = response.arraySizeArticle;
         console.log(this.product);
         const product_id = response.articles.id;
         this.getImageArray(product_id);
@@ -414,9 +420,9 @@ public dtDepartmentB: string[] = [
     this.sizeService.getSizeE(this.id).subscribe(
       response => {
         this.loading = false;
-        this.productViewU = response.products;
+        /*this.productViewU = response.products;
         this.attachSizeProduct = response;
-        this.viewRelation = this.productViewU[0].sizes;
+        this.viewRelation = this.productViewU[0].sizes;*/
       },
       error => {
         console.log(<any>error);
@@ -425,6 +431,7 @@ public dtDepartmentB: string[] = [
   }
 
   updateRelationSizeProduct(relation: any) {
+    this.loading = true;
     for (let index = 0; index < this.viewRelation.length; index++) {
       if (relation.size === this.viewRelation[index].size) {
         this.viewRelation[index].pivot.stock = relation.pivot.stock;
@@ -432,7 +439,9 @@ public dtDepartmentB: string[] = [
     }
     this.sizeService.updateSizeAmountProduct(this.token, this.id, relation).subscribe(
       response => {
+        this.loading = false;
         console.log(response);
+        this.toast(3);
       }, error => {
         console.log(<any> error);
       }
@@ -440,9 +449,12 @@ public dtDepartmentB: string[] = [
   }
 
   deleteRelation(array) {
+    this.loading = true;
     this.sizeService.detachRelation(array.pivot).subscribe(
       response => {
-        this.getAttachSize();
+        //this.getAttachSize();
+        this.loading = false;
+        this.getProductServer();
       },
       error => {
         console.log(<any>error);
@@ -478,6 +490,7 @@ public dtDepartmentB: string[] = [
     editProducts.photo       = this.product.photo;
     editProducts.file        = this.fileBlob;
     editProducts.tags_id     = this.product.tags_id;
+    console.log(editProducts  );
     this.productService.editProduct(this.token, this.id, editProducts).subscribe(
       response => {
         this.product = response.article;
@@ -496,16 +509,33 @@ public dtDepartmentB: string[] = [
   }
 
   toast(numberbool: any) {
-    if (numberbool === 1) {
-      this.showSuccess();
-    } else {
-      this.showError();
+    switch (numberbool) {
+      case 1:
+        this.showSuccess();
+      break;
+      case 2:
+        this.showError();
+      break;
+      case 3:
+        this.showSuccessSizes();
+      break;
+    
+      default:
+        break;
     }
   }
 
   showSuccess() {
     this.toastr.overlayContainer = this.toastContainer;
     this.toastr.success('¡Los cambios se han ejecutado!', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showSuccessSizes() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('¡El dato de talla se ha guardado!', 'Éxito', {
       timeOut: 3000,
       progressBar: true
     });
@@ -554,7 +584,7 @@ public dtDepartmentB: string[] = [
       );
       this.fileBlob = 'assets/Images/default.jpg';
       this.getProductServer();
-      this.getAttachSize();
+      //this.getAttachSize();
       this.getGender();
       this.getTags();
     }
