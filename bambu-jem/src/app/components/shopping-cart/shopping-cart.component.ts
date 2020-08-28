@@ -443,6 +443,7 @@ export class ShoppingCartComponent implements OnInit {
     this.editPurchase(idProduct);
     this.purchaseService.dettachProductPurchase(this.dettachPurchaseP).subscribe(
       response => {
+        console.log(response);
         if (response.status === 'Delete success') {
           this.totalAmount -= idProduct.pivot.amount;
           if (this.totalAmount >= 6) {
@@ -609,6 +610,7 @@ export class ShoppingCartComponent implements OnInit {
         }
       break;
       default:
+        // tslint:disable-next-line:no-unused-expression
         'fuera de rango de zona';
       break;
     }
@@ -717,10 +719,7 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
-  sendTicket() {
-    this.ticketPurchase.ticket = this.fileBlob;
-    this.ticketPurchase.purchase_id = this.productCart.id;
-    this.checkoutPurchase.shipping = this.shipping;
+  storeTicket() {
     this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
       response => {
         if (response.status === 'success') {
@@ -729,10 +728,32 @@ export class ShoppingCartComponent implements OnInit {
             this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
           }
         }
+      // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
     );
+  }
+
+  sendTicket() {
+    this.ticketPurchase.ticket = this.fileBlob;
+    this.ticketPurchase.purchase_id = this.productCart.id;
+    this.checkoutPurchase.shipping = this.shipping;
+    this.storeTicket();
+    /*this.purchaseService.storeTicket(this.token, this.ticketPurchase).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.checkoutPurchase.status = 'procesando';
+          for (let index = 0; index < this.purchaseArray.length; index++) {
+            this.editAmountProduct(this.purchaseArray[index].pivot.article_id, this.purchaseArray[index]);
+          }
+        }
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );*/
+
   }
 
   toast(numberBool: any) {

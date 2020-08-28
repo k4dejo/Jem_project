@@ -201,8 +201,8 @@ class OutfitController extends Controller
             $outfits[$i]->photo = 'data:image/jpeg;base64,' . base64_encode($contents);*/
         }
         return response()->json(array(
-            'outfit' => $outfits,
-            'articles'  => $articleRes
+            'outfit' => $outfits
+            //'articles'  => $articleRes
         ), 200);
     }
 

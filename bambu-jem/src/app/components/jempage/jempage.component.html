@@ -231,7 +231,7 @@
   <a (click)="toggleBtn('ofertas')" class="btn btn--pink btn--pill">Ir</a>
 </div>
 <div class="main">
-  <div class="container-fluid">
+  <div class="container-fluid" *ngIf="boolOutfit">
     <section class="ftco-section ftco-choose ftco-no-pb ftco-no-pt">
       <div class="slider" id="slider">
         <h3 (click)="gotoOutfits('outfits', 2)">Outfits</h3>
@@ -251,6 +251,38 @@
       </div>
     </section>
   </div>
+  <div class="container-fluid" *ngIf="!boolOutfit">
+    <section class="ftco-section ftco-choose ftco-no-pb ftco-no-pt">
+      <div class="row ">
+        <div class="col-md-8 d-flex align-items-stretch">
+          <img (click)="gotoOutfits('outfits', 2)" class="img-responsive" src="assets/Images/about-1.jpg" alt="">
+        </div>
+        <div class="col-md-4 py-md-5">
+          <div class="text py-3 py-md-5">
+            <h2 class="mb-4">Nuevos outfits colección 2020</h2>
+            <p>Solo para ti hicimos outfit con nuestras prendas disponibles y así ver opciones de
+              cómo combinar las diferentes prendas que te ofrecemos.</p>
+            <a (click)="gotoOutfits('outfits', 2)" class="btn btn--pink btn--pill">Mirar</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 order-md-last d-flex align-items-stretch">
+            <img (click)="gotoOutfits('outfits', 1)" class="img-responsive img-2" src="assets/Images/about-2.jpg" alt="">
+          </div>
+          <div class="col-md-7 py-3 py-md-5">
+            <div class="text text-2 py-md-5">
+              <h2 class="mb-4">Outfits para caballeros colección 2020</h2>
+              <p>Por que todos necesitamos opciones,
+                prueba ahora algunas combinaciones de nuestras prendas para todos los estilos y preferencias.</p>
+              <a (click)="gotoOutfits('outfits', 1)" class="btn btn--pink btn--pill">Mirar</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    </section>
+
+
+
 </div>
 <div class="modal fade" id="outfitModal" tabindex="-1" role="dialog" aria-labelledby="alertPaymentTitle"
 aria-hidden="true">

@@ -33,11 +33,12 @@ export class JempageComponent implements OnInit {
   public shop_id = 'J' ;
   public shop_bool = true;
   public showOutfitModal;
-  public slider = document.getElementById("slider");
-  public next = document.getElementsByClassName("pro-next");
-  public prev = document.getElementsByClassName("pro-prev");
-  public slide = document.getElementById("slide");
-  public item = document.getElementById("slide");
+  public slider = document.getElementById('slider');
+  public next = document.getElementsByClassName('pro-next');
+  public prev = document.getElementsByClassName('pro-prev');
+  public slide = document.getElementById('slide');
+  public item = document.getElementById('slide');
+  public boolOutfit = false;
 
   constructor(
     private elementRef: ElementRef,
@@ -81,12 +82,16 @@ export class JempageComponent implements OnInit {
     this.outfitService.getAttachOutfit().subscribe(
       response => {
         this.outfitList = response.outfit;
-        console.log(this.outfitList);
+        if (this.outfitList.length > 0) {
+          this.boolOutfit = true;
+        } else {
+          this.boolOutfit = false;
+        }
         for (let i = 0; i < this.outfitList.length; ++i) {
           this.showOutfitModal = this.outfitList[i];
           this.outfitList[i].photo = this.imgUrl.url + this.outfitList[i].photo;
           for (let index = 0; index < this.outfitList[i].articles.length; index++) {
-            this.outfitList[i].articles[index].photo = this.imgUrl.url +this.outfitList[i].articles[index].photo;
+            this.outfitList[i].articles[index].photo = this.imgUrl.url + this.outfitList[i].articles[index].photo;
           }
         }
       }, error => {
@@ -135,7 +140,7 @@ export class JempageComponent implements OnInit {
       case '4':
         this.router.navigate(['Home/Niñas/', 'J']);
       break;
-    
+
       default:
         break;
     }
@@ -143,63 +148,65 @@ export class JempageComponent implements OnInit {
 
   productScroll() {
     for (let i = 0; i < this.next.length; i++) {
-      let position = 0; //slider postion
-      const clickedPrev = () =>{
+      let position = 0; // slider postion
+      const clickedPrev = () => {
         if (position > 0) {
           position -= 1;
-          this.translateX(position); //translate items
-          
+          this.translateX(position); // translate items
         }
       };
-      this.prev[i].addEventListener("click", clickedPrev);
-      const clickedNext = () =>{
+      this.prev[i].addEventListener('click', clickedPrev);
+      const clickedNext = () => {
         if (position >= 0 && position < this.hiddenItems()) {
-          //avoid slide right beyond the last item
+          // avoid slide right beyond the last item
           position += 1;
-          this.translateX(position); //translate items
+          this.translateX(position); // translate items
         }
       };
-      this.next[i].addEventListener("click", clickedNext);
+      this.next[i].addEventListener('click', clickedNext);
     }
   }
 
   translateX(position) {
-    //translate items
-    let slides = document.getElementById("slide");
+    // translate items
+    // tslint:disable-next-line:prefer-const
+    let slides = document.getElementById('slide');
+    // tslint:disable-next-line:prefer-const
     let screenRes = screen.width;
     if (screenRes >= 1366) {
-      slides.style.left = position * -290 + "px";      
-    } else if(screenRes <= 1020 &&  screenRes > 411) {
-      slides.style.left = position * -275 + "px"; 
-    } else if(screenRes <= 411) {
-      slides.style.left = position * -265 + "px"; 
+      slides.style.left = position * -290 + 'px';
+    } else if (screenRes <= 1020 &&  screenRes > 411) {
+      slides.style.left = position * -275 + 'px';
+    } else if (screenRes <= 411) {
+      slides.style.left = position * -265 + 'px';
     }
 
   }
 
   hiddenItems() {
-    //get hidden items
-    let slider = document.getElementById("slider");
-    let item = document.getElementById("slide");
-    let items = this.getCount(item, false);
-    let visibleItems = slider.offsetWidth / 210;
+    // get hidden items
+    const slider = document.getElementById('slider');
+    const item = document.getElementById('slide');
+    const items = this.getCount(item, false);
+    const visibleItems = slider.offsetWidth / 210;
     return items - Math.ceil(visibleItems);
   }
 
 
   getCount(parent, getChildrensChildren) {
-    //count no of items
+    // count no of items
     let relevantChildren = 0;
-    let children = parent.childNodes.length;
+    const children = parent.childNodes.length;
     for (let i = 0; i < children; i++) {
       if (parent.childNodes[i].nodeType != 3) {
-        if (getChildrensChildren)
+        if (getChildrensChildren) {
           relevantChildren += this.getCount(parent.childNodes[i], true);
+        }
         relevantChildren++;
       }
     }
     return relevantChildren;
-  } 
+  }
 
   gotoOutfits(word: any, gender: any) {
     const link = '/Home/' + word;

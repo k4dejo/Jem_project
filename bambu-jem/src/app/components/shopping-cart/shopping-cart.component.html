@@ -167,7 +167,7 @@
       </div>
       <!--<a (click)="passCheckout()" class="checkout-btn">Pagar</a>-->
       <a *ngIf="viewAddressBool"  class="checkout-btn" data-toggle="modal"
-      data-target="#alertPayment">Pagar</a>
+      data-target="#alertPayment" (click)="getPurchases()">Pagar</a>
       <a *ngIf="!viewAddressBool"  class="checkout-btn" (click)="alertAddressNull()">
         Pagar
       </a>
