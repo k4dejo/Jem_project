@@ -121,14 +121,16 @@ class ArticleController extends Controller
         if ($tagsId != 0) {
             $filter = article::whereHas('sizes', function($q) use ($size) {
                 $q->where('size', '=', $size);
+                $q->where('stock', '>', 0);
             })->where('gender', '=', $gender)
             ->where('tags_id', $tagsId)
-            ->where('department', '=', $department)->with('sizes')->paginate(12);
+            ->where('department', '=', $department)->with('sizes')->get();
         } else {
             $filter = article::whereHas('sizes', function($q) use ($size) {
                 $q->where('size', '=', $size);
+                $q->where('stock', '>', 0);
             })->where('gender', '=', $gender)
-            ->where('department', '=', $department)->with('sizes')->paginate(12);
+            ->where('department', '=', $department)->with('sizes')->get();
         }
         $productCount = count($filter);
         if ($productCount <= 0) {
@@ -139,7 +141,7 @@ class ArticleController extends Controller
         }
         return response()->json(array(
             'filter'   => $filter,
-            'NextPaginate' => $filter->nextPageUrl(),
+            //'NextPaginate' => $filter->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
@@ -147,32 +149,30 @@ class ArticleController extends Controller
 
     public function filterTagProduct($department, $gender, $tag) {
         $productConcrete = article::where('gender', $gender)
-        ->where('department', $department)->where('tags_id', $tag)->with('sizes')->paginate(12);
+        ->where('department', $department)->where('tags_id', $tag)->with('sizes')->get();
         $productCount = count($productConcrete);
         return response()->json(array(
             'articles' => $productConcrete,
-            'NextPaginate' => $productConcrete->nextPageUrl(),
+            //'NextPaginate' => $productConcrete->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
 
     public function getConcreteProduct($department, $gender) {
         $productConcrete = article::where('gender', $gender)
-        ->where('department', $department)->with('sizes')->paginate(12);
-        //$productCount = count($productConcrete);
+        ->where('department', $department)->with('sizes')->get();
         return response()->json(array(
             'articles' => $productConcrete,
-            'NextPaginate' => $productConcrete->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }
 
     public function getListProduct($department, $gender) {
         $productListEloquent = article::where('department', $department)->where('gender', $gender)
-        ->has('sizes')->with('sizes')->paginate(12);
+        ->has('sizes')->with('sizes')->get();
         return response()->json(array(
             'articles' => $productListEloquent,
-            'NextPaginate' => $productListEloquent->nextPageUrl(),
+            //'NextPaginate' => $productListEloquent->nextPageUrl(),
             'status'   => 'success'
         ), 200);
     }

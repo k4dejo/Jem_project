@@ -140,7 +140,7 @@
               (pageChange)="nextPaginate($event)"></pagination-controls>
             <div class="row">
               <div
-                *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p, totalItems: lenghtProduct}"
+                *ngFor="let product of products | paginate: { itemsPerPage: 2, currentPage: p}"
                 class="col-lg-4 col-md-12 col-xs-13 single-product">
                 <div class="product">
                   <div class="imgbox">

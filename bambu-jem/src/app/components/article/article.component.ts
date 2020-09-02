@@ -187,36 +187,7 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  /* getProduct(department: any, gender: any) {
-    this.loading = true;
-    this.ProductService.getConcreteProduct(department, gender).subscribe(
-      response => {
-        this.products = response.articles;
-        this.loading = false;
-        for (let index = 0; index < this.products.length; index++) {
-          // agrego formato a la imagen.
-          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
-          this.getDepartmentView(this.products[index].gender.toString());
-          for (let e = 0; e < this.gender.length; e++) {
-            if (this.products[index].gender.toString() === this.gender[e].id) {
-              this.products[index].gender = this.gender[e].name;
-            }
-          }
-          for (let indexD = 0; indexD < this.department.length; indexD++) {
-            if (this.products[index].department.toString() === this.department[indexD].id) {
-              this.products[index].department = this.department[indexD].name;
-            }
-          }
-          this.genderView = this.products[index].gender;
-          this.DepartmentView = this.products[index].department;
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }*/
-
-  nextPaginate(event: any) {
+  /*nextPaginate(event: any) {
     this.loading = true;
     const urlSplit = this.urlPaginate.split('=');
     this.pageChange = urlSplit[0] + '=' + event;
@@ -237,6 +208,11 @@ export class ArticleComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }*/
+
+  nextPaginate(event: any) {
+    this.p = event;
+    window.scroll(0, 0);
   }
 
   addPhotoProductList() {
@@ -292,17 +268,6 @@ export class ArticleComponent implements OnInit {
               this.agotadoDispo = true;
             }
           }
-          /*if (this.products[i].id === product.id) {
-            console.log(this.products[i].sizes.length);
-            if (this.products[i].sizes.length <= 0) {
-               this.agotadoDispo = true;
-               this.products[i].sizes.splice(index, 1);
-            } else {
-              this.products[i].sizes.splice(index, 1);
-            }
-            index = index - 1;
-            console.log(this.products[i]);
-          }*/
         }
       }
     }
@@ -407,7 +372,20 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  getProduct(department: any, gender: any) {
+  getProduct( deparment: any, gender: any) {
+    this.loading = true;
+    this.ProductService.getListProduct(deparment, gender).subscribe(
+      response => {
+        this.products = response.articles;
+        this.addPhotoProductList();
+        this.loading = false;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  /*getProduct(department: any, gender: any) {
     this.loading = true;
     this.ProductService.getListProduct(department, gender).subscribe(
       response => {
@@ -438,7 +416,7 @@ export class ArticleComponent implements OnInit {
         console.log(<any>error);
       }
     );
-  }
+  }*/
 
   gotoDetail(productId: any) {
     window.scroll(0,  0);
@@ -485,9 +463,12 @@ export class ArticleComponent implements OnInit {
     this.loading = true;
     this.ProductService.filterSizeProduct(department, gender, size, this.tagsId).subscribe(
       response  => {
-        this.products = response.filter.data;
+        /*this.products = response.filter.data;
         this.pageChange = response.NextPaginate;
-        this.lenghtProduct = response.filter.total;
+        this.lenghtProduct = response.filter.total;*/
+        this.products = response.filter;
+        this.lenghtProduct = response.length;
+        console.log(this.products);
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
@@ -509,26 +490,8 @@ export class ArticleComponent implements OnInit {
         this.products = response.articles.data;
         this.lenghtProduct = response.articles.total;
         this.loading = false;
-        this.pageChange = response.NextPaginate;
         this.getProduct(department, gender);
         this.addPhotoProductList();
-        /* for (let index = 0; index < this.products.length; index++) {
-          // agrego formato a la imagen.
-          this.products[index].photo = 'data:image/jpeg;base64,' + this.products[index].photo;
-          this.getDepartmentView(this.products[index].gender.toString());
-          for (let e = 0; e < this.gender.length; e++) {
-            if (this.products[index].gender.toString() === this.gender[e].id) {
-              this.products[index].gender = this.gender[e].name;
-            }
-          }
-          for (let indexD = 0; indexD < this.department.length; indexD++) {
-            if (this.products[index].department.toString() === this.department[indexD].id) {
-              this.products[index].department = this.department[indexD].name;
-            }
-          }
-          this.genderView = this.products[index].gender;
-          this.DepartmentView = this.products[index].department;
-        }*/
       }, error => {
         console.log(<any>error);
       }
