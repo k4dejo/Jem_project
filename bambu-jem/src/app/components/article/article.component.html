@@ -139,13 +139,13 @@
             <pagination-controls class="my-pagination" previousLabel="anterior" nextLabel="Siguiente"
               (pageChange)="nextPaginate($event)"></pagination-controls>
             <div class="row">
-              <div
-                *ngFor="let product of products | paginate: { itemsPerPage: 2, currentPage: p}"
-                class="col-lg-4 col-md-12 col-xs-13 single-product">
+              <div *ngFor="let product of products | paginate: { itemsPerPage: 12, currentPage: p}"
+              class="col-lg-4 col-md-12 col-xs-13 single-product">
                 <div class="product">
                   <div class="imgbox">
                     <img (click)="downloadImg(product.photo)" data-toggle="modal" data-target="#myModal" loading="lazy"
-                      ngClass="lazyload" style="max-width:100%;width:auto;height:auto;" data-src="{{product.photo}}"
+                      ngClass="lazyload" style="max-width:100%;width:auto;height:auto;"
+                      data-src="{{product.photo}}"
                       src="../../../assets/tenor.gif" alt="">
                   </div>
                   <div class="details">

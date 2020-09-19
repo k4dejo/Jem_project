@@ -59,6 +59,7 @@ import { TagComponent } from './adminlayout/tag/tag.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CompressimgComponent } from './adminlayout/compressimg/compressimg.component';
 import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 
 
 
@@ -109,7 +110,8 @@ import { ImageslistComponent } from './adminlayout/imageslist/imageslist.compone
     GetransactionComponent,
     TagComponent,
     CompressimgComponent,
-    ImageslistComponent
+    ImageslistComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,

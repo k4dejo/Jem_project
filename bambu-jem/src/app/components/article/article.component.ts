@@ -15,6 +15,7 @@ import 'lazysizes/plugins/unveilhooks/ls.unveilhooks';
 import { lazySizes } from 'lazysizes';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { SizeService } from '../../services/size.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-article',
@@ -28,7 +29,7 @@ export class ArticleComponent implements OnInit {
   public shop_id = '';
   public token;
   public identity;
-  public p = 1;
+  public p = '1';
   public imgUrl = ImgUrl;
   public products: Array<Article>;
   public productMenu: Array<Article>;
@@ -126,6 +127,7 @@ export class ArticleComponent implements OnInit {
   public tagsId = 0;
   public sizesList;
   public selectorGender = '';
+  public sizesId;
 
   constructor(
     private route: ActivatedRoute,
@@ -187,35 +189,15 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  /*nextPaginate(event: any) {
-    this.loading = true;
-    const urlSplit = this.urlPaginate.split('=');
-    this.pageChange = urlSplit[0] + '=' + event;
-    this.p = event;
-    this.ProductService.getPaginateProduct(this.pageChange).subscribe(
-      response => {
-        window.scroll(0,0);
-        this.products = response.articles.data;
-        if (response.NextPaginate == null) {
-          this.btnNextDisabled = false;
-        } else {
-          this.btnNextDisabled = true;
-          this.urlPaginate = response.NextPaginate;
-        }
-        this.addPhotoProductList();
-        this.loading = false;
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }*/
-
   nextPaginate(event: any) {
     this.p = event;
+    this.urlPaginate = event;
     window.scroll(0, 0);
+    this.pageChange = event
+    sessionStorage.setItem('currentPage', this.p.toString());
   }
 
-  addPhotoProductList() {
+    addPhotoProductList() {
     for (let index = 0; index < this.products.length; index++) {
       // agrego formato a la imagen.
       const splitProduct = this.products[index].photo.split(',');
@@ -372,13 +354,22 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  getProduct( deparment: any, gender: any) {
+    getProduct( deparment: any, gender: any) {
     this.loading = true;
     this.ProductService.getListProduct(deparment, gender).subscribe(
-      response => {
+       response => {
         this.products = response.articles;
         this.addPhotoProductList();
         this.loading = false;
+        const sessionPage = sessionStorage.getItem('currentPage');
+        console.log(sessionPage);
+        if (sessionPage === null || sessionPage === undefined) {
+          this.urlPaginate = 1;
+          this.p = '1';
+        } else {
+          this.p = sessionPage;
+          this.urlPaginate = sessionPage;
+        }
       }, error => {
         console.log(<any> error);
       }
@@ -421,11 +412,11 @@ export class ArticleComponent implements OnInit {
   gotoDetail(productId: any) {
     window.scroll(0,  0);
     const link = '/Home/producto/detalle/';
-    if (this.pageChange === undefined) {
+    /*if (this.pageChange === undefined) {
       const firtPage = this.urlPaginate.split('=');
       this.pageChange = firtPage[0] + '=1';
-    }
-    sessionStorage.setItem('currentPage', this.pageChange);
+    }*/
+    sessionStorage.setItem('currentPage', this.p.toString());
      this.router.navigate([link, this.shop_id, productId]);
   }
 
@@ -442,7 +433,7 @@ export class ArticleComponent implements OnInit {
     const gender = this.route.snapshot.params['gender'];
     this.router.navigate([link, this.shop_id, dtp, gender]);
     sessionStorage.removeItem('currentPage');
-    this.p = 1;
+    this.p = '1';
     window.scroll(0, 0);
     this.getSizesForDepartment(gender, dtp);
     this.getProduct(dtp, gender);
@@ -461,6 +452,7 @@ export class ArticleComponent implements OnInit {
     const gender = this.route.snapshot.params['gender'];
     const size = sizeResponse;
     this.loading = true;
+    this.sizesId = size;
     this.ProductService.filterSizeProduct(department, gender, size, this.tagsId).subscribe(
       response  => {
         /*this.products = response.filter.data;
@@ -474,6 +466,7 @@ export class ArticleComponent implements OnInit {
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
           this.calculateDisponibility(this.products[index]);
         }
+        this.p ='1';
         this.loading = false;
       }, error => {
         console.log(<any> error);
@@ -538,11 +531,13 @@ export class ArticleComponent implements OnInit {
   toggleTag(tag: any) {
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
-    console.log(tag);
     this.tagsId = tag;
-    this.ProductService.filterTagProduct(department, gender, tag).subscribe(
+    if (this.sizesId === undefined) {
+      this.sizesId = 'void';
+    }
+    this.ProductService.filterTagProduct(department, gender, tag, this.sizesId).subscribe(
       response => {
-        this.products = response.articles.data;
+        this.products = response.articles;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
@@ -721,6 +716,7 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.getGender();
+    //this.p = 1;
     this.shop_id = this.route.snapshot.params['shopId'];
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];

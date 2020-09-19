@@ -156,7 +156,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::post('storeTag', 'tagController@store');
    Route::get('getAllTags', 'tagController@index');
    Route::get('getTagsForDeparment/{department}/{gender}', 'tagController@getTagsForDeparment');
-   Route::get('filterTagProduct/{department}/{gender}/{tag}', 'ArticleController@filterTagProduct');
+   Route::get('filterTagProduct/{department}/{gender}/{tag}/{size}', 'ArticleController@filterTagProduct');
    Route::delete('deleteTag/{id}','tagController@deleteTag');
    /**/
 

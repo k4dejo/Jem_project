@@ -39,6 +39,7 @@ export class JempageComponent implements OnInit {
   public slide = document.getElementById('slide');
   public item = document.getElementById('slide');
   public boolOutfit = false;
+  public positionScrollOutfit;
 
   constructor(
     private elementRef: ElementRef,
@@ -53,9 +54,10 @@ export class JempageComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getProduct();
+    //this.getProduct();
+    this.positionScrollOutfit = sessionStorage.getItem('currentPositionScroll');
+    console.log(this.slide)
     this.getOutfitsList();
-    this.productScroll();
   }
 
   getProductGender(productGender, photoGender) {
@@ -94,6 +96,8 @@ export class JempageComponent implements OnInit {
             this.outfitList[i].articles[index].photo = this.imgUrl.url + this.outfitList[i].articles[index].photo;
           }
         }
+        //this.translateX(this.productsOutfit);
+        this.productScroll();
       }, error => {
         console.log(<any> error);
       }
@@ -106,7 +110,8 @@ export class JempageComponent implements OnInit {
 
   gotoDetail(productId: any) {
     const link = '/Home/producto/detalle/';
-     this.router.navigate([link, this.shop_id, productId]);
+    sessionStorage.setItem('currentPositionScroll', this.positionScrollOutfit);
+    this.router.navigate([link, this.shop_id, productId]);
   }
 
 
@@ -149,6 +154,10 @@ export class JempageComponent implements OnInit {
   productScroll() {
     for (let i = 0; i < this.next.length; i++) {
       let position = 0; // slider postion
+      if (this.positionScrollOutfit != undefined) {
+        position = this.positionScrollOutfit;
+      }
+      console.log(position);
       const clickedPrev = () => {
         if (position > 0) {
           position -= 1;
@@ -171,6 +180,24 @@ export class JempageComponent implements OnInit {
     // translate items
     // tslint:disable-next-line:prefer-const
     let slides = document.getElementById('slide');
+    // tslint:disable-next-line:prefer-const
+    let screenRes = screen.width;
+    this.positionScrollOutfit = position;
+    if (screenRes >= 1366) {
+      slides.style.left = position * -290 + 'px';
+    } else if (screenRes <= 1020 &&  screenRes > 411) {
+      slides.style.left = position * -275 + 'px';
+    } else if (screenRes <= 411) {
+      slides.style.left = position * -265 + 'px';
+    }
+
+  }
+
+  translateStoragePosition(position) {
+    // translate items
+    // tslint:disable-next-line:prefer-const
+    let slides = document.getElementById('slide');
+    console.log(document.getElementById('slide'));
     // tslint:disable-next-line:prefer-const
     let screenRes = screen.width;
     if (screenRes >= 1366) {

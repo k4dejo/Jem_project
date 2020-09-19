@@ -228,13 +228,21 @@ class ArticleController extends Controller
     }
 
 
-    public function filterTagProduct($department, $gender, $tag) {
-        $productConcrete = article::where('gender', $gender)
-        ->where('department', $department)->where('tags_id', $tag)->with('sizes')->get();
-        $productCount = count($productConcrete);
+    public function filterTagProduct($department, $gender, $tag, $size) {
+        if ($size != '') {
+            $filter = article::whereHas('sizes', function($q) use ($size) {
+                $q->where('size', '=', $size);
+                $q->where('stock', '>', 0);
+            })->where('gender', '=', $gender)
+            ->where('tags_id', $tag)
+            ->where('department', '=', $department)->with('sizes')->get();
+        }else {
+            $filter = article::where('gender', $gender)
+            ->where('department', $department)->where('tags_id', $tag)->with('sizes')->get();
+        }
+        $productCount = count($filter);
         return response()->json(array(
-            'articles' => $productConcrete,
-            //'NextPaginate' => $productConcrete->nextPageUrl(),
+            'articles' => $filter,
             'status'   => 'success'
         ), 200);
     }
