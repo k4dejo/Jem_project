@@ -137,7 +137,7 @@ export class ApartComponent implements OnInit {
     this.identity = this.adminService.getIdentity();
     this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
     this.client = new Client('', '', '', '', '', '', '', '', null, 1);
-    this.apartM = new Apart('', 0, '');
+    this.apartM = new Apart('', 0, 0, '');
     this.billing = new Billing('', 0, '', '', '', '', '', '');
     this.attachApart = new AttachApart('', '', 0, '');
   }
@@ -524,6 +524,7 @@ export class ApartComponent implements OnInit {
         if (response.status !== 'admin') {
           this.router.navigate(['LoginAdmin']);
         } else {
+          this.apartM.admin_id = this.identity.sub;
           this.addNewApartService(this.token, this.apartM, dataClient.id);
         }
       }, error => {

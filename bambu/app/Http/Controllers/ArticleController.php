@@ -44,6 +44,87 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    public function calculatePriceAllStock() {
+        $products = article::with('sizes')->get();
+        $totalPrice = 0;
+        $totalStock = 0;
+        $productsLength =  count($products);
+        for ($i=0; $i < $productsLength; $i++) {
+            $countSizes = count($products[$i]->sizes);
+            for ($index=0; $index < $countSizes; $index++) {
+                $totalStock += $products[$i]->sizes[$index]->pivot->stock;
+                $totalPrice += $products[$i]->priceMajor * $products[$i]->sizes[$index]->pivot->stock;
+            }
+        }
+        return response()->json(array(
+            'totalPrice'    => $totalPrice,
+            'totalStock'    => $totalStock,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function caculatePriceTags($tagsId) {
+        $products = article::where('tags_id', $tagsId)->with('sizes')->get();
+        $totalPrice = 0;
+        $totalStock = 0;
+        $productsLength =  count($products);
+        for ($i=0; $i < $productsLength; $i++) {
+            $countSizes = count($products[$i]->sizes);
+            for ($index=0; $index < $countSizes; $index++) {
+                $totalStock += $products[$i]->sizes[$index]->pivot->stock;
+                $totalPrice += $products[$i]->priceMajor * $products[$i]->sizes[$index]->pivot->stock;
+            }
+        }
+        return response()->json(array(
+            'Tags'          => $tagsId,
+            'totalPrice'    => $totalPrice,
+            'totalStock'    => $totalStock,
+            'status'   => 'success'
+        ), 200);
+
+    }
+
+    public function calculatePriceDepartment($gender, $department) {
+        $products = article::where('gender', $gender)
+        ->where('department', $department)->with('sizes')->get();
+        $totalPrice = 0;
+        $totalStock = 0;
+        $productsLength =  count($products);
+        for ($i=0; $i < $productsLength; $i++) {
+            $countSizes = count($products[$i]->sizes);
+            for ($index=0; $index < $countSizes; $index++) {
+                $totalStock += $products[$i]->sizes[$index]->pivot->stock;
+                $totalPrice += $products[$i]->priceMajor * $products[$i]->sizes[$index]->pivot->stock;
+            }
+        }
+        return response()->json(array(
+            'gender'        => $gender,
+            'totalPrice'    => $totalPrice,
+            'totalStock'    => $totalStock,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function calculatePriceGender($gender) {
+        $products = article::where('gender', $gender)->with('sizes')->get();
+        $totalPrice = 0;
+        $totalStock = 0;
+        $productsLength =  count($products);
+        for ($i=0; $i < $productsLength; $i++) {
+            $countSizes = count($products[$i]->sizes);
+            for ($index=0; $index < $countSizes; $index++) {
+                $totalStock += $products[$i]->sizes[$index]->pivot->stock;
+                $totalPrice += $products[$i]->priceMajor * $products[$i]->sizes[$index]->pivot->stock;
+            }
+        }
+        return response()->json(array(
+            'gender'        => $gender,
+            'totalPrice'    => $totalPrice,
+            'totalStock'    => $totalStock,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function showForClients($id)
     {
         $articles = article::find($id);

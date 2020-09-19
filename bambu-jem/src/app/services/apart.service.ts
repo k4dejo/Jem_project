@@ -90,4 +90,9 @@ export class ApartService {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getApartClient/' + idClient, {headers: headers});
   }
+
+  getAllApart(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'getAllApart', {headers: headers});
+  }
 }

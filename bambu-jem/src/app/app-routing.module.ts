@@ -36,11 +36,12 @@ import { GetransactionComponent } from './components/getransaction/getransaction
 import { TagComponent } from './adminlayout/tag/tag.component';
 import { CompressimgComponent } from './adminlayout/compressimg/compressimg.component';
 import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
+import { DashboardComponent } from './adminlayout/dashboard/dashboard.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
   { path: '', component: JempageComponent},
-  //{ path: 'Home/BJem', component: JempageComponent},
+  // { path: 'Home/BJem', component: JempageComponent},
   { path: 'Home/Tu_Boutique', component: BambupageComponent},
   { path: 'Home/Nosotros', component: AboutUsComponent},
   { path: 'admin/marcas', component: TagComponent},
@@ -73,6 +74,7 @@ const routes: Routes = [
   { path: 'admin/Configuración', component: ModAdminComponent},
   { path: 'admin/CompressImg', component: CompressimgComponent},
   { path: 'admin/ImagesList', component: ImageslistComponent},
+  { path: 'admin/dashboard', component: DashboardComponent},
   { path: 'admin/mantenimiento_Usuarios', component: CreateAdminComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},

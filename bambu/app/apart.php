@@ -9,17 +9,23 @@ class apart extends Model
     protected $table = "aparts";
     protected $fillable = [
        'client_id',
+       'admin_id',
        'price',
    ];
 
    //relations
    public function client()
    {
-       return $this->belongsTo('app/client');
+       return $this->belongsTo('App\client');
    }
 
    public function articles()
    {
-       return $this->belongsToMany('App\article')->withPivot('size', 'amount');;
+       return $this->belongsToMany('App\article')->withPivot('size', 'amount');
+   }
+
+   public function admin()
+   {
+       return $this->belongsTo('App\Admin');
    }
 }

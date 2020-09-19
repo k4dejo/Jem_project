@@ -12,4 +12,9 @@ class Admin extends Model
         'priority',
         'password'
     ];
+
+    public function aparts()
+    {
+    	return $this->hasMany('app/apart');
+    }
 }

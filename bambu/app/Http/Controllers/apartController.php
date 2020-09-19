@@ -24,6 +24,14 @@ class apartController extends Controller
         ), 200);
     }
 
+    public function getAllApart() {
+        $aparts = apart::with('admin')->with('articles')->with('client')->get();
+        return response()->json(array(
+            'aparts' => $aparts,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function store(Request $request)
     {
         $hash = $request->header('Authorization', null);
@@ -39,6 +47,7 @@ class apartController extends Controller
             //validación
             $validate = Validator::make($paramsArray, [
                 'clients_id'   => 'required',
+                'admin_id'     => 'required',
                 'price'        => 'required'
             ]);
             if ($validate->fails()) {
@@ -324,6 +333,7 @@ class apartController extends Controller
             //validacion
             $validate = Validator::make($paramsArray, [
                 'clients_id'   => 'required',
+                'admin_id'     => 'required',
                 'price'        => 'required'
             ]);
             if ($validate->fails()) {

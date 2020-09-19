@@ -34,6 +34,26 @@ export class ArticleService {
       return this._http.get(this.url + 'getAllTags', { headers: headers });
     }
 
+    calculatePriceAllStock(): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'calculatePriceAllStock', { headers: headers });
+    }
+
+    calculatePriceGender(gender): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'calculatePriceGender/' + gender, { headers: headers });
+    }
+
+    calculatePriceDepartment(gender, dpt): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'calculatePriceDepartment/' + gender + '/' + dpt, { headers: headers });
+    }
+
+    caculatePriceTags(tagsId): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'caculatePriceTags/' + tagsId, { headers: headers });
+    }
+
     getTagsForDeparment(gender, department): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'getTagsForDeparment/' + gender + '/' + department, {headers: headers});
