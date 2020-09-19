@@ -58,9 +58,7 @@ class clientController extends Controller
                     $img = $paramsArray['file'];
                     $img = str_replace('data:image/jpeg;base64,', '', $img);
                     $img = str_replace(' ', '+', $img);
-                   
-                    
-                    ('public')->put($paramsArray['photo'], base64_decode($img));
+                    Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
 
                     //guardar cliente
                     $client_save = client::where('id', $id)->update([
