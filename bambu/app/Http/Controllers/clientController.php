@@ -94,6 +94,11 @@ class clientController extends Controller
         }
         return response()->json($data, 200);
     }
+
+    public function sendEmail(Request $request) {
+
+    }
+    
     public function getClientPhoto($idClient) {
         $client = client::where('id', '=', $idClient)->first();
         if ($client->photo !== 'assets/Images/default.jpg') {

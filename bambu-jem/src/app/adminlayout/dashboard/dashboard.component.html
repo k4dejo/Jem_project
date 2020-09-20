@@ -6,19 +6,23 @@
         <h2 class="title">Reportes</h2>
       </div>
       <div class="card-body">
+        <pagination-controls class="my-pagination" (pageChange)="p = $event">
+        </pagination-controls>
         <table class="table table-striped">
           <thead>
             <th scope="col">Fecha de creación</th>
             <th scope="col">Fecha de edición</th>
             <th scope="col">Admin</th>
+            <th scope="col">Cliente</th>
             <th scope="col">Lista De producto</th>
             <th></th>
           </thead>
           <tbody>
-            <tr *ngFor="let apart of aparts">
+            <tr *ngFor="let apart of aparts | paginate: { itemsPerPage: 10, currentPage: p }">
               <td>{{apart.created_at}}</td>
               <td>{{apart.updated_at}}</td>
               <td>{{apart.admin.user}}</td>
+              <td>{{apart.clients_id}}</td>
               <td>
                 <a style="font-weight: bold; cursor: pointer;" data-toggle="modal"
                 data-target="#ListProducts" (click)="getListProduct(apart.articles)">

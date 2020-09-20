@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   public aparts: Apart;
   public productView;
   public imgUrl = ImgUrl;
+  public p = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -70,11 +71,12 @@ export class DashboardComponent implements OnInit {
     this.apartService.getAllApart().subscribe(
       response => {
         this.aparts = response.aparts;
-        for (let index = 0; index < response.aparts.length; index++) {
+        console.log(this.aparts)
+        /*for (let index = 0; index < response.aparts.length; index++) {
           for (let i = 0; i < this.aparts[index].articles.length; i++) {
             console.log(this.aparts[index].articles[i]);
           }
-        }
+        }*/
       }, error => {
         console.log(<any> error);
       }

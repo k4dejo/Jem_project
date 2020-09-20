@@ -24,6 +24,7 @@ Route::group(['middleware' => 'cors'], function(){
    /*CLIENT*/
    Route::post('register','clientController@register');
    Route::post('login','clientController@login');
+   Route::post('sendPasswordLink','clientController@sendEmail');
    Route::put('editClientInfo/{id}', 'clientController@editClient');
    Route::get('getClientList' , 'clientController@getClientList');
    Route::get('getClientInfo/{id}', 'clientController@getClientInfo');
