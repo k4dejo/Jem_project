@@ -55,11 +55,11 @@ return [
     |
     */
 
-    /*'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'breinersalas14@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Breiner'),
-    ],*/
-    'from' => array('address' => null, 'name' => null),
+    'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'testingproyectBJem@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Modajem.com'),
+    ],
+    //'from' => array('address' => null, 'name' => null),
 
     /*
     |--------------------------------------------------------------------------

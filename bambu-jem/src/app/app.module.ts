@@ -60,6 +60,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CompressimgComponent } from './adminlayout/compressimg/compressimg.component';
 import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
 
 
 
@@ -111,7 +112,8 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
     TagComponent,
     CompressimgComponent,
     ImageslistComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    ChangepasswordComponent
   ],
   imports: [
     BrowserModule,

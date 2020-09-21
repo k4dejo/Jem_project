@@ -27,6 +27,13 @@ export class UserServices {
     return this._http.post(this.url + 'sendPasswordLink', params, {headers: headers});
   }
 
+  changePassword(data: any): Observable<any>{
+    const json = JSON.stringify(data);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'changePassword', params, {headers: headers});
+  }
+
   editClientInfo(token, idClient, client: any): Observable<any> {
     const json = JSON.stringify(client);
     const params = 'json=' + json;
