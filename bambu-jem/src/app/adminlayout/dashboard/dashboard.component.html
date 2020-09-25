@@ -1,6 +1,76 @@
 <div class="page-wrapper bg-gra-03">
   <app-navbaradmin></app-navbaradmin>
   <div class="wrapper wrapper--w1500">
+    <div style="margin-bottom: 2%;" class="row">
+      <div class="col-md-6">
+        <div class="card card-5">
+          <div class="card-heading">
+            <h2 class="title">Precio inventario</h2>
+          </div>
+          <div class="card-body">
+            <h2>{{priceAllProduct | number: '3.'}}</h2>
+          </div>
+          <div style="margin-left: 2%; margin-bottom: 2%;" class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="genderSearch">
+                    <div class="selectWrapper">
+                      <select  name="genderSelect" id="SelectSearch" class="selectpicker"
+                      (change)="pushGenderSearch($event.target.value)" name="gender">
+                        <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
+                        <option *ngFor="let gen of gender" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
+                          {{gen.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="dptSearch">
+                    <div class="selectWrapper">
+                      <select name="department" id="SelectSearch"
+                      (change)="pushDepartSearch($event.target.value)" class="custom-select"
+                      name="department">
+                        <option disabled="disabled" [selected]='!newStateDpt'>--Departamento--</option>
+                        <option *ngFor="let dpt of department" [value]="dpt.id" [selected]="selectedOptionDpt(dpt.id)">
+                          {{dpt.name}}
+                        </option>
+                      </select>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="selectWrapper">
+                <select name="genderSelect" id="tagSelect" class="selectpicker"
+                (change)="pushTag($event.target.value)" name="tags_id" >
+                  <option disabled="disabled"  [selected]='!newStateTags'>-Seleccionar-</option>
+                  <option *ngFor="let tag of tags" [value]="tag.id" [selected]="selectedOptionTag(tag.id)">
+                    {{tag.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary" (click)="calculatePriceAllProduct()"> Restablecer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card card-5">
+          <div class="card-heading">
+            <h2 class="title">Precio</h2>
+          </div>
+          <div class="card-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card card-5">
       <div class="card-heading">
         <h2 class="title">Reportes</h2>
@@ -24,8 +94,8 @@
               <td>{{apart.admin.user}}</td>
               <td>{{apart.clients_id}}</td>
               <td>
-                <a style="font-weight: bold; cursor: pointer;" data-toggle="modal"
-                data-target="#ListProducts" (click)="getListProduct(apart.articles)">
+                <a (click)="getListProduct(apart.articles)" style="font-weight: bold; cursor: pointer;" data-toggle="modal"
+                data-target="#ListProducts">
                 Ver Productos</a>
               </td>
             </tr>

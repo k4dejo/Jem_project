@@ -86,7 +86,7 @@ export class ArticleService {
 
     filterTagProduct(department, gender, tag, sizesId): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      return this._http.get(this.url + 'filterTagProduct/' + department + '/ ' + gender + '/' + 
+      return this._http.get(this.url + 'filterTagProduct/' + department + '/ ' + gender + '/' +
       tag + '/' + sizesId,
       {headers: headers});
     }

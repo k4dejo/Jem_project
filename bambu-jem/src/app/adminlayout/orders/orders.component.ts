@@ -227,7 +227,7 @@ export class OrdersComponent implements OnInit {
   }
 
     /*============================================CALCULAR_PRECIO==========================================*/
-  
+
     calculatePrice(orderList: any) {
       for (let index = 0; index < this.purchaselist.length; ++index) {
         this.purchaselist[index].price = 0;
@@ -248,7 +248,7 @@ export class OrdersComponent implements OnInit {
         }
       }
     }
-  
+
     calculateTotalPrice(countBool, indexpurchaselist, indexProductList) {
       if (countBool !== true) {
         this.purchaselist[indexpurchaselist].price += this.purchaselist[indexpurchaselist].articles[indexProductList].pricePublic
@@ -259,8 +259,7 @@ export class OrdersComponent implements OnInit {
       }
       console.log(this.purchaselist[indexpurchaselist]);
     }
-  
-    //=======================================================================================================
+    // =======================================================================================================
 
   ngOnInit() {
     if (this.identity == null) {
