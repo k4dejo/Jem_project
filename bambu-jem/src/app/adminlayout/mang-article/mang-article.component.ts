@@ -260,7 +260,7 @@ export class MangArticleComponent implements OnInit {
       sizesFile = sizesFile[0];
       if (typeFile === 'MB') {
         document.getElementById("openModalButton").click();
-        this.compressImg(image, orientation);      
+        this.compressImg(image, orientation);
       } else {
         if (typeFile === 'KB' && sizesFile > 500) {
           this.compressImg(image, orientation);
@@ -283,7 +283,7 @@ export class MangArticleComponent implements OnInit {
     );
   }
 
-  choseImg(img) { 
+  choseImg(img) {
     this.fileBlob = img;
   }
 
@@ -706,6 +706,7 @@ export class MangArticleComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.productView = response.articles;
+          console.log(this.productView);
           this.statusBool = true;
           this.addPhotoProductList();
           this.loading = false;

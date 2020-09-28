@@ -31,6 +31,7 @@ class PurchaseController extends Controller
         ), 200);
     }
 
+
     public function getPurchaseStatus($status) {
         $purchaseStatus = purchase::where('status', $status)->with('articles')->paginate(12);
         return response()->json(array(
@@ -40,19 +41,9 @@ class PurchaseController extends Controller
         ), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function getTicket($idPurchase) {
         $ticketPurchase = ticket::where('purcharse_id', $idPurchase)->first();
-        $contents = Storage::get($ticketPurchase->ImgTicket);
+        $contents = \Storage::disk('public')->get($ticketPurchase->ImgTicket);
         $ticketPurchase->ImgTicket = base64_encode($contents);
         return response()->json(array(
             'purchases' => $ticketPurchase,
@@ -60,6 +51,8 @@ class PurchaseController extends Controller
             'status'    => 'success'
         ), 200);
     }
+
+
 
     public function storeTicket(Request $request) {
         $hash = $request->header('Authorization', null);

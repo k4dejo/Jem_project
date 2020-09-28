@@ -34,7 +34,7 @@ class contactController extends Controller
             'msg' => $params->message
         );
         $fromEmail = 'breinersalas14@gmail.com';
-        $fromName = 'Administrador';
+        $fromName = 'Nuevo correo de contacto Modajem.com';
         Mail::send('emails.contact', $data, function ($message) use ($fromName, $fromEmail) {
             $message->to($fromEmail, $fromName);
             $message->from($fromEmail, $fromName);

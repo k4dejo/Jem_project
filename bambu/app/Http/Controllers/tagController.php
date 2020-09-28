@@ -58,11 +58,33 @@ class tagController extends Controller
         return response()->json($data, 200);
     }
 
+    /*public function getTagsForDeparment($gender, $dpt) {
+        $filter = tag::whereHas('articles', function($q) use ($gender, $dpt) {
+            $q->where('gender', '=', $gender)->where('department', '=', $dpt);
+        })->get();
+        $filter = tag::with('articles')->get();
+        $countFilter = count($filter);
+        if ($countFilter > 0) {
+            return response()->json(array(
+                'getTagDeparment' => $filter,
+                'count' => $countFilter,
+                'status'   => 'success'
+            ), 200);
+        } else {
+            return response()->json(array(
+                'getTagDeparment' => $filter,
+                'count' => $countFilter,
+                'status'   => 'void'
+            ), 200);
+        }
+    }*/
+
     public function getTagsForDeparment($gender, $dpt) {
-        /*$filter = tag::whereHas('articles', function($q) use ($gender, $dpt) {
-            $q->where('gender', '=', $gender)->where('department', '=', $department);
-        })->get();*/
-        $filter = tag::all()->articles();
+        $filter = tag::whereHas('articles', function($q) use ($gender, $dpt) {
+            $q->where('gender', '=', $gender)->where('department', '=', $dpt);
+        })->get();
+        //$filter =  tag::all()->articles();
+        //return  $filter;
         $countFilter = count($filter);
         if ($countFilter > 0) {
             return response()->json(array(

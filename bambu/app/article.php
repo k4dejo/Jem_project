@@ -59,7 +59,7 @@ class article extends Model
 
     public function tags()
     {
-    	return $this->belongsTo('app/tag', 'tags_id');
+    	return $this->belongsTo('App\tag', 'tags_id');
     }
 
     public function clients()

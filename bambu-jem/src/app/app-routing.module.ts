@@ -38,6 +38,7 @@ import { CompressimgComponent } from './adminlayout/compressimg/compressimg.comp
 import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
 import { DashboardComponent } from './adminlayout/dashboard/dashboard.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'Home/Nosotros', component: AboutUsComponent},
   { path: 'admin/marcas', component: TagComponent},
   { path: 'resetPassword', component: ResetpasswordComponent},
+  { path: 'changePassword', component: ChangepasswordComponent},
   { path: 'get/transaccion/credomatic', component: GetransactionComponent},
   { path: 'Logout/:sure', component: LoginComponent},
   { path: 'Home/Damas/:id' , component: LadiesComponent},
