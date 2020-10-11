@@ -267,6 +267,14 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    public function getNewness() {
+        $newness = article::orderBy('created_at', 'DESC')->take(10)->get();
+        return response()->json(array(
+            'newness' => $newness,
+            'status'   => 'success'
+        ), 200);
+    }
+
     public function Onlydepart($gender, $department) {
         $dptGet = article::where('gender', $gender)->where('department', $department)->get();
         // $dptGet = DB::table('articles')->where('department', $department)->get();

@@ -126,7 +126,7 @@ export class ApartComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private adminService: AdminService,
+      private adminService: AdminService,
     private apartService: ApartService,
     private toastr: ToastrService,
     private province: AddresServices,

@@ -83,7 +83,7 @@
             <th scope="col">Fecha de creación</th>
             <th scope="col">Fecha de edición</th>
             <th scope="col">Admin</th>
-            <th scope="col">Cliente</th>
+            <th scope="col">Id_Cliente</th>
             <th scope="col">Lista De producto</th>
             <th></th>
           </thead>
@@ -118,12 +118,14 @@
             <th></th>
             <th scope="col">Producto</th>
             <th scope="col">Público</th>
+            <th scope="col">Cantidad</th>
           </thead>
           <tbody>
             <tr *ngFor="let product of productView">
               <td><img style="width: 40px; height: 50px;" [src]="product.photo" alt=""></td>
               <td>{{product.name}}</td>
-              <td>{{product.pricePublic}}</td>
+              <td>{{product.pivot.size}}</td>
+              <td>{{product.pivot.amount}}</td>
             </tr>
           </tbody>
         </table>

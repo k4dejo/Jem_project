@@ -33,7 +33,7 @@ class contactController extends Controller
             'subject' => $params->subject,
             'msg' => $params->message
         );
-        $fromEmail = 'breinersalas14@gmail.com';
+        $fromEmail = 'jemboutique@gmail.com';
         $fromName = 'Nuevo correo de contacto Modajem.com';
         Mail::send('emails.contact', $data, function ($message) use ($fromName, $fromEmail) {
             $message->to($fromEmail, $fromName);

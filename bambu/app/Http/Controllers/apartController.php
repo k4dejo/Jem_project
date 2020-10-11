@@ -25,7 +25,9 @@ class apartController extends Controller
     }
 
     public function getAllApart() {
-        $aparts = apart::with('admin')->with('articles')->with('client')->get();
+        //$aparts = apart::with('admin')->with('articles')->with('client')->get();
+        $aparts = $aparts= apart::where('admin_id','!=', null)->
+        where('clients_id','!=', null)->with('admin')->with('articles')->with('client')->get();
         return response()->json(array(
             'aparts' => $aparts,
             'status'   => 'success'
