@@ -59,6 +59,11 @@ export class ArticleService {
       return this._http.get(this.url + 'getTagsForDeparment/' + gender + '/' + department, {headers: headers});
     }
 
+    getNewness(): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'getNewness', {headers: headers});
+    }
+
     deleteTag(id): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.delete(this.url + 'deleteTag/' + id, { headers: headers });

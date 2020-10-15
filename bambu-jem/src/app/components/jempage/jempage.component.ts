@@ -8,6 +8,7 @@ import { Article } from '../../models/article';
 import { Outfit } from '../../models/outfit';
 import { Gender } from '../../models/gender';
 import { ImgUrl } from '../../models/imgUrl';
+import $ from 'jquery';
 
 
 @Component({
@@ -40,6 +41,8 @@ export class JempageComponent implements OnInit {
   public item = document.getElementById('slide');
   public boolOutfit = false;
   public positionScrollOutfit;
+  public newNess = [];
+  public newNessView = [];
 
   constructor(
     private elementRef: ElementRef,
@@ -54,10 +57,65 @@ export class JempageComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.getProduct();
+
+    // this.getProduct();
     this.positionScrollOutfit = sessionStorage.getItem('currentPositionScroll');
-    console.log(this.slide)
+    this.getNewness();
     this.getOutfitsList();
+
+    $('#itemslider').carousel({ interval: 3000 });
+
+    $('.carousel-showmanymoveone .item').each(function() {
+    let itemToClone = $(this);
+
+    for (let i = 1; i < 6; i++) {
+    itemToClone = itemToClone.next();
+
+    if (!itemToClone.length) {
+    itemToClone = $(this).siblings(':first');
+    }
+
+    itemToClone.children(':first-child').clone()
+    .addClass('cloneditem-' + (i))
+    .appendTo($(this));
+    }
+    });
+
+  }
+
+  getNewness() {
+    this.ProductService.getNewness().subscribe(
+      response => {
+        this.newNessView = response.newness;
+        this.addPhotoProductNewnessList();
+        this.newNessView.splice(0, 1);
+
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+    this.ProductService.getNewness().subscribe(
+      response => {
+        this.newNess = response.newness;
+        this.addPhotoProductNewnessList();
+        // this.newNessView.slice(0, 1);
+
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  addPhotoProductNewnessList() {
+    for (let index = 0; index < this.newNess.length; index++) {
+      this.newNess[index].photo = this.imgUrl.url + this.newNess[index].photo;
+      if (this.newNessView[index] !== undefined ) {
+        const isLink = this.newNessView[index].photo.split(':');
+        if (isLink.length === 1) {
+          this.newNessView[index].photo = this.imgUrl.url + this.newNessView[index].photo;
+        }
+      }
+    }
   }
 
   getProductGender(productGender, photoGender) {
@@ -96,7 +154,7 @@ export class JempageComponent implements OnInit {
             this.outfitList[i].articles[index].photo = this.imgUrl.url + this.outfitList[i].articles[index].photo;
           }
         }
-        //this.translateX(this.productsOutfit);
+        // this.translateX(this.productsOutfit);
         this.productScroll();
       }, error => {
         console.log(<any> error);
@@ -151,10 +209,14 @@ export class JempageComponent implements OnInit {
     }
   }
 
+  NewnessScroll() {
+
+  }
+
   productScroll() {
     for (let i = 0; i < this.next.length; i++) {
       let position = 0; // slider postion
-      if (this.positionScrollOutfit != undefined) {
+      if (this.positionScrollOutfit !== undefined) {
         position = this.positionScrollOutfit;
       }
       console.log(position);
@@ -225,7 +287,7 @@ export class JempageComponent implements OnInit {
     let relevantChildren = 0;
     const children = parent.childNodes.length;
     for (let i = 0; i < children; i++) {
-      if (parent.childNodes[i].nodeType != 3) {
+      if (parent.childNodes[i].nodeType !== 3) {
         if (getChildrensChildren) {
           relevantChildren += this.getCount(parent.childNodes[i], true);
         }

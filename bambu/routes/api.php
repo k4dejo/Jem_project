@@ -154,6 +154,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('filterPriceProduct/{department}/{priceMin}/{priceMax}', 'ArticleController@filterPriceProduct');
    Route::get('filterSizeProductAdmin/{department}/{gender}/{size}', 'ArticleController@filterSizeProductAdmin');
    Route::get('filterSizeProduct/{department}/{gender}/{size}/{tagsId}', 'ArticleController@filterSizeProduct');
+   Route::get('getNewness', 'ArticleController@getNewness');
    /*tags*/
    Route::post('storeTag', 'tagController@store');
    Route::get('getAllTags', 'tagController@index');

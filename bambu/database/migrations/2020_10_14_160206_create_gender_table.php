@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ResetPassword extends Migration
+class CreateGenderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class ResetPassword extends Migration
      */
     public function up()
     {
-        Schema::create('reset_password', function (Blueprint $table) {
+        Schema::create('gender', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email');
-            $table->string('token');
+            $table->string('gender');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class ResetPassword extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reset_password');
+        Schema::dropIfExists('gender');
     }
 }

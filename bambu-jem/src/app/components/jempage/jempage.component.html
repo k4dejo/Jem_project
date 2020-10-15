@@ -225,6 +225,89 @@
   </div>
   <app-whatsapp></app-whatsapp>
 </div>
+
+<div class="container">
+  <div class="row" id="slider-text">
+    <div class="col-md-6" >
+      <h2>NOVEDADES</h2>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="carousel carousel-showmanymoveone slide" id="itemslider">
+        <div class="carousel-inner" *ngFor="let newProduct of newNess">
+          <div class="item active">
+
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <a href="#"><img [src]="newProduct.photo" class="img-responsive center-block"></a>
+              <h4 class="text-center">{{newProduct.name}}</h4>
+              <h5 class="text-center">{{newProduct.pricePublic}}</h5>
+            </div>
+
+          </div>
+        </div>
+        <div id="slider-control">
+          <a class="left carousel-control" href="#itemslider" data-slide="prev"><img src="https://cdn0.iconfinder.com/data/icons/website-kit-2/512/icon_402-512.png" alt="Left" class="img-responsive"></a>
+          <a class="right carousel-control" href="#itemslider" data-slide="next"><img src="http://pixsector.com/cache/81183b13/avcc910c4ee5888b858fe.png" alt="Right" class="img-responsive"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+<!-- Item slider-->
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="carousel carousel-showmanymoveone slide" id="itemslider">
+        <div class="carousel-inner">
+
+          <div class="item active">
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <a href="#"><img [src]="newNess[0].photo" class="img-responsive center-block"></a>
+              <h4 class="text-center">{{newNess[0].name}}</h4>
+              <h5 class="text-center">{{newNess[0].pricePublic}}</h5>
+            </div>
+          </div>
+
+          <div class="item" *ngFor="let newProduct of newNessView">
+            <div class="col-xs-12 col-sm-6 col-md-2">
+              <a href="#"><img [src]="newProduct.photo" class="img-responsive center-block"></a>
+              <h4 class="text-center">{{newProduct.name}}</h4>
+              <h5 class="text-center">{{newProduct.pricePublic}}</h5>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="slider-control">
+        <a class="left carousel-control" href="#itemslider" data-slide="prev"><img src="https://cdn0.iconfinder.com/data/icons/website-kit-2/512/icon_402-512.png" alt="Left" class="img-responsive"></a>
+        <a class="right carousel-control" href="#itemslider" data-slide="next"><img src="http://pixsector.com/cache/81183b13/avcc910c4ee5888b858fe.png" alt="Right" class="img-responsive"></a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="box1" *ngFor="let newProduct of newNess">
+  <div class="slider1">
+    <img style="max-width:100%;width:auto;height:auto;" [src]="newProduct.photo" alt="">
+  </div>
+  <div class="detail-box">
+    <div class="type">
+      <a href="">
+        <span>{{newProduct.name}}</span>
+      </a>
+    </div>
+    <a href="" class="price"></a>
+  </div>
+</div>-->
+
+<br>
 <div class="promo">
   <h2>¡Aprovecha nuestras ofertas!</h2>
   <h4>Siempre estamos renovando nuestro catálogo, no te pierdas lo nuevo en promoción.</h4>
@@ -280,10 +363,9 @@
         </div>
     </div>
     </section>
-
-
-
 </div>
+
+
 <div class="modal fade" id="outfitModal" tabindex="-1" role="dialog" aria-labelledby="alertPaymentTitle"
 aria-hidden="true">
   <div class="modal-dialog" role="document">
