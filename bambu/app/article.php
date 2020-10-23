@@ -17,7 +17,9 @@ class article extends Model
         'weight',
         'photo',
         'gender',
-        'tags_id'
+        'tags_id',
+        'gender_id',
+        'dpt_id'
     ];
 
     //relations
@@ -60,6 +62,16 @@ class article extends Model
     public function tags()
     {
     	return $this->belongsTo('App\tag', 'tags_id');
+    }
+
+    public function gender()
+    {
+    	return $this->belongsTo('App\Gender', 'gender_id');
+    }
+
+    public function department()
+    {
+    	return $this->belongsTo('App\Department', 'dpt_id');
     }
 
     public function clients()

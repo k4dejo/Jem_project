@@ -113,7 +113,7 @@ export class FactuComponent implements OnInit {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
     this.billing = new Billing('', 0, '', '', '', '', '', '');
-    this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
+    this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     this.attachBilling = new AttachBilling('', '', 0, '');
   }
 
@@ -207,7 +207,7 @@ export class FactuComponent implements OnInit {
   getGenderString(genderLength: any, productGenIndex: any) {
     for (let index = 0; index < genderLength; index++) {
       if (this.productView[productGenIndex].gender.toString() === this.gender[index].id) {
-        this.productView[productGenIndex].gender = this.gender[index].name;
+        this.productView[productGenIndex].gender = this.gender[index].gender;
       }
     }
   }

@@ -163,6 +163,14 @@ Route::group(['middleware' => 'cors'], function(){
    Route::delete('deleteTag/{id}','tagController@deleteTag');
    /**/
 
+   /*GENDER*/
+    Route::resource('Genders', 'GenderController');
+   /*DEPARMENT*/
+    Route::resource('departments', 'DepartmentController');
+    Route::get('getDepartmentForGender/{idGender}', 'DepartmentController@getDepartmentForGender');
+
+   /**/
+
    /*ADDRESS*/
    Route::post('storeAddress', 'addressController@store');
    Route::post('editAddress', 'addressController@edit');

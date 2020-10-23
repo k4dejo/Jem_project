@@ -135,7 +135,7 @@ export class ApartComponent implements OnInit {
   ) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
-    this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
+    this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     this.client = new Client('', '', '', '', '', '', '', '', null, 1);
     this.apartM = new Apart('', 0, 0, '');
     this.billing = new Billing('', 0, '', '', '', '', '', '');
@@ -214,7 +214,7 @@ export class ApartComponent implements OnInit {
   getGenderString(genderLength: any, productGenIndex: any) {
     for (let index = 0; index < genderLength; index++) {
       if (this.productView[productGenIndex].gender.toString() === this.gender[index].id) {
-        this.productView[productGenIndex].gender = this.gender[index].name;
+        this.productView[productGenIndex].gender = this.gender[index].gender;
       }
     }
   }
@@ -348,7 +348,15 @@ export class ApartComponent implements OnInit {
     this.loading = true;
     this.apartService.updateAmountApart(this.token, idProduct, sizeId, isDelete, product).subscribe(
       response => {
-        if (response.status === 'success') {
+        console.log(response);
+        if (response.code === 200) {
+          if (response.status === 'success') {
+            this.loading = false;
+          }
+        } else if  (response.code === 400 ) {
+          if (response.status === 'fail') {
+            this.showTokenExpire();
+          }
           this.loading = false;
         }
       // tslint:disable-next-line:no-shadowed-variable
@@ -665,6 +673,16 @@ export class ApartComponent implements OnInit {
     }
   }
 
+  showTokenExpire() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('La sesión ha expirado, por favor cerra sesión y vuelve a intentar',
+    'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
+    this.loading = false;
+  }
+
   showErrorAdmin(error) {
     this.toastr.overlayContainer = this.toastContainer;
     this.toastr.error(error,
@@ -757,7 +775,7 @@ export class ApartComponent implements OnInit {
   }
 
   viewAddress(province: any, district: any) {
-    let responseSearch= this.searchGamDist(district);
+    let responseSearch = this.searchGamDist(district);
     switch (province) {
       case 'San José':
         if (responseSearch) {
@@ -792,52 +810,6 @@ export class ApartComponent implements OnInit {
       break;
       case 'Cartago':
         if (responseSearch) {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
-      break;
-      default:
-        'fuera de rango de zona';
-      break;
-    }
-  }
-
-  /*viewAddress(province: any, district: any) {
-    switch (province) {
-      case 'San José':
-        if (district === 'central') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
-      break;
-      case 'Alajuela':
-        if (district === 'central' || district === 'Poás' ||
-        district === 'Atenas' || district === 'Palmares' || district === 'Grecia' || district === 'Grecia') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
-      break;
-      case 'Guanacaste':
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-      break;
-      case 'Heredia':
-        if (district === 'central') {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
-      break;
-      case 'Puntarenas':
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-      break;
-      case 'Limón':
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-      break;
-      case 'Cartago':
-        if (district === 'central') {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
@@ -848,7 +820,8 @@ export class ApartComponent implements OnInit {
         'fuera de rango de zona';
       break;
     }
-  }*/
+  }
+
   /*==========================================Dirección===========================================*/
   getProvice() {
     this.province.getProvinceJson().subscribe(

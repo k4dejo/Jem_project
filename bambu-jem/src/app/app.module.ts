@@ -61,6 +61,7 @@ import { CompressimgComponent } from './adminlayout/compressimg/compressimg.comp
 import { ImageslistComponent } from './adminlayout/imageslist/imageslist.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
+import { GendersDepartmentsComponent } from './adminlayout/genders-departments/genders-departments.component';
 
 
 
@@ -113,7 +114,8 @@ import { ChangepasswordComponent } from './components/changepassword/changepassw
     CompressimgComponent,
     ImageslistComponent,
     ResetpasswordComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+    GendersDepartmentsComponent
   ],
   imports: [
     BrowserModule,

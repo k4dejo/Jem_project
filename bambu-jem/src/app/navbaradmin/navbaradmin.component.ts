@@ -33,7 +33,7 @@ export class NavbaradminComponent implements OnInit {
   }
 
   gotoFact() {
-    const link = 'admin/facturación';
+    const link = 'admin/Apartados';
     this.router.navigate([link]);
   }
 

@@ -39,6 +39,7 @@ import { ImageslistComponent } from './adminlayout/imageslist/imageslist.compone
 import { DashboardComponent } from './adminlayout/dashboard/dashboard.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
+import { GendersDepartmentsComponent } from './adminlayout/genders-departments/genders-departments.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -79,6 +80,7 @@ const routes: Routes = [
   { path: 'admin/CompressImg', component: CompressimgComponent},
   { path: 'admin/ImagesList', component: ImageslistComponent},
   { path: 'admin/dashboard', component: DashboardComponent},
+  { path: 'admin/generoDepartamento', component: GendersDepartmentsComponent},
   { path: 'admin/mantenimiento_Usuarios', component: CreateAdminComponent},
   { path: 'checkout/:id' , component: CheckoutComponent},
   { path: '**', component: Error404Component},

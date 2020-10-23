@@ -179,7 +179,7 @@ export class OutfitComponent implements OnInit {
   getGenderString(genderLength: any, productGenIndex: any) {
     for (let index = 0; index < genderLength; index++) {
       if (this.productView[productGenIndex].gender.toString() === this.gender[index].id) {
-        this.productView[productGenIndex].gender = this.gender[index].name;
+        this.productView[productGenIndex].gender = this.gender[index].gender;
       }
     }
   }

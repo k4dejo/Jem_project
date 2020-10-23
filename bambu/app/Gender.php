@@ -15,4 +15,9 @@ class Gender extends Model
     {
         return $this->hasMany(Department::class);
     }
+
+    public function articles()
+    {
+    	return $this->hasMany('App\article', 'tags_id');
+    }
 }

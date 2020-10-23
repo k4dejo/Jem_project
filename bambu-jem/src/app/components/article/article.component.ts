@@ -141,7 +141,7 @@ export class ArticleComponent implements OnInit {
   ) {
     this.favorite = new Like('', '');
     this.productCart = new Purchase('', '', 0, 0, 0, '', '');
-    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
+    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     this.attachPurchase = new AttachPurchase('', '', 0, '');
     this.token = this.clientService.getToken();
     this.identity = this.clientService.getIdentity();
@@ -206,7 +206,7 @@ export class ArticleComponent implements OnInit {
       this.calculateDisponibility(this.products[index]);
       for (let e = 0; e < this.gender.length; e++) {
         if (this.products[index].gender.toString() === this.gender[e].id) {
-          this.products[index].gender = this.gender[e].name;
+          this.products[index].gender = this.gender[e].gender;
         }
       }
       for (let indexD = 0; indexD < this.department.length; indexD++) {

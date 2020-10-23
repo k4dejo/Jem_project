@@ -19,7 +19,7 @@ class GenderController extends Controller
     {
         $gender = Gender::all();
         $data = array(
-            'gender' => $gender,
+            'genders' => $gender,
             'status'  => 'success',
             'code'    => 200
         );

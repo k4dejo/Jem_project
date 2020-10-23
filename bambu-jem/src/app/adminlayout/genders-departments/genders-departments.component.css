@@ -1,0 +1,942 @@
+.form-group{
+  padding: 4%;
+}
+
+.input--style-5 {
+  background: #e5e5e5;
+  line-height: 50px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 22px;
+  font-size: 16px;
+  color: #555;
+}
+
+.input-group-desc {
+  position: relative;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+.table-phone {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .table-pc {
+    display: none;
+  }
+  .table-phone {
+    display: initial;
+  }
+  .input-group-desc {
+    margin-bottom: 40px;
+  }
+}
+
+.input-group {
+  position: relative;
+  margin: 0;
+}
+
+.label {
+  color: #555;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.label--block {
+  width: 100%;
+}
+
+.label--desc {
+  position: absolute;
+  text-transform: capitalize;
+  display: block;
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+  margin-top: 7px;
+  left: 0;
+}
+
+input {
+  outline: none;
+  margin: 0;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.btn {
+  display: inline-block;
+  margin: 3px;
+}
+
+.bg-gra-03 {
+  /*background: -webkit-gradient(linear, left bottom, right top, from(#08aeea), to(#b721ff));
+  background: -webkit-linear-gradient(bottom left, #08aeea 0%, #b721ff 100%);
+  background: -moz-linear-gradient(bottom left, #08aeea 0%, #b721ff 100%);
+  background: -o-linear-gradient(bottom left, #08aeea 0%, #b721ff 100%);
+  background: linear-gradient(to top right, #08aeea 0%, #b721ff 100%);
+  background: #dcdde1;*/
+  background: #f5f6fa;
+}
+
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.wrapper {
+  margin: 0 auto;
+  padding-bottom: 3%;
+}
+
+.wrapper--w960 {
+  max-width: 960px;
+}
+
+.wrapper--w1100 {
+  max-width: 1100px;
+}
+
+.wrapper--w1150 {
+  max-width: 1150px;
+}
+
+.wrapper--w790 {
+  max-width: 790px;
+}
+
+.wrapper--w780 {
+  max-width: 780px;
+}
+
+.wrapper--w680 {
+  max-width: 680px;
+}
+
+/* ==========================================================================
+   #SPACING
+   ========================================================================== */
+.p-t-100 {
+  padding-top: 100px;
+}
+
+.p-t-130 {
+  padding-top: 130px;
+}
+
+.p-t-180 {
+  padding-top: 180px;
+}
+
+.p-t-45 {
+  padding-top: 45px;
+}
+
+.p-t-20 {
+  padding-top: 20px;
+}
+
+.p-t-15 {
+  padding-top: 15px;
+}
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
+.p-t-30 {
+  padding-top: 30px;
+}
+
+.p-b-100 {
+  padding-bottom: 100px;
+}
+
+.p-b-50 {
+  padding-bottom: 50px;
+}
+
+.m-r-45 {
+  margin-right: 45px;
+}
+
+.m-r-55 {
+  margin-right: 55px;
+}
+
+.m-b-55 {
+  margin-bottom: 55px;
+}
+
+/* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+.page-wrapper {
+  min-height: 100vh;
+}
+
+body {
+  font-family: "Open Sans", "Arial", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+.card {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.card-5 {
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.card-5 .card-heading {
+  padding: 20px 0;
+  background: #1a1a1a;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-5 .card-body {
+  padding: 52px 85px;
+  padding-bottom: 73px;
+}
+
+@media (max-width: 767px) {
+  .card-5 .card-body {
+    padding: 40px 30px;
+    padding-bottom: 50px;
+  }
+}
+
+/* ==========================================================================
+   #SELECT
+   ========================================================================== */
+.selectWrapper {
+  width: 83%;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #bbb;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: #e5e5e5;
+}
+
+.selectWrapper select {
+  padding: 12px 40px 12px 20px;
+  line-height: 18px;
+  font-size: 15px;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btnfile {
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 50px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  font-family: inherit;
+}
+
+.btn-secondary{
+  margin-top: 10%;
+}
+
+.btn--radius {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.btn--radius-2 {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.btn--pill {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.btn--green {
+  background: #57b846;
+  color: white;
+}
+
+.btn--green:hover {
+  background: #4dae3c;
+}
+
+.btn--blue {
+  background: #4272d7;
+}
+
+.btn--blue:hover {
+  background: #3868cd;
+}
+
+.btn--red {
+  background: #ff4b5a;
+}
+
+.btn--red:hover {
+  background: #eb3746;
+}
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+}
+
+
+/*===============================================================================
+     #loading
+================================================================================*/
+
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ==========================================================================
+   #TABLE
+   ========================================================================== */
+.table{
+  padding-left: 2%;
+}
+
+.search-product {
+  margin-top: 4%;
+  margin-bottom: 5%;
+}
+
+.imgTable{
+  width: 51px;
+  height: 53px;
+}
+
+  /*======================================================
+	#MODALIMAGE
+========================================================*/
+
+.modal {
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal .fa-cloud-download-alt {
+	position: absolute;
+  	top: 15px;
+  	right: 85px;
+  	color: #f1f1f1;
+  	font-size: 40px;
+  	font-weight: bold;
+  	transition: 0.3s;
+}
+
+.modal .fa-cloud-download-alt {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* Add Animation */
+.modal-content {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)}
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* ==========================================================================
+   #FILE_PHOTO
+   ========================================================================== */
+.inputFile{
+  display: none;
+}
+
+.btnLabel{
+  margin-left: 25%;
+}
+
+.colPhoto{
+  display: block;
+  margin-left: 6%;
+  margin-top: 2%;
+  margin-right: 5%;
+  margin-bottom: 6%;
+}
+
+.divPhoto{
+  /*height: 260px;
+  width: 200px;*/
+  height: 405px;
+  width: 350px;
+
+  font-size: 20px;
+}
+
+td .img-responsive{
+  weight: 55px;
+  height: 55px;
+}
+
+/*-----radioBtn-----*/
+
+.fw-color-choose label span {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 45px;
+	font-size: 11px;
+	color: #414141;
+}
+
+.fw-color-choose input[type=radio] {
+	visibility: hidden;
+	position: absolute;
+}
+
+.fw-color-choose input[type=radio]:checked+label {
+	-webkit-box-shadow: 0 0 0 2px #f51167;
+	box-shadow: 0 0 0 2px #f51167;
+}
+
+.fw-color-choose input[type=radio]:checked+label span {
+	color: #b09d81;
+}
+
+.fw-size-choose .sc-item {
+	display: inline-block;
+	position: relative;
+	margin-right: 5px;
+}
+
+.fw-size-choose label {
+	display: inline-block;
+	height: 30px;
+	min-width: 30px;
+	text-align: center;
+	font-size: 14px;
+	color: #414141;
+	font-weight: 500;
+	cursor: pointer;
+	border-radius: 50px;
+	padding: 7px 6px 0;
+}
+
+.fw-size-choose input[type=radio] {
+	visibility: hidden;
+	position: absolute;
+}
+
+.fw-size-choose input[type=radio]:checked+label {
+	background: #f51167;
+	color: #fff;
+}
+.my-pagination /deep/ .ngx-pagination {
+  text-decoration: none;
+  margin-right: 50px;
+  font-weight: bold;
+}
+
+.my-pagination /deep/ .ngx-pagination a {
+  text-decoration: none;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #494949;
+  color:#ffff;
+}
+
+/* ==========================================================================
+   #MODAL
+  ========================================================================== */
+
+  .dropdown-user a:hover {
+    cursor: pointer;
+  }
+
+
+  .registerText{
+    margin-top: 10px;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  /* TABS */
+
+  h2 {
+    color:#676768;
+  }
+
+  h2.inactive {
+    color: #cccccc;
+  }
+
+  h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+  }
+
+
+
+  .wrapper{
+    display: flow-root;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #formContent {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin-top: 4%;
+    margin-left: 24%;
+  }
+
+  #formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    text-align: center;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .close{
+    position: absolute;
+    top: 4.5%;
+    right: 4.5%;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  #icon {
+    width: 60%;
+  }
+
+
+  /* ANIMATIONS */
+
+  .fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  @-webkit-keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+
+  .fadeIn {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+  }
+
+  .fadeIn.first {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+
+  .fadeIn.second {
+    -webkit-animation-delay: 0.6s;
+    -moz-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+  }
+
+  .fadeIn.third {
+    -webkit-animation-delay: 0.8s;
+    -moz-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+  }
+
+  .fadeIn.fourth {
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
+  }
+
+  .fadeIn.fifth {
+    -webkit-animation-delay: 1.2s;
+    -moz-animation-delay: 1.2s;
+    animation-delay: 1.2s;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Simple CSS3 Fade-in Animation */
+  .underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: #56baed;
+    content: "";
+    transition: width 0.2s;
+  }
+
+  .underlineHover:hover {
+    color: #0d0d0d;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  .underlineHover:hover:after {
+    width: 100%;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  #icon {
+    width: 60%;
+  }
+
+  /* Simple CSS3 Fade-in Animation */
+  @-webkit-keyframes modal-header {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes modal-header {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes modal-header {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .modal-header {
+    opacity: 0;
+    font-weight: bold;
+    -webkit-animation: modal-header ease-in 1;
+    -moz-animation: modal-header ease-in 1;
+    animation: modal-header ease-in 1;
+
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+  }
+
+  .modal-header.first {
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+
+/*========================================
+  #SUBMIT
+==========================================*/
+
+  .billing {
+    margin-top: 5%;
+  }
+
+
+
+  @media (max-width: 767px) {
+
+    #formContent {
+      margin-left: 6%;
+    }
+  }
+

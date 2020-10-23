@@ -71,7 +71,7 @@
                   </div>
                   <div class="col-lg-12">
                     <label for="">Género</label><br>
-                    <div class="selectWrapper">
+                    <!--<div class="selectWrapper">
                       <select name="genderSelect" id="genderSelect" class="selectpicker"
                       (change)="pushGender($event.target.value)" name="gender">
                         <option disabled="disabled" selected="selected">-Seleccionar-</option>
@@ -79,9 +79,33 @@
                           {{gen.name}}
                         </option>
                       </select>
+                    </div>-->
+                    <div class="selectWrapper">
+                      <select name="genderSelect" id="genderSelect" class="selectpicker"
+                      (change)="pushGenderApi($event.target.value)">
+                        <option disabled="disabled" selected="selected">-Seleccionar-</option>
+                        <option *ngFor="let gender of genderApi" [value]="gender.id">
+                          {{gender.gender}}
+                        </option>
+                      </select>
+                    </div>
+
+                  </div>
+
+                  <div class="col-lg-5">
+                    <label for="">Departamento</label><br>
+                    <div class="selectWrapper">
+                      <select name="department" id="department"
+                      (change)="pushDepartmentApi($event.target.value)" class="custom-select"
+                      name="department">
+                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                      <option *ngFor="let dpt of dtp" [value]="dpt.id">
+                        {{dpt.department}}
+                      </option>
+                    </select>
                     </div>
                   </div>
-                  <div class="col-lg-5">
+                  <!--<div class="col-lg-5">
                     <label for="">Departamento</label><br>
                     <div class="selectWrapper">
                       <select name="department" id="department"
@@ -93,7 +117,7 @@
                       </option>
                     </select>
                     </div>
-                  </div>
+                  </div>-->
                   <div class="col-lg-5">
                     <div class="input-group-desc">
                       <label for="">Peso</label>
@@ -197,7 +221,7 @@
                     (change)="pushGenderSearch($event.target.value)" name="gender">
                       <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
                       <option *ngFor="let gen of gender" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
-                        {{gen.name}}
+                        {{gen.gender}}
                       </option>
                     </select>
                   </div>

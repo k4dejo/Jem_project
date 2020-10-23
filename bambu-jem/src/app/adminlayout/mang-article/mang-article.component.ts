@@ -6,10 +6,12 @@ import { Article } from '../../models/article';
 import { Size } from '../../models/size';
 import { Attachsize } from '../../models/attachsize';
 import { Gender } from '../../models/gender';
+import { Dtp } from '../../models/Dpt';
 import { Departament } from '../../models/department';
 import { AmounTotal } from '../../models/amounTotal';
 import { Image } from '../../models/image';
 import { ImgUrl } from '../../models/imgUrl';
+import { GenderDepartmentService } from '../../services/gender-department.service';
 import { ImageService } from '../../services/image.service';
 import { AdminService } from '../../services/admin.service';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
@@ -19,7 +21,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 @Component({
   selector: 'app-mang-article',
   templateUrl: './mang-article.component.html',
-  providers: [ArticleService, AdminService, ImageService],
+  providers: [ArticleService, AdminService, ImageService, GenderDepartmentService],
   styleUrls: ['./mang-article.component.css']
 })
 
@@ -42,6 +44,8 @@ export class MangArticleComponent implements OnInit {
   public productViewU: Article;
   public productRelation: Attachsize[] = [];
   public department: Departament[];
+  public dtp;
+  public genderApi;
   public dtDepartmentM: string[] = [
     'Pantalones',
     'Jeans',
@@ -139,14 +143,15 @@ export class MangArticleComponent implements OnInit {
   public newBlob;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private toastr: ToastrService,
-    private sizeService: SizeService,
-    private adminService: AdminService,
-    private imagesService: ImageService,
-    private productService: ArticleService,
-    private imageCompress: NgxImageCompressService
+    private route:            ActivatedRoute,
+    private toastr:           ToastrService,
+    private router:           Router,
+    private sizeService:      SizeService,
+    private adminService:     AdminService,
+    private imagesService:    ImageService,
+    private imageCompress:    NgxImageCompressService,
+    private productService:   ArticleService,
+    private genderDptService: GenderDepartmentService
   ) {
     this.images = new Image('', '', null);
     this.token = this.adminService.getToken();
@@ -154,7 +159,8 @@ export class MangArticleComponent implements OnInit {
     this.size = new Size('', 0);
     this.amountTotal = new AmounTotal(0, 0);
     this.attachSizeProduct = new Attachsize('', '', [], 0);
-    this.product = new Article(
+    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
+    /*this.product = new Article(
       this.justString,
       this.justString,
       this.justString,
@@ -168,22 +174,8 @@ export class MangArticleComponent implements OnInit {
       this.justNumber,
       this.justString,
       this.justString
-    );
-    this.productViewU = new Article(
-      this.justString,
-      this.justString,
-      this.justString,
-      this.justNumber,
-      this.justNumber,
-      this.justNumber,
-      this.justNumber,
-      this.justString,
-      null,
-      this.justString,
-      this.justNumber,
-      this.justString,
-      this.justString
-    );
+    );*/
+    this.productViewU = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
   }
 
   makeRandom(lengthOfCode: number, possible: string) {
@@ -193,6 +185,39 @@ export class MangArticleComponent implements OnInit {
     }
     return text;
   }
+
+  /*===============================Direccion_From_API========================================*/
+
+  getGenderApi() {
+    this.genderDptService.getAllGender().subscribe(
+      response => {
+        this.genderApi = response.genders;
+        console.log(this.genderApi);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  pushGenderApi(idGender: any) {
+    this.genderDptService.getDepartmentForGender(idGender).subscribe(
+      response => {
+        this.dtp = response.department;
+        this.product.gender_id = idGender;
+        this.product.gender = idGender;
+
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  pushDepartmentApi(department_id: any) {
+    this.product.dpt_id = department_id;
+    this.product.department = department_id;
+  }
+
+  /*=========================================================================================== */
 
   /* compressFile() {
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -565,9 +590,7 @@ export class MangArticleComponent implements OnInit {
           }
           this.attachSizesProduct(this.attachSizeProduct);
           // vaciar formulario
-          this.product = new Article('', '', '', 0, 0, 0,
-          0, '', null, '', 0, '', '');
-          // his.gender = [];
+          this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
           this.department = [];
           this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
@@ -618,7 +641,7 @@ export class MangArticleComponent implements OnInit {
     }
   }
 
-  getDepartmentView(idGender: any) {
+  /*getDepartmentView(idGender: any) {
     switch (idGender) {
       case '1':
         this.fillDepartment(this.dtDepartmentM);
@@ -636,7 +659,7 @@ export class MangArticleComponent implements OnInit {
         console.log('Fuera de rango');
       break;
     }
-  }
+  }*/
 
   toast(numberbool: any) {
     switch (numberbool) {
@@ -680,15 +703,15 @@ export class MangArticleComponent implements OnInit {
     });
   }
 
-  addPhotoProductList() {
+  /*addPhotoProductList() {
     for (let i = 0; i < this.productView.length; ++i) {
       // agrego formato a la imagen.
       this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
       const photoView = this.productView[i].photo;
-      this.getDepartmentView(this.productView[i].gender.toString());
+      // this.getDepartmentView(this.productView[i].gender.toString());
       for (let index = 0; index < this.gender.length; index++) {
         if (this.productView[i].gender.toString() === this.gender[index].id) {
-          this.productView[i].gender = this.gender[index].name;
+          this.productView[i].gender = this.gender[index].gender;
         }
       }
       for (let indexD = 0; indexD < this.department.length; indexD++) {
@@ -697,8 +720,62 @@ export class MangArticleComponent implements OnInit {
         }
       }
     }
+  }*/
+
+  addPhotoProductList() {
+    for (let i = 0; i < this.productView.length; ++i) {
+      // agrego formato a la imagen.
+      this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
+      this.getGenderToProduct(this.productView[i].gender_id, i);
+      this.getDepartmentToProduct(this.productView[i].dpt_id, i);
+    }
   }
 
+  getGenderToProduct(genderId, indexFor) {
+    this.genderDptService.showGender(genderId).subscribe(
+      response => {
+        if (response.gender != null) {
+          this.productView[indexFor].gender = response.gender.gender;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  getDepartmentToProduct(departmentId, indexFor) {
+    this.genderDptService.showDepartment(departmentId).subscribe(
+      response => {
+        if (response.department != null) {
+          this.productView[indexFor].department = response.department.department;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+
+  /*getProductView() {
+    this.loading = true;
+    this.productService.getProduct().subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.productView = response.articles;
+          console.log(this.productView);
+          this.statusBool = true;
+          this.addPhotoProductList();
+          this.loading = false;
+        } else {
+          this.productView = response.articles;
+          this.statusBool = false;
+        }
+      },
+      error => {
+        console.log(<any> error);
+      }
+    );
+  }*/
 
   getProductView() {
     this.loading = true;
@@ -706,7 +783,7 @@ export class MangArticleComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.productView = response.articles;
-          console.log(this.productView);
+          console.log(response);
           this.statusBool = true;
           this.addPhotoProductList();
           this.loading = false;
@@ -809,6 +886,7 @@ export class MangArticleComponent implements OnInit {
         }
       );
       this.getGender();
+      this.getGenderApi();
       this.getProductView();
       this.getTags();
       this.fileBlob = 'assets/Images/default.jpg';

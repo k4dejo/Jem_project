@@ -1,0 +1,84 @@
+<div class="page-wrapper bg-gra-03">
+  <app-navbaradmin></app-navbaradmin>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Genero o Categoría</h2>
+      </div>
+      <div class="card-body">
+        <form class="form-group" #addGender="ngForm" (submit)="saveGender()">
+          <div class="input-group-desc">
+            <label for="">Nombre de la categoría</label>
+            <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="gender.gender"
+              type="text" required>
+          </div><br>
+          <button type="submit" class="btn btn-success">
+            Guardar
+          </button>
+        </form>
+        <pagination-controls class="my-pagination" (pageChange)="pGender = $event">
+        </pagination-controls>
+        <table class="table table-striped">
+          <thead>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gender of genders | paginate: { itemsPerPage: 10, currentPage: pGender }">
+              <td>{{gender.id}}</td>
+              <td>{{gender.gender}}</td>
+              <td><input (click)="deleteGender(gender.id)" style="color: white;"
+                type="button" class="btn btn--blue btn--pill" value="Eliminar"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper wrapper--w1100">
+    <div class="card card-5">
+      <div class="card-heading">
+        <h2 class="title">Departamento o Subcategoría</h2>
+      </div>
+      <div class="card-body">
+        <form class="form-group" #addGender="ngForm" (submit)="saveDpt()">
+          <div class="input-group-desc">
+            <label for="">Nombre de la subcategoría</label>
+            <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="department.department"
+            type="text" required> <br>
+            <br>
+            <select name="genderSelect" id="genderSelect" class="selectpicker"
+            (change)="pushGender($event.target.value)">
+              <option disabled="disabled" selected="selected">-Seleccionar-</option>
+              <option *ngFor="let gender of genders" [value]="gender.id">
+                {{gender.gender}}
+              </option>
+            </select>
+          </div><br>
+          <button type="submit" class="btn btn-success">
+            Guardar
+          </button>
+        </form>
+        <pagination-controls class="my-pagination" (pageChange)="pDpt = $event">
+        </pagination-controls>
+        <table class="table table-striped">
+          <thead>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dpt of departments |
+            paginate: { itemsPerPage: 10, currentPage: pDpt }">
+              <td>{{dpt.id}}</td>
+              <td>{{dpt.department}}</td>
+              <td><input (click)="deleteDepartment(dpt.id)" style="color: white;"
+                type="button" class="btn btn--blue btn--pill" value="Eliminar"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

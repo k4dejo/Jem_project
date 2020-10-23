@@ -63,7 +63,7 @@ class apartController extends Controller
                 $apart->save();
                 $getApart = apart::where('clients_id', $params->clients_id);
                 $data = array(
-                    'apart'   => $getApart,
+                    'apart'      => $getApart,
                     'status'     => 'success',
                 );
             }
@@ -320,6 +320,7 @@ class apartController extends Controller
                 'status'  => 'fail',
                 'code'    => 400,
             );
+            return response()->json($data, 400);
         }
         return response()->json($data,200);
     }

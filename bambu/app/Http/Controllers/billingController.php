@@ -32,6 +32,7 @@ class billingController extends Controller
         $billingClient = DB::table('billing')->where('id', $idBilling)->first();
         $arrayBilling = billing::find($billingClient->id)->articles()->get();
         $countBilling = count($arrayBilling);
+        return $arrayBilling;
         for ($i=0; $i < $countBilling; $i++) {
             $contents = Storage::get($arrayBilling[$i]->photo);
             $arrayBilling[$i]->photo = base64_encode($contents);

@@ -20,7 +20,7 @@ class DepartmentController extends Controller
     {
         $department = Department::all();
         $data = array(
-            'department' => $department,
+            'departments' => $department,
             'status'  => 'success',
             'code'    => 200
         );
@@ -93,6 +93,14 @@ class DepartmentController extends Controller
     public function show($id)
     {
         $department = Department::find($id);
+        return response()->json(array(
+            'department' => $department,
+            'status'   => 'success'
+        ), 200);
+    }
+
+    public function getDepartmentForGender($idGender) {
+        $department = Department::where('gender_id', $idGender)->get();
         return response()->json(array(
             'department' => $department,
             'status'   => 'success'

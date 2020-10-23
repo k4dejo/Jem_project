@@ -15,4 +15,9 @@ class Department extends Model
     {
         return $this->belongsTo(Gender::class, 'gender_id');
     }
+
+    public function articles()
+    {
+    	return $this->hasMany('App\article', 'tags_id');
+    }
 }

@@ -102,7 +102,7 @@ export class ArticleDetailComponent implements OnInit {
     private _location: Location,
     private router: Router,
   ) {
-    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', '');
+    this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     this.favorite = new Like('', '');
     this.productCart = new Purchase('', '', 0, 0, 0, '', '');
     this.attachPurchase = new AttachPurchase('', '', 0, '');
@@ -169,7 +169,7 @@ export class ArticleDetailComponent implements OnInit {
         this.loading = false;
         for (let e = 0; e < this.gender.length; e++) {
           if (this.product.gender.toString() === this.gender[e].id) {
-            this.product.gender = this.gender[e].name;
+            this.product.gender = this.gender[e].gender;
           }
         }
         for (let indexD = 0; indexD < this.department.length; indexD++) {
@@ -343,7 +343,7 @@ export class ArticleDetailComponent implements OnInit {
     );
   }
 
-  //=====================================TOAST================================================
+  // =====================================TOAST================================================
   toast(numberBool: any) {
     switch (numberBool) {
       case 1:
@@ -408,7 +408,7 @@ export class ArticleDetailComponent implements OnInit {
       progressBar: true
     });
   }
-  //==========================================================================================
+  // ==========================================================================================
 
   startTimerSucess() {
     this.timeLeft = 5;

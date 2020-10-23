@@ -18,7 +18,19 @@ class ArticleController extends Controller
 
     public function index(Request $request) {
        //listado de los articulos
+        //$articles = article::with(['gender'])->with(['department'])->get();
         $articles = article::all();
+        $countProducts = count($articles);
+        for ($i=0; $i < $countProducts; $i++) {
+           if ($articles[$i]->gender_id == null && $articles[$i]->dpt_id == null) {
+               $articles[$i]->gender_id = $articles[$i]->gender;
+               $articles[$i]->dpt_id = $articles[$i]->department;
+               $article = article::where('id', $articles[$i]->id)->update([
+                'gender_id' => intval($articles[$i]->gender),
+                'dpt_id' => intval($articles[$i]->department)
+                ]);
+           }
+        }
         return response()->json(array(
             'articles' => $articles,
             'status'   => 'success'
@@ -345,6 +357,8 @@ class ArticleController extends Controller
             $article->weight       = $params->weight;
             $article->photo        = $imgName;
             $article->gender       = $params->gender;
+            $article->gender_id    = $params->gender;
+            $article->dpt_id       = $params->department;
             if ($params->tags_id != 0) {
                 $article->tags_id     = $params->tags_id;
             }

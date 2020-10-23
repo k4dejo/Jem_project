@@ -14,6 +14,8 @@ export class Article {
         public size: string,
         public amount: number,
         public gender: string,
+        public gender_id: number,
+        public dpt_id: number,
         public tags_id: string
     ) {}
 }

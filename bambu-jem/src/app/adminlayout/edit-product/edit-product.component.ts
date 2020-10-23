@@ -136,21 +136,7 @@ public dtDepartmentB: string[] = [
       this.img = new Image('', '', null);
       this.attachSizeProduct = new Attachsize('', '', [], 0);
       this.attachNewProduct = new Attachsize('', '', [], 0);
-      this.product = new Article(
-        this.justString,
-        this.justString,
-        this.justString,
-        this.justNumber,
-        this.justNumber,
-        this.justNumber,
-        this.justNumber,
-        this.justString,
-        null,
-        this.justString,
-        this.justNumber,
-        this.justString,
-        this.justString
-      );
+      this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     }
 
   getGender() {
@@ -186,7 +172,7 @@ public dtDepartmentB: string[] = [
       sizesFile = sizesFile[0];
       if (typeFile === 'MB') {
         document.getElementById("openModalButton").click();
-        this.compressImg(image, orientation);      
+        this.compressImg(image, orientation);
       } else {
         if (typeFile === 'KB' && sizesFile > 500) {
           this.compressImg(image, orientation);
@@ -208,7 +194,7 @@ public dtDepartmentB: string[] = [
     );
   }
 
-  choseImg(img) { 
+  choseImg(img) {
     this.fileBlob = img;
     this.product.photo = this.product.name + '.jpg';
   }
@@ -336,7 +322,7 @@ public dtDepartmentB: string[] = [
       response => {
         if (response.status === 'success') {
           this.size = new Size('', 0);
-          //this.getAttachSize();
+          // this.getAttachSize();
           this.loading = false;
           this.getProductServer();
         }
@@ -439,9 +425,16 @@ public dtDepartmentB: string[] = [
     }
     this.sizeService.updateSizeAmountProduct(this.token, this.id, relation).subscribe(
       response => {
-        this.loading = false;
         console.log(response);
-        this.toast(3);
+        if (response.code === 200) {
+          this.loading = false;
+          this.toast(3);
+        } else if  (response.code === 400 ) {
+          if (response.status === 'fail') {
+            this.showTokenExpire();
+            this.loading = false;
+          }
+        }
       }, error => {
         console.log(<any> error);
       }
@@ -452,7 +445,7 @@ public dtDepartmentB: string[] = [
     this.loading = true;
     this.sizeService.detachRelation(array.pivot).subscribe(
       response => {
-        //this.getAttachSize();
+        // this.getAttachSize();
         this.loading = false;
         this.getProductServer();
       },
@@ -464,21 +457,7 @@ public dtDepartmentB: string[] = [
 
   editProduct(modProduct) {
     this.loading = true;
-    const editProducts = new Article(
-        this.justString,
-        this.justString,
-        this.justString,
-        this.justNumber,
-        this.justNumber,
-        this.justNumber,
-        this.justNumber,
-        this.justString,
-        null,
-        this.justString,
-        this.justNumber,
-        this.justString,
-        this.justString
-      );
+    const editProducts = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     editProducts.name        = this.product.name;
     editProducts.detail      = this.product.detail;
     editProducts.priceMajor  = this.product.priceMajor;
@@ -519,7 +498,7 @@ public dtDepartmentB: string[] = [
       case 3:
         this.showSuccessSizes();
       break;
-    
+
       default:
         break;
     }
@@ -539,6 +518,16 @@ public dtDepartmentB: string[] = [
       timeOut: 3000,
       progressBar: true
     });
+  }
+
+  showTokenExpire() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('La sesión ha expirado, por favor cerra sesión y vuelve a intentar',
+    'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
+    this.loading = false;
   }
 
   showError() {

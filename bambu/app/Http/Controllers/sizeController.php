@@ -112,6 +112,7 @@ class sizeController extends Controller
                 'status'  => 'fail',
                 'code'    => 400,
             );
+            return response()->json($data, 400);
         }
         return response()->json($data,200);
     }
