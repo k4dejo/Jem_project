@@ -117,14 +117,14 @@ export class FactuComponent implements OnInit {
     this.attachBilling = new AttachBilling('', '', 0, '');
   }
 
-  fillDepartment(data = []) {
+  /*fillDepartment(data = []) {
     let dptId: number;
     this.department = [];
     for (let i = 0; i < data.length; ++i) {
       dptId = i + 1;
       this.department.push(new Departament(dptId.toString(), data[i]));
     }
-  }
+  }*/
 
   over(idProduct: any) {
     this.loading = true;
@@ -175,7 +175,7 @@ export class FactuComponent implements OnInit {
 
 
 
-  getDepartmentView(idGender: any) {
+  /*getDepartmentView(idGender: any) {
     switch (idGender) {
       case '1':
         this.fillDepartment(this.dtDepartmentM);
@@ -210,8 +210,7 @@ export class FactuComponent implements OnInit {
         this.productView[productGenIndex].gender = this.gender[index].gender;
       }
     }
-  }
-
+  }*/
   getProductView() {
     this.productService.getProduct().subscribe(
       response => {
@@ -220,14 +219,14 @@ export class FactuComponent implements OnInit {
         for (let index = 0; index < this.productView.length; index++) {
           // agrego formato a la imagen.
           this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
-          const photoView = this.productView[index].photo;
+          /*const photoView = this.productView[index].photo;
           this.getDepartmentView(this.productView[index].gender.toString());
           this.getGenderString(this.gender.length, index);
           for (let indexD = 0; indexD < this.department.length; indexD++) {
             if (this.productView[index].department.toString() === this.department[indexD].id) {
               this.productView[index].department = this.department[indexD].name;
             }
-          }
+          }*/
         }
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
@@ -510,7 +509,7 @@ export class FactuComponent implements OnInit {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
     } else {
-      this.getGender();
+      // this.getGender();
       this.getProductView();
       this.getClientList();
       this.getProvice();

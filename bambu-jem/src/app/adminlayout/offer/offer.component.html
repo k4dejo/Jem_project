@@ -22,8 +22,8 @@
             <tbody>
               <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 5, currentPage: p}">
                 <td>{{product.name}}</td>
-                <td>{{product.gender}}</td>
-                <td>{{product.department}}</td>
+                <td>{{product.gender.gender}}</td>
+                <td>{{product.department.department}}</td>
                 <td>₡ {{product.pricePublic | number: '3.'}}</td>
                 <td><input type="button" class="btn btn--blue btn--pill" value="Agregar Promo" (click)="getProductPromo(product.id)"></td>
               </tr>
@@ -35,7 +35,7 @@
             <form class="form-group" action="">
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-xs-12">
-                  <div class="input-goup-desc"> 
+                  <div class="input-goup-desc">
                     <label for="">Titulo de la promoción</label>
                     <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="offer.name"
                       type="text" required>

@@ -16,6 +16,7 @@ class CreateGenderTable extends Migration
         Schema::create('gender', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('gender');
+            $table->string('img');
             $table->timestamps();
         });
     }

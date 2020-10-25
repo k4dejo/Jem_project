@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     protected $table = "department";
-    protected $fillable = ['department', 'positioDpt', 'gender_id'];
+    protected $fillable = ['department', 'positioDpt', 'img', 'gender_id'];
 
     //relations
 

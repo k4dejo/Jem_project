@@ -4,6 +4,7 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { ImageService } from '../../services/image.service';
+import { GenderDepartmentService } from '../../services/gender-department.service';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Article } from '../../models/article';
@@ -17,14 +18,14 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
-  providers: [ArticleService, AdminService, ImageService],
+  providers: [ArticleService, AdminService, ImageService, GenderDepartmentService],
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
   @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
   public id: number;
   public product: Article;
-  public size: Size;
+  public size;
   public img: Image;
   public imgUrl = ImgUrl;
   public loading = false;
@@ -38,7 +39,7 @@ export class EditProductComponent implements OnInit {
   public fileLength;
   public suma;
   public Mprice;
-  public department: Departament[];
+  /*public department: Departament[];
   public dtDepartmentM: string[] = [
     'Pantalones',
     'Jeans',
@@ -95,8 +96,10 @@ public dtDepartmentB: string[] = [
   'Pantalones',
   'Sueters'
 ];
-  public gender: Gender[];
-  public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
+
+  public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];*/
+  public department;
+  public gender;
   public status: string;
   public statusBool: boolean;
   public justNumber: number;
@@ -128,6 +131,7 @@ public dtDepartmentB: string[] = [
     private sizeService: SizeService,
     private adminService: AdminService,
     private imageService: ImageService,
+    private genderDptService: GenderDepartmentService,
     private imageCompress: NgxImageCompressService,
     private productService: ArticleService) {
       this.token = this.adminService.getToken();
@@ -139,14 +143,14 @@ public dtDepartmentB: string[] = [
       this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     }
 
-  getGender() {
+  /*getGender() {
     let idGender: number;
     this.gender = [];
     for (let i = 0; i < this.dataGender.length; ++i) {
       idGender = i + 1;
       this.gender.push(new Gender(idGender.toString(), this.dataGender[i]));
     }
-  }
+  }*/
 
   getFileBlob(file) {
     const reader = new FileReader();
@@ -168,10 +172,10 @@ public dtDepartmentB: string[] = [
       this.imgResultBeforeCompress = image;
       this.sizeBeforeCompress = this.formatBytes(this.imageCompress.byteCount(image));
       let sizesFile = this.sizeBeforeCompress.split(' ');
-      let typeFile = sizesFile[1];
+      const typeFile = sizesFile[1];
       sizesFile = sizesFile[0];
       if (typeFile === 'MB') {
-        document.getElementById("openModalButton").click();
+        document.getElementById('openModalButton').click();
         this.compressImg(image, orientation);
       } else {
         if (typeFile === 'KB' && sizesFile > 500) {
@@ -200,7 +204,7 @@ public dtDepartmentB: string[] = [
   }
 
   formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) { return '0 Bytes'; }
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
@@ -218,7 +222,7 @@ public dtDepartmentB: string[] = [
     });
   }
 
-  getDepartment() {
+  /*getDepartment() {
     if (this.product.gender !== '') {
       switch (this.product.gender) {
         case '1':
@@ -266,7 +270,7 @@ public dtDepartmentB: string[] = [
       this.product.gender = genderParam.toString();
       this.getDepartment();
     }
-  }
+  }*/
 
   saveSizeAmount(sizeArray) {
     this.size.size = sizeArray.size;
@@ -556,6 +560,38 @@ public dtDepartmentB: string[] = [
     );
   }
 
+  getGender() {
+    this.genderDptService.getAllGender().subscribe(
+      response => {
+        console.log(response);
+        this.gender = response.genders;
+      }
+    );
+  }
+
+  pushGender(genderParam: any) {
+    if (genderParam !== undefined) {
+      this.product.gender = genderParam.toString();
+      this.getDepartment(genderParam);
+    }
+  }
+
+  getDepartment(idGender: any) {
+    this.genderDptService.getDepartmentForGender(idGender).subscribe(
+      response => {
+        this.department = response.department;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  pushDepart(departmentParam: any) {
+    if (departmentParam !== undefined) {
+      this.product.department = departmentParam.toString();
+    }
+  }
+
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     if (this.identity == null) {
@@ -563,7 +599,6 @@ public dtDepartmentB: string[] = [
     } else {
       this.adminService.authAdmin(this.identity).subscribe(
         response => {
-          console.log(response);
           if (response.status !== 'admin') {
             this.router.navigate(['LoginAdmin']);
           }
@@ -573,7 +608,7 @@ public dtDepartmentB: string[] = [
       );
       this.fileBlob = 'assets/Images/default.jpg';
       this.getProductServer();
-      //this.getAttachSize();
+      // this.getAttachSize();
       this.getGender();
       this.getTags();
     }

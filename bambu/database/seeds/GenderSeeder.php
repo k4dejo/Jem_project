@@ -12,22 +12,26 @@ class GenderSeeder extends Seeder
     public function run()
     {
         DB::table('gender')->insert([
-        	'id' => '1',
+            'id' => '1',
+            'img' => '',
             'gender' => 'Hombre'
         ]);
 
         DB::table('gender')->insert([
-        	'id' => '2',
+            'id' => '2',
+            'img'   => '',
             'gender' => 'Mujer'
         ]);
 
         DB::table('gender')->insert([
-        	'id' => '3',
+            'id' => '3',
+            'img'   => '',
             'gender' => 'Niño'
         ]);
 
         DB::table('gender')->insert([
-        	'id' => '4',
+            'id' => '4',
+            'img'   => '',
             'gender' => 'Niña'
         ]);
     }

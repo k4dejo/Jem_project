@@ -20,7 +20,7 @@
                       (change)="pushGenderSearch($event.target.value)" name="gender">
                         <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
                         <option *ngFor="let gen of gender" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
-                          {{gen.name}}
+                          {{gen.gender}}
                         </option>
                       </select>
                     </div>
@@ -34,7 +34,7 @@
                       name="department">
                         <option disabled="disabled" [selected]='!newStateDpt'>--Departamento--</option>
                         <option *ngFor="let dpt of department" [value]="dpt.id" [selected]="selectedOptionDpt(dpt.id)">
-                          {{dpt.name}}
+                          {{dpt.department}}
                         </option>
                       </select>
                       </div>

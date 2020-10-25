@@ -114,8 +114,8 @@
                     <td>
                       <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModal">{{product.name}}</a>
                     </td>
-                    <td>{{product.gender}}</td>
-                    <td>{{product.department}}</td>
+                    <td>{{product.gender.gender}}</td>
+                    <td>{{product.department.department}}</td>
                     <td *ngIf="pPublic">₡ {{product.pricePublic | number: '3.'}}</td>
                     <td *ngIf="pMajor">₡ {{product.priceMajor | number: '3.'}}</td>
                     <td *ngIf="pBoutique">₡ {{product.priceTuB | number: '3.'}}</td>
@@ -146,8 +146,8 @@
                   <td>
                     <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModalImg">{{product.name}}</a>
                   </td>
-                  <td>{{product.gender}}</td>
-                  <td>{{product.department}}</td>
+                  <td>{{product.gender.gender}}</td>
+                  <td>{{product.department.department}}</td>
                   <td *ngIf="pPublic">₡ {{product.pricePublic | number: '3.'}}</td>
                   <td *ngIf="pMajor">₡ {{product.priceMajor | number: '3.'}}</td>
                   <td *ngIf="pBoutique">₡ {{product.priceTuB | number: '3.'}}</td>

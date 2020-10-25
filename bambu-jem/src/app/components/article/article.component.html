@@ -46,8 +46,8 @@
             <h2 class="fw-title">Prendas</h2>
             <ul class="category-menu">
               <li class="active"><a>Ropa de {{genderView}}</a>
-                <ul class="sub-menu" *ngFor="let departs of department">
-                  <li><a (click)="toggleDtp(departs.id)">{{departs.name}}</a></li>
+                <ul class="sub-menu" *ngFor="let departs of dpt">
+                  <li><a (click)="toggleDtp(departs.id)">{{departs.department}}</a></li>
                 </ul>
               </li>
             </ul>
@@ -70,10 +70,10 @@
           </div>
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7 productContainer">
-          <!-- Start Filter Bar -->
+
           <div class="filter-bar d-flex flex-wrap align-items-center">
           </div>
-          <!-- End Filter Bar -->
+
           <div class="filter-widget mb-0" style="margin-top: 4%;">
             <div class="row">
               <div class="col-md-4">
@@ -221,36 +221,6 @@
           <button class="btn btn-success" data-dismiss="modal">Listo</button>
         </div>
       </div>
-
-
-      <!--<div class="price-mobile" style="margin-top: 5%;">
-        <div>
-          <h4>Precio</h4>
-          <div class="two_sidebar">
-            <fieldset class="filter-price">
-              <div class="price-field">
-                <input (change)="filterByPriceMin($event)" type="range" min="2500" max="50000" value="2500" id="lower">
-                <input (change)="filterByPriceMax($event)" type="range" min="2500" max="50000" value="45000" id="upper">
-              </div>
-              <div class="price-wrap">
-                <span class="price-title">Precio : </span>
-                <div class="price-wrap-1">
-                  <input id="one">
-                  <label for="one">₡ {{minPrice | number: '3.'}}</label>
-                </div>
-                <div class="price-wrap_line">-</div>
-                <div class="price-wrap-2">
-                  <input id="two">
-                  <label for="two">₡ {{maxPrice | number: '3.'}}</label>
-                </div>
-              </div>
-            </fieldset>
-            <input (click)="sendFilter()" type="button"
-              style="background-color:rgb(61, 226, 255); color: rgb(253, 253, 253); font-weight: bold;" value="Filtrar"
-              data-dismiss="modal" class="btn btn--pill">
-          </div>
-        </div>
-      </div>-->
     </div>
   </div>
 </div>

@@ -62,7 +62,7 @@ export class ArticleDetailComponent implements OnInit {
   public successModalBool = false;
   public inventoryEmpty = false;
   public imgUrl = ImgUrl;
-  public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
+  /*public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
   public dtDepartmentM: string[] = ['Levis de hombre',
     'Pantalones',
     'Camisa',
@@ -85,7 +85,7 @@ export class ArticleDetailComponent implements OnInit {
     'Enterizos',
     'Vestidos'
   ];
-  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
+  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];*/
   public totalStock = 0;
   public productGallery = [];
 
@@ -114,7 +114,7 @@ export class ArticleDetailComponent implements OnInit {
     this._location.back();
   }
 
-  fillDepartment(data = []) {
+  /*fillDepartment(data = []) {
     let dptId: number;
     this.department = [];
     for (let i = 0; i < data.length; ++i) {
@@ -141,16 +141,16 @@ export class ArticleDetailComponent implements OnInit {
         console.log('Fuera de rango');
       break;
     }
-  }
+  }*/
 
-  getGender() {
+  /*getGender() {
     let idGender: number;
     this.gender = [];
     for (let i = 0; i < this.dataGender.length; ++i) {
       idGender = i + 1;
       this.gender.push(new Gender(idGender.toString(), this.dataGender[i]));
     }
-  }
+  }*/
 
   getSingleProduct(ProductId: any) {
     this.loading = true;
@@ -160,14 +160,14 @@ export class ArticleDetailComponent implements OnInit {
         this.product = response.articles;
         const product_id = response.articles.id;
         this.getImageArray(product_id);
-        this.getDepartmentView(this.product.gender.toString());
+        // this.getDepartmentView(this.product.gender.toString());
         this.product.photo = this.imgUrl.url + this.product.photo;
         this.productGallery.push(this.product.photo);
         this.viewRelation = response.arraySizeArticle;
         this.calculateDisponibility();
         this.fileBlob = this.product.photo;
         this.loading = false;
-        for (let e = 0; e < this.gender.length; e++) {
+        /*for (let e = 0; e < this.gender.length; e++) {
           if (this.product.gender.toString() === this.gender[e].id) {
             this.product.gender = this.gender[e].gender;
           }
@@ -176,7 +176,7 @@ export class ArticleDetailComponent implements OnInit {
           if (this.product.department.toString() === this.department[indexD].id) {
             this.product.department = this.department[indexD].name;
           }
-        }
+        }*/
       }, error => {
         console.log(<any>error);
       }
@@ -489,7 +489,7 @@ export class ArticleDetailComponent implements OnInit {
 
   changeImg(Img: any, idImg: any) {
     for (let i = 0; i < this.fileNpm.length; ++i) {
-      if (this.fileNpm[i].id == idImg) {
+      if (this.fileNpm[i].id === idImg) {// cambio == por ===
         this.fileNpm[i].name = this.product.photo;
       }
     }
@@ -559,7 +559,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getGender();
+    // this.getGender();
     this.shop_id = this.route.snapshot.params['id'];
     this.IdProduct = this.route.snapshot.params['idProduct'];
     this.validateOffer(this.IdProduct);

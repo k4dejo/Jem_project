@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gender extends Model
 {
     protected $table = "gender";
-    protected $fillable = ['gender'];
+    protected $fillable = ['gender', 'img'];
 
     //relations
 

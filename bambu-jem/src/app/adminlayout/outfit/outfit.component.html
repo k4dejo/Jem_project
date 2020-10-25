@@ -23,8 +23,8 @@
               <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 5, currentPage: p}">
                 <td><img class="img-responsive" [src]="product.photo" alt=""></td>
                 <td>{{product.name}}</td>
-                <td>{{product.gender}}</td>
-                <td>{{product.department}}</td>
+                <td>{{product.gender.gender}}</td>
+                <td>{{product.department.department}}</td>
                 <td>₡ {{product.pricePublic | number: '3.'}}</td>
                 <td><input (click)="attachProductOutfit(product)" type="button" class="btn btn--blue btn--pill" value="Agregar al outfit"></td>
               </tr>

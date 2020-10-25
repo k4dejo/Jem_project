@@ -63,6 +63,16 @@ class DepartmentController extends Controller
                 return response()->json($validate->errors(),400);
             }
             $department = new Department();
+            if ($params->img != '') {
+                $imgName = time() . $params->department;
+                $img =  $params->img;
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                $base = base64_decode($img);
+                $imgConvert = Image::make($base)->encode('jpg', 100);
+                Storage::disk('public')->put($imgName, $imgConvert);
+                $department->img = $imgName;
+            }
             $department->department = $params->department;
             $department->positionDpt = $params->positionDpt;
             $department->gender_id = $params->gender_id;

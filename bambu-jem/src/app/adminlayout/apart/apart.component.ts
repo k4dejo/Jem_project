@@ -58,32 +58,6 @@ export class ApartComponent implements OnInit {
   public viewPhoto;
   public loading = false;
   public arrayProductSize;
-  public dtDepartmentM: string[] = ['Levis de hombre',
-    'Pantalones',
-    'Camisa',
-    'Short',
-    'Camisetas',
-    'Abrigos',
-    'Accesorios'
-  ];
-  public dtDepartmentW: string[] = [
-    'Blusas',
-    'Short',
-    'Enaguas',
-    'Pantalones',
-    'Levis de dama',
-    'Vestidos de baño',
-    'Salidas de playa',
-    'Abrigos y sacos',
-    'Accesorios',
-    'Camisetas',
-    'Enterizos',
-    'Vestidos'
-  ];
-  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
-  public gender: Gender[];
-  public department: any[];
-  public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
   public clientBool: boolean;
   public sizeId: string;
   public isDelete;
@@ -165,26 +139,8 @@ export class ApartComponent implements OnInit {
     );
   }
 
-  getGender() {
-    let idGender: number;
-    this.gender = [];
-    for (let i = 0; i < this.dataGender.length; ++i) {
-      idGender = i + 1;
-      this.gender.push(new Gender(idGender.toString(), this.dataGender[i]));
-    }
-  }
-
   gotoFact() {
     this.router.navigate(['admin/facturación']);
-  }
-
-  fillDepartment(data = []) {
-    let dptId: number;
-    this.department = [];
-    for (let i = 0; i < data.length; ++i) {
-      dptId = i + 1;
-      this.department.push(new Departament(dptId.toString(), data[i]));
-    }
   }
 
   switchPrice(event: any) {
@@ -211,76 +167,16 @@ export class ApartComponent implements OnInit {
     this.calculatePriceWithShop();
   }
 
-  getGenderString(genderLength: any, productGenIndex: any) {
-    for (let index = 0; index < genderLength; index++) {
-      if (this.productView[productGenIndex].gender.toString() === this.gender[index].id) {
-        this.productView[productGenIndex].gender = this.gender[index].gender;
-      }
-    }
-  }
-
-  getDepartmentView(idGender: any) {
-    switch (idGender) {
-      case '1':
-        this.fillDepartment(this.dtDepartmentM);
-      break;
-      case '2':
-        this.fillDepartment(this.dtDepartmentW);
-      break;
-      case '3':
-        this.fillDepartment(this.dtDepartmentBG);
-      break;
-      case '4':
-        this.fillDepartment(this.dtDepartmentBG);
-      break;
-      default:
-        console.log('Fuera de rango');
-      break;
-    }
-  }
-
   nextPaginate(event: any) {
     this.loading = true;
     this.p = event;
     this.loading = false;
   }
 
-  /* getProductView() {
-    this.productService.getProduct().subscribe(
-      response => {
-        this.productView = response.articles;
-        this.statusBool = true;
-        for (let index = 0; index < this.productView.length; index++) {
-          // agrego formato a la imagen.
-          this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
-          const photoView = this.productView[index].photo;
-          // this.lenghtProduct = response.articles.total;
-          this.getDepartmentView(this.productView[index].gender.toString());
-          this.getGenderString(this.gender.length, index);
-          for (let indexD = 0; indexD < this.department.length; indexD++) {
-            if (this.productView[index].department.toString() === this.department[indexD].id) {
-              this.productView[index].department = this.department[indexD].name;
-            }
-          }
-        }
-      // tslint:disable-next-line:no-shadowed-variable
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }*/
-
   addPhotoProductList() {
     for (let index = 0; index < this.productView.length; index++) {
       // agrego formato a la imagen.
       this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
-      this.getDepartmentView(this.productView[index].gender.toString());
-      this.getGenderString(this.gender.length, index);
-      for (let indexD = 0; indexD < this.department.length; indexD++) {
-        if (this.productView[index].department.toString() === this.department[indexD].id) {
-          this.productView[index].department = this.department[indexD].name;
-        }
-      }
     }
   }
 
@@ -465,6 +361,7 @@ export class ApartComponent implements OnInit {
     this.apartService.getApartClient(clientId).subscribe(
       response => {
         this.arrayApart = response.apart;
+        console.log(response.apart);
         this.attachApart.apart_id = this.arrayApart[0].pivot.apart_id;
         for (let index = 0; index < this.arrayApart.length; index++) {
           this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
@@ -765,7 +662,7 @@ export class ApartComponent implements OnInit {
 
   searchGamDist(dis) {
     for (let index = 0; index < this.arrayGamDis.length; index++) {
-      let arrayDisGam = this.arrayGamDis[index].toString();
+      const arrayDisGam = this.arrayGamDis[index].toString();
       if (dis === arrayDisGam) {
         return true;
         break;
@@ -775,7 +672,7 @@ export class ApartComponent implements OnInit {
   }
 
   viewAddress(province: any, district: any) {
-    let responseSearch = this.searchGamDist(district);
+    const responseSearch = this.searchGamDist(district);
     switch (province) {
       case 'San José':
         if (responseSearch) {
@@ -929,7 +826,7 @@ export class ApartComponent implements OnInit {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
     } else {
-      this.getGender();
+      // this.getGender();
       this.getProductView();
       this.getClientList();
       this.getDate();

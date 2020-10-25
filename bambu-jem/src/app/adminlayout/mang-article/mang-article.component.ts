@@ -46,7 +46,7 @@ export class MangArticleComponent implements OnInit {
   public department: Departament[];
   public dtp;
   public genderApi;
-  public dtDepartmentM: string[] = [
+  /*public dtDepartmentM: string[] = [
     'Pantalones',
     'Jeans',
     'Camisas',
@@ -103,7 +103,7 @@ export class MangArticleComponent implements OnInit {
     'Abrigos'
   ];
   public gender: Gender[];
-  public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
+  public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];*/
   public img;
   public status: string;
   public statusBool: boolean;
@@ -160,21 +160,6 @@ export class MangArticleComponent implements OnInit {
     this.amountTotal = new AmounTotal(0, 0);
     this.attachSizeProduct = new Attachsize('', '', [], 0);
     this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
-    /*this.product = new Article(
-      this.justString,
-      this.justString,
-      this.justString,
-      this.justNumber,
-      this.justNumber,
-      this.justNumber,
-      this.justNumber,
-      this.justString,
-      null,
-      this.justString,
-      this.justNumber,
-      this.justString,
-      this.justString
-    );*/
     this.productViewU = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
   }
 
@@ -281,10 +266,10 @@ export class MangArticleComponent implements OnInit {
       this.imgResultBeforeCompress = image;
       this.sizeBeforeCompress = this.formatBytes(this.imageCompress.byteCount(image));
       let sizesFile = this.sizeBeforeCompress.split(' ');
-      let typeFile = sizesFile[1];
+      const typeFile = sizesFile[1];
       sizesFile = sizesFile[0];
       if (typeFile === 'MB') {
-        document.getElementById("openModalButton").click();
+        document.getElementById('openModalButton').click();
         this.compressImg(image, orientation);
       } else {
         if (typeFile === 'KB' && sizesFile > 500) {
@@ -313,7 +298,7 @@ export class MangArticleComponent implements OnInit {
   }
 
   formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) { return '0 Bytes'; }
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
@@ -406,7 +391,7 @@ export class MangArticleComponent implements OnInit {
     }, 500);
   }
 
-  getGender() {
+  /*getGender() {
     let idGender: number;
     this.gender = [];
     for (let i = 0; i < this.dataGender.length; ++i) {
@@ -457,7 +442,7 @@ export class MangArticleComponent implements OnInit {
       this.product.gender = genderParam.toString();
       this.getDepartment();
     }
-  }
+  }*/
 
   pushTag(dataTag: any) {
     if (dataTag !== undefined) {
@@ -523,7 +508,7 @@ export class MangArticleComponent implements OnInit {
      this.preStateGender = this.newStateGender;
      this.newStateGender = genderParam;
      this.getOnlyGender(this.genderSearch);
-      this.getDepartment();
+     // this.getDepartment();
     }
   }
 
@@ -592,7 +577,7 @@ export class MangArticleComponent implements OnInit {
           // vaciar formulario
           this.product = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
           this.department = [];
-          this.getGender();
+          // this.getGender();
           this.fileBlob = 'assets/Images/default.jpg';
           this.newBlob = 'assets/Images/default.jpg';
           this.getProductView();
@@ -783,7 +768,6 @@ export class MangArticleComponent implements OnInit {
       response => {
         if (response.status === 'success') {
           this.productView = response.articles;
-          console.log(response);
           this.statusBool = true;
           this.addPhotoProductList();
           this.loading = false;
@@ -885,7 +869,7 @@ export class MangArticleComponent implements OnInit {
           console.log(<any> error);
         }
       );
-      this.getGender();
+      // this.getGender();
       this.getGenderApi();
       this.getProductView();
       this.getTags();

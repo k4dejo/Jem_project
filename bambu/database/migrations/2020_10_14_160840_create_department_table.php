@@ -17,6 +17,7 @@ class CreateDepartmentTable extends Migration
             $table->bigIncrements('id');
             $table->string('department');
             $table->string('positionDpt');
+            $table->string('img')->nullable();
             $table->unsignedInteger('gender_id');
             $table->timestamps();
 

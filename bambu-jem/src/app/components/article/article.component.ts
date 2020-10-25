@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { PurchaseService } from '../../services/purchase.service';
+import { GenderDepartmentService } from '../../services/gender-department.service';
 import { Article } from '../../models/article';
 import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
@@ -19,7 +20,10 @@ import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-article',
-  providers: [ArticleService, UserServices, PurchaseService],
+  providers: [ArticleService, UserServices,
+    GenderDepartmentService,
+    PurchaseService
+  ],
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
@@ -31,7 +35,7 @@ export class ArticleComponent implements OnInit {
   public identity;
   public p = '1';
   public imgUrl = ImgUrl;
-  public products: Array<Article>;
+  public products;
   public productMenu: Array<Article>;
   public productCart: Purchase;
   public attachPurchase: AttachPurchase;
@@ -61,64 +65,6 @@ export class ArticleComponent implements OnInit {
   public interval;
   public timeLeft = 5;
   public agotadoDispo = false;
-  public dataGender: string[] = ['Caballeros', 'Damas', 'Niño', 'Niña'];
-  public dtDepartmentM: string[] = [
-    'Pantalones',
-    'Jeans',
-    'Camisas',
-    'Short',
-    'Camisetas',
-    'Abrigos',
-    'Accesorios',
-    'Gorras',
-    'Zapatos'
-  ];
-  public dtDepartmentW: string[] = [
-    'Blusas',
-    'Shorts',
-    'Enaguas',
-    'Conjuntos',
-    'Pantalones de tela',
-    'Jeans',
-    'Ropa Interior y Lencería',
-    'Vestidos de baño',
-    'Salidas de playa',
-    'Abrigos y sacos',
-    'Pijamas',
-    'Accesorios',
-    'Camisetas',
-    'Enterizos',
-    'Overol',
-    'Sueters',
-    'Joyería ',
-    'Vestidos',
-    'Zapatos'
-   ];
-  public dtDepartmentG: string[] = [
-    'Mamelucos',
-    'Accesorios',
-    'Blusas',
-    'Abrigos',
-    'Shorts',
-    'Enaguas',
-    'Conjuntos',
-    'Vestidos',
-    'Overol',
-    'Enterizos',
-    'Pijamas'
-  ];
-  public dtDepartmentB: string[] = [
-    'Mamelucos',
-    'Accesorios',
-    'Camisetas',
-    'Camisas',
-    'Shorts',
-    'Conjuntos',
-    'Pijamas',
-    'Pantalones',
-    'Abrigos'
-  ];
-  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
   public urlPaginate: any;
   public btnNextDisabled =  true;
   public lenghtProduct;
@@ -128,6 +74,8 @@ export class ArticleComponent implements OnInit {
   public sizesList;
   public selectorGender = '';
   public sizesId;
+  public genderApi;
+  public dpt;
 
   constructor(
     private route: ActivatedRoute,
@@ -136,6 +84,7 @@ export class ArticleComponent implements OnInit {
     private sizesService: SizeService,
     private clientService: UserServices,
     private purchaseService: PurchaseService,
+    private genderDptService: GenderDepartmentService,
     private ProductService: ArticleService,
     private _location: Location,
   ) {
@@ -147,112 +96,68 @@ export class ArticleComponent implements OnInit {
     this.identity = this.clientService.getIdentity();
   }
 
-  backClicked() {
-    this._location.back();
+  /*===========================================GENDER_DEPARTMENT_FOR_API===========================*/
+  getDepartmentApi(idGender: any) {
+    this.genderDptService.getDepartmentForGender(idGender).subscribe(
+      response => {
+        this.dpt = response.department;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
-  fillDepartment(data = []) {
-    let dptId: number;
-    this.department = [];
-    for (let i = 0; i < data.length; ++i) {
-      dptId = i + 1;
-      this.department.push(new Departament(dptId.toString(), data[i]));
-    }
+  /*========================================GET_PRODUCTS======================================== */
+  getProduct( deparment: any, gender: any) {
+    this.loading = true;
+    this.ProductService.getListProduct(deparment, gender).subscribe(
+       response => {
+        this.products = response.articles;
+        console.log(this.products);
+        this.addPhotoProductList();
+        this.loading = false;
+        const sessionPage = sessionStorage.getItem('currentPage');
+        console.log(sessionPage);
+        if (sessionPage === null || sessionPage === undefined) {
+          this.urlPaginate = 1;
+          this.p = '1';
+        } else {
+          this.p = sessionPage;
+          this.urlPaginate = sessionPage;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
-  getDepartmentView(idGender: any) {
-    switch (idGender) {
-      case '1':
-        this.fillDepartment(this.dtDepartmentM);
-      break;
-      case '2':
-        this.fillDepartment(this.dtDepartmentW);
-      break;
-      case '3':
-        this.fillDepartment(this.dtDepartmentB);
-      break;
-      case '4':
-        this.fillDepartment(this.dtDepartmentG);
-      break;
-      default:
-        console.log('Fuera de rango');
-      break;
-    }
-  }
-
-  getGender() {
-    let idGender: number;
-    this.gender = [];
-    for (let i = 0; i < this.dataGender.length; ++i) {
-      idGender = i + 1;
-      this.gender.push(new Gender(idGender.toString(), this.dataGender[i]));
-    }
-  }
-
-  nextPaginate(event: any) {
-    this.p = event;
-    this.urlPaginate = event;
-    window.scroll(0, 0);
-    this.pageChange = event
-    sessionStorage.setItem('currentPage', this.p.toString());
-  }
-
-    addPhotoProductList() {
+  addPhotoProductList() {
     for (let index = 0; index < this.products.length; index++) {
       // agrego formato a la imagen.
       const splitProduct = this.products[index].photo.split(',');
       this.products[index].photo = this.imgUrl.url + this.products[index].photo;
-      this.getDepartmentView(this.products[index].gender.toString());
+      // this.getDepartmentView(this.products[index].gender.toString());
       this.calculateDisponibility(this.products[index]);
-      for (let e = 0; e < this.gender.length; e++) {
-        if (this.products[index].gender.toString() === this.gender[e].id) {
-          this.products[index].gender = this.gender[e].gender;
-        }
-      }
-      for (let indexD = 0; indexD < this.department.length; indexD++) {
-        if (this.products[index].department.toString() === this.department[indexD].id) {
-          this.products[index].department = this.department[indexD].name;
-        }
-      }
-      this.genderView = this.products[index].gender;
-      this.DepartmentView = this.products[index].department;
+      this.genderView = this.products[index].gender.gender;
+      this.DepartmentView = this.products[index].department.department;
     }
   }
 
-  /*calculateDisponibility(product: any) {
-    for (let index = 0; index < product.sizes.length; index++) {
-      const sizeStock = product.sizes[index].pivot.stock;
-      if ( sizeStock <= 0) {
-        console.log(product.sizes[index]);
-        for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].id === product.id) {
-            if (this.products[i].sizes.length <= 1) {
-               this.agotadoDispo = true;
-               this.products[i].sizes.splice(index, 1);
-            } else {
-              this.products[i].sizes.splice(index, 1);
-            }
-          }
-        }
+  getSizesForDepartment(gender, department) {
+    this.sizesService.getSizesForDepart(gender, department).subscribe(
+      response => {
+        this.sizesList = response.getSizesDeparment;
+      }, error => {
+        console.log(<any> error);
       }
-    }
-  }*/
+    );
+  }
 
-  calculateDisponibility(product: any) {
-    for (let index = 0; index < product.sizes.length; index++) {
-      const sizeStock = product.sizes[index].pivot.stock;
-      if ( sizeStock <= 0) {
-        for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].id === product.id) {
-            this.products[i].sizes.splice(index, 1);
-            index = index - 1;
-            if (this.products[i].sizes.length <= 0) {
-              this.agotadoDispo = true;
-            }
-          }
-        }
-      }
-    }
+  gotoDetail(productId: any) {
+    window.scroll(0,  0);
+    const link = '/Home/producto/detalle/';
+    sessionStorage.setItem('currentPage', this.p.toString());
+     this.router.navigate([link, this.shop_id, productId]);
   }
 
   like(product: any) {
@@ -276,6 +181,117 @@ export class ArticleComponent implements OnInit {
     } else {
       this.toast(3);
     }
+  }
+
+  selectSizes(sizeObject) {
+    this.attachPurchase.size = sizeObject.size;
+  }
+
+
+  /*====================================ASSETS========================================================*/
+  calculateDisponibility(product: any) {
+    for (let index = 0; index < product.sizes.length; index++) {
+      const sizeStock = product.sizes[index].pivot.stock;
+      if ( sizeStock <= 0) {
+        for (let i = 0; i < this.products.length; i++) {
+          if (this.products[i].id === product.id) {
+            this.products[i].sizes.splice(index, 1);
+            index = index - 1;
+            if (this.products[i].sizes.length <= 0) {
+              this.agotadoDispo = true;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  toggleTag(tag: any) {
+    const department = this.route.snapshot.params['dpt'];
+    const gender = this.route.snapshot.params['gender'];
+    this.tagsId = tag;
+    if (this.sizesId === undefined) {
+      this.sizesId = 'void';
+    }
+    this.ProductService.filterTagProduct(department, gender, tag, this.sizesId).subscribe(
+      response => {
+        this.products = response.articles;
+        for (let index = 0; index < this.products.length; index++) {
+          // agrego formato a la imagen.
+          this.products[index].photo = this.imgUrl.url + this.products[index].photo;
+          this.calculateDisponibility(this.products[index]);
+        }
+        console.log(this.products);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  getTags(gender, department) {
+    this.ProductService.getTagsForDeparment(gender, department).subscribe(
+      response => {
+        this.tags = response.getTagDeparment;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  printBanner(gender: any) {
+    const banner = document.querySelector('.catalogue');
+    switch (gender) {
+      case '1':
+        this.selectorGender = '1';
+      break;
+      case '2':
+        this.selectorGender = '2';
+      break;
+      case '3':
+        this.selectorGender = '3';
+      break;
+      case '4':
+        this.selectorGender = '4';
+      break;
+      default:
+      break;
+    }
+    console.log(banner);
+  }
+
+  nextPaginate(event: any) {
+    this.p = event;
+    this.urlPaginate = event;
+    window.scroll(0, 0);
+    this.pageChange = event;
+    sessionStorage.setItem('currentPage', this.p.toString());
+  }
+
+  toggleDtp(dtp: any) {
+    const link = '/Home/Articulo/';
+    const gender = this.route.snapshot.params['gender'];
+    this.router.navigate([link, this.shop_id, dtp, gender]);
+    sessionStorage.removeItem('currentPage');
+    this.p = '1';
+    window.scroll(0, 0);
+    this.getSizesForDepartment(gender, dtp);
+    this.getProduct(dtp, gender);
+    this.getTags(gender, dtp);
+  }
+
+  downloadImg(imgProduct: any) {
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    const lengthOfCode = 10;
+    this.randomChar = this.makeRandom(lengthOfCode, possible);
+    this.fileUrl = imgProduct;
+  }
+
+  makeRandom(lengthOfCode: number, possible: string) {
+    let text = '';
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
   }
 
   toast(numberBool: any) {
@@ -354,120 +370,17 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-    getProduct( deparment: any, gender: any) {
-    this.loading = true;
-    this.ProductService.getListProduct(deparment, gender).subscribe(
-       response => {
-        this.products = response.articles;
-        this.addPhotoProductList();
-        this.loading = false;
-        const sessionPage = sessionStorage.getItem('currentPage');
-        console.log(sessionPage);
-        if (sessionPage === null || sessionPage === undefined) {
-          this.urlPaginate = 1;
-          this.p = '1';
-        } else {
-          this.p = sessionPage;
-          this.urlPaginate = sessionPage;
-        }
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }
-
-  /*getProduct(department: any, gender: any) {
-    this.loading = true;
-    this.ProductService.getListProduct(department, gender).subscribe(
-      response => {
-        this.products = response.articles.data;
-        this.lenghtProduct = response.articles.total;
-        this.loading = false;
-        if (response.NextPaginate == null) {
-          this.btnNextDisabled = false;
-          this.urlPaginate = response.articles.last_page_url;
-        } else {
-          this.btnNextDisabled = true;
-          const sessionPage = sessionStorage.getItem('currentPage');
-          if (sessionPage === null || sessionPage === undefined) {
-            if (response.NexPaginate === undefined) {
-              this.urlPaginate = response.articles.last_page_url;
-            } else {
-              this.urlPaginate = response.NextPaginate;
-            }
-          } else {
-            this.urlPaginate = sessionPage;
-            // tslint:disable-next-line:prefer-const
-            let sessionSplit = this.urlPaginate.split('=');
-            this.nextPaginate(sessionSplit[1]);
-          }
-        }
-        this.addPhotoProductList();
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }*/
-
-  gotoDetail(productId: any) {
-    window.scroll(0,  0);
-    const link = '/Home/producto/detalle/';
-    /*if (this.pageChange === undefined) {
-      const firtPage = this.urlPaginate.split('=');
-      this.pageChange = firtPage[0] + '=1';
-    }*/
-    sessionStorage.setItem('currentPage', this.p.toString());
-     this.router.navigate([link, this.shop_id, productId]);
-  }
-
-  makeRandom(lengthOfCode: number, possible: string) {
-    let text = '';
-    for (let i = 0; i < lengthOfCode; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  }
-
-  toggleDtp(dtp: any) {
-    const link = '/Home/Articulo/';
-    const gender = this.route.snapshot.params['gender'];
-    this.router.navigate([link, this.shop_id, dtp, gender]);
-    sessionStorage.removeItem('currentPage');
-    this.p = '1';
-    window.scroll(0, 0);
-    this.getSizesForDepartment(gender, dtp);
-    this.getProduct(dtp, gender);
-    this.getTags(gender, dtp);
-  }
-
-  downloadImg(imgProduct: any) {
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    const lengthOfCode = 10;
-    this.randomChar = this.makeRandom(lengthOfCode, possible);
-    this.fileUrl = imgProduct;
-  }
-
-  filterSizeProduct(sizeResponse: any) {
+  sendFilter() {
     const department = this.route.snapshot.params['dpt'];
-    const gender = this.route.snapshot.params['gender'];
-    const size = sizeResponse;
     this.loading = true;
-    this.sizesId = size;
-    this.ProductService.filterSizeProduct(department, gender, size, this.tagsId).subscribe(
-      response  => {
-        /*this.products = response.filter.data;
-        this.pageChange = response.NextPaginate;
-        this.lenghtProduct = response.filter.total;*/
+    this.ProductService.filterPriceProduct(department, this.minPrice, this.maxPrice).subscribe(
+      response => {
         this.products = response.filter;
-        this.lenghtProduct = response.length;
-        console.log(this.products);
+        this.loading = false;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
-          this.calculateDisponibility(this.products[index]);
         }
-        this.p ='1';
-        this.loading = false;
       }, error => {
         console.log(<any> error);
       }
@@ -500,65 +413,41 @@ export class ArticleComponent implements OnInit {
     console.log(price2.target.value);
   }
 
-  sendFilter() {
-    const department = this.route.snapshot.params['dpt'];
-    this.loading = true;
-    this.ProductService.filterPriceProduct(department, this.minPrice, this.maxPrice).subscribe(
-      response => {
-        this.products = response.filter;
-        this.loading = false;
-        for (let index = 0; index < this.products.length; index++) {
-          // agrego formato a la imagen.
-          this.products[index].photo = this.imgUrl.url + this.products[index].photo;
-        }
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }
-
-  getTags(gender, department) {
-    this.ProductService.getTagsForDeparment(gender, department).subscribe(
-      response => {
-        this.tags = response.getTagDeparment;
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-
-  }
-
-  toggleTag(tag: any) {
+  filterSizeProduct(sizeResponse: any) {
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
-    this.tagsId = tag;
-    if (this.sizesId === undefined) {
-      this.sizesId = 'void';
-    }
-    this.ProductService.filterTagProduct(department, gender, tag, this.sizesId).subscribe(
-      response => {
-        this.products = response.articles;
+    const size = sizeResponse;
+    this.loading = true;
+    this.sizesId = size;
+    this.ProductService.filterSizeProduct(department, gender, size, this.tagsId).subscribe(
+      response  => {
+        this.products = response.filter;
+        this.lenghtProduct = response.length;
+        console.log(this.products);
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;
           this.calculateDisponibility(this.products[index]);
         }
-        console.log(this.products);
+        this.p = '1';
+        this.loading = false;
       }, error => {
         console.log(<any> error);
       }
     );
   }
 
-  // ==========================================VERIFY_IDENTITY_CLIENT====================================================
-
-  verifyClient() {
-    this.token = this.clientService.getToken();
-    this.identity = this.clientService.getIdentity();
+  backClicked() {
+    this._location.back();
   }
 
-  // ===================================ADD_SHOPPING_CART=======================================
+  // ==========================================VERIFY_IDENTITY_CLIENT==============================
 
+    verifyClient() {
+      this.token = this.clientService.getToken();
+      this.identity = this.clientService.getIdentity();
+    }
+  // ===================================ADD_SHOPPING_CART=======================================
   startTimerSucess() {
     this.timeLeft = 5;
     this.interval = setInterval(() => {
@@ -616,10 +505,6 @@ export class ArticleComponent implements OnInit {
     );
   }
 
-  selectSizes(sizeObject) {
-    this.attachPurchase.size = sizeObject.size;
-  }
-
   attachProductPurchase() {
     this.purchaseService.attachProductPurchase(this.token, this.attachPurchase).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
@@ -663,7 +548,6 @@ export class ArticleComponent implements OnInit {
                 this.inventoryEmpty = true;
                 this.toast(5);
               }
-              // this.verifyPurchaseStatus();
             }
             console.log('inventoryEmpty: ' + this.inventoryEmpty);
           }, error => {
@@ -681,50 +565,17 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  // ===========================================================================================
-
-  getSizesForDepartment(gender, department) {
-    this.sizesService.getSizesForDepart(gender, department).subscribe(
-      response => {
-        this.sizesList = response.getSizesDeparment;
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-  }
-
-  printBanner(gender: any) {
-    const banner = document.querySelector('.catalogue');
-    switch (gender) {
-      case '1':
-        this.selectorGender = '1';
-      break;
-      case '2':
-        this.selectorGender = '2';
-      break;
-      case '3':
-        this.selectorGender = '3';
-      break;
-      case '4':
-        this.selectorGender = '4';
-      break;
-      default:
-      break;
-    }
-    console.log(banner);
-  }
-
+  /*==============================================================================================*/
   ngOnInit() {
-    this.getGender();
-    //this.p = 1;
     this.shop_id = this.route.snapshot.params['shopId'];
     const department = this.route.snapshot.params['dpt'];
     const gender = this.route.snapshot.params['gender'];
+    this.getDepartmentApi(gender);
     this.getTags(gender, department);
-    this.getSizesForDepartment(gender, department);
+
+   this.getSizesForDepartment(gender, department);
     this.getProduct(department, gender);
     this.printBanner(gender);
-    this.getDepartmentView(gender);
     if (this.shop_id === 'J') {
       this.shop_bool = true;
     } else {

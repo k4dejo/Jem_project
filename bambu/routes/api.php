@@ -165,6 +165,7 @@ Route::group(['middleware' => 'cors'], function(){
 
    /*GENDER*/
     Route::resource('Genders', 'GenderController');
+    Route::get('getGenderForId/{idGender}', 'GenderController@getGenderForId');
    /*DEPARMENT*/
     Route::resource('departments', 'DepartmentController');
     Route::get('getDepartmentForGender/{idGender}', 'DepartmentController@getDepartmentForGender');

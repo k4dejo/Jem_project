@@ -26,6 +26,14 @@ class GenderController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getGenderForId($idGender) {
+        $gender = Gender::findOrFail($idGender);
+        return response()->json(array(
+            'gender' => $gender,
+            'status' => 'success'
+        ), 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -61,6 +69,16 @@ class GenderController extends Controller
             }
 
             $gender = new Gender();
+            if ($params->img != '') {
+                $imgName = time() . $params->gender;
+                $img =  $params->img;
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                $base = base64_decode($img);
+                $imgConvert = Image::make($base)->encode('jpg', 100);
+                Storage::disk('public')->put($imgName, $imgConvert);
+                $gender->img = $imgName;
+            }
             $gender->gender = $params->gender;
             $gender->save();
 

@@ -12,7 +12,19 @@
     </div>
     <div class="row">
 
-      <div class="col-md-3">
+      <div class="col-md-3" *ngFor="let department of departments">
+        <div class="catego" (click)="toggleBtn(department.id)">
+          <div class="imgbox">
+            <img [src]="imgDepartment" alt=""
+             class="imgcatego">
+          </div>
+          <div class="details">
+            <h3 style="font-weight:bold; color: rgb(46, 46, 46);">{{department.department}}</h3>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="col-md-3">
         <div class="catego" (click)="toggleBtn(1)">
           <div class="imgbox">
             <img src="assets/Images/view_categorias/damas/449daf39-c4d4-4eae-b786-e71924e800b0.jpg" alt=""
@@ -226,7 +238,7 @@
             <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Overol</h3>
           </div>
         </div>
-      </div>
+      </div>-->
 
     </div>
   </div>

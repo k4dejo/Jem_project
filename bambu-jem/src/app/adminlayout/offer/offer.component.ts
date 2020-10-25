@@ -28,31 +28,6 @@ export class OfferComponent implements OnInit {
   public searchProduct;
   public editPromoBool = false;
   public idPromo: number;
-  public dtDepartmentM: string[] = ['Levis de hombre',
-    'Pantalones',
-    'Camisa',
-    'Short',
-    'Camisetas',
-    'Abrigos',
-    'Accesorios'
-  ];
-  public dtDepartmentW: string[] = [
-    'Blusas',
-    'Short',
-    'Enaguas',
-    'Pantalones',
-    'Levis de dama',
-    'Vestidos de baño',
-    'Salidas de playa',
-    'Abrigos y sacos',
-    'Accesorios',
-    'Camisetas',
-    'Enterizos',
-    'Vestidos'
-  ];
-  public dtDepartmentBG: string[] = ['Superior', 'Inferior', ' Enterizos'];
-  public gender: Gender[];
-  public dataGender: string[] = ['Hombre', 'Mujer', 'Niño', 'Niña'];
 
   constructor(
     private router: Router,
@@ -63,15 +38,6 @@ export class OfferComponent implements OnInit {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
     this.offer = new Offer('', 0, 0, 0, '', '', '');
-  }
-
-  fillDepartment(data = []) {
-    let dptId: number;
-    this.department = [];
-    for (let i = 0; i < data.length; ++i) {
-      dptId = i + 1;
-      this.department.push(new Departament(dptId.toString(), data[i]));
-    }
   }
 
   getProductPromo(productId: any) {
@@ -85,36 +51,6 @@ export class OfferComponent implements OnInit {
         console.log(<any> error);
       }
     );
-  }
-
-
-  getDepartmentView(idGender: any) {
-    switch (idGender) {
-      case '1':
-        this.fillDepartment(this.dtDepartmentM);
-      break;
-      case '2':
-        this.fillDepartment(this.dtDepartmentW);
-      break;
-      case '3':
-        this.fillDepartment(this.dtDepartmentBG);
-      break;
-      case '4':
-        this.fillDepartment(this.dtDepartmentBG);
-      break;
-      default:
-        console.log('Fuera de rango');
-      break;
-    }
-  }
-
-  getGender() {
-    let idGender: number;
-    this.gender = [];
-    for (let i = 0; i < this.dataGender.length; ++i) {
-      idGender = i + 1;
-      this.gender.push(new Gender(idGender.toString(), this.dataGender[i]));
-    }
   }
 
   authAdmin() {
@@ -139,8 +75,6 @@ export class OfferComponent implements OnInit {
           // agrego formato a la imagen.
           this.productView[index].photo = 'data:image/jpeg;base64,' + this.productView[index].photo;
           const photoView = this.productView[index].photo;
-          this.getDepartmentView(this.productView[index].gender.toString());
-          this.getGenderString(this.gender.length, index);
         }
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
@@ -167,7 +101,6 @@ export class OfferComponent implements OnInit {
     this.offerService.getOffer().subscribe(
       response => {
         this.offerList = response.offer;
-        console.log(this.offerList);
         for (let index = 0; index < this.offerList.length; index++) {
           this.getProductPromoView(response.offer[index].article_id, index);
         }
@@ -187,14 +120,6 @@ export class OfferComponent implements OnInit {
         console.log(<any> error);
       }
     );
-  }
-
-  getGenderString(genderLength: any, productGenIndex: any) {
-    for (let index = 0; index < genderLength; index++) {
-      if (this.productView[productGenIndex].gender.toString() === this.gender[index].id) {
-        this.productView[productGenIndex].gender = this.gender[index].gender;
-      }
-    }
   }
 
   deleteOffer(offerId) {
@@ -228,7 +153,7 @@ export class OfferComponent implements OnInit {
       this.router.navigate(['LoginAdmin']);
     } else {
       this.authAdmin();
-      this.getGender();
+      // this.getGender();
       this.getProductView();
       this.getPromoList();
     }
