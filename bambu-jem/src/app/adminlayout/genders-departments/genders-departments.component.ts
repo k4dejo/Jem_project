@@ -27,6 +27,7 @@ export class GendersDepartmentsComponent implements OnInit {
   public sizeAfterCompress;
   public newBlob;
   public fileBlob;
+  public fileBlobSub;
   public pGender = 1;
   public pDpt = 1;
   public loading = false;
@@ -140,6 +141,30 @@ export class GendersDepartmentsComponent implements OnInit {
     });
   }
 
+  compressFileSubCategory() {
+    this.loading = true;
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+      const myImg = image;
+      this.imgResultBeforeCompress = image;
+      this.sizeBeforeCompress = this.formatBytes(this.imageCompress.byteCount(image));
+      let sizesFile = this.sizeBeforeCompress.split(' ');
+      const typeFile = sizesFile[1];
+      sizesFile = sizesFile[0];
+      if (typeFile === 'MB') {
+        document.getElementById('openModalButton').click();
+        this.compressImg(image, orientation);
+      } else {
+        if (typeFile === 'KB' && sizesFile > 500) {
+          this.compressImg(image, orientation);
+        } else {
+          this.fileBlobSub = image;
+          this.department.img = this.fileBlobSub;
+          this.loading = false;
+        }
+      }
+    });
+  }
+
   compressImg(image, orientation) {
     this.imageCompress.compressFile(image, orientation, 75, 50).then(
       result => {
@@ -161,6 +186,8 @@ export class GendersDepartmentsComponent implements OnInit {
 
  choseImg(img) {
   this.fileBlob = img;
+  this.fileBlobSub = img;
+  this.department.img = this.fileBlobSub;
   this.loading = false;
 }
 
@@ -168,6 +195,7 @@ export class GendersDepartmentsComponent implements OnInit {
     this.getAllGenders();
     this.getAllDepartments();
     this.fileBlob = 'assets/Images/default.jpg';
+    this.fileBlobSub = 'assets/Images/default.jpg';
   }
 
 }

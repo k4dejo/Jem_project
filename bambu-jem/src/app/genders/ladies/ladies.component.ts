@@ -18,6 +18,7 @@ export class LadiesComponent implements OnInit {
   public routeProduct: string;
   public products: Array<Article>;
   public departments;
+  public imgDepartment = 'assets/Images/default.jpg';
   public photoViewBlu = [];
   public photoViewShort = [];
   public photoViewEna = [];
@@ -38,7 +39,6 @@ export class LadiesComponent implements OnInit {
   public photoViewVestidos = [];
   public photoViewzapa = [];
   public imgUrl = ImgUrl;
-  public imgDepartment = 'assets/Images/default.jpg';
 
   constructor(
     private ProductService: ArticleService,
@@ -53,7 +53,7 @@ export class LadiesComponent implements OnInit {
     window.scroll(0, 0);
     this.router.navigate([link, 'J', word, gender]);
   }
-  getProductDepartment(productDpt, photoDpt) {
+  /*getProductDepartment(productDpt, photoDpt) {
     switch (productDpt) {
       case '1':
         this.photoViewBlu.push(photoDpt);
@@ -116,7 +116,7 @@ export class LadiesComponent implements OnInit {
         console.log('Fuera de rango');
         break;
     }
-  }
+  }*/
 
   getProduct() {
     this.ProductService.getProductGender(2).subscribe(
@@ -125,11 +125,11 @@ export class LadiesComponent implements OnInit {
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo =
-            this.imgUrl.url + this.products[index].photo;
-          this.getProductDepartment(
+          this.imgUrl.url + this.products[index].photo;
+          /*this.getProductDepartment(
             this.products[index].department,
             this.products[index].photo
-          );
+          );*/
         }
       },
       // tslint:disable-next-line:no-shadowed-variable
@@ -143,6 +143,17 @@ export class LadiesComponent implements OnInit {
     this.genderDptService.getDepartmentForGender(2).subscribe(
       response => {
         this.departments = response.department;
+        for (let index = 0; index < this.departments.length; index++) {
+          if (this.departments[index].img === '') {
+            this.departments[index].img = this.imgDepartment;
+          } else  {
+            const splitImg = this.departments[index].img.split('/');
+            console.log(splitImg[0]);
+            if (splitImg[0] !== 'assets') {
+              this.departments[index].img = this.imgUrl.url + this.departments[index].img;
+            }
+          }
+        }
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);

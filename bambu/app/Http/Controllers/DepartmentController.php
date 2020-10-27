@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Helpers\jwtAuthAdmin;
 use Illuminate\Support\Facades\DB;
+use Image;
 use App\Gender;
 use App\Department;
 
@@ -69,8 +71,8 @@ class DepartmentController extends Controller
                 $img = str_replace('data:image/jpeg;base64,', '', $img);
                 $img = str_replace(' ', '+', $img);
                 $base = base64_decode($img);
-                $imgConvert = Image::make($base)->encode('jpg', 100);
-                Storage::disk('public')->put($imgName, $imgConvert);
+                $imgConvert = \Image::make($base)->encode('jpg', 100);
+                \Storage::disk('local')->put($imgName, $imgConvert);
                 $department->img = $imgName;
             }
             $department->department = $params->department;
@@ -184,6 +186,11 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         $department = Department::find($id);
+        //Borrar registro
+        $route = public_path().'\catalogo'.'\/';
+        $imgRoute = str_replace('/', '', $route);
+        $imgRoute = $imgRoute . $department->img;
+        Storage::delete($department->img);
         $department->delete();
         $data = array(
             'department' => $department,

@@ -64,6 +64,13 @@
               </option>
             </select>
           </div><br>
+          <div class="divPhoto col-md-4">
+            <div class="colPhoto">
+              <img style="width: 300px; height: 350px;" [src]="fileBlobSub" alt="">
+            </div>
+          </div>
+          <button type="button" class="btnLabel btn btn--green"
+          (click)="compressFileSubCategory()"><i class="fas fa-file-upload"></i> Subir imagen</button>
           <button type="submit" class="btn btn-success">
             Guardar
           </button>

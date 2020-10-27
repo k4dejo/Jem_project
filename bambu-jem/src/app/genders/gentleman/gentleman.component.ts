@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
+import { GenderDepartmentService } from '../../services/gender-department.service';
+import { ImgUrl } from 'src/app/models/imgUrl';
 
 @Component({
   selector: 'app-gentleman',
-  providers: [ ArticleService],
+  providers: [ ArticleService, GenderDepartmentService],
   templateUrl: './gentleman.component.html',
   styleUrls: ['./gentleman.component.css']
 })
@@ -24,17 +26,21 @@ export class GentlemanComponent implements OnInit {
   public photoViewJean = [];
   public photoViewGorra = [];
   public photoViewZapa = [];
+  public departments;
+  public imgDepartment = 'assets/Images/default.jpg';
+  public imgUrl = ImgUrl;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private genderDptService: GenderDepartmentService,
     private ProductService: ArticleService
   ) { }
 
   toggleBtn(word: any) {
     const link = '/Home/Articulo/';
     const gender = 1;
-    window.scroll(0,0);
+    window.scroll(0, 0);
     this.router.navigate([link, 'J', word, gender]);
   }
 
@@ -120,6 +126,28 @@ export class GentlemanComponent implements OnInit {
     );
   }
 
+  getDepartments() {
+    this.genderDptService.getDepartmentForGender(2).subscribe(
+      response => {
+        this.departments = response.department;
+        for (let index = 0; index < this.departments.length; index++) {
+          if (this.departments[index].img === '') {
+            this.departments[index].img = this.imgDepartment;
+          } else  {
+            const splitImg = this.departments[index].img.split('/');
+            console.log(splitImg[0]);
+            if (splitImg[0] !== 'assets') {
+              this.departments[index].img = this.imgUrl.url + this.departments[index].img;
+            }
+          }
+        }
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   ngOnInit() {
     this.getProduct();
     this.shop_id = this.route.snapshot.params['id'];
@@ -132,5 +160,6 @@ export class GentlemanComponent implements OnInit {
         this.routeProduct = 'Home/Articulo/B';
       }
     }
+    this.getDepartments();
   }
 }

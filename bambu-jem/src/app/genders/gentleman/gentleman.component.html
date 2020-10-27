@@ -11,7 +11,19 @@
       </div>
       <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-3" *ngFor="let department of departments">
+          <div class="catego" (click)="toggleBtn(department.id)">
+            <div class="imgbox">
+              <img [src]="department.img" alt=""
+               class="imgcatego">
+            </div>
+            <div class="details">
+              <h3 style="font-weight:bold; color: rgb(46, 46, 46);">{{department.department}}</h3>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="col-md-3">
           <div class="catego">
             <div class="imgbox" (click)="toggleBtn(3)">
               <img src="assets/Images/view_categorias/caballeros/3786b18a-7c17-44f4-91dc-402a89e448e3.jpg" alt=""
@@ -93,12 +105,11 @@
               <h3 style="font-weight:bold; color: rgb(46, 46, 46);">Accesorios</h3>
             </div>
           </div>
-        </div>
+        </div>-->
 
       </div>
     </div>
-  </div>  
-  <footer> 
+  </div>
+  <footer>
     <app-footer></app-footer>
   </footer>
-  
