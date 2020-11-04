@@ -31,13 +31,18 @@
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th></th>
+            <th></th>
           </thead>
           <tbody>
             <tr *ngFor="let gender of genders | paginate: { itemsPerPage: 10, currentPage: pGender }">
               <td>{{gender.id}}</td>
               <td>{{gender.gender}}</td>
+              <td>
+                <input (click)="editGender(gender.id)" style="color: white;"
+                type="button" class="btn btn--blue btn--pill" value="Editar">
+              </td>
               <td><input (click)="deleteGender(gender.id)" style="color: white;"
-                type="button" class="btn btn--blue btn--pill" value="Eliminar"></td>
+                type="button" class="btn btn--red btn--pill" value="Eliminar"></td>
             </tr>
           </tbody>
         </table>
