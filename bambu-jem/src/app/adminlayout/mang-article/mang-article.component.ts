@@ -711,8 +711,8 @@ export class MangArticleComponent implements OnInit {
     for (let i = 0; i < this.productView.length; ++i) {
       // agrego formato a la imagen.
       this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
-      this.getGenderToProduct(this.productView[i].gender_id, i);
-      this.getDepartmentToProduct(this.productView[i].dpt_id, i);
+      //this.getGenderToProduct(this.productView[i].gender_id, i);
+      //this.getDepartmentToProduct(this.productView[i].dpt_id, i);
     }
   }
 

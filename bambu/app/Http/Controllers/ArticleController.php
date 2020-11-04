@@ -13,28 +13,40 @@ use App\size;
 use App\apart;
 use App\billing;
 use App\purchase;
+use App\Department;
 class ArticleController extends Controller
 {
 
     public function index(Request $request) {
        //listado de los articulos
-       $articles = article::with(['gender'])->with(['department'])->get();
-       // $articles = article::all();
-       $countProducts = count($articles);
-       for ($i=0; $i < $countProducts; $i++) {
-           if ($articles[$i]->gender_id == null && $articles[$i]->dpt_id == null) {
-               $articles[$i]->gender_id = $articles[$i]->gender;
-               $articles[$i]->dpt_id = $articles[$i]->department;
-               $article = article::where('id', $articles[$i]->id)->update([
-                'gender_id' => intval($articles[$i]->gender),
-                'dpt_id' => intval($articles[$i]->department)
-                ]);
-           }
-        }
+       // $articles = article::with(['gender'])->with(['department'])->get();
+       $articles = article::all();
+       $this->addGenDpt($articles);
         return response()->json(array(
             'articles' => $articles,
             'status'   => 'success'
         ), 200);
+    }
+
+    public function addGenDpt($articles) {
+        $countProducts = count($articles);
+        for ($i=0; $i < $countProducts; $i++) {
+            //la sentencia esta mal ..... creo
+            $dptSearch = Department::where('gender_id', $articles[$i]->gender_id)
+            ->where('positionDpt', $articles[$i]->department)->first();
+            $articles[$i]->dpt_id = $dptSearch->id;
+            $article = article::where('id', $articles[$i]->id)->update([
+             'dpt_id' => intval($articles[$i]->department)
+             ]);
+            /*if ($articles[$i]->gender_id == null && $articles[$i]->dpt_id == null) {
+                $articles[$i]->gender_id = $articles[$i]->gender;
+                $articles[$i]->dpt_id = $articles[$i]->department;
+                $article = article::where('id', $articles[$i]->id)->update([
+                 'gender_id' => intval($articles[$i]->gender),
+                 'dpt_id' => intval($articles[$i]->department)
+                 ]);
+            }*/
+        }
     }
 
     public function showPhotoProduct($id) {

@@ -220,7 +220,7 @@
                     <select  name="genderSelect" id="SelectSearch" class="selectpicker"
                     (change)="pushGenderSearch($event.target.value)" name="gender">
                       <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
-                      <option *ngFor="let gen of gender" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
+                      <option *ngFor="let gen of genderApi" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
                         {{gen.gender}}
                       </option>
                     </select>
@@ -289,10 +289,10 @@
                   {{product.detail}}
                 </td>
                 <td>
-                  {{product.gender}}
+                  {{product.gender.gender}}
                 </td>
                 <td>
-                  {{product.department}}
+                  {{product.department.department}}
                 </td>
                 <td>
                   {{product.pricePublic | number: '3.'}}
