@@ -20,7 +20,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $department = Department::all();
+        //$department = Department::all();
+        $department = Department::with(['gender'])->get();
         $data = array(
             'departments' => $department,
             'status'  => 'success',
@@ -156,9 +157,29 @@ class DepartmentController extends Controller
             if ($validate->fails()) {
                 return response()->json($validate->errors(),400);
             }
-            unset($paramsArray['id']);
-            unset($paramsArray['created_at']);
-            $department = Department::where('id', $id)->update($paramsArray);
+            $lengthImg = strlen($params->img);
+            $isWeb = explode('/', $params->img);
+            if ($isWeb[0] == 'assets') {
+                unset($paramsArray['id']);
+                unset($paramsArray['created_at']);
+                unset($paramsArray['gender']);
+                $department = Department::where('id', $id)->update($paramsArray);
+            } else {
+                if ($lengthImg >= 100) {
+                    $img =  $params->img;
+                    $imgName = time() . $params->gender;
+                    $img = str_replace('data:image/jpeg;base64,', '', $img);
+                    $img = str_replace(' ', '+', $img);
+                    $base = base64_decode($img);
+                    $paramsArray['img'] = $imgName;
+                    $imgConvert = \Image::make($base)->encode('jpg', 100);
+                    \Storage::disk('public')->put($imgName, $imgConvert);
+                    unset($paramsArray['id']);
+                    unset($paramsArray['gender']);
+                    unset($paramsArray['created_at']);
+                    $department = Department::where('id', $id)->update($paramsArray);
+                }
+            }
 
             $data = array(
                 'department' => $department,

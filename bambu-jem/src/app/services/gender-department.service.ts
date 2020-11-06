@@ -39,6 +39,14 @@ export class GenderDepartmentService {
     return this._http.get(this.url + 'Genders/' + genderId, { headers: headers });
   }
 
+  editGender(token, id, gender): Observable<any> {
+    const json = JSON.stringify(gender);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.put(this.url + 'Genders/' + id, params, { headers: headers });
+  }
+
   // =================================SERVICES_DEPARTMENTS======================================
 
   addDepartment(token, dataDepartment: Dtp): Observable<any> {
@@ -66,5 +74,13 @@ export class GenderDepartmentService {
   deleteDepartment(id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.delete(this.url + 'departments/' + id, { headers: headers });
+  }
+
+  editDpt(token, id, department): Observable<any> {
+    const json = JSON.stringify(department);
+    const params = 'json=' + json;
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', token);
+    return this._http.put(this.url + 'departments/' + id, params, { headers: headers });
   }
 }

@@ -6,7 +6,7 @@
         <h2 class="title">Genero o Categoría</h2>
       </div>
       <div class="card-body">
-        <form class="form-group" #addGender="ngForm" (submit)="saveGender()">
+        <form *ngIf="!editFormView" class="form-group" #addGender="ngForm" (submit)="saveGender()">
           <div class="input-group-desc">
             <label for="">Nombre de la categoría</label>
             <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="gender.gender"
@@ -24,6 +24,24 @@
             Guardar
           </button>
         </form>
+        <form *ngIf="editFormView" class="form-group" #addGender="ngForm" (submit)="saveEditGender()">
+          <div class="input-group-desc">
+            <label for="">Nombre de la categoría</label>
+            <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="gender.gender"
+              type="text" required>
+          </div>
+          <div class="divPhoto col-md-4">
+            <div class="colPhoto">
+              <img style="width: 300px; height: 350px;" [src]="fileBlob" alt="">
+            </div>
+          </div>
+          <button type="button" class="btnLabel btn btn--green"
+          (click)="compressFile()"><i class="fas fa-file-upload"></i> Subir imagen</button>
+          <br>
+          <button type="submit" class="btn btn-success">
+            editar
+          </button>
+        </form>
         <pagination-controls class="my-pagination" (pageChange)="pGender = $event">
         </pagination-controls>
         <table class="table table-striped">
@@ -38,7 +56,7 @@
               <td>{{gender.id}}</td>
               <td>{{gender.gender}}</td>
               <td>
-                <input (click)="editGender(gender.id)" style="color: white;"
+                <input (click)="editGender(gender)" style="color: white;"
                 type="button" class="btn btn--blue btn--pill" value="Editar">
               </td>
               <td><input (click)="deleteGender(gender.id)" style="color: white;"
@@ -55,7 +73,7 @@
         <h2 class="title">Departamento o Subcategoría</h2>
       </div>
       <div class="card-body">
-        <form class="form-group" #addGender="ngForm" (submit)="saveDpt()">
+        <form *ngIf="!editDptFormView" class="form-group" #addGender="ngForm" (submit)="saveDpt()">
           <div class="input-group-desc">
             <label for="">Nombre de la subcategoría</label>
             <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="department.department"
@@ -80,6 +98,32 @@
             Guardar
           </button>
         </form>
+        <form *ngIf="editDptFormView" class="form-group" #addGender="ngForm" (submit)="editDpt()">
+          <div class="input-group-desc">
+            <label for="">Nombre de la subcategoría</label>
+            <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="department.department"
+            type="text" required> <br>
+            <br>
+            <h3>Categoría: {{catego}}</h3>
+            <select name="genderSelect" id="genderSelect" class="selectpicker"
+            (change)="pushGender($event.target.value)">
+              <option disabled="disabled" selected="selected">-Seleccionar-</option>
+              <option *ngFor="let gender of genders" [value]="gender.id">
+                {{gender.gender}}
+              </option>
+            </select>
+          </div><br>
+          <div class="divPhoto col-md-4">
+            <div class="colPhoto">
+              <img style="width: 300px; height: 350px;" [src]="fileBlobSub" alt="">
+            </div>
+          </div>
+          <button type="button" class="btnLabel btn btn--green"
+          (click)="compressFileSubCategory()"><i class="fas fa-file-upload"></i> Subir imagen</button>
+          <button type="submit" class="btn btn-success">
+            editar
+          </button>
+        </form>
         <pagination-controls class="my-pagination" (pageChange)="pDpt = $event">
         </pagination-controls>
         <table class="table table-striped">
@@ -93,8 +137,10 @@
             paginate: { itemsPerPage: 10, currentPage: pDpt }">
               <td>{{dpt.id}}</td>
               <td>{{dpt.department}}</td>
+              <td><input (click)="selectEditDpt(dpt)" style="color: white;"
+                type="button" class="btn btn--blue btn--pill" value="Editar"></td>
               <td><input (click)="deleteDepartment(dpt.id)" style="color: white;"
-                type="button" class="btn btn--blue btn--pill" value="Eliminar"></td>
+                type="button" class="btn btn--red btn--pill" value="Eliminar"></td>
             </tr>
           </tbody>
         </table>

@@ -19,7 +19,7 @@ export class GendersDepartmentsComponent implements OnInit {
   public token;
   public gender: Gender;
   public genders: Array<Gender>;
-  public department: Dtp;
+  public department;
   public departments: Array<Dtp>;
   public imgResultBeforeCompress: string;
   public imgResultAfterCompress: string;
@@ -31,6 +31,9 @@ export class GendersDepartmentsComponent implements OnInit {
   public pGender = 1;
   public pDpt = 1;
   public loading = false;
+  public editFormView = false;
+  public editDptFormView = false;
+  public catego;
 
   constructor(
     private genderDptService: GenderDepartmentService,
@@ -77,6 +80,9 @@ export class GendersDepartmentsComponent implements OnInit {
   pushGender(idGender: any) {
     if (idGender !== undefined) {
       this.department.gender_id = idGender;
+      // this.catego = document.getElementById('genderSelect').options[idGender].text;
+      this.catego = (document.getElementById('genderSelect')) as HTMLSelectElement;
+      this.catego = this.catego.options[idGender].text;
     }
   }
 
@@ -135,6 +141,7 @@ export class GendersDepartmentsComponent implements OnInit {
           this.compressImg(image, orientation);
         } else {
           this.fileBlob = image;
+          this.gender.img = image;
           this.loading = false;
         }
       }
@@ -187,12 +194,49 @@ export class GendersDepartmentsComponent implements OnInit {
   choseImg(img) {
     this.fileBlob = img;
     this.fileBlobSub = img;
+    this.gender.img = img;
     this.department.img = this.fileBlobSub;
     this.loading = false;
   }
 
-  editGender(idGender: any) {
+  editGender(genderForm: any) {
+    this.editFormView = true;
+    this.gender = genderForm;
+  }
 
+  saveEditGender() {
+    this.loading = true;
+    this.genderDptService.editGender(this.token, this.gender.id, this.gender).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.editFormView = false;
+          this.loading = false;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  editDpt() {
+    this.loading = true;
+    this.genderDptService.editDpt(this.token, this.department.id, this.department).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.editDptFormView = false;
+          this.loading = false;
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  selectEditDpt(Dpt) {
+    this.department = Dpt;
+    this.fileBlobSub = Dpt.img;
+    this.catego = this.department.gender.gender;
+    this.editDptFormView = true;
   }
 
   ngOnInit(): void {

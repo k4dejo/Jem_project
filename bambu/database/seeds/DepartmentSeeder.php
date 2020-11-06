@@ -38,7 +38,7 @@ class DepartmentSeeder extends Seeder
         DB::table('department')->insert([
             'id' => '4',
             'positionDpt' => '4',
-            'img' => '',
+            'img' => 'assets/Images/default.jpg',
             'department' => 'Short',
             'gender_id' => '1'
         ]);
@@ -70,7 +70,7 @@ class DepartmentSeeder extends Seeder
         DB::table('department')->insert([
             'id' => '8',
             'positionDpt' => '8',
-            'img' => '',
+            'img' => 'assets/Images/default.jpg',
             'department' => 'Gorras',
             'gender_id' => '1'
         ]);
@@ -212,7 +212,7 @@ class DepartmentSeeder extends Seeder
         DB::table('department')->insert([
             'id' => '25',
             'positionDpt' => '16',
-            'img' => '',
+            'img' => 'assets/Images/default.jpg',
             'department' => 'Sueters',
             'gender_id' => '2'
         ]);
