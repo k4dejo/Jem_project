@@ -73,7 +73,7 @@ class DepartmentController extends Controller
                 $img = str_replace(' ', '+', $img);
                 $base = base64_decode($img);
                 $imgConvert = \Image::make($base)->encode('jpg', 100);
-                \Storage::disk('local')->put($imgName, $imgConvert);
+                \Storage::disk('public')->put($imgName, $imgConvert);
                 $department->img = $imgName;
             }
             $department->department = $params->department;
