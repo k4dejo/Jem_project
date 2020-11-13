@@ -64,7 +64,7 @@ class PurchaseController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json,true);
             //validación
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'ticket'             => 'required',
                 'purchase_id'        => 'required',
             ]);
@@ -115,7 +115,7 @@ class PurchaseController extends Controller
             $paramsArray = json_decode($json,true);
             $purchase = new purchase();
             //validación
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'clients_id'   => 'required',
                 'price'        => 'required',
                 'status'         => 'required'
@@ -375,7 +375,7 @@ class PurchaseController extends Controller
         $params = json_decode($json);
         $paramsArray = json_decode($json,true);
         //validación
-        $validate = Validator::make($paramsArray, [
+        $validate = \Validator::make($paramsArray, [
             'idPurchase'   => 'required',
             'idProduct'    => 'required'
         ]);
@@ -591,7 +591,7 @@ class PurchaseController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
             //validacion
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'clients_id'   => 'required',
                 'price'        => 'required'
             ]);
@@ -600,6 +600,7 @@ class PurchaseController extends Controller
             }
             unset($paramsArray['id']);
             unset($paramsArray['created_at']);
+            //$purchase->coupon_id = $params->coupon_id;
             $purchase = purchase::where('id', $params->id)->update($paramsArray);
             $data = array(
                 'purchase' => $purchase,

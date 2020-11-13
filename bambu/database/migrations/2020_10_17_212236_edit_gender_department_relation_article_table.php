@@ -29,7 +29,7 @@ class EditGenderDepartmentRelationArticleTable extends Migration
      */
     public function down()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn('gender_id')->nullable();
             $table->dropColumn('dpt_id')->nullable();
         });

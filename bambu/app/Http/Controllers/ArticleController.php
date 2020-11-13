@@ -20,7 +20,7 @@ class ArticleController extends Controller
     public function index(Request $request) {
        //listado de los articulos
        $articles = article::with(['gender'])->with(['department'])->get();
-       //$articles = article::all();
+       // $articles = article::all();
        //$pito = $this->addGenDpt($articles);
        return response()->json(array(
            'articles' => $articles,
@@ -31,13 +31,28 @@ class ArticleController extends Controller
 
     public function addGenDpt($articles) {
         $countProducts = count($articles);
+        $dptSearch = Department::all();
+        $countDepartments = count($dptSearch);
         for ($i=0; $i < $countProducts; $i++) {
             /*$dptSearch = Department::where('gender_id', $articles[$i]->gender_id)
-            ->where('positionDpt', $articles[$i]->department)->get();*/
-            $findDepartment = Department::find($articles[$i]->dpt_id);
-            $article = article::where('id', $articles[$i]->id)->update([
-             'department' => intval($findDepartment->id)
-            ]);
+            ->where('positionDpt', $articles[$i]->department)->first();*/
+            //$articles[$i]->dpt_id = $dptSearch->id;
+            //return $articles[$i];
+            //$findDepartment = Department::find($articles[$i]->dpt_id);
+            /*for ($index=0; $index < $countDepartments; $index++) {
+                if ($dptSearch[$index]->gender_id == $articles[$i]->gender_id) {
+                    if ($dptSearch[$index]->positionDpt == $articles[$i]->department) {
+                        echo $dptSearch[$index]->id;
+                        $article = article::where('id', $articles[$i]->id)->update([
+                            'dpt_id' => intval($dptSearch[$index]->id)
+                            //'dpt_id' => intval($dptSearch[$i]->id)
+                        ]);
+                    }
+                }
+            }*/
+            /*$article = article::where('id', $articles[$i]->id)->update([
+             'department' => intval($articles[$i]->dpt_id)
+            ]);*/
         }
     }
 
