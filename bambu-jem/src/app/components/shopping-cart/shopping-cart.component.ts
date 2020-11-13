@@ -112,6 +112,7 @@ export class ShoppingCartComponent implements OnInit {
   'Naranjo', 'Palmares', 'Poás', 'Sarchí', 'Río Cuarto', 'Cartago', 'Paraíso', 'La Unión', 'Alvarado',
   'Oreamuno', 'El Guarco', 'Heredia', 'Barva', 'Santo Domingo', 'Santa Bárbara', 'San Rafael',
   'San Isidro', 'Belén', 'Flores', 'San Pablo'];
+  public priceNoDiscount;
 
   constructor(
     private route: ActivatedRoute,
@@ -411,6 +412,7 @@ export class ShoppingCartComponent implements OnInit {
     this.totalWeight = 0;
     for (let index = 0; index < this.productPurchase.length; ++index) {
       this.totalWeight += Number(this.testProduct[index].weight) * this.testProduct[index].pivot.amount;
+      // tslint:disable-next-line:max-line-length
       // console.log('Nombre del producto', this.testProduct[index], this.testProduct[index].weight, '*', this.testProduct[index].pivot.amount, '=', this.totalWeight);
     }
     this.viewAddress(this.splite[0] , this.splite[1]);
@@ -432,6 +434,8 @@ export class ShoppingCartComponent implements OnInit {
         this.productCart.price += this.testProduct[index].priceMajor * this.testProduct[index].pivot.amount;
       }
     }
+    this.priceNoDiscount = this.productCart.price;
+    this.productCart.price = this.productCart.price * 0.10;
     if (this.couponView === true) {
       console.log(this.couponActive);
     }

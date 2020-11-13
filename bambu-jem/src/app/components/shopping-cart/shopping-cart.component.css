@@ -1010,3 +1010,7 @@ h1 {
       max-width: 65%;
     }
   }
+
+  .discount {
+    text-decoration: line-through;
+  }

@@ -22,7 +22,7 @@ class purchase extends Model
     }
 
     public function coupon() {
-        return $this->hasMany(coupon::class);
+        return $this->hasMany('app/coupon', 'coupon_id');
     }
 
     public function ticket() {

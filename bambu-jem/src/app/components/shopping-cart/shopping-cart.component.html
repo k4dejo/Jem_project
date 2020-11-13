@@ -159,7 +159,15 @@
       </div>
       <div class="subtotal-area d-flex align-items-center justify-content-end">
         <div class="title text-uppercase">Total</div>
-        <div class="subtotal">₡ {{ productCart.price + shipping | number: "3." }}</div>
+        <div class="subtotal">
+          <div class="row">
+            <div class="col-md-6"> <p class="discount">₡ {{ priceNoDiscount + shipping | number: "3." }}</p></div>
+            <div class="col-md-6"><span style="font-size: 25px; color: rgb(177, 176, 176);">- 10%</span></div>
+            <div class="col-md-12"><h3 style="color: #ff4faf;">₡ {{ productCart.price + shipping | number: "3." }}</h3></div>
+          </div>
+          <!--<p class="discount">₡ {{ priceNoDiscount + shipping | number: "3." }}
+          <h3 style="color: #ff4faf;">₡ {{ productCart.price + shipping | number: "3." }}</h3>-->
+        </div>
       </div>
       <div *ngIf="couponView" class="shipping-area d-flex justify-content-end">
         <div class="title text-uppercase">Cupón</div>
