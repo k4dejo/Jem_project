@@ -434,8 +434,8 @@ export class ShoppingCartComponent implements OnInit {
         this.productCart.price += this.testProduct[index].priceMajor * this.testProduct[index].pivot.amount;
       }
     }
-    this.priceNoDiscount = this.productCart.price;
-    this.productCart.price = this.productCart.price * 0.10;
+    //this.priceNoDiscount = this.productCart.price;
+    //this.productCart.price = this.productCart.price * 0.10;
     if (this.couponView === true) {
       console.log(this.couponActive);
     }

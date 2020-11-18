@@ -39,6 +39,7 @@ export class LadiesComponent implements OnInit {
   public photoViewVestidos = [];
   public photoViewzapa = [];
   public imgUrl = ImgUrl;
+  public loading = false;
 
   constructor(
     private ProductService: ArticleService,
@@ -140,9 +141,11 @@ export class LadiesComponent implements OnInit {
   }
 
   getDepartments() {
+    this.loading = true;
     this.genderDptService.getDepartmentForGender(2).subscribe(
       response => {
         this.departments = response.department;
+        this.loading = false;
         for (let index = 0; index < this.departments.length; index++) {
           if (this.departments[index].img === '') {
             this.departments[index].img = this.imgDepartment;

@@ -29,6 +29,7 @@ export class GentlemanComponent implements OnInit {
   public departments;
   public imgDepartment = 'assets/Images/default.jpg';
   public imgUrl = ImgUrl;
+  public loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -127,9 +128,11 @@ export class GentlemanComponent implements OnInit {
   }
 
   getDepartments() {
-    this.genderDptService.getDepartmentForGender(2).subscribe(
+    this.loading = true;
+    this.genderDptService.getDepartmentForGender(1).subscribe(
       response => {
         this.departments = response.department;
+        this.loading = false;
         for (let index = 0; index < this.departments.length; index++) {
           if (this.departments[index].img === '') {
             this.departments[index].img = this.imgDepartment;

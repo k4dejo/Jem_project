@@ -18,6 +18,6 @@ class Department extends Model
 
     public function articles()
     {
-    	return $this->hasMany('App\article', 'tags_id');
+    	return $this->hasMany('App\article', 'dpt_id');
     }
 }

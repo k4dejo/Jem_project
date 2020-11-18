@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article';
+import { GenderDepartmentService } from '../../services/gender-department.service';
+import { ImgUrl } from 'src/app/models/imgUrl';
 
 @Component({
   selector: 'app-girls',
-  providers: [ArticleService],
+  providers: [ArticleService, GenderDepartmentService],
   templateUrl: './girls.component.html',
   styleUrls: ['./girls.component.css']
 })
@@ -25,11 +27,16 @@ export class GirlsComponent implements OnInit {
   public photoViewEnterizo = [];
   public photoViewPijama = [];
   public photoViewShort = [];
+  public departments;
+  public imgDepartment = 'assets/Images/default.jpg';
+  public imgUrl = ImgUrl;
+  public loading = false;
 
 
   constructor(
     private ProductService: ArticleService,
     private route: ActivatedRoute,
+    private genderDptService: GenderDepartmentService,
     private router: Router,
   ) { }
 
@@ -100,6 +107,30 @@ export class GirlsComponent implements OnInit {
     }
   }*/
 
+  getDepartments() {
+    this.loading = true;
+    this.genderDptService.getDepartmentForGender(4).subscribe(
+      response => {
+        this.departments = response.department;
+        this.loading = false;
+        for (let index = 0; index < this.departments.length; index++) {
+          if (this.departments[index].img === '') {
+            this.departments[index].img = this.imgDepartment;
+          } else  {
+            const splitImg = this.departments[index].img.split('/');
+            console.log(splitImg[0]);
+            if (splitImg[0] !== 'assets') {
+              this.departments[index].img = this.imgUrl.url + this.departments[index].img;
+            }
+          }
+        }
+      // tslint:disable-next-line:no-shadowed-variable
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   toggleBtn(word: any) {
     const link = '/Home/Articulo/';
     const gender = 4;
@@ -109,6 +140,7 @@ export class GirlsComponent implements OnInit {
 
   ngOnInit() {
     this.getProduct();
+    this.getDepartments();
     this.shop_id = this.route.snapshot.params['id'];
     if (this.shop_id === 'J') {
       this.shop_bool = true;

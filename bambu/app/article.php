@@ -46,7 +46,7 @@ class article extends Model
 
     public function image()
     {
-    	return $this->hasMany('app/image');
+    	return $this->hasMany('App\image');
     }
 
     public function offers()

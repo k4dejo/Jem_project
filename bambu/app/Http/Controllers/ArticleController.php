@@ -414,7 +414,7 @@ class ArticleController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
             //validacion
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'name'        => 'required',
                 'detail'      => 'required',
                 'pricePublic' => 'required',
@@ -452,15 +452,15 @@ class ArticleController extends Controller
                     unset($paramsArray['id']);
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
-                    Storage::delete($imgDB->photo);
+                    \Storage::delete($imgDB->photo);
                     // $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-                    Storage::disk('public')->put($imgName,base64_decode($img));
+                    \Storage::disk('public')->put($imgName,base64_decode($img));
                     $article = article::where('id', $id)->update($paramsArray);
                 }else {
                     $route = public_path().'\catalogo'.'\/';
                     $imgRoute = str_replace('/', '', $route);
                     $imgRoute = $imgRoute . $paramsArray['photo'];
-                    Storage::delete($imgDB->photo);
+                    \Storage::delete($imgDB->photo);
                     $paramsArray['photo'] = time() .'.jpg';
                     $img = $paramsArray['file'];
                     $img = str_replace('data:image/jpeg;base64,', '', $img);
@@ -468,7 +468,7 @@ class ArticleController extends Controller
                     unset($paramsArray['id']);
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
-                    Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
+                    \Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
                     $article = article::where('id', $id)->update($paramsArray);
                 }
             }

@@ -213,9 +213,12 @@ export class ArticleComponent implements OnInit {
     if (this.sizesId === undefined) {
       this.sizesId = 'void';
     }
+    console.log(this.sizesId);
     this.ProductService.filterTagProduct(department, gender, tag, this.sizesId).subscribe(
       response => {
-        this.products = response.articles;
+        //this.products = response.articles;
+        // no se como cambio eso desde el api pero esta es una solución
+        this.products = response;
         for (let index = 0; index < this.products.length; index++) {
           // agrego formato a la imagen.
           this.products[index].photo = this.imgUrl.url + this.products[index].photo;

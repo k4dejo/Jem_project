@@ -236,11 +236,13 @@ class PurchaseController extends Controller
             $arrayProduct = article::find($idProduct)->sizes()->get();
             $countGetProduct = count($arrayProduct);
             for ($i=0; $i < $countGetProduct; $i++) {
-                $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock - $params->pivot->amount;
-                $size = size::find($arrayProduct[$i]->pivot->size_id);
-                $product = article::find($arrayProduct[$i]->pivot->article_id);
-                // modifica la cantidad del producto e la tabla pivote
-                $product->sizes()->updateExistingPivot($size->id,['stock' => $arrayProduct[$i]->pivot->stock ]);
+                if($arrayProduct[$i]->size == $params->pivot->size) {
+                    $arrayProduct[$i]->pivot->stock = $arrayProduct[$i]->pivot->stock - $params->pivot->amount;
+                    $size = size::find($arrayProduct[$i]->pivot->size_id);
+                    $product = article::find($arrayProduct[$i]->pivot->article_id);
+                    // modifica la cantidad del producto e la tabla pivote
+                    $product->sizes()->updateExistingPivot($size->id,['stock' => $arrayProduct[$i]->pivot->stock ]);
+                }
             }
             $data = array(
                 'article' => $product,
