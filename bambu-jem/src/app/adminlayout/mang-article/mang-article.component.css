@@ -361,6 +361,24 @@ body {
   margin-left: 25%;
 }
 
+.turnBtn {
+  padding: 0 0 0 83px;
+  margin-bottom: 2px;
+  font-size: 26px;
+  text-decoration: none;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.turnBtn .fa-arrow-circle-right {
+  margin-left: 12px;
+}
+
+.turnBtn:hover {
+  color: #555;
+}
+
 .colPhoto{
   display: block;
   margin-left: 6%;

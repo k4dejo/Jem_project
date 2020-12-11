@@ -3,15 +3,14 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { ApartService } from '../../services/apart.service';
 import { SizeService } from '../../services/size.service';
+import { PurchaseService} from '../../services/purchase.service';
 import { GenderDepartmentService } from '../../services/gender-department.service';
 import { Apart } from 'src/app/models/apart';
 import { ImgUrl } from '../../models/imgUrl';
-import { Gender } from '../../models/gender';
-import { Departament } from '../../models/department';
 
 @Component({
   selector: 'app-dashboard',
-  providers: [ArticleService, GenderDepartmentService, ApartService, SizeService],
+  providers: [ArticleService, GenderDepartmentService, ApartService, SizeService, PurchaseService],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -34,6 +33,9 @@ export class DashboardComponent implements OnInit {
   public tags: any;
   public department;
   public gender;
+  public priceOrders = 0;
+  public stockOrders = 0;
+  public statusOrdens = ['Enviado', 'Procesando', 'incompleto'];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +43,7 @@ export class DashboardComponent implements OnInit {
     private sizeService: SizeService,
     private genderDptService: GenderDepartmentService,
     private apartService: ApartService,
+    private purchaseService: PurchaseService,
     private productService: ArticleService
   ) { }
 
@@ -144,7 +147,26 @@ export class DashboardComponent implements OnInit {
   selectedOptionSizes(option) {
     return this.newStateSize === option;
   }
-  // ====================================================================================
+  // ====================================FILTER_ORDENS================================================
+  selectedOptionOrdens(option) {
+    console.log(option);
+  }
+
+  pushStatus(dataStatus: any) {
+    //this.newStateTags = dataStatus;
+    if (dataStatus === "incompleto") {
+      dataStatus = "incomplete";
+    }
+    this.purchaseService.viewOrdensByStatus(dataStatus).subscribe(
+      response => {
+        this.priceOrders = response.totalPrice;
+        this.stockOrders = response.totalStock;
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+  //==================================================================================================
 
   calculatePriceAllProduct() {
     this.newStateDpt = 0;

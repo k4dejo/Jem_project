@@ -122,6 +122,11 @@ export class ArticleService {
       {headers: headers});
     }
 
+    searchProduct(keyword): Observable<any> {
+      const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      return this._http.get(this.url + 'searchProduct/' + keyword, { headers: headers });
+    }
+
     getProductGender(gender): Observable<any> {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'getproductGender/' + gender, {headers: headers});
@@ -154,6 +159,8 @@ export class ArticleService {
       const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       return this._http.get(this.url + 'showProductSizeList/' + id, { headers: headers });
     }
+
+
 
   deleteProduct(id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

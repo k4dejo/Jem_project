@@ -117,6 +117,7 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('compareAmountSizePurchase/{sizeId}/{idProduct}/{amountCompare}',
    'PurchaseController@compareAmountSizePurchase');
    Route::get('getProductPurchaseHistory/{id}', 'PurchaseController@ProductListHistoryOrder');
+   Route::get('viewOrdensByStatus/{status}', 'PurchaseController@viewOrdensByStatus');
    /**/
 
    /*BILLING*/
@@ -170,7 +171,15 @@ Route::group(['middleware' => 'cors'], function(){
     Route::resource('departments', 'DepartmentController');
     Route::get('getDepartmentForGender/{idGender}', 'DepartmentController@getDepartmentForGender');
 
-   /**/
+    /*invoice*/
+    Route::get('getInvoice/{idApart}', 'invoiceController@createNewInvoice');
+    /**/
+
+
+    /*FILTERS*/
+    Route::get('searchProduct/{keyword}', 'filtersController@searchProduct');
+    /**/
+
 
    /*ADDRESS*/
    Route::post('storeAddress', 'addressController@store');

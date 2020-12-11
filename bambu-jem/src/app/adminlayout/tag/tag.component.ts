@@ -15,6 +15,7 @@ export class TagComponent implements OnInit {
   public token;
   public tag: Tag;
   public tags;
+  public p = 1;
 
   constructor(
     private route: ActivatedRoute,

@@ -60,8 +60,8 @@
                     <label for="">Marcas</label><br>
                     <div class="selectWrapper">
                       <select name="genderSelect" id="tagSelect" class="selectpicker"
-                      (change)="pushTag($event.target.value)" name="tags_id" #tags_id="ngModel"
-                      [ngModel]="product.tags_id">
+                        (change)="pushTag($event.target.value)" name="tags_id" #tags_id="ngModel"
+                        [ngModel]="product.tags_id">
                         <option disabled="disabled" selected="selected">-Seleccionar-</option>
                         <option *ngFor="let tag of tags" [value]="tag.id">
                           {{tag.name}}
@@ -71,57 +71,33 @@
                   </div>
                   <div class="col-lg-12">
                     <label for="">Género</label><br>
-                    <!--<div class="selectWrapper">
-                      <select name="genderSelect" id="genderSelect" class="selectpicker"
-                      (change)="pushGender($event.target.value)" name="gender">
-                        <option disabled="disabled" selected="selected">-Seleccionar-</option>
-                        <option *ngFor="let gen of gender" [value]="gen.id">
-                          {{gen.name}}
-                        </option>
-                      </select>
-                    </div>-->
                     <div class="selectWrapper">
                       <select name="genderSelect" id="genderSelect" class="selectpicker"
-                      (change)="pushGenderApi($event.target.value)">
+                        (change)="pushGenderApi($event.target.value)">
                         <option disabled="disabled" selected="selected">-Seleccionar-</option>
                         <option *ngFor="let gender of genderApi" [value]="gender.id">
                           {{gender.gender}}
                         </option>
                       </select>
                     </div>
-
                   </div>
 
                   <div class="col-lg-5">
                     <label for="">Departamento</label><br>
                     <div class="selectWrapper">
-                      <select name="department" id="department"
-                      (change)="pushDepartmentApi($event.target.value)" class="custom-select"
-                      name="department">
-                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                      <option *ngFor="let dpt of dtp" [value]="dpt.id">
-                        {{dpt.department}}
-                      </option>
-                    </select>
+                      <select name="department" id="department" (change)="pushDepartmentApi($event.target.value)"
+                        class="custom-select" name="department">
+                        <option disabled="disabled" selected="selected">--Seleccionar--</option>
+                        <option *ngFor="let dpt of dtp" [value]="dpt.id">
+                          {{dpt.department}}
+                        </option>
+                      </select>
                     </div>
                   </div>
-                  <!--<div class="col-lg-5">
-                    <label for="">Departamento</label><br>
-                    <div class="selectWrapper">
-                      <select name="department" id="department"
-                      (change)="pushDepart($event.target.value)" class="custom-select"
-                      name="department">
-                      <option disabled="disabled" selected="selected">--Seleccionar--</option>
-                      <option *ngFor="let dpt of department" [value]="dpt.id">
-                        {{dpt.name}}
-                      </option>
-                    </select>
-                    </div>
-                  </div>-->
                   <div class="col-lg-5">
                     <div class="input-group-desc">
                       <label for="">Peso</label>
-                      <input class="input--style-5" type="text"  name="weight" #weight="ngModel"
+                      <input class="input--style-5" type="text" name="weight" #weight="ngModel"
                         [(ngModel)]="product.weight" placeholder="Kg" type="text" required>
                     </div>
                   </div>
@@ -162,13 +138,13 @@
               <h2 style="text-align: center;">Imagen Principal</h2>
               <div class="divPhoto col-md-4">
                 <div class="colPhoto">
-                  <img style="width: 300px; height: 350px;" [src]="fileBlob" alt="">
+                  <img id="mainImage" style="width: 300px; height: 350px;" [src]="fileBlob" alt="">
                 </div>
               </div>
-              <button type="button" class="btnLabel btn btn--green"
-              (click)="compressFile()"><i class="fas fa-file-upload"></i> Subir imagen</button>
-              <!--
-                <label class="btnLabel btn btn--green">
+              <button type="button" style="margin-top: 20px;" class="btnLabel btn btn--green"
+                (click)="compressFile()"><i class="fas fa-file-upload"></i> Subir imagen</button>
+
+              <!--<label class="btnLabel btn btn--green">
                 <i class="fas fa-file-upload"></i> Subir imagen
                 <input class="inputFile" name="photo" type="file" id="img" accept="image/*" (change)="onUpload($event)">
               </label>-->
@@ -217,8 +193,8 @@
               <div class="col-md-6">
                 <div class="genderSearch">
                   <div class="selectWrapper">
-                    <select  name="genderSelect" id="SelectSearch" class="selectpicker"
-                    (change)="pushGenderSearch($event.target.value)" name="gender">
+                    <select name="genderSelect" id="SelectSearch" class="selectpicker"
+                      (change)="pushGenderSearch($event.target.value)" name="gender">
                       <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
                       <option *ngFor="let gen of genderApi" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
                         {{gen.gender}}
@@ -230,16 +206,15 @@
               <div class="col-md-6">
                 <div class="dptSearch">
                   <div class="selectWrapper">
-                    <select name="department" id="SelectSearch"
-                    (change)="pushDepartSearch($event.target.value)" class="custom-select"
-                    name="department">
+                    <select name="department" id="SelectSearch" (change)="pushDepartSearch($event.target.value)"
+                      class="custom-select" name="department">
                       <option disabled="disabled" [selected]='!newStateDpt'>--Departamento--</option>
                       <option *ngFor="let dpt of department" [value]="dpt.id" [selected]="selectedOptionDpt(dpt.id)">
-                        {{dpt.name}}
+                        {{dpt.department}}
                       </option>
                     </select>
-                    </div>
                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -247,8 +222,8 @@
             <div class="selectWrapper">
               <select (change)="filterSizeProduct($event.target.value)" name="" id="">
                 <option [selected]='!newStateSize'>-- Tallas --</option>
-                <option *ngFor="let size of sizesList" [value]="size.size"
-                [selected]="selectedOptionSizes(size.id)">{{size.size}}</option>
+                <option *ngFor="let size of sizesList" [value]="size.size" [selected]="selectedOptionSizes(size.id)">
+                  {{size.size}}</option>
               </select>
             </div>
           </div>
@@ -257,12 +232,16 @@
             </button>
           </div>
         </div>
-        <div class="search-product" style="margin-top: 5%;">
-          <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
+        <!--<div class="search-product" style="margin-top: 5%;">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="on"
             placeholder=" &#61442; Buscar...">
+        </div>-->
+        <div class="search-product" style="margin-top: 5%;">
+          <input class="form-control" type="text" name="search" [(ngModel)]="productToFind" (input)="findProduct()"
+          autocomplete="on" placeholder=" &#61442; Buscar...">
         </div>
-        <pagination-controls class="my-pagination" (pageChange)="p = $event">
-        </pagination-controls>
+        <pagination-controls class="my-pagination" previousLabel="anterior" nextLabel="Siguiente"
+          (pageChange)="nextPaginate($event)"></pagination-controls>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead class="">
@@ -278,12 +257,13 @@
             </thead>
             <tbody>
               <tr
-                *ngFor="let product of productView  | filter: searchProduct | paginate: { itemsPerPage: 10, currentPage: p }">
+                *ngFor="let product of productView | paginate: { itemsPerPage: 10, currentPage: p, totalItems: totalPage}">
                 <td>
                   <img style="width: 40px; height: 50px;" [src]="product.photo" alt="">
                 </td>
                 <td>
-                  <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModal">{{product.name}}</a>
+                  <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal"
+                    data-target="#myModal">{{product.name}}</a>
                 </td>
                 <td>
                   {{product.detail}}
@@ -317,7 +297,8 @@
               </tr>
             </tbody>
           </table>
-          <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls class="my-pagination" previousLabel="anterior" nextLabel="Siguiente"
+            (pageChange)="nextPaginate($event)"></pagination-controls>
           <div class="alert alert-success" *ngIf="!statusBool" role="alert">
             No hay productos en inventario!
           </div>
@@ -327,7 +308,8 @@
   </div>
 </div>
 <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#myModalImg">Open Modal</button>
-<div class="modal fadeInDown" id="myModalImg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fadeInDown" id="myModalImg" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+  aria-hidden="true">
   <div class="modal-content wrapper" id="formContent" role="document">
     <div class="modal-header first">
       <i class="fa fa-times close" data-dismiss="modal"></i>
@@ -339,12 +321,12 @@
       <div class="row">
         <div class="col-md-12 modalImgView">
           <img style="width: 300px; height: 350px; cursor: pointer;" [src]="imgResultBeforeCompress"
-          (click)="choseImg(imgResultBeforeCompress)" data-dismiss="modal" alt="">
+            (click)="choseImg(imgResultBeforeCompress)" data-dismiss="modal" alt="">
           <h4>Tamaño de imagen sin procesar: <span>{{sizeBeforeCompress}}</span></h4>
         </div>
         <div class="col-md-12 modalImgView">
           <img style="width: 300px; height: 350px; cursor: pointer;" [src]="imgResultAfterCompress"
-          (click)="choseImg(imgResultAfterCompress)" data-dismiss="modal" alt="">
+            (click)="choseImg(imgResultAfterCompress)" data-dismiss="modal" alt="">
           <h4>Tamaño de imagen procesada: <span>{{sizeAfterCompress}}</span></h4>
         </div>
       </div>

@@ -141,6 +141,13 @@ export class MangArticleComponent implements OnInit {
   public sizeBeforeCompress;
   public sizeAfterCompress;
   public newBlob;
+  public dataFromProductList;
+  public totalPage = 0;
+  public pageChange;
+  public btnNextDisabled = true;
+  public urlPaginate: any;
+  public concat = '';
+  public productToFind: string;
 
   constructor(
     private route:            ActivatedRoute,
@@ -263,6 +270,8 @@ export class MangArticleComponent implements OnInit {
     this.loading = true;
     this.imageCompress.uploadFile().then(({image, orientation}) => {
       const myImg = image;
+      orientation = 0;
+      console.log(myImg);
       this.imgResultBeforeCompress = image;
       this.sizeBeforeCompress = this.formatBytes(this.imageCompress.byteCount(image));
       let sizesFile = this.sizeBeforeCompress.split(' ');
@@ -285,7 +294,7 @@ export class MangArticleComponent implements OnInit {
 
 
   compressImg(image, orientation) {
-    this.imageCompress.compressFile(image, orientation, 75, 50).then(
+    this.imageCompress.compressFile(image, orientation, 80, 80).then(
       result => {
         this.imgResultAfterCompress = result;
         this.sizeAfterCompress = this.formatBytes(this.imageCompress.byteCount(result));
@@ -308,9 +317,8 @@ export class MangArticleComponent implements OnInit {
  }
 
   onUpload(e) {
-    console.log(e);
+    console.log(e.target.files);
     const myImg = e.target.files[0];
-    console.log(myImg);
     this.product.photo = myImg.name;
     console.log(this.product.photo);
     const promise = this.getFileBlob(myImg);
@@ -391,59 +399,6 @@ export class MangArticleComponent implements OnInit {
     }, 500);
   }
 
-  /*getGender() {
-    let idGender: number;
-    this.gender = [];
-    for (let i = 0; i < this.dataGender.length; ++i) {
-      idGender = i + 1;
-      this.gender.push(new Gender(idGender.toString(), this.dataGender[i]));
-    }
-  }
-
-  getDepartment() {
-    if (this.product.gender !== '') {
-      switch (this.product.gender) {
-        case '1':
-          this.fillDepartment(this.dtDepartmentM);
-        break;
-        case '2':
-          this.fillDepartment(this.dtDepartmentW);
-        break;
-        case '3':
-          this.fillDepartment(this.dtDepartmentB);
-        break;
-        case '4':
-          this.fillDepartment(this.dtDepartmentG);
-        break;
-        default:
-          console.log('Fuera de rango');
-        break;
-      }
-    } else { console.log('error'); }
-  }
-
-  fillDepartment(data = []) {
-    let dptId: number;
-    this.department = [];
-    for (let i = 0; i < data.length; ++i) {
-      dptId = i + 1;
-      this.department.push(new Departament(dptId.toString(), data[i]));
-    }
-  }
-
-  pushDepart(departmentParam: any) {
-    if (departmentParam !== undefined) {
-      this.product.department = departmentParam.toString();
-    }
-  }
-
-  pushGender(genderParam: any) {
-    if (genderParam !== undefined) {
-      this.product.gender = genderParam.toString();
-      this.getDepartment();
-    }
-  }*/
-
   pushTag(dataTag: any) {
     if (dataTag !== undefined) {
       this.product.tags_id = dataTag.toString();
@@ -469,6 +424,7 @@ export class MangArticleComponent implements OnInit {
   // =======================================SEARCHING_FILTERS==============================================
 
   cleanFilter() {
+    this.p = 1;
     this.newStateDpt = 0;
     this.newStateGender = 0;
     this.newStateSize = 0;
@@ -480,7 +436,10 @@ export class MangArticleComponent implements OnInit {
     this.loading = true;
     this.productService.getProductGender(gender).subscribe(
       response => {
-        this.productView = response.articles;
+        this.productView = response.articles.data;
+        this.dataFromProductList = response.articles;
+        this.urlPaginate = response.articles.next_page_url;
+        this.totalPage = response.articles.total;
         this.addPhotoProductList();
         this.loading = false;
       }, error => {
@@ -493,7 +452,10 @@ export class MangArticleComponent implements OnInit {
     this.loading = true;
     this.productService.Onlydepart(gender, dtp).subscribe(
       response => {
-        this.productView = response.articles;
+        this.productView = response.articles.data;
+        this.dataFromProductList = response.articles;
+        this.urlPaginate = response.articles.next_page_url;
+        this.totalPage = response.articles.total;
         this.addPhotoProductList();
         this.loading = false;
       }, error => {
@@ -506,6 +468,7 @@ export class MangArticleComponent implements OnInit {
     if (genderParam !== undefined) {
      this.genderSearch = genderParam.toString();
      this.preStateGender = this.newStateGender;
+     this.getDepartmentData(this.genderSearch);
      this.newStateGender = genderParam;
      this.getOnlyGender(this.genderSearch);
      // this.getDepartment();
@@ -520,6 +483,16 @@ export class MangArticleComponent implements OnInit {
       this.getOnlydpt(this.genderSearch, departmentParam);
       this.getSizesForDepartment(this.genderSearch, this.dptSearch);
     }
+  }
+
+  getDepartmentData(genderId) {
+    this.genderDptService.getDepartmentForGender(genderId).subscribe(
+      response => {
+        this.department = response.department; 
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   selectedOptionDpt(option) {
@@ -546,6 +519,7 @@ export class MangArticleComponent implements OnInit {
 
   filterSizeProduct(e: any) {
     this.newStateSize = e;
+    this.loading = true;
     const sizesTem = e.split('/');
     if (sizesTem.length >= 2) {
       const sendSizes = sizesTem[0] + '-' + sizesTem[1];
@@ -554,6 +528,11 @@ export class MangArticleComponent implements OnInit {
     this.productService.filterSizeProductAdmin(this.dptSearch, this.genderSearch, e).subscribe(
       response => {
         this.productView = response.filter;
+        this.productView = response.filter.data;
+        this.dataFromProductList = response.filter;
+        this.urlPaginate = response.filter.next_page_url;
+        this.totalPage = response.filter.total;
+        this.loading = false;
         this.addPhotoProductList();
       }, error => {
         console.log(<any>error);
@@ -711,8 +690,6 @@ export class MangArticleComponent implements OnInit {
     for (let i = 0; i < this.productView.length; ++i) {
       // agrego formato a la imagen.
       this.productView[i].photo = this.imgUrl.url + this.productView[i].photo;
-      //this.getGenderToProduct(this.productView[i].gender_id, i);
-      //this.getDepartmentToProduct(this.productView[i].dpt_id, i);
     }
   }
 
@@ -767,7 +744,10 @@ export class MangArticleComponent implements OnInit {
     this.productService.getProduct().subscribe(
       response => {
         if (response.status === 'success') {
-          this.productView = response.articles;
+          this.dataFromProductList = response.articles;
+          this.urlPaginate = response.articles.next_page_url;
+          this.productView = response.articles.data;
+          this.totalPage = response.articles.total;
           this.statusBool = true;
           this.addPhotoProductList();
           this.loading = false;
@@ -777,6 +757,29 @@ export class MangArticleComponent implements OnInit {
         }
       },
       error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  nextPaginate(event: any) {
+    this.p = event;
+    let nextPage = this.urlPaginate;
+    const urlSplit = nextPage.split('=');
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.loading = true;
+    this.productService.getPaginateProduct(this.pageChange).subscribe(
+      response => {
+        if (response.articles.next_page_url === null) {
+          this.btnNextDisabled = false;
+          this.dataFromProductList = response.articles.last_page_url;
+        } else {
+          this.urlPaginate = response.articles.next_page_url;
+        }
+        this.loading = false;
+        this.productView = response.articles.data;
+        this.addPhotoProductList();
+      }, error => {
         console.log(<any> error);
       }
     );
@@ -853,6 +856,22 @@ export class MangArticleComponent implements OnInit {
           console.log(<any> error);
         }
       );
+    }
+  }
+
+  findProduct() {
+    if (this.productToFind != '') {
+      this.productService.searchProduct(this.productToFind).subscribe(
+        response => {
+          this.dataFromProductList = response.articles;
+          this.urlPaginate = response.articles.next_page_url;
+          this.productView = response.articles.data;
+          this.totalPage = response.articles.total;
+          this.addPhotoProductList();
+        }, error => {
+          console.log(<any> error);
+        }
+      ); 
     }
   }
 

@@ -52,6 +52,28 @@ class PurchaseController extends Controller
         ), 200);
     }
 
+    public function viewOrdensByStatus($status) {
+        $orders = purchase::where('status', $status)->with('articles')->get();
+        $countOrders = count($orders);
+        $totalPrice = 0;
+        $totalStock = 0;
+        for ($e=0; $e < $countOrders; $e++) {
+            $productsLength =  count($orders[$e]->articles);
+            for ($i=0; $i < $productsLength; $i++) {
+                $countSizes = $orders[$e]->articles[$i]->pivot->amount;
+                for ($index=0; $index < $countSizes; $index++) {
+                    $totalStock += $orders[$e]->articles[$i]->pivot->amount;
+                    $totalPrice += $orders[$e]->articles[$i]->pricePublic * $orders[$e]->articles[$i]->pivot->amount;
+                }
+            }
+        }
+        return response()->json(array(
+            'totalStock' => $totalStock,
+            'totalPrice' => $totalPrice,
+            'status'   => 'success'
+        ), 200);
+    }
+
 
 
     public function storeTicket(Request $request) {
@@ -507,7 +529,7 @@ class PurchaseController extends Controller
             'PurchaseShiping'          => $purchaseClient->shipping,
             'addressPurchase'          => $purchaseClient->addresspurchases_id,
             'status'                   => 'success',
-            'code'    => 200,
+            'code'                     => 200,
         );
         return response()->json($data,200);
     }

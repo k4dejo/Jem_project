@@ -59,7 +59,7 @@ export class NavbaradminComponent implements OnInit {
 
   ngOnInit() {
     if (this.identity.priority === 1) {
-      this.viewPriority = 'Empleador';
+      this.viewPriority = 'Administrador';
       this.priorityBoolean = true;
     } else {
       this.viewPriority = 'Empleado';

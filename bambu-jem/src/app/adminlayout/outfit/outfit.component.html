@@ -11,6 +11,7 @@
             <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
               placeholder=" &#61442; Buscar...">
           </div>
+
           <table class="table table-striped">
             <thead>
               <th></th>
@@ -82,6 +83,8 @@
             <input class="form-control" type="text" name="search" [(ngModel)]="searchOutfit" autocomplete="off"
               placeholder=" &#61442; Buscar...">
           </div>
+          <pagination-controls class="my-pagination" (pageChange)="pOutfit = $event">
+          </pagination-controls>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -89,7 +92,7 @@
                 <th scope="col">Outfit</th>
                 <th scope="col"></th>
               </thead>
-              <tr *ngFor="let outfit of outfitsView | filter: searchOutfit">
+              <tr *ngFor="let outfit of outfitsView | filter: searchOutfit | paginate: { itemsPerPage: 10, currentPage: pOutfit }">
                 <td>
                   <img class="img-responsive" [src]="outfit.photo" alt="">
                 </td>

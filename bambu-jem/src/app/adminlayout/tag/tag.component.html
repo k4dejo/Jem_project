@@ -16,6 +16,8 @@
             Guardar
           </button>
         </form>
+        <pagination-controls class="my-pagination" (pageChange)="p = $event">
+        </pagination-controls>
         <table class="table table-striped">
           <thead>
             <th scope="col">#</th>
@@ -23,7 +25,7 @@
             <th></th>
           </thead>
           <tbody>
-            <tr *ngFor="let tag of tags">
+            <tr *ngFor="let tag of tags | paginate: { itemsPerPage: 10, currentPage: p }">
               <td>{{tag.id}}</td>
               <td><span>{{tag.name}}</span></td>
               <td><input (click)="deleteTag(tag.id)" style="color: white;"

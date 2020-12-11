@@ -19,7 +19,7 @@ class ArticleController extends Controller
 
     public function index(Request $request) {
        //listado de los articulos
-       $articles = article::with(['gender'])->with(['department'])->get();
+       $articles = article::with(['gender'])->with(['department'])->paginate(10);
        // $articles = article::all();
        //$pito = $this->addGenDpt($articles);
        return response()->json(array(
@@ -218,7 +218,7 @@ class ArticleController extends Controller
         $filter = article::whereHas('sizes', function($q) use ($size) {
             $q->where('size', '=', $size);
         })->where('gender', '=', $gender)
-        ->where('department', '=', $department)->with('sizes')->get();
+        ->where('department', '=', $department)->with('sizes')->paginate(10);
         $productCount = count($filter);
         if ($productCount <= 0) {
             return response()->json(array(
@@ -311,7 +311,7 @@ class ArticleController extends Controller
     }
 
     public function Onlydepart($gender, $department) {
-        $dptGet = article::where('gender', $gender)->where('department', $department)->get();
+        $dptGet = article::where('gender', $gender)->where('department', $department)->paginate(10);
         // $dptGet = DB::table('articles')->where('department', $department)->get();
         return response()->json(array(
             'articles' => $dptGet,
@@ -321,7 +321,7 @@ class ArticleController extends Controller
     }
 
     public function getProductGender($gender) {
-        $productGen = article::where('gender', '=', $gender)->get();
+        $productGen = article::where('gender', '=', $gender)->paginate(10);
         $productCount = count($productGen);
         return response()->json(array(
             'articles' => $productGen,
@@ -432,6 +432,10 @@ class ArticleController extends Controller
             $imgDB = article::where('id', $id)->first();
             $lengthImg = strlen($params->photo);
             $isWeb = explode(':', $params->photo);
+            $paramsArray['gender_id'] = $params->gender;
+            $paramsArray['dpt_id'] =  intval($params->department);
+            unset($paramsArray['amount']);
+            unset($paramsArray['size']);
             if ($isWeb[0] == 'https') {
                 $imgName = time() . $params->photo;
                 unset($paramsArray['id']);
@@ -498,7 +502,7 @@ class ArticleController extends Controller
         $route = public_path().'\catalogo'.'\/';
         $imgRoute = str_replace('/', '', $route);
         $imgRoute = $imgRoute . $article->photo;
-        Storage::delete($article->photo);
+        Storage::disk('public')->delete($article->photo);
         $article->apart()->sync([]);
         $article->purchases()->update(['article_id' => null]);
         $article->clients()->detach($id);

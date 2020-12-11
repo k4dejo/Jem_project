@@ -73,7 +73,7 @@
         <h2 class="title">Departamento o Subcategoría</h2>
       </div>
       <div class="card-body">
-        <form *ngIf="!editDptFormView" class="form-group" #addGender="ngForm" (submit)="saveDpt()">
+        <form *ngIf="!editDptFormView" class="form-group" #addDpt="ngForm" (submit)="saveDpt(addDpt)">
           <div class="input-group-desc">
             <label for="">Nombre de la subcategoría</label>
             <input class="input--style-5" type="text" name="name" #name="ngModel" [(ngModel)]="department.department"

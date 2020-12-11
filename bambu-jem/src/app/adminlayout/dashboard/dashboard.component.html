@@ -8,7 +8,7 @@
             <h2 class="title">Precio inventario</h2>
           </div>
           <div class="card-body">
-            <h2>{{priceAllProduct | number: '3.'}}</h2>
+            <h2>₡ {{priceAllProduct | number: '3.'}}</h2>
           </div>
           <div style="margin-left: 2%; margin-bottom: 2%;" class="row">
             <div class="col-md-6">
@@ -16,8 +16,8 @@
                 <div class="col-md-6">
                   <div class="genderSearch">
                     <div class="selectWrapper">
-                      <select  name="genderSelect" id="SelectSearch" class="selectpicker"
-                      (change)="pushGenderSearch($event.target.value)" name="gender">
+                      <select name="genderSelect" id="SelectSearch" class="selectpicker"
+                        (change)="pushGenderSearch($event.target.value)" name="gender">
                         <option disabled="disabled" [selected]='!newStateGender'>--Genero--</option>
                         <option *ngFor="let gen of gender" [value]="gen.id" [selected]="selectedOptionGender(gen.id)">
                           {{gen.gender}}
@@ -29,24 +29,23 @@
                 <div class="col-md-6">
                   <div class="dptSearch">
                     <div class="selectWrapper">
-                      <select name="department" id="SelectSearch"
-                      (change)="pushDepartSearch($event.target.value)" class="custom-select"
-                      name="department">
+                      <select name="department" id="SelectSearch" (change)="pushDepartSearch($event.target.value)"
+                        class="custom-select" name="department">
                         <option disabled="disabled" [selected]='!newStateDpt'>--Departamento--</option>
                         <option *ngFor="let dpt of department" [value]="dpt.id" [selected]="selectedOptionDpt(dpt.id)">
                           {{dpt.department}}
                         </option>
                       </select>
-                      </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="col-md-3">
               <div class="selectWrapper">
-                <select name="genderSelect" id="tagSelect" class="selectpicker"
-                (change)="pushTag($event.target.value)" name="tags_id" >
-                  <option disabled="disabled"  [selected]='!newStateTags'>-Seleccionar-</option>
+                <select name="genderSelect" id="tagSelect" class="selectpicker" (change)="pushTag($event.target.value)"
+                  name="tags_id">
+                  <option disabled="disabled" [selected]='!newStateTags'>-Seleccionar-</option>
                   <option *ngFor="let tag of tags" [value]="tag.id" [selected]="selectedOptionTag(tag.id)">
                     {{tag.name}}
                   </option>
@@ -63,10 +62,30 @@
       <div class="col-md-6">
         <div class="card card-5">
           <div class="card-heading">
-            <h2 class="title">Precio</h2>
+            <h2 class="title">Ordenes</h2>
           </div>
           <div class="card-body">
-
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Valor monetario:</h4>
+                <h4>₡ {{priceOrders | number: '4.'}}</h4>
+              </div>
+              <div class="col-md-6">
+                <h4>Cantidad de prendas:</h4>
+                <h4>{{stockOrders}}</h4>
+              </div>
+            </div>
+          </div>
+          <div style="margin-left: 2%; margin-bottom: 2%;" class="row">
+            <div class="selectWrapper">
+              <select name="genderSelect" id="tagSelect" class="selectpicker" (change)="pushStatus($event.target.value)"
+                name="status">
+                <option disabled="disabled" [selected]='!newStateTags'>-Seleccionar-</option>
+                <option *ngFor="let status of statusOrdens" [value]="status" [selected]="selectedOptionTag(status)">
+                  {{status}}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -94,9 +113,9 @@
               <td>{{apart.admin.user}}</td>
               <td>{{apart.clients_id}}</td>
               <td>
-                <a (click)="getListProduct(apart.articles)" style="font-weight: bold; cursor: pointer;" data-toggle="modal"
-                data-target="#ListProducts">
-                Ver Productos</a>
+                <a (click)="getListProduct(apart.articles)" style="font-weight: bold; cursor: pointer;"
+                  data-toggle="modal" data-target="#ListProducts">
+                  Ver Productos</a>
               </td>
             </tr>
           </tbody>
@@ -105,7 +124,8 @@
     </div>
   </div>
 </div>
-<div class="modal fadeInDown" id="ListProducts" tabindex="-1" role="dialog"aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fadeInDown" id="ListProducts" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+  aria-hidden="true">
   <div class="modal-content wrapper" id="formContent" role="document">
     <div class="modal-header first">
       <i class="fa fa-times close" data-dismiss="modal"></i>
@@ -133,4 +153,3 @@
     </div>
   </div>
 </div>
-

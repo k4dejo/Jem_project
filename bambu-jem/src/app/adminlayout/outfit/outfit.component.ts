@@ -27,6 +27,7 @@ export class OutfitComponent implements OnInit {
   public identity;
   public p = 1;
   public pp = 1;
+  public pOutfit = 1;
   public searchProduct;
   public searchOutfit;
   public idOutfitAttach;

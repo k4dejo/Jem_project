@@ -88,13 +88,18 @@ export class GendersDepartmentsComponent implements OnInit {
 
   // ============================DEPARTMENT===================================================
 
-  saveDpt() {
+  saveDpt(form) {
+    this.loading = true;
     const randomNum = (Math.random() * (10 - 1) + 1);
     this.department.positionDpt = randomNum.toString();
     this.genderDptService.addDepartment(this.token, this.department).subscribe(
       response => {
         if (response.status === 'success') {
           this.getAllDepartments();
+          this.loading = false;
+          form.reset();
+          this.fileBlobSub = 'assets/Images/default.jpg';
+          this.department = new Dtp('', '', null, 0);
         }
       }, error => {
         console.log(<any> error);

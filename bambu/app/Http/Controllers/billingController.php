@@ -75,7 +75,7 @@ class billingController extends Controller
             $paramsArray = json_decode($json,true);
             $billing = new billing();
             //validación
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'price'         => 'required',
                 'client'        => 'required',
                 'email'         => 'required',
@@ -185,7 +185,7 @@ class billingController extends Controller
         $params = json_decode($json);
         $paramsArray = json_decode($json,true);
         //validación
-        $validate = Validator::make($paramsArray, [
+        $validate = \Validator::make($paramsArray, [
             'billing_id'   => 'required',
             'article_id'    => 'required'
         ]);
@@ -230,7 +230,7 @@ class billingController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
             //validacion
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'price'         => 'required',
                 'client'        => 'required',
                 'email'         => 'required',

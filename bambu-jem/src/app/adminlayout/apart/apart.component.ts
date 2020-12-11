@@ -1,35 +1,40 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 import * as jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+
+import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
+import { saveAs } from 'file-saver';
+
+//services
 import { ArticleService } from '../../services/article.service';
 import { SizeService } from '../../services/size.service';
 import { AdminService } from '../../services/admin.service';
 import { ApartService } from '../../services/apart.service';
 import { BillingService } from '../../services/billing.service';
 import { AddresServices } from '../../services/addres.service';
+import { InvoiceService } from '../../services/invoice.service';
+
+//models
 import { Province } from '../../models/province';
 import { Cant } from '../../models/cant';
 import { District } from '../../models/district';
 import { Client } from '../../models/client';
 import { Article } from 'src/app/models/article';
 import { Apart } from 'src/app/models/apart';
-import { Gender } from '../../models/gender';
 import { ImgUrl } from '../../models/imgUrl';
-import { Departament } from '../../models/department';
 import { AttachApart } from '../../models/attachApart';
 import { Billing } from '../../models/billing';
-import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
-
+import { GLOBAL } from 'src/app/services/global';
 
 @Component({
   selector: 'app-apart',
-  providers: [ArticleService, AdminService, SizeService, ApartService, AddresServices],
+  providers: [ArticleService, AdminService, SizeService, ApartService, AddresServices, InvoiceService],
   templateUrl: './apart.component.html',
   styleUrls: ['./apart.component.css']
 })
 export class ApartComponent implements OnInit {
-  @ViewChild(ToastContainerDirective, {static: true}) toastContainer: ToastContainerDirective;
+  @ViewChild(ToastContainerDirective, { static: true }) toastContainer: ToastContainerDirective;
   public token;
   public billing: Billing;
   public arrayBilling;
@@ -50,7 +55,7 @@ export class ApartComponent implements OnInit {
   public searchClient;
   public AmountInputBool = false;
   public valueQtyBtn = 1;
-  public p = 1;
+  public pageCurrent = 1;
   public pClient = 1;
   public statusBool: boolean;
   public clients;
@@ -82,11 +87,11 @@ export class ApartComponent implements OnInit {
   public CantJson: string[] = [];
   public DistJson: string[] = [];
   public arrayGamDis: string[] = ['San José', 'central', 'Escazú', 'Desamparados',
-  'Aserrí', 'Mora', 'Goicoechea', 'Santa Ana', 'Alajuelita', 'Vásquez de Coronado',
-  'Tibás', 'Moravia', 'Montes de Oca', 'Curridabat', 'Alajuela', 'San Ramón', 'Grecia', 'Atenas',
-  'Naranjo', 'Palmares', 'Poás', 'Sarchí', 'Río Cuarto', 'Cartago', 'Paraíso', 'La Unión', 'Alvarado',
-  'Oreamuno', 'El Guarco', 'Heredia', 'Barva', 'Santo Domingo', 'Santa Bárbara', 'San Rafael',
-  'San Isidro', 'Belén', 'Flores', 'San Pablo'];
+    'Aserrí', 'Mora', 'Goicoechea', 'Santa Ana', 'Alajuelita', 'Vásquez de Coronado',
+    'Tibás', 'Moravia', 'Montes de Oca', 'Curridabat', 'Alajuela', 'San Ramón', 'Grecia', 'Atenas',
+    'Naranjo', 'Palmares', 'Poás', 'Sarchí', 'Río Cuarto', 'Cartago', 'Paraíso', 'La Unión', 'Alvarado',
+    'Oreamuno', 'El Guarco', 'Heredia', 'Barva', 'Santo Domingo', 'Santa Bárbara', 'San Rafael',
+    'San Isidro', 'Belén', 'Flores', 'San Pablo'];
   public ArrayProvin: Province[];
   public ArrayCant: Cant[];
   public ArrayDist: District[];
@@ -96,14 +101,18 @@ export class ApartComponent implements OnInit {
   public lenghtProduct;
   public urlPaginate: any;
   public pageChange;
-  public btnNextDisabled =  true;
+  public btnNextDisabled = true;
+  public dataFromProductList;
+  public totalPage = 1;
+  public productToFind: string;
 
   constructor(
     private router: Router,
-      private adminService: AdminService,
+    private adminService: AdminService,
     private apartService: ApartService,
     private toastr: ToastrService,
     private province: AddresServices,
+    private invoiceService: InvoiceService,
     private billingService: BillingService,
     private productService: ArticleService
   ) {
@@ -116,12 +125,50 @@ export class ApartComponent implements OnInit {
     this.attachApart = new AttachApart('', '', 0, '');
   }
 
+
+  /*=====================================INVOICE===============================================*/
+
+  createInvoicePDF() {
+    this.invoiceService.getInvoice(this.shipping, this.attachApart.apart_id).subscribe(
+      response => {
+        /*var FileSaver = require('file-saver');
+        var mediaType = 'application/pdf';
+        var filename = "factura.pdf";
+        var blob = new Blob([response], {type: mediaType});
+        console.log(response);
+        FileSaver.saveAs(blob, filename);*/
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+
+  }
+  /*===================================FINDPRODUCTS======================================================*/
+
+  findProduct() {
+    if (this.productToFind != '') {
+      this.productService.searchProduct(this.productToFind).subscribe(
+        response => {
+          this.dataFromProductList = response.articles;
+          this.urlPaginate = response.articles.next_page_url;
+          this.productView = response.articles.data;
+          this.totalPage = response.articles.total;
+          this.addPhotoProductList();
+        }, error => {
+          console.log(<any> error);
+        }
+      ); 
+    }
+  }
+
+  //======================================================================================================
+
   getClientList() {
     this.adminService.getClientList().subscribe(
       response => {
         this.clients = response.clients;
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -134,7 +181,7 @@ export class ApartComponent implements OnInit {
         // this.viewPhoto = response.productPhoto;
         this.viewPhoto = this.imgUrl.url + response.productPhoto;
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -149,28 +196,51 @@ export class ApartComponent implements OnInit {
         this.pPublic = true;
         this.pMajor = false;
         this.pBoutique = false;
-      break;
+        break;
       case 2:
         this.pPublic = false;
         this.pMajor = true;
         this.pBoutique = false;
-      break;
+        break;
       case 3:
         this.pPublic = false;
         this.pMajor = false;
         this.pBoutique = true;
-      break;
+        break;
       default:
         console.log('Fuera de rango');
-      break;
+        break;
     }
     this.calculatePriceWithShop();
   }
 
-  nextPaginate(event: any) {
+  /*nextPaginate(event: any) {
     this.loading = true;
     this.p = event;
     this.loading = false;
+  }*/
+
+  nextPaginate(event: any) {
+    this.pageCurrent = event;
+    let nextPage = this.urlPaginate;
+    const urlSplit = nextPage.split('=');
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.loading = true;
+    this.productService.getPaginateProduct(this.pageChange).subscribe(
+      response => {
+        if (response.articles.next_page_url === null) {
+          this.btnNextDisabled = false;
+          this.dataFromProductList = response.articles.last_page_url;
+        } else {
+          this.urlPaginate = response.articles.next_page_url;
+        }
+        this.loading = false;
+        this.productView = response.articles.data;
+        this.addPhotoProductList();
+      }, error => {
+        console.log(<any> error);
+      }
+    );
   }
 
   addPhotoProductList() {
@@ -183,11 +253,14 @@ export class ApartComponent implements OnInit {
   getProductView() {
     this.productService.getProduct().subscribe(
       response => {
-        this.productView = response.articles;
+        this.dataFromProductList = response.articles;
+        this.urlPaginate = response.articles.next_page_url;
+        this.productView = response.articles.data;
+        this.totalPage = response.articles.total;
         this.statusBool = true;
         this.addPhotoProductList();
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -201,7 +274,7 @@ export class ApartComponent implements OnInit {
         this.loading = false;
         this.getSizeProduct(productId);
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -222,7 +295,7 @@ export class ApartComponent implements OnInit {
           this.AmountInputBool = false;
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -235,7 +308,7 @@ export class ApartComponent implements OnInit {
           this.AmountInputBool = false;
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -249,15 +322,15 @@ export class ApartComponent implements OnInit {
           if (response.status === 'success') {
             this.loading = false;
           }
-        } else if  (response.code === 400 ) {
+        } else if (response.code === 400) {
           if (response.status === 'fail') {
             this.showTokenExpire();
           }
           this.loading = false;
         }
-      // tslint:disable-next-line:no-shadowed-variable
+        // tslint:disable-next-line:no-shadowed-variable
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
         this.showErrorAdmin(error);
       }
     );
@@ -280,7 +353,7 @@ export class ApartComponent implements OnInit {
                 this.attachApartProduct(this.token, this.attachApart);
               }
             }, error => {
-              console.log(<any> error);
+              console.log(<any>error);
               this.showErrorAdmin(error);
             }
           );
@@ -291,7 +364,7 @@ export class ApartComponent implements OnInit {
           this.startTimer();
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -344,14 +417,14 @@ export class ApartComponent implements OnInit {
       // this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
       // this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
       if (this.pPublic) {
-       this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-     }
-     if (this.pMajor) {
-       this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
-     }
-     if (this.pBoutique) {
-       this.apartM.price += this.arrayApart[index].priceTuB * this.arrayApart[index].pivot.amount;
-     }
+        this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
+      }
+      if (this.pMajor) {
+        this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
+      }
+      if (this.pBoutique) {
+        this.apartM.price += this.arrayApart[index].priceTuB * this.arrayApart[index].pivot.amount;
+      }
       this.billing.price = this.apartM.price;
       this.billing.price += this.shipping;
     }
@@ -423,7 +496,7 @@ export class ApartComponent implements OnInit {
     this.apartM.price = 0;
     this.clientBool = false;
     this.splite = this.client.address.split(',');
-    this.viewAddress(this.splite[0] , this.splite[1]);
+    this.viewAddress(this.splite[0], this.splite[1]);
     this.adminService.authAdmin(this.identity).subscribe(
       response => {
         if (response.status !== 'admin') {
@@ -433,7 +506,7 @@ export class ApartComponent implements OnInit {
           this.addNewApartService(this.token, this.apartM, dataClient.id);
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -447,7 +520,7 @@ export class ApartComponent implements OnInit {
           this.idCleanApart = response.apart.id;
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -463,7 +536,7 @@ export class ApartComponent implements OnInit {
           // this.calculateWeight();
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
         this.showErrorAdmin(error);
       }
     );
@@ -477,7 +550,7 @@ export class ApartComponent implements OnInit {
           this.editAmountProduct(productId, response.sizeId, this.isDelete, productApart);
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -494,7 +567,7 @@ export class ApartComponent implements OnInit {
         this.getApart(response.apart.id);
         this.editApart(response.apart.id);
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
@@ -534,9 +607,9 @@ export class ApartComponent implements OnInit {
           this.gotoAttachBilling(response.billing.id, newBillingModel, index, this.arrayBilling.length);
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
         this.showError(error);
-       }
+      }
     );
   }
 
@@ -544,9 +617,9 @@ export class ApartComponent implements OnInit {
     switch (numberbool) {
       case 1:
         this.showSuccess();
-      break;
+        break;
       default:
-      break;
+        break;
     }
   }
 
@@ -562,7 +635,7 @@ export class ApartComponent implements OnInit {
     if (error.error.address[0] === 'The address field is required.') {
       this.toastr.overlayContainer = this.toastContainer;
       this.toastr.error('El campo dirección es requerido',
-      'Error', {
+        'Error', {
         timeOut: 4000,
         progressBar: true
       });
@@ -573,7 +646,7 @@ export class ApartComponent implements OnInit {
   showTokenExpire() {
     this.toastr.overlayContainer = this.toastContainer;
     this.toastr.error('La sesión ha expirado, por favor cerra sesión y vuelve a intentar',
-    'Error', {
+      'Error', {
       timeOut: 4000,
       progressBar: true
     });
@@ -583,7 +656,7 @@ export class ApartComponent implements OnInit {
   showErrorAdmin(error) {
     this.toastr.overlayContainer = this.toastContainer;
     this.toastr.error(error,
-    'Error', {
+      'Error', {
       timeOut: 4000,
       progressBar: true
     });
@@ -601,27 +674,28 @@ export class ApartComponent implements OnInit {
           console.log(responseAttach);
         }
       }, error => {
-        console.log(<any> error);
+        console.log(<any>error);
       }
     );
   }
 
   cleanDataApart() {
+    this.createInvoicePDF();
     this.apartService.cleanApartClient(this.token, this.idCleanApart, this.arrayApart)
-    .subscribe(
-      responseCleanApart => {
-        if (responseCleanApart.status === 'success') {
-          this.getApartClient(this.apartM.clients_id);
-          this.PrintDoc();
-          this.billing.price = 0;
-          this.shipping = 0;
-          this.apartM.price = 0;
-          this.loading = false;
+      .subscribe(
+        responseCleanApart => {
+          if (responseCleanApart.status === 'success') {
+            this.getApartClient(this.apartM.clients_id);
+            //.PrintDoc();
+            this.billing.price = 0;
+            this.shipping = 0;
+            this.apartM.price = 0;
+            this.loading = false;
+          }
+        }, error => {
+          console.log(error);
         }
-      }, error => {
-        console.log(error);
-      }
-    );
+      );
   }
 
   getDate() {
@@ -644,7 +718,7 @@ export class ApartComponent implements OnInit {
     for (let index = 0; index < this.arrayApart.length; ++index) {
       this.totalWeight += Number(this.arrayApart[index].weight) * this.arrayApart[index].pivot.amount;
     }
-    this.viewAddress(this.splite[0] , this.splite[1]);
+    this.viewAddress(this.splite[0], this.splite[1]);
   }
 
 
@@ -680,7 +754,7 @@ export class ApartComponent implements OnInit {
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
-      break;
+        break;
       case 'Alajuela':
 
         if (responseSearch) {
@@ -688,34 +762,34 @@ export class ApartComponent implements OnInit {
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
-      break;
+        break;
       case 'Guanacaste':
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-      break;
+        break;
       case 'Heredia':
         if (responseSearch) {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
-      break;
+        break;
       case 'Puntarenas':
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-      break;
+        break;
       case 'Limón':
         this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-      break;
+        break;
       case 'Cartago':
         if (responseSearch) {
           this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
         } else {
           this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
         }
-      break;
+        break;
       default:
         // tslint:disable-next-line:no-unused-expression
         'fuera de rango de zona';
-      break;
+        break;
     }
   }
 
@@ -725,7 +799,7 @@ export class ApartComponent implements OnInit {
       response => {
         // tslint:disable-next-line:forin
         for (const key in response) {
-         this.PronviJson.push(response[key]);
+          this.PronviJson.push(response[key]);
         }
         this.getProvin();
       },
@@ -751,7 +825,7 @@ export class ApartComponent implements OnInit {
         response => {
           // tslint:disable-next-line:forin
           for (const key in response) {
-           this.CantJson.push(response[key]);
+            this.CantJson.push(response[key]);
           }
           let idCant: number;
           this.ArrayCant = [];
@@ -774,7 +848,7 @@ export class ApartComponent implements OnInit {
         response => {
           // tslint:disable-next-line:forin
           for (const key in response) {
-           this.DistJson.push(response[key]);
+            this.DistJson.push(response[key]);
           }
           let idDist: number;
           this.ArrayDist = [];
@@ -792,31 +866,31 @@ export class ApartComponent implements OnInit {
 
   pushAddress(idProvin, idCant, idDist) {
     if (idCant !== undefined && idDist !== undefined) {
-      let idReal:  number;
+      let idReal: number;
       for (let i = 0; i < this.PronviJson.length; ++i) {
         idReal = i + 1;
         if (idReal.toString() === idProvin) {
-           this.client.address = this.PronviJson[i];
-           this.billing.address = this.PronviJson[i];
-         }
+          this.client.address = this.PronviJson[i];
+          this.billing.address = this.PronviJson[i];
+        }
       }
       for (let i = 0; i < this.CantJson.length; ++i) {
-       idReal = i + 1;
-       if (idReal.toString() === idCant) {
-         this.client.address = this.client.address + ', ' + this.CantJson[i];
-         this.billing.address = this.billing.address + ', ' + this.CantJson[i];
-       }
+        idReal = i + 1;
+        if (idReal.toString() === idCant) {
+          this.client.address = this.client.address + ', ' + this.CantJson[i];
+          this.billing.address = this.billing.address + ', ' + this.CantJson[i];
+        }
       }
       for (let i = 0; i < this.DistJson.length; ++i) {
-       idReal = i + 1;
-       if (idReal.toString() === idDist) {
-         this.client.address = this.client.address + ', ' + this.DistJson[i];
-         this.billing.address = this.billing.address + ', ' + this.DistJson[i];
-       }
+        idReal = i + 1;
+        if (idReal.toString() === idDist) {
+          this.client.address = this.client.address + ', ' + this.DistJson[i];
+          this.billing.address = this.billing.address + ', ' + this.DistJson[i];
+        }
       }
     }
     this.splite = this.client.address.split(', ');
-    this.viewAddress(this.splite[0] , this.splite[1]);
+    this.viewAddress(this.splite[0], this.splite[1]);
   }
 
 

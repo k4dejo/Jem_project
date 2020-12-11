@@ -31,9 +31,11 @@ export class CouponComponent implements OnInit {
   }
 
   saveCoupon(form) {
-    this.coupon.expiration = this.model.year + '-' + this.model.month + '-' + this.model.day;
+    //this.coupon.expiration = this.model.year + '-' + this.model.month + '-' + this.model.day;
+    this.coupon.expiration = this.model;
     if (this.identity.priority === 1) {
       this.coupon.adminId = this.identity.priority;
+      console.log(this.coupon);
       this.couponService.add(this.token, this.coupon).subscribe(
         response => {
           if (response.status === 'success') {

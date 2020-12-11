@@ -86,6 +86,11 @@ export class PurchaseService {
     return this._http.get(this.url + 'getPurchase/' + idClient, {headers: headers});
   }
 
+  viewOrdensByStatus(status: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'viewOrdensByStatus/' + status, {headers: headers});
+  }
+
   getTicket(idPurcharse: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'getTicket/' + idPurcharse, {headers: headers});

@@ -9,7 +9,6 @@ import { ImgUrl } from '../../models/imgUrl';
 import { AddresPurchases } from '../../models/addressPurchase';
 import { AddresServices } from '../../services/addres.service';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
-import { PaginatePipe } from 'ngx-pagination';
 
 @Component({
   selector: 'app-orders',
