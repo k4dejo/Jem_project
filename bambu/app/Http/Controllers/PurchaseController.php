@@ -624,8 +624,11 @@ class PurchaseController extends Controller
             }
             unset($paramsArray['id']);
             unset($paramsArray['created_at']);
-            //$purchase->coupon_id = $params->coupon_id;
-            $purchase = purchase::where('id', $params->id)->update($paramsArray);
+            if ($paramsArray['coupon_id'] === 0) {
+                unset($paramsArray['coupon_id']);
+            }
+            // $purchase->coupon_id = $params->coupon_id;   
+            $purchase = purchase::where('id', $params->id)->update($paramsArray);   
             $data = array(
                 'purchase' => $purchase,
                 'status'  => 'success',

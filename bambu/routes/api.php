@@ -82,8 +82,10 @@ Route::group(['middleware' => 'cors'], function(){
    Route::get('caculatePriceTags/{tagsId}', 'ArticleController@caculatePriceTags');
    Route::get('calculatePriceDepartment/{gender}/{dpt}', 'ArticleController@calculatePriceDepartment');
 
+   Route::get('sellingChart', 'reportController@makeReportTaks');
+
    //APARTS REPORTS
-   Route::get('getAllApart', 'apartController@getAllApart');
+   Route::get('getDataChart', 'reportController@viewSellingReports');
    /**/
 
    /*IMAGE*/

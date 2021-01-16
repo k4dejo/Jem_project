@@ -32,6 +32,11 @@ export class NavbaradminComponent implements OnInit {
     this.router.navigate([link]);
   }
 
+  gotoSellingReports() {
+    const link = 'admin/reporteVentas';
+    this.router.navigate([link]);
+  }
+
   gotoFact() {
     const link = 'admin/Apartados';
     this.router.navigate([link]);

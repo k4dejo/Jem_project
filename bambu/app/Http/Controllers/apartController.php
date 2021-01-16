@@ -25,13 +25,36 @@ class apartController extends Controller
     }
 
     public function getAllApart() {
-        //$aparts = apart::with('admin')->with('articles')->with('client')->get();
-        $aparts = $aparts= apart::where('admin_id','!=', null)->
-        where('clients_id','!=', null)->with('admin')->with('articles')->with('client')->get();
+        $aparts = apart::whereHas('articles')
+        ->where('admin_id','!=', null)->where('clients_id','!=', null)->with('admin')->with('articles')
+        ->with('client')->get();
+        
         return response()->json(array(
             'aparts' => $aparts,
             'status'   => 'success'
         ), 200);
+    }
+
+    public function checkStatusApart($idClient) {
+        //el metodo necesita primero rellenar el campo de status, con un foreach es suficiente
+        $isset_apart = apart::where('clients_id', $idClient)
+        ->with('articles')->get();
+        foreach ($isset_apart as $apart) {
+            $countapartProducts = count($apart->articles);
+            if ( $apart->status === 'incompleto') {
+                return $apart;
+            }
+        }
+        return 'not found';
+        /*$isset_apart = apart::where('clients_id', $idClient)->where('status', 'incompleto')
+        ->with('articles')->get();
+        return $isset_apart;
+        $countapartProducts = count($isset_apart->articles);
+        if ($countapartProducts > 0) {
+            return $isset_apart;
+        } else {
+            return 'not found';
+        }*/
     }
 
     public function store(Request $request)
@@ -47,9 +70,10 @@ class apartController extends Controller
             $paramsArray = json_decode($json,true);
             $apart = new apart();
             //validación
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'clients_id'   => 'required',
                 'admin_id'     => 'required',
+                'typeSell'     => 'required',
                 'price'        => 'required'
             ]);
             if ($validate->fails()) {
@@ -59,7 +83,68 @@ class apartController extends Controller
             $apart->price = $params->price;
             $isset_apart = DB::table('aparts')->where('clients_id', $params->clients_id)->get();
             $countapart = count($isset_apart);
+            $checkingStatusAparts = $this->checkStatusApart($params->clients_id);
+            if ($checkingStatusAparts == 'not found') {
+                $apart->status = $params->status;
+                $apart->typeSell = $params->typeSell;
+                $apart->save();
+                $data = array(
+                    'apart'      => $apart,
+                    'status'     => 'success',
+                );
+            } else {
+                $incompleteApart = apart::where('clients_id', $params->clients_id)->where('status', 'incompleto')
+                ->with('articles')->first();
+                $data = array(
+                    'apart'   => $incompleteApart,
+                    'status'     => 'Exist',
+                );
+            }
+            /*$getApart = apart::where('clients_id', $params->clients_id)->with('articles')->first();
+            $data = array(
+                'apart'   => $getApart,
+                'status'     => 'Exist',
+            );*/
+            return response()->json($data,200);
+        } else {
+            // Error
+            $data = array(
+                'message' => 'Usuario no autorizado',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data,200);
+    }
+
+    /*public function store(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+
+        if ($checkToken) {
+            //recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            $apart = new apart();
+            //validación
+            $validate = \Validator::make($paramsArray, [
+                'clients_id'   => 'required',
+                'admin_id'     => 'required',
+                'typeSell'     => 'required',
+                'price'        => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            $apart->clients_id = $params->clients_id;
+            $apart->price = $params->price;
+            $isset_apart = DB::table('aparts')->where('clients_id', $params->clients_id)->get();
+            $countapart = count($isset_apart);
+            return $this->checkStatusApart($params->clients_id);
             if ($countapart == 0) {
+                $apart->typeSell = $params->typeSell;
                 $apart->save();
                 $getApart = apart::where('clients_id', $params->clients_id);
                 $data = array(
@@ -67,7 +152,7 @@ class apartController extends Controller
                     'status'     => 'success',
                 );
             }
-            $getApart = apart::where('clients_id', $params->clients_id)->first();
+            $getApart = apart::where('clients_id', $params->clients_id)->with('articles')->first();
             $data = array(
                 'apart'   => $getApart,
                 'status'     => 'Exist',
@@ -82,7 +167,7 @@ class apartController extends Controller
             );
         }
         return response()->json($data,200);
-    }
+    }*/
 
     public function attachProductApart(Request $request) {
         $hash = $request->header('Authorization', null);
@@ -120,7 +205,7 @@ class apartController extends Controller
         $params = json_decode($json);
         $paramsArray = json_decode($json,true);
         //validación
-        $validate = Validator::make($paramsArray, [
+        $validate = \Validator::make($paramsArray, [
             'apart_id'      => 'required',
             'article_id'    => 'required'
         ]);
@@ -139,13 +224,7 @@ class apartController extends Controller
     }
 
     public function getApart($idApart) {
-        //$ApartClient = DB::table('aparts')->where('clients_id', $idApart)->first();
         $arrayApart = apart::find($idApart)->articles()->get();
-        $countApart = count($arrayApart);
-        /*for ($i=0; $i < $countApart; $i++) {
-            $contents = Storage::get($arrayApart[$i]->photo);
-            $arrayApart[$i]->photo = base64_encode($contents);
-        }*/
         $data = array(
             'apart'       => $arrayApart,
             'status'         => 'success',
@@ -166,9 +245,9 @@ class apartController extends Controller
             );
         } else {
             $data = array(
-                'msg'       => 'void',
-                'status'         => 'success',
-                'code'    => 200,
+                'msg'    => 'void',
+                'status' => 'success',
+                'code'   => 200,
             );
         }
 
@@ -182,8 +261,8 @@ class apartController extends Controller
             if ($productSize[$i]->size == $size) {
                 $data = array(
                     'sizeId' => $productSize[$i]->id,
-                    'status'  => 'success',
-                    'code'    => 200,
+                    'status' => 'success',
+                    'code'   => 200,
                 );
                 return response()->json($data,200);
             }
@@ -199,11 +278,6 @@ class apartController extends Controller
         $countArrayProduct = count($paramsArray);
         $apart = apart::findOrFail($idApart);
         $apart->articles()->wherePivot('apart_id', $idApart)->detach();
-        /*for ($i=0; $i < $countArrayProduct; $i++) {
-            $apart = apart::findOrFail($idApart);
-            /*$apart->articles()->wherePivot('size', $params->size)
-            ->detach($params->article_id);
-        }*/
         $data = array(
             'apart' => $apart,
             'status'  => 'success',
@@ -334,9 +408,10 @@ class apartController extends Controller
             $params = json_decode($json);
             $paramsArray = json_decode($json, true);
             //validacion
-            $validate = Validator::make($paramsArray, [
+            $validate = \Validator::make($paramsArray, [
                 'clients_id'   => 'required',
                 'admin_id'     => 'required',
+                'typeSell'     => 'required',
                 'price'        => 'required'
             ]);
             if ($validate->fails()) {

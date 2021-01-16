@@ -16,8 +16,8 @@ class CreateArticleSizeTable extends Migration
         Schema::create('article_size', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('stock');
-            $table->Integer('article_id')->unsigned();
-            $table->Integer('size_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('size_id')->unsigned()->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles');

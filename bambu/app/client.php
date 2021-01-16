@@ -29,4 +29,9 @@ class client extends Model
     {
         return $this->belongsToMany('App\article', 'article_client');
     }
+
+    public function apart()
+    {
+        return $this->hasMany('App\apart', 'clients_id');
+    }
 }

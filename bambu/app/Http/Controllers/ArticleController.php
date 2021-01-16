@@ -14,45 +14,33 @@ use App\apart;
 use App\billing;
 use App\purchase;
 use App\Department;
+use App\Gender;
 class ArticleController extends Controller
 {
 
     public function index(Request $request) {
        //listado de los articulos
-       $articles = article::with(['gender'])->with(['department'])->paginate(10);
-       // $articles = article::all();
-       //$pito = $this->addGenDpt($articles);
+        $articles = article::with(['gender'])->with(['department'])->paginate(10);
        return response()->json(array(
            'articles' => $articles,
-           //'pito'     => $pito,
            'status'   => 'success'
         ), 200);
     }
 
     public function addGenDpt($articles) {
-        $countProducts = count($articles);
         $dptSearch = Department::all();
-        $countDepartments = count($dptSearch);
-        for ($i=0; $i < $countProducts; $i++) {
-            /*$dptSearch = Department::where('gender_id', $articles[$i]->gender_id)
-            ->where('positionDpt', $articles[$i]->department)->first();*/
-            //$articles[$i]->dpt_id = $dptSearch->id;
-            //return $articles[$i];
-            //$findDepartment = Department::find($articles[$i]->dpt_id);
-            /*for ($index=0; $index < $countDepartments; $index++) {
-                if ($dptSearch[$index]->gender_id == $articles[$i]->gender_id) {
-                    if ($dptSearch[$index]->positionDpt == $articles[$i]->department) {
-                        echo $dptSearch[$index]->id;
-                        $article = article::where('id', $articles[$i]->id)->update([
-                            'dpt_id' => intval($dptSearch[$index]->id)
-                            //'dpt_id' => intval($dptSearch[$i]->id)
+        foreach ($articles as $product) {
+            $dptSearch = Department::where('gender_id', $product->gender_id)
+            ->where('positionDpt', $product->department)->get();
+            foreach ($dptSearch as $depart) {
+                if ($depart->gender_id  == $product->gender_id) {
+                    if ($depart->positionDpt == $product->department) {
+                        $product = article::where('id', $product->id)->update([
+                            'dpt_id' => intval($depart->id)
                         ]);
                     }
                 }
-            }*/
-            /*$article = article::where('id', $articles[$i]->id)->update([
-             'department' => intval($articles[$i]->dpt_id)
-            ]);*/
+            }
         }
     }
 
@@ -329,6 +317,11 @@ class ArticleController extends Controller
         ), 200);
     }
 
+    function support_webp(): bool {
+        return isset($_SERVER['HTTP_ACCEPT']) &&
+        strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false;
+    }
+
     public function store(Request $request) {
         $hash = $request->header('Authorization', null);
         $jwtAuthAdmin = new jwtAuthAdmin();
@@ -357,6 +350,89 @@ class ArticleController extends Controller
             $img =  $params->file;
             $isWebP = explode(';', $img);
             if ($isWebP[0] === "data:image/webp") {
+                $img = str_replace('data:image/webp;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                $img = 'data:image/jpeg;base64,'. $img;
+                $this->support_webp();
+                $imgName = time() . $params->name . ".webp";
+                $path = public_path('\storage\/'. $imgName);
+                $base = imagecreatefromwebp($img);
+                //header('Content-type: image/webp');
+                $imgConvert = Image::make($base)->save($path);
+            } else {
+                $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img = str_replace(' ', '+', $img);
+                //$imgName = time() . $params->photo;
+                $imgName = time() . $params->name . ".webp";
+                $base = base64_decode($img);
+                //$imgConvert = Image::make($base)->encode('jpg', 100);
+                $path = public_path('\storage\/'. $imgName);
+                $imgConvert = Image::make($base)->encode('webp', 85)->save($path);
+                //Storage::disk('public')->put($imgName, $imgConvert);
+            }
+            //guardar articulo
+            $article = new article();
+            $article->name         = $params->name;
+            $article->detail       = $params->detail;
+            $article->pricePublic  = $params->pricePublic;
+            $article->priceMajor   = $params->priceMajor;
+            $article->priceTuB     = $params->priceTuB;
+            $article->department   = $params->department;
+            $article->weight       = $params->weight;
+            $article->photo        = $imgName;
+            $article->gender       = $params->gender;
+            $article->gender_id    = $params->gender;
+            $article->dpt_id       = $params->department;
+            if ($params->tags_id != 0) {
+                $article->tags_id     = $params->tags_id;
+            }
+
+            $article->save();
+            $data = array(
+                'article' => $article ,
+                'status'  => 'success',
+                'code'    => 200,
+            );
+        } else {
+            // Error
+            $data = array(
+                'message' => 'login incorrecto',
+                'status' => 'Error',
+                'code'  => 400,
+            );
+        }
+        return response()->json($data, 200);
+    }
+
+    /*public function store(Request $request) {
+        $hash = $request->header('Authorization', null);
+        $jwtAuthAdmin = new jwtAuthAdmin();
+        $checkToken = $jwtAuthAdmin->checkToken($hash);
+        if ($checkToken) {
+            // recoger datos del POST
+            $json =  $request->input('json', null);
+            $params = json_decode($json);
+            $paramsArray = json_decode($json,true);
+            //validacion
+            $validate = \Validator::make($paramsArray, [
+                'name'        => 'required',
+                'detail'      => 'required',
+                'pricePublic' => 'required',
+                'priceMajor'  => 'required',
+                'priceTuB'    => 'required',
+                'department'  => 'required',
+                'weight'      => 'required',
+                'photo'       => 'required',
+                'gender'      => 'required'
+            ]);
+            if ($validate->fails()) {
+                return response()->json($validate->errors(),400);
+            }
+            //añadir verificacion de guardado del producto antes que la imagen
+            $img =  $params->file;
+            $isWebP = explode(';', $img);
+            if ($isWebP[0] === "data:image/webp") {
+                //return $isWebP;
                 $img = str_replace('data:image/webp;base64,', '', $img);
                 $img = str_replace(' ', '+', $img);
             } else {
@@ -401,7 +477,7 @@ class ArticleController extends Controller
             );
         }
         return response()->json($data, 200);
-    }
+    }*/
 
     public function update($id, Request $request)
     {
@@ -442,37 +518,37 @@ class ArticleController extends Controller
                 unset($paramsArray['created_at']);
                 unset($paramsArray['file']);
                 unset($paramsArray['photo']);
-                /*\Storage::delete($imgDB->photo);
-                $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-                \Storage::disk('public')->put($imgName, $resized_image);*/
                 $article = article::where('id', $id)->update($paramsArray);
             } else {
-                if ($lengthImg <= 100) {
-                    $img =  $params->file;
-                    $img = str_replace('data:image/jpeg;base64,', '', $img);
+                $img =  $params->file;
+                $isWebP = explode(';', $img);
+                if ($isWebP[0] === "data:image/webp") {
+                    $img = str_replace('data:image/webp;base64,', '', $img);
                     $img = str_replace(' ', '+', $img);
-                    $imgName = time() . $params->photo;
+                    $img = 'data:image/jpeg;base64,'. $img;
+                    $this->support_webp();
+                    $imgName = time() . $params->name . ".webp";
+                    $path = public_path('\storage\/'. $imgName);
+                    $base = imagecreatefromwebp($img);
                     $paramsArray['photo'] = $imgName;
                     unset($paramsArray['id']);
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
-                    \Storage::delete($imgDB->photo);
-                    // $resized_image = Image::make(base64_decode($img))->stream('jpg', 100);
-                    \Storage::disk('public')->put($imgName,base64_decode($img));
+                    \Storage::disk('public')->delete($imgDB->photo);
+                    $imgConvert = Image::make($base)->save($path);
                     $article = article::where('id', $id)->update($paramsArray);
-                }else {
-                    $route = public_path().'\catalogo'.'\/';
-                    $imgRoute = str_replace('/', '', $route);
-                    $imgRoute = $imgRoute . $paramsArray['photo'];
-                    \Storage::delete($imgDB->photo);
-                    $paramsArray['photo'] = time() .'.jpg';
-                    $img = $paramsArray['file'];
+                } else {
                     $img = str_replace('data:image/jpeg;base64,', '', $img);
                     $img = str_replace(' ', '+', $img);
+                    $imgName = time() . $params->name . ".webp";
+                    $base = base64_decode($img);
+                    $path = public_path('\storage\/'. $imgName);
+                    $paramsArray['photo'] = $imgName;
                     unset($paramsArray['id']);
                     unset($paramsArray['created_at']);
                     unset($paramsArray['file']);
-                    \Storage::disk('public')->put($paramsArray['photo'], base64_decode($img));
+                    \Storage::disk('public')->delete($imgDB->photo);
+                    $imgConvert = Image::make($base)->encode('webp', 85)->save($path);
                     $article = article::where('id', $id)->update($paramsArray);
                 }
             }

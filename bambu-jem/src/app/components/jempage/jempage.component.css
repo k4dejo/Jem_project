@@ -301,9 +301,9 @@ body{
   border-radius: 10px;
 }
 
-.slider .item:last-child {
+/*.slider .item:last-child {
   margin-right: 0;
-}
+}*/
 
 .slider h3{
   font-weight: bold;
@@ -462,6 +462,11 @@ body{
 }
 
 .carousel-showmanymoveone .carousel-control {
+  width: 4%;
+  background-image: none;
+}
+
+.carousel-control {
   width: 4%;
   background-image: none;
 }

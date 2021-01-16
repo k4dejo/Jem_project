@@ -8,6 +8,7 @@ import { Gender } from '../../models/gender';
 import { Departament } from '../../models/department';
 import { Offer } from '../../models/offer';
 import { off } from 'process';
+import { ImgUrl } from 'src/app/models/imgUrl';
 
 @Component({
   selector: 'app-offer',
@@ -28,6 +29,14 @@ export class OfferComponent implements OnInit {
   public searchProduct;
   public editPromoBool = false;
   public idPromo: number;
+  public urlPaginate: any;
+  public pageChange;
+  public btnNextDisabled = true;
+  public dataFromProductList;
+  public totalPage = 1;
+  public productToFind: string;
+  public imgUrl = ImgUrl;
+  public pageCurrent = 1;
 
   constructor(
     private router: Router,
@@ -66,21 +75,54 @@ export class OfferComponent implements OnInit {
     );
   }
 
+  nextPaginate(event: any) {
+    this.pageCurrent = event;
+    let nextPage = this.urlPaginate;
+    const urlSplit = nextPage.split('=');
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.productService.getPaginateProduct(this.pageChange).subscribe(
+      response => {
+        if (response.articles.next_page_url === null) {
+          this.btnNextDisabled = false;
+          this.dataFromProductList = response.articles.last_page_url;
+        } else {
+          this.urlPaginate = response.articles.next_page_url;
+        }
+        this.productView = response.articles.data;
+        this.addPhotoProductList();
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
   getProductView() {
     this.productService.getProduct().subscribe(
       response => {
-        this.productView = response.articles;
+        this.dataFromProductList = response.articles;
+        this.urlPaginate = response.articles.next_page_url;
+        this.productView = response.articles.data;
+        this.totalPage = response.articles.total;
         this.statusBool = true;
-        for (let index = 0; index < this.productView.length; index++) {
+        this.addPhotoProductList();
+        /*for (let index = 0; index < this.productView.length; index++) {
           // agrego formato a la imagen.
+          
           this.productView[index].photo = 'data:image/jpeg;base64,' + this.productView[index].photo;
           const photoView = this.productView[index].photo;
-        }
+        }*/
       // tslint:disable-next-line:no-shadowed-variable
       }, error => {
         console.log(<any> error);
       }
     );
+  }
+
+  addPhotoProductList() {
+    for (let index = 0; index < this.productView.length; index++) {
+      // agrego formato a la imagen.
+      this.productView[index].photo = this.imgUrl.url + this.productView[index].photo;
+    }
   }
 
   savePromo() {

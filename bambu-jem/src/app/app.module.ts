@@ -12,6 +12,7 @@ import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminlayoutComponent } from './adminlayout/adminlayout/adminlayout.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -62,6 +63,7 @@ import { ImageslistComponent } from './adminlayout/imageslist/imageslist.compone
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
 import { GendersDepartmentsComponent } from './adminlayout/genders-departments/genders-departments.component';
+import { SellingreportsComponent } from './adminlayout/sellingreports/sellingreports.component';
 
 
 
@@ -115,10 +117,12 @@ import { GendersDepartmentsComponent } from './adminlayout/genders-departments/g
     ImageslistComponent,
     ResetpasswordComponent,
     ChangepasswordComponent,
-    GendersDepartmentsComponent
+    GendersDepartmentsComponent,
+    SellingreportsComponent
   ],
   imports: [
     BrowserModule,
+    ChartsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

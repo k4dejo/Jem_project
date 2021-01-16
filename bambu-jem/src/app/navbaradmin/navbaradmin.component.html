@@ -44,14 +44,14 @@
           </a>
         </li>
         <li class="nav-item" *ngIf="priorityBoolean">
-          <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown"
+          <a class="navbar-link dropdown-toggle" data-toggle="dropdown"
           aria-haspopup="true" role="button">
             <i class="fas fa-file-alt"></i> Reportes
           </a>
           <div class="dropdown-menu">
             <ul class="dropdown-user">
               <li>
-                <a href="#"><i class="fas fa-search-dollar"></i> Ventas</a>
+                <a style="cursor: pointer;" (click)="gotoSellingReports()"><i class="fas fa-search-dollar"></i> Ventas</a>
               </li>
               <li role="separator" class="divider"></li>
               <li>

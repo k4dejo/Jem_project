@@ -105,6 +105,7 @@ export class ApartComponent implements OnInit {
   public dataFromProductList;
   public totalPage = 1;
   public productToFind: string;
+  public typeOfSellApart;
 
   constructor(
     private router: Router,
@@ -114,131 +115,23 @@ export class ApartComponent implements OnInit {
     private province: AddresServices,
     private invoiceService: InvoiceService,
     private billingService: BillingService,
-    private productService: ArticleService
-  ) {
+    private productService: ArticleService) {
     this.token = this.adminService.getToken();
     this.identity = this.adminService.getIdentity();
     this.productGet = new Article('', '', '', 0, 0, 0, 0, '', null, '', 0, '', 0, 0, '');
     this.client = new Client('', '', '', '', '', '', '', '', null, 1);
-    this.apartM = new Apart('', 0, 0, '');
+    this.apartM = new Apart('', 0, 0, '', '', '');
     this.billing = new Billing('', 0, '', '', '', '', '', '');
     this.attachApart = new AttachApart('', '', 0, '');
   }
 
-
-  /*=====================================INVOICE===============================================*/
-
-  createInvoicePDF() {
-    this.invoiceService.getInvoice(this.shipping, this.attachApart.apart_id).subscribe(
-      response => {
-        /*var FileSaver = require('file-saver');
-        var mediaType = 'application/pdf';
-        var filename = "factura.pdf";
-        var blob = new Blob([response], {type: mediaType});
-        console.log(response);
-        FileSaver.saveAs(blob, filename);*/
-      }, error => {
-        console.log(<any> error);
-      }
-    );
-
-  }
-  /*===================================FINDPRODUCTS======================================================*/
-
-  findProduct() {
-    if (this.productToFind != '') {
-      this.productService.searchProduct(this.productToFind).subscribe(
-        response => {
-          this.dataFromProductList = response.articles;
-          this.urlPaginate = response.articles.next_page_url;
-          this.productView = response.articles.data;
-          this.totalPage = response.articles.total;
-          this.addPhotoProductList();
-        }, error => {
-          console.log(<any> error);
-        }
-      ); 
-    }
-  }
-
-  //======================================================================================================
-
+  //=====================================GETTING_FIRST_DATA=======================================================
   getClientList() {
     this.adminService.getClientList().subscribe(
       response => {
         this.clients = response.clients;
       }, error => {
         console.log(<any>error);
-      }
-    );
-  }
-
-  over(idProduct: any) {
-    this.loading = true;
-    this.productService.showPhotoProduct(idProduct).subscribe(
-      response => {
-        this.loading = false;
-        // this.viewPhoto = response.productPhoto;
-        this.viewPhoto = this.imgUrl.url + response.productPhoto;
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  gotoFact() {
-    this.router.navigate(['admin/facturación']);
-  }
-
-  switchPrice(event: any) {
-    switch (event) {
-      case 1:
-        this.pPublic = true;
-        this.pMajor = false;
-        this.pBoutique = false;
-        break;
-      case 2:
-        this.pPublic = false;
-        this.pMajor = true;
-        this.pBoutique = false;
-        break;
-      case 3:
-        this.pPublic = false;
-        this.pMajor = false;
-        this.pBoutique = true;
-        break;
-      default:
-        console.log('Fuera de rango');
-        break;
-    }
-    this.calculatePriceWithShop();
-  }
-
-  /*nextPaginate(event: any) {
-    this.loading = true;
-    this.p = event;
-    this.loading = false;
-  }*/
-
-  nextPaginate(event: any) {
-    this.pageCurrent = event;
-    let nextPage = this.urlPaginate;
-    const urlSplit = nextPage.split('=');
-    this.pageChange = urlSplit[0] + '=' + event;
-    this.loading = true;
-    this.productService.getPaginateProduct(this.pageChange).subscribe(
-      response => {
-        if (response.articles.next_page_url === null) {
-          this.btnNextDisabled = false;
-          this.dataFromProductList = response.articles.last_page_url;
-        } else {
-          this.urlPaginate = response.articles.next_page_url;
-        }
-        this.loading = false;
-        this.productView = response.articles.data;
-        this.addPhotoProductList();
-      }, error => {
-        console.log(<any> error);
       }
     );
   }
@@ -265,439 +158,6 @@ export class ApartComponent implements OnInit {
     );
   }
 
-  getProduct(productId: any) {
-    this.loading = true;
-    this.productService.getProductU(productId).subscribe(
-      response => {
-        this.productGet = response.articles;
-        this.arrayProductSize = response.arraySizeArticle;
-        this.loading = false;
-        this.getSizeProduct(productId);
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  sizeAdd(sizeId: any, productId: any) {
-    const idProduct = productId.id;
-    this.attachApart.size = sizeId.size;
-    this.sizeId = sizeId.id;
-    this.checkAmountSizesProduct(sizeId.id, productId.id);
-  }
-
-  checkAmountSizesProduct(sizeId, productId) {
-    this.apartService.checkAmountProduct(sizeId, productId).subscribe(
-      response => {
-        if (response.amountCheck === 'success') {
-          this.AmountInputBool = true;
-        } else {
-          this.AmountInputBool = false;
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  getSizeProduct(idProduct: any) {
-    this.productService.getProductSizeList(idProduct).subscribe(
-      response => {
-        this.productSizes = response.article;
-        if (this.AmountInputBool = true) {
-          this.AmountInputBool = false;
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  editAmountProduct(idProduct: any, sizeId, isDelete, product) {
-    this.loading = true;
-    this.apartService.updateAmountApart(this.token, idProduct, sizeId, isDelete, product).subscribe(
-      response => {
-        console.log(response);
-        if (response.code === 200) {
-          if (response.status === 'success') {
-            this.loading = false;
-          }
-        } else if (response.code === 400) {
-          if (response.status === 'fail') {
-            this.showTokenExpire();
-          }
-          this.loading = false;
-        }
-        // tslint:disable-next-line:no-shadowed-variable
-      }, error => {
-        console.log(<any>error);
-        this.showErrorAdmin(error);
-      }
-    );
-  }
-
-  compareAmountInAdd(sizeId, productId, amountCompare) {
-    this.apartService.compareAmountSizeProduct(sizeId, productId, amountCompare).subscribe(
-      response => {
-        if (response.amountCheck === 'success') {
-          this.AmountInputBool = true;
-          this.compareBool = true;
-          this.messageError = false;
-          this.editAmountProduct(productId, this.sizeId, this.isDelete, this.attachApart);
-          this.apartService.addNewApart(this.token, this.apartM).subscribe(
-            responseApart => {
-              if (responseApart.status === 'success' || responseApart.status === 'Exist') {
-                // this.attachApart.amount = this.valueQtyBtn;
-                this.attachApart.article_id = productId;
-                this.attachApart.apart_id = responseApart.apart.id;
-                this.attachApartProduct(this.token, this.attachApart);
-              }
-            }, error => {
-              console.log(<any>error);
-              this.showErrorAdmin(error);
-            }
-          );
-        } else {
-          this.AmountInputBool = false;
-          this.compareBool = false;
-          this.messageError = true;
-          this.startTimer();
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-  checkoutApart(productGet: any) {
-    if (this.pPublic) {
-      this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
-    }
-    if (this.pMajor) {
-      this.apartM.price += productGet.priceMajor * this.valueQtyBtn;
-    }
-    if (this.pBoutique) {
-      this.apartM.price += productGet.priceTuB * this.valueQtyBtn;
-    }
-    this.billing.price = this.apartM.price;
-    this.attachApart.amount = this.valueQtyBtn;
-    this.isDelete = 'add';
-    this.compareAmountInAdd(this.sizeId, productGet.id, this.attachApart.amount);
-  }
-
-  startTimer() {
-    this.interval = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-        if (this.timeLeft === 0) {
-          this.messageError = false;
-        }
-      }
-    }, 500);
-  }
-
-  getApart(apartId: any) {
-    this.idCleanApart = apartId;
-    this.apartService.getApart(apartId).subscribe(
-      response => {
-        this.arrayApart = response.apart;
-        this.calculatePriceWithShop();
-        for (let index = 0; index < this.arrayApart.length; index++) {
-          this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
-        }
-        this.calculateWeight();
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  calculatePriceWithShop() {
-    this.apartM.price = 0;
-    for (let index = 0; index < this.arrayApart.length; index++) {
-      // this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
-      // this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-      if (this.pPublic) {
-        this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-      }
-      if (this.pMajor) {
-        this.apartM.price += this.arrayApart[index].priceMajor * this.arrayApart[index].pivot.amount;
-      }
-      if (this.pBoutique) {
-        this.apartM.price += this.arrayApart[index].priceTuB * this.arrayApart[index].pivot.amount;
-      }
-      this.billing.price = this.apartM.price;
-      this.billing.price += this.shipping;
-    }
-  }
-
-  getApartClient(clientId: any) {
-    this.apartService.getApartClient(clientId).subscribe(
-      response => {
-        this.arrayApart = response.apart;
-        console.log(response.apart);
-        this.attachApart.apart_id = this.arrayApart[0].pivot.apart_id;
-        for (let index = 0; index < this.arrayApart.length; index++) {
-          this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
-          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-          this.billing.price = this.apartM.price;
-        }
-        this.calculateWeight();
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  editApart(IdApart: any) {
-    this.apartM.id = IdApart;
-    this.apartM.price = 0;
-    this.apartService.getApart(IdApart).subscribe(
-      response => {
-        this.arrayApart = response.apart;
-        this.calculateWeight();
-        for (let index = 0; index < this.arrayApart.length; index++) {
-          this.apartM.price += this.arrayApart[index].pricePublic * this.arrayApart[index].pivot.amount;
-        }
-        this.billing.price = this.apartM.price;
-        this.editFunctApart(this.token, this.apartM);
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  editFunctApart(token, dataApart) {
-    this.apartService.editApart(token, dataApart).subscribe(
-      response => {
-      }, error => {
-        console.log(<any>error);
-        this.showErrorAdmin(error);
-      }
-    );
-  }
-
-  editShipping(e: any) {
-    this.shipping = e.target.value;
-  }
-
-  selectClient(dataClient: any) {
-    this.client.name = dataClient.name;
-    this.client.address = dataClient.address;
-    this.client.phone = dataClient.phone;
-    this.client.email = dataClient.email;
-    this.client.addressDetail = dataClient.addressDetail;
-    this.billing.client = dataClient.name;
-    this.billing.email = dataClient.email;
-    this.billing.address = dataClient.address;
-    this.billing.addressDetail = dataClient.addressDetail;
-    this.billing.phone = dataClient.phone;
-    this.billing.status = 'process';
-    this.apartM.clients_id = dataClient.id;
-    this.apartM.price = 0;
-    this.clientBool = false;
-    this.splite = this.client.address.split(',');
-    this.viewAddress(this.splite[0], this.splite[1]);
-    this.adminService.authAdmin(this.identity).subscribe(
-      response => {
-        if (response.status !== 'admin') {
-          this.router.navigate(['LoginAdmin']);
-        } else {
-          this.apartM.admin_id = this.identity.sub;
-          this.addNewApartService(this.token, this.apartM, dataClient.id);
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  addNewApartService(token, apartM, clientId) {
-    this.apartService.addNewApart(token, apartM).subscribe(
-      response => {
-        if (response.status === 'success' || response.status === 'Exist') {
-          this.attachApart.apart_id = response.apart.id;
-          this.getApartClient(clientId);
-          this.idCleanApart = response.apart.id;
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  attachApartProduct(token: any, dataApart: any) {
-    this.loading = true;
-    this.apartService.attachProductApart(token, dataApart).subscribe(
-      response => {
-        if (response.status === 'success') {
-          // this.getApart(dataApart.apart_id);
-          this.editApart(dataApart.apart_id);
-          this.loading = false;
-          // this.calculateWeight();
-        }
-      }, error => {
-        console.log(<any>error);
-        this.showErrorAdmin(error);
-      }
-    );
-  }
-
-  checkSizeApart(productId, size, productApart) {
-    this.apartService.checkSizeIdApart(productId, size).subscribe(
-      response => {
-        if (response.status === 'success') {
-          this.isDelete = 'rest';
-          this.editAmountProduct(productId, response.sizeId, this.isDelete, productApart);
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  detachProductBilling(product: any) {
-    this.attachApart.size = product.pivot.size;
-    this.attachApart.article_id = product.id;
-    const arrayDetach = this.attachApart;
-    arrayDetach.amount = product.pivot.amount;
-    this.apartService.dettachProductApart(arrayDetach).subscribe(
-      response => {
-        this.calculateWeight();
-        this.checkSizeApart(product.id, product.pivot.size, arrayDetach);
-        this.getApart(response.apart.id);
-        this.editApart(response.apart.id);
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  // =============================Facturacion===============================
-
-  PrintDoc() {
-    const Document = new jsPDF();
-    Document.fromHTML(document.getElementById('FormFactu'), 14, 15);
-    /* Document.text(50, 10, 'Boutique Jem');
-    Document.text(20, 20, 'Nombre:' + this.client.name);
-    Document.text(20, 30, 'Teléfono:' + this.client.phone);
-    Document.text(20, 40, 'Correo Eléctronico:' + this.client.email);
-    Document.text(20, 50, 'Dirección:' + this.client.address);
-    Document.text(20, 60, 'Dirección Domicilio:' + this.client.addressDetail);
-    Document.text(20, 70, 'Fecha:' + this.date);
-    const head = [['Producto', 'Cantidad', 'Talla', 'Precio']];
-    autoTable(Document, {
-      head: head,
-      html: '#tableBilling',
-      tableWidth: 'wrap',
-      styles: { cellPadding: 1, fontSize: 10 },
-    });*/
-    Document.save('Factura Boutique Jem');
-  }
-
-  addNewBilling() {
-    this.arrayBilling = this.arrayApart;
-    this.loading = true;
-    this.billingService.addNewBilling(this.token, this.billing).subscribe(
-      response => {
-        const newBillingModel = new AttachApart('', '', 0, '');
-        for (let index = 0; index < this.arrayBilling.length; index++) {
-          newBillingModel.article_id = this.arrayBilling[index].id;
-          newBillingModel.size = this.arrayBilling[index].pivot.size;
-          newBillingModel.amount = this.arrayBilling[index].pivot.amount;
-          this.gotoAttachBilling(response.billing.id, newBillingModel, index, this.arrayBilling.length);
-        }
-      }, error => {
-        console.log(<any>error);
-        this.showError(error);
-      }
-    );
-  }
-
-  toast(numberbool: any) {
-    switch (numberbool) {
-      case 1:
-        this.showSuccess();
-        break;
-      default:
-        break;
-    }
-  }
-
-  showSuccess() {
-    this.toastr.overlayContainer = this.toastContainer;
-    this.toastr.success('Se ha añadido correctamente', 'Éxito', {
-      timeOut: 3000,
-      progressBar: true
-    });
-  }
-
-  showError(error) {
-    if (error.error.address[0] === 'The address field is required.') {
-      this.toastr.overlayContainer = this.toastContainer;
-      this.toastr.error('El campo dirección es requerido',
-        'Error', {
-        timeOut: 4000,
-        progressBar: true
-      });
-      this.loading = false;
-    }
-  }
-
-  showTokenExpire() {
-    this.toastr.overlayContainer = this.toastContainer;
-    this.toastr.error('La sesión ha expirado, por favor cerra sesión y vuelve a intentar',
-      'Error', {
-      timeOut: 4000,
-      progressBar: true
-    });
-    this.loading = false;
-  }
-
-  showErrorAdmin(error) {
-    this.toastr.overlayContainer = this.toastContainer;
-    this.toastr.error(error,
-      'Error', {
-      timeOut: 4000,
-      progressBar: true
-    });
-    this.loading = false;
-  }
-
-
-  gotoAttachBilling(idBilling, dataAttach, index, lengthArray) {
-    index += 1;
-    this.billingService.attachArrayBilling(this.token, idBilling, dataAttach).subscribe(
-      responseAttach => {
-        if (responseAttach.status === 'success' && index === lengthArray) {
-          this.cleanDataApart();
-        } else {
-          console.log(responseAttach);
-        }
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
-
-  cleanDataApart() {
-    this.createInvoicePDF();
-    this.apartService.cleanApartClient(this.token, this.idCleanApart, this.arrayApart)
-      .subscribe(
-        responseCleanApart => {
-          if (responseCleanApart.status === 'success') {
-            this.getApartClient(this.apartM.clients_id);
-            //.PrintDoc();
-            this.billing.price = 0;
-            this.shipping = 0;
-            this.apartM.price = 0;
-            this.loading = false;
-          }
-        }, error => {
-          console.log(error);
-        }
-      );
-  }
-
   getDate() {
     this.day = this.currentDate.getDate();
     if (this.currentDate.getDate() < 10) {
@@ -711,89 +171,136 @@ export class ApartComponent implements OnInit {
     this.date = this.currentDate.getFullYear() + '-' + this.month + '-' + this.day;
   }
 
-  /*===============================Shipping================================*/
+  selectClient(dataClient: any) {
+    this.client = dataClient;
+    this.billing.client = dataClient.name;
+    this.billing.email = dataClient.email;
+    this.billing.address = dataClient.address;
+    this.billing.addressDetail = dataClient.addressDetail;
+    this.billing.phone = dataClient.phone;
+    this.apartM.clients_id = dataClient.id;
+    this.apartM.price = 0;
+    this.apartM.typeSell = 'public';
+    this.apartM.status = 'incompleto';
+    this.splite = this.client.address.split(',');
+    this.viewAddress(this.splite[0], this.splite[1]);
+    this.authAdmin(this.client);
+  }
+
+  authAdmin(dataClient) {
+    this.adminService.authAdmin(this.identity).subscribe(
+      response => {
+        if (response.status !== 'admin') {
+          this.router.navigate(['LoginAdmin']);
+        } else {
+          this.apartM.admin_id = this.identity.sub;
+          this.addOrGetApart(this.token, this.apartM, dataClient.id);
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  addOrGetApart(token, apartM, clientId) {
+    this.apartService.addNewApart(token, apartM).subscribe(
+      response => {
+        if (response.status === 'success' || response.status === 'Exist') {
+          this.attachApart.apart_id = response.apart.id;
+          this.typeOfSellApart = response.apart.typeSell;
+          this.arrayApart = response.apart.articles;
+          this.addPhotoToApartProducts();
+          this.getApartClient();
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  getApartClient() {
+    this.calculateWeight();
+    this.switchPrice(this.typeOfSellApart);
+  }
+
+  calculatePriceOfApart(typeOfSell: any) {
+    this.apartM.price = 0;
+    let mappingPrice = this.arrayApart.map((apartCurrent) => {
+      if (typeOfSell === 'public') {
+        this.apartM.price += apartCurrent.pricePublic * apartCurrent.pivot.amount; 
+      } else if (typeOfSell === 'major') {
+        this.apartM.price += apartCurrent.priceMajor * apartCurrent.pivot.amount;
+      } else {
+        this.apartM.price += apartCurrent.priceTuB * apartCurrent.pivot.amount;
+      }
+    });
+    this.calculateWeight();
+  }
+
+  addPhotoToApartProducts() {
+    for (let index = 0; index < this.arrayApart.length; index++) {
+      this.arrayApart[index].photo = this.imgUrl.url + this.arrayApart[index].photo;
+    }
+  }
 
   calculateWeight() {
     this.totalWeight = 0;
-    for (let index = 0; index < this.arrayApart.length; ++index) {
-      this.totalWeight += Number(this.arrayApart[index].weight) * this.arrayApart[index].pivot.amount;
-    }
+    var roots = this.arrayApart.map((apartCurrent) => {
+      this.totalWeight +=  Number(apartCurrent.weight) * apartCurrent.pivot.amount;
+    });
     this.viewAddress(this.splite[0], this.splite[1]);
   }
 
-
-  shippingCalculate(weight: any, rate: any, additional: any) {
-    this.shipping = 0;
-    if (weight <= 1 && weight > 0) {
-      this.shipping += rate;
-    }
-    if (weight > 1) {
-      const weightAdditional = weight - 1;
-      this.shipping += rate + (weightAdditional * additional);
-    }
-    this.billing.price += this.shipping;
-  }
-
-  searchGamDist(dis) {
-    for (let index = 0; index < this.arrayGamDis.length; index++) {
-      const arrayDisGam = this.arrayGamDis[index].toString();
-      if (dis === arrayDisGam) {
-        return true;
+  switchPrice(event: any) {
+    switch (event) {
+      case 'public':
+        this.pPublic = true;
+        this.pMajor = false;
+        this.pBoutique = false;
+        this.apartM.typeSell = 'public';
+        this.calculatePriceOfApart(event);
+        this.editApart(this.attachApart.apart_id);
         break;
-      }
-    }
-    return false;
-  }
-
-  viewAddress(province: any, district: any) {
-    const responseSearch = this.searchGamDist(district);
-    switch (province) {
-      case 'San José':
-        if (responseSearch) {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
+      case 'major':
+        this.pPublic = false;
+        this.pMajor = true;
+        this.pBoutique = false;
+        this.apartM.typeSell = 'major';
+        this.calculatePriceOfApart(event);
+        this.editApart(this.attachApart.apart_id);
         break;
-      case 'Alajuela':
-
-        if (responseSearch) {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
-        break;
-      case 'Guanacaste':
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        break;
-      case 'Heredia':
-        if (responseSearch) {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
-        break;
-      case 'Puntarenas':
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        break;
-      case 'Limón':
-        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        break;
-      case 'Cartago':
-        if (responseSearch) {
-          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
-        } else {
-          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
-        }
+      case 'boutique':
+        this.pPublic = false;
+        this.pMajor = false;
+        this.pBoutique = true;
+        this.apartM.typeSell = 'boutique';
+        this.calculatePriceOfApart(event);
+        this.editApart(this.attachApart.apart_id);
         break;
       default:
-        // tslint:disable-next-line:no-unused-expression
-        'fuera de rango de zona';
+        console.log('Fuera de rango');
         break;
     }
   }
+  //===================================FINDPRODUCTS======================================================
 
-  /*==========================================Dirección===========================================*/
+  findProduct() {
+    if (this.productToFind != '') {
+      this.productService.searchProduct(this.productToFind).subscribe(
+        response => {
+          this.dataFromProductList = response.articles;
+          this.urlPaginate = response.articles.next_page_url;
+          this.productView = response.articles.data;
+          this.totalPage = response.articles.total;
+          this.addPhotoProductList();
+        }, error => {
+          console.log(<any>error);
+        }
+      );
+    }
+  }
+
+  //==========================================Dirección===========================================
   getProvice() {
     this.province.getProvinceJson().subscribe(
       response => {
@@ -893,18 +400,408 @@ export class ApartComponent implements OnInit {
     this.viewAddress(this.splite[0], this.splite[1]);
   }
 
+  searchGamDist(dis) {
+    for (let index = 0; index < this.arrayGamDis.length; index++) {
+      const arrayDisGam = this.arrayGamDis[index].toString();
+      if (dis === arrayDisGam) {
+        return true;
+        break;
+      }
+    }
+    return false;
+  }
 
-  /*=======================================================================================*/
+  viewAddress(province: any, district: any) {
+    const responseSearch = this.searchGamDist(district);
+    switch (province) {
+      case 'San José':
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+        break;
+      case 'Alajuela':
+
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+        break;
+      case 'Guanacaste':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        break;
+      case 'Heredia':
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+        break;
+      case 'Puntarenas':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        break;
+      case 'Limón':
+        this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        break;
+      case 'Cartago':
+        if (responseSearch) {
+          this.shippingCalculate(this.totalWeight, this.rateGAM, this.addGAM);
+        } else {
+          this.shippingCalculate(this.totalWeight, this.restRate, this.restAdd);
+        }
+        break;
+      default:
+        // tslint:disable-next-line:no-unused-expression
+        'fuera de rango de zona';
+        break;
+    }
+  }
+
+  shippingCalculate(weight: any, rate: any, additional: any) {
+    this.shipping = 0;
+    if (weight <= 1 && weight > 0) {
+      this.shipping += rate;
+    }
+    if (weight > 1) {
+      const weightAdditional = weight - 1;
+      this.shipping += rate + (weightAdditional * additional);
+    }
+    this.billing.price += this.shipping;
+  }
+
+  //=========================GET_PRODUCT_FOR_PURCHASE==============================================
+
+  getProduct(productId: any) {
+    this.loading = true;
+    this.productService.getProductU(productId).subscribe(
+      response => {
+        this.productGet = response.articles;
+        this.arrayProductSize = response.arraySizeArticle;
+        this.loading = false;
+        this.getSizeProduct(productId);
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  getSizeProduct(idProduct: any) {
+    this.productService.getProductSizeList(idProduct).subscribe(
+      response => {
+        this.productSizes = response.article;
+        if (this.AmountInputBool = true) {
+          this.AmountInputBool = false;
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  //========================================TOASTR============================================================
+  toast(numberbool: any) {
+    switch (numberbool) {
+      case 1:
+        this.showSuccess();
+        break;
+      default:
+        break;
+    }
+  }
+
+  showSuccess() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.success('Se ha añadido correctamente', 'Éxito', {
+      timeOut: 3000,
+      progressBar: true
+    });
+  }
+
+  showError(error) {
+    if (error.error.address[0] === 'The address field is required.') {
+      this.toastr.overlayContainer = this.toastContainer;
+      this.toastr.error('El campo dirección es requerido',
+        'Error', {
+        timeOut: 4000,
+        progressBar: true
+      });
+      this.loading = false;
+    }
+  }
+
+  showTokenExpire() {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error('La sesión ha expirado, por favor cerra sesión y vuelve a intentar',
+      'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
+    this.loading = false;
+  }
+
+  showErrorAdmin(error) {
+    this.toastr.overlayContainer = this.toastContainer;
+    this.toastr.error(error,
+      'Error', {
+      timeOut: 4000,
+      progressBar: true
+    });
+    this.loading = false;
+  }
+
+  // =============================Facturacion===============================
+  addNewFact() {
+    this.loading = true;
+    this.apartM.price += this.shipping;
+    this.apartM.status = "completo";
+    this.apartService.editApart(this.token, this.apartM).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.createInvoicePDF();
+          this.shipping = 0;
+          this.loading = false;
+          this.apartM = new Apart('', 0, 0, '', '', '');
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  createInvoicePDF() {
+    this.invoiceService.getInvoice(this.shipping, this.attachApart.apart_id).subscribe(
+      response => {
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  editShipping(e: any) {
+    this.shipping = e.target.value;
+  }
+
+  //==================================GET_PRODUCT_FOR_PURCHASE_APART======================================
+  checkoutApart(productGet: any) {
+    if (this.pPublic) {
+      this.apartM.price += productGet.pricePublic * this.valueQtyBtn;
+    }
+    if (this.pMajor) {
+      this.apartM.price += productGet.priceMajor * this.valueQtyBtn;
+    }
+    if (this.pBoutique) {
+      this.apartM.price += productGet.priceTuB * this.valueQtyBtn;
+    }
+    this.attachApart.amount = this.valueQtyBtn;
+    this.isDelete = 'add';
+    this.compareAmountInAdd(this.sizeId, productGet.id, this.attachApart.amount);
+  }
+
+  compareAmountInAdd(sizeId, productId, amountCompare) {
+    this.apartService.compareAmountSizeProduct(sizeId, productId, amountCompare).subscribe(
+      response => {
+        if (response.amountCheck === 'success') {
+          this.AmountInputBool = true;
+          this.compareBool = true;
+          this.messageError = false;
+          this.attachApart.article_id = productId;
+          this.attachApartProduct(this.token, this.attachApart, productId);
+        }
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  attachApartProduct(token: any, dataApart: any, productId) {
+    this.loading = true;
+    this.apartService.attachProductApart(token, dataApart).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.editAmountProduct(productId, this.sizeId, this.isDelete, this.attachApart);
+          this.editApart(dataApart.apart_id);
+          this.loading = false;
+        }  
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  detachProductBilling(product: any) {
+    this.attachApart.size = product.pivot.size;
+    this.attachApart.article_id = product.id;
+    const arrayDetach = this.attachApart;
+    arrayDetach.amount = product.pivot.amount;
+    this.apartService.dettachProductApart(arrayDetach).subscribe(
+      response => {
+        this.restProduct(product);
+        this.calculateWeight();
+        this.checkSizeApart(product.id, product.pivot.size, arrayDetach);
+        this.editApart(response.apart.id);
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  restProduct(product) {
+    if (this.pPublic) {
+      this.apartM.price -= product.pricePublic * product.pivot.amount; 
+    } else if(this.pMajor) {
+      this.apartM.price -= product.priceMajor * product.pivot.amount;
+    } else {
+      this.apartM.price -= product.priceTuB * product.pivot.amount;
+    }
+  }
+
+  checkSizeApart(productId, size, productApart) {
+    this.apartService.checkSizeIdApart(productId, size).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.isDelete = 'rest';
+          this.editAmountProduct(productId, response.sizeId, this.isDelete, productApart);
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  editAmountProduct(idProduct: any, sizeId, isDelete, product) {
+    this.loading = true;
+
+    this.apartService.updateAmountApart(this.token, idProduct, sizeId, isDelete, product).subscribe(
+      response => {
+        if (response.code === 200) {
+          if (response.status === 'success') {
+            this.loading = false;
+          }
+        } else if (response.code === 400) {
+          if (response.status === 'fail') {
+            this.showTokenExpire();
+          }
+          this.loading = false;
+        }
+      }, error => {
+        console.log(<any> error);
+        this.showErrorAdmin(error);
+      }
+    );
+  }
+
+  editApart(IdApart: any) {
+    this.apartM.id = IdApart;
+    this.billing.price = this.apartM.price;
+    this.apartService.editApart(this.token, this.apartM).subscribe(
+      response => {
+        this.getApart(IdApart);
+      },
+      error => { console.log(<any>error); }
+    );
+  }
+
+  getApart(apartId: any) {
+    this.idCleanApart = apartId;
+    this.apartService.getApart(apartId).subscribe(
+      response => {
+        this.arrayApart = response.apart;
+        let addPhoto = this.arrayApart.map((currentApart) => {
+          currentApart.photo = this.imgUrl.url + currentApart.photo;
+        });
+        this.calculateWeight();
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+
+  sizeAdd(sizeId: any, productId: any) {
+    const idProduct = productId.id;
+    this.attachApart.size = sizeId.size;
+    this.sizeId = sizeId.id;
+    this.checkAmountSizesProduct(sizeId.id, productId.id);
+  }
+
+  checkAmountSizesProduct(sizeId, productId) {
+    this.apartService.checkAmountProduct(sizeId, productId).subscribe(
+      response => {
+        if (response.amountCheck === 'success') {
+          this.AmountInputBool = true;
+        } else {
+          this.AmountInputBool = false;
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  //==================================utilities======================================
+
+  over(idProduct: any) {
+    this.loading = true;
+    this.productService.showPhotoProduct(idProduct).subscribe(
+      response => {
+        this.loading = false;
+        // this.viewPhoto = response.productPhoto;
+        this.viewPhoto = this.imgUrl.url + response.productPhoto;
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+        if (this.timeLeft === 0) {
+          this.messageError = false;
+        }
+      }
+    }, 500);
+  }
+
+  nextPaginate(event: any) {
+    this.pageCurrent = event;
+    let nextPage = this.urlPaginate;
+    const urlSplit = nextPage.split('=');
+    this.pageChange = urlSplit[0] + '=' + event;
+    this.loading = true;
+    this.productService.getPaginateProduct(this.pageChange).subscribe(
+      response => {
+        if (response.articles.next_page_url === null) {
+          this.btnNextDisabled = false;
+          this.dataFromProductList = response.articles.last_page_url;
+        } else {
+          this.urlPaginate = response.articles.next_page_url;
+        }
+        this.loading = false;
+        this.productView = response.articles.data;
+        this.addPhotoProductList();
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  gotoFact() {
+    this.router.navigate(['admin/facturación']);
+  }
 
   ngOnInit() {
     if (this.identity == null) {
       this.router.navigate(['LoginAdmin']);
     } else {
-      // this.getGender();
-      this.getProductView();
       this.getClientList();
-      this.getDate();
       this.getProvice();
+      this.getDate();
+      this.getProductView();
     }
+
   }
 }

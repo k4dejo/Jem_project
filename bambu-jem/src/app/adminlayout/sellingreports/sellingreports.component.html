@@ -1,0 +1,41 @@
+<div class="page-wrapper bg-gra-03">
+    <app-navbaradmin></app-navbaradmin>
+    <div class="wrapper wrapper--w1100">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Ventas</h2>
+            </div>
+            <div class="card-body">
+                <div class="col-md-6">
+                    <div class="input-goup-desc">
+                        <label for="">Fecha incio</label>
+                        <div class="input-group">
+                            <input class="form-control" type="date" name="begin" #begin="ngModel"
+                            [(ngModel)]="beginDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-goup-desc">
+                        <label for="">Fecha final</label>
+                        <div class="input-group">
+                            <input class="form-control" type="date" name="finish" #finish="ngModel"
+                            [(ngModel)]="finishDate">
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block;" *ngIf="isGetChartSelling">
+                    <canvas baseChart
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    [plugins]="lineChartPlugins">
+                  </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

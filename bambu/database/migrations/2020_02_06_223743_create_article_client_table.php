@@ -15,8 +15,8 @@ class CreateArticleClientTable extends Migration
     {
         Schema::create('article_client', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->Integer('article_id')->unsigned();
-            $table->Integer('client_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('client_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles');

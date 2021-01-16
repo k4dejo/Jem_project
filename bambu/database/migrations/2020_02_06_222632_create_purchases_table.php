@@ -13,6 +13,7 @@ class CreatePurchasesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('purchases');
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->bigInteger('price');
@@ -20,9 +21,9 @@ class CreatePurchasesTable extends Migration
             $table->string('status');
             $table->string('orderId');
             $table->timestamps();
-            $table->unsignedInteger('clients_id');
-            $table->unsignedInteger('coupon_id');
-            $table->bigInteger('addresspurchases_id')->unsigned()->nullable();
+            $table->bigInteger('clients_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('coupon_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('addresspurchases_id')->unsigned()->nullable()->onDelete('cascade');
 
             $table->foreign('addresspurchases_id')->references('id')->on('address_purchases');
             $table->foreign('coupon_id')->references('id')->on('coupons');

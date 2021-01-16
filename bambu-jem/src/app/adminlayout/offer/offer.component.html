@@ -13,24 +13,25 @@
           </div>
           <table class="table table-striped">
             <thead>
-              <th scope="col">Producto</th>
+              <th colspan="5" scope="col">Producto</th>
               <th scope="col">Género</th>
               <th scope="col">Depart</th>
               <th scope="col">Público</th>
               <th scope="col"></th>
             </thead>
             <tbody>
-              <tr *ngFor="let product of productView | filter: searchProduct | paginate: { itemsPerPage: 5, currentPage: p}">
-                <td>{{product.name}}</td>
+              <tr *ngFor="let product of productView | filter: searchProduct |
+              paginate: { itemsPerPage: 10, currentPage: pageCurrent, totalItems: totalPage, id: 'productsList' }">
+                <td colspan="5">{{product.name}}</td>
                 <td>{{product.gender.gender}}</td>
                 <td>{{product.department.department}}</td>
                 <td>₡ {{product.pricePublic | number: '3.'}}</td>
                 <td><input type="button" class="btn btn--blue btn--pill" value="Agregar Promo" (click)="getProductPromo(product.id)"></td>
               </tr>
             </tbody>
-            <pagination-controls class="my-pagination" (pageChange)="p = $event">
-            </pagination-controls>
           </table>
+          <pagination-controls id="productsList" class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
+          (pageChange)="nextPaginate($event)"></pagination-controls>
           <div class="formgroup">
             <form class="form-group" action="">
               <div class="row">

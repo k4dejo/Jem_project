@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gender extends Model
 {
     protected $table = "gender";
-    protected $fillable = ['gender', 'img'];
+    protected $fillable = ['id', 'gender', 'img'];
 
     //relations
 
@@ -18,6 +18,6 @@ class Gender extends Model
 
     public function articles()
     {
-    	return $this->hasMany('App\article', 'gender_id');
+        return $this->hasMany('App\article');
     }
 }

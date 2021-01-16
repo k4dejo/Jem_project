@@ -13,6 +13,7 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('articles');
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->timestamps();
@@ -25,10 +26,12 @@ class CreateArticlesTable extends Migration
             $table->decimal('weight');
             $table->string('photo'); //extension .jpg .png ..etc
             $table->boolean('gender');
+            $table->engine = 'InnoDB';
             $table->bigInteger('tags_id')->unsigned()->nullable()->onDelete('cascade');
+        });
 
+        Schema::table('articles', function($table) {
             $table->foreign('tags_id')->references('id')->on('tags');
-
         });
     }
 

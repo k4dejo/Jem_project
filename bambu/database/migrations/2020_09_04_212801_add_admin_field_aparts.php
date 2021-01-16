@@ -14,7 +14,7 @@ class AddAdminFieldAparts extends Migration
     public function up()
     {
         Schema::table('aparts', function (Blueprint $table) {
-            $table->bigInteger('admin_id')->nullable();
+            $table->bigInteger('admin_id')->nullable()->unsigned();
 
             $table->foreign('admin_id')->references('id')->on('admins');
         });

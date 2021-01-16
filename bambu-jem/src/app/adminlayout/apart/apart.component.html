@@ -82,55 +82,22 @@
               <div class="row">
                 <div class="col-md-4">
                   <input style="color: white; background-color: rgb(32, 101, 250);" type="button" class="btn btn--pill"
-                    value="Precio Público" (click)="switchPrice(1)">
+                    value="Precio Público" (click)="switchPrice('public')">
                 </div>
                 <div class="col-md-4">
                   <input style="color: white; background-color:  rgb(32, 101, 250);" type="button" class="btn btn--pill"
-                    value="Precio por mayor" (click)="switchPrice(2)">
+                    value="Precio por mayor" (click)="switchPrice('major')">
                 </div>
                 <div class="col-md-4">
-                  <input style="color: white; background-color:  rgb(32, 101, 250);;" type="button"
-                    class="btn btn--pill" value="Tu boutique" (click)="switchPrice(3)">
+                  <input style="color: white; background-color:  rgb(32, 101, 250);" type="button"
+                    class="btn btn--pill" value="Tu boutique" (click)="switchPrice('boutique')">
                 </div>
               </div>
             </div>
-            <!--<div class="search-product">
-              <input class="form-control" type="text" name="search" [(ngModel)]="searchProduct" autocomplete="off"
-                placeholder=" &#61442; Buscar...">
-            </div>-->
             <div class="search-product" style="margin-top: 5%;">
               <input class="form-control" type="text" name="search" [(ngModel)]="productToFind" (input)="findProduct()"
               autocomplete="on" placeholder=" &#61442; Buscar...">
             </div>
-            <!--<div class="table-responsive">
-              <table class="table table-striped table-phone" style="overflow: auto;">
-                <thead>
-                  <th scope="col">Producto</th>
-                  <th>Género</th>
-                  <th>Depart</th>
-                  <th *ngIf="pPublic" scope="col">Público</th>
-                  <th *ngIf="pMajor" scope="col">Mayoreo</th>
-                  <th *ngIf="pBoutique" scope="col">Tu_boutique</th>
-                  <th scope="col"></th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let product of productView | paginate: {itemsPerPage: 10, currentPage: p, totalItems: totalPage}">
-                    <td>
-                      <a (click)='over(product.id)' style="cursor: pointer;" data-toggle="modal" data-target="#myModal">{{product.name}}</a>
-                    </td>
-                    <td>{{product.gender.gender}}</td>
-                    <td>{{product.department.department}}</td>
-                    <td *ngIf="pPublic">₡ {{product.pricePublic | number: '3.'}}</td>
-                    <td *ngIf="pMajor">₡ {{product.priceMajor | number: '3.'}}</td>
-                    <td *ngIf="pBoutique">₡ {{product.priceTuB | number: '3.'}}</td>
-                    <td><input style="color: white;" type="button" class="btn btn--blue btn--pill"
-                    value="Agregar" (click)="getProduct(product.id)"></td>
-                  </tr>
-                </tbody>
-                <pagination-controls class="my-pagination" previousLabel="anterior"  nextLabel="Siguiente"
-                (pageChange)="nextPaginate($event)"></pagination-controls>
-              </table>
-            </div>-->
             <div class="table-responsive">
               <table class="table table-striped">
                 <thead>
@@ -329,7 +296,6 @@
             </thead>
             <tbody>
               <tr *ngFor="let productBill of arrayApart">
-                <!--<td><img [src]="productBill.photo" class="img-responsive" alt=""></td>-->
                 <td>{{productBill.name}}</td>
                 <td>{{productBill.pivot.amount}}</td>
                 <td>{{productBill.pivot.size}}</td>
@@ -344,9 +310,7 @@
             {{billing.price | number: "3."}}</h3>
         </div>
         <input style="color: white;" type="button" class="btn btn--green btn--pill"
-        value="Emitir Factura" (click)="addNewBilling()">
-        <!--<input style="color: white;" type="button" class="btn btn--green btn--pill" value="probar Factura"
-          (click)="createInvoicePDF()">-->
+        value="Emitir Factura" (click)="addNewFact()">
         <div *ngIf="loading" class="loading">Loading&#8230;</div>
       </form>
     </div>

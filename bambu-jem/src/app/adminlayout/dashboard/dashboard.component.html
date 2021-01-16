@@ -135,15 +135,17 @@
       <div class="table-responsive">
         <table class="table table-striped" style="overflow: auto;">
           <thead>
-            <th></th>
-            <th scope="col">Producto</th>
-            <th scope="col">Público</th>
+            <th colspan="2"></th>
+            <th colspan="5" scope="col">Producto</th>
+            <th scope="col">PrecioPublic</th>
+            <th scope="col">Talla</th>
             <th scope="col">Cantidad</th>
           </thead>
           <tbody>
             <tr *ngFor="let product of productView">
-              <td><img style="width: 40px; height: 50px;" [src]="product.photo" alt=""></td>
-              <td>{{product.name}}</td>
+              <td colspan="2"><img style="width: 40px; height: 50px;" [src]="product.photo" alt=""></td>
+              <td colspan="5">{{product.name}}</td>
+              <td>{{product.pricePublic}}</td>
               <td>{{product.pivot.size}}</td>
               <td>{{product.pivot.amount}}</td>
             </tr>

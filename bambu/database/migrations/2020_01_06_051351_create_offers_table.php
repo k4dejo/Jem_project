@@ -17,7 +17,7 @@ class CreateOffersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('offer');
-            $table->Integer('article_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles');

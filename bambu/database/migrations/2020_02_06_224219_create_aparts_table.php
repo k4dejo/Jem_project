@@ -16,7 +16,7 @@ class CreateApartsTable extends Migration
         Schema::create('aparts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('price');
-            $table->unsignedInteger('clients_id');
+            $table->bigInteger('clients_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('clients_id')->references('id')->on('clients');

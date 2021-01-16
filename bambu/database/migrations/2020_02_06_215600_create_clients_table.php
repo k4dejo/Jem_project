@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
             $table->string('dni');
             $table->timestamps();
 
-            $table->unsignedInteger('shops_id');
+            $table->bigInteger('shops_id')->unsigned()->nullable()->onDelete('cascade');
             $table->foreign('shops_id')->references('id')->on('shops');
         });
     }

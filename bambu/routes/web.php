@@ -11,6 +11,11 @@
 |
 */
 
+
+
+//Route::resource('articles','ArticleController');
+Route::middleware('auth:api')->get('welcome');
+
 /*Route::get('/', function () {
     return view('welcome');
 });

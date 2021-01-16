@@ -17,8 +17,8 @@ class CreateApartArticleTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('amount');
             $table->string('size');
-            $table->Integer('article_id')->unsigned();
-            $table->Integer('apart_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('apart_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('article_id')->references('id')->on('articles');

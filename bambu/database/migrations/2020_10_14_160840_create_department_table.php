@@ -18,7 +18,7 @@ class CreateDepartmentTable extends Migration
             $table->string('department');
             $table->string('positionDpt');
             $table->string('img')->nullable();
-            $table->unsignedInteger('gender_id');
+            $table->bigInteger('gender_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
 
             $table->foreign('gender_id')->references('id')->on('gender');

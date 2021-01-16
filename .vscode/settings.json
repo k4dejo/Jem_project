@@ -3,20 +3,20 @@
         "menos"
     ],
     "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#1a1a1a",
-        "activityBar.activeBorder": "#606020",
-        "activityBar.background": "#1a1a1a",
-        "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#606020",
-        "activityBarBadge.foreground": "#e7e7e7",
-        "statusBar.background": "#000000",
+        "activityBar.activeBackground": "#d65bfe",
+        "activityBar.activeBorder": "#fecf41",
+        "activityBar.background": "#d65bfe",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#fecf41",
+        "activityBarBadge.foreground": "#15202b",
+        "statusBar.background": "#c928fe",
         "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#1a1a1a",
-        "titleBar.activeBackground": "#000000",
+        "statusBarItem.hoverBackground": "#d65bfe",
+        "titleBar.activeBackground": "#c928fe",
         "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#00000099",
+        "titleBar.inactiveBackground": "#c928fe99",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#000000"
+    "peacock.color": "#C928FE"
 }

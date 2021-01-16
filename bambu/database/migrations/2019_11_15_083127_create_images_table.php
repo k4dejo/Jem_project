@@ -19,7 +19,7 @@ class CreateImagesTable extends Migration
             $table->timestamps();
 
             // llaves foraneas 
-            $table->unsignedInteger('article_id'); 
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
             $table->foreign('article_id')->references('id')->on('articles');
         });
     }

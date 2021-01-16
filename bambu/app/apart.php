@@ -11,6 +11,7 @@ class apart extends Model
        'client_id',
        'admin_id',
        'price',
+       'status'
    ];
 
    //relations

@@ -152,10 +152,10 @@ class adminController extends Controller
         $pwd = hash('sha256', $password);
 
         if (!is_null($user) && !is_null($password) && ($getToken == null || $getToken == 'false')) {
-            $signup = $jwtAuth->signup($user, $password);
+            $signup = $jwtAuth->signup($user, $pwd);
 
         }elseif ($getToken != null) {
-            $signup = $jwtAuth->signup($user, $password, $getToken);
+            $signup = $jwtAuth->signup($user, $pwd, $getToken);
 
         }else{
             $signup = array(

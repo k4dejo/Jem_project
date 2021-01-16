@@ -40,6 +40,7 @@ import { DashboardComponent } from './adminlayout/dashboard/dashboard.component'
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
 import { GendersDepartmentsComponent } from './adminlayout/genders-departments/genders-departments.component';
+import { SellingreportsComponent } from './adminlayout/sellingreports/sellingreports.component';
 
 // aplicar export a la clase  hasta el momento es redundante
 const routes: Routes = [
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'admin/outfits', component: OutfitComponent},
   { path: 'admin/facturación', component: FactuComponent},
   { path: 'admin/Pedidos', component: OrdersComponent},
+  { path: 'admin/reporteVentas', component: SellingreportsComponent},
   { path: 'admin/Apartados', component: ApartComponent},
   { path: 'admin/Configuración', component: ModAdminComponent},
   { path: 'admin/CompressImg', component: CompressimgComponent},

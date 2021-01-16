@@ -16,8 +16,8 @@ class CreateArticleOutfit extends Migration
         Schema::create('article_outfit', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->timestamps();
-            $table->Integer('article_id')->unsigned();
-            $table->Integer('outfit_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('outfit_id')->unsigned()->nullable()->onDelete('cascade');
 
             $table->foreign('article_id')->references('id')->on('articles');
             $table->foreign('outfit_id')->references('id')->on('outfits');

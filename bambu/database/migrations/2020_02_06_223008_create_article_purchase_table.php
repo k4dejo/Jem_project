@@ -13,16 +13,17 @@ class CreateArticlePurchaseTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('article_purchase');
         Schema::create('article_purchase', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->timestamps();
             $table->bigInteger('amount');
             $table->string('size');
-            $table->Integer('article_id')->unsigned();
-            $table->Integer('purchase_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->bigInteger('purchase_id')->unsigned()->nullable()->onDelete('cascade');
 
             $table->foreign('article_id')->references('id')->on('articles');
-            $table->foreign('purchase_id')->references('id')->on('purchase');
+            $table->foreign('purchase_id')->references('id')->on('purchases');
         });
     }
 

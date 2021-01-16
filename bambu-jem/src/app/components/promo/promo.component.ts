@@ -35,6 +35,7 @@ export class PromoComponent implements OnInit {
       }
     );
   }
+  
   getProductList(count, idOfferProduct: any) {
     this.productService.getProduct().subscribe(
       response => {

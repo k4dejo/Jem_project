@@ -43,6 +43,8 @@ export class JempageComponent implements OnInit {
   public positionScrollOutfit;
   public newNess = [];
   public newNessView = [];
+  public newProducts1 = [];
+  public newProducts2 = [];
 
   constructor(
     private elementRef: ElementRef,
@@ -89,6 +91,7 @@ export class JempageComponent implements OnInit {
         this.newNessView = response.newness;
         this.addPhotoProductNewnessList();
         this.newNessView.splice(0, 1);
+        
 
       }, error => {
         console.log(<any> error);
@@ -97,6 +100,7 @@ export class JempageComponent implements OnInit {
     this.ProductService.getNewness().subscribe(
       response => {
         this.newNess = response.newness;
+        this.splitNewProducts();
         this.addPhotoProductNewnessList();
         // this.newNessView.slice(0, 1);
 
@@ -104,6 +108,17 @@ export class JempageComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  splitNewProducts() {
+    for (let index = 0; index < 5; index++) {
+      this.newProducts1.push(this.newNess[index]);
+    }
+    for (let i = 5; i < this.newNess.length; i++) {
+      this.newProducts2.push(this.newNess[i]);
+    }
+    console.log(this.newProducts1);
+    console.log(this.newProducts2);
   }
 
   addPhotoProductNewnessList() {
