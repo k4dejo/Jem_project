@@ -802,6 +802,5 @@ export class ApartComponent implements OnInit {
       this.getDate();
       this.getProductView();
     }
-
   }
 }

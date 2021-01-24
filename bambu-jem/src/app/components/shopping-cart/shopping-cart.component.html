@@ -173,7 +173,7 @@
         <div class="title text-uppercase">Cupón</div>
         <div class="subtotal">₡ {{ couponActive.discount | number: "3." }}</div>
       </div>
-      <!--<a (click)="passCheckout()" class="checkout-btn">Pagar</a>-->
+      <!--<a (click)="passCheckout()" class="checkout-btn">tarjeta</a>-->
       <a *ngIf="viewAddressBool"  class="checkout-btn" data-toggle="modal"
       data-target="#alertPayment" (click)="getPurchases()">Pagar</a>
       <a *ngIf="!viewAddressBool"  class="checkout-btn" (click)="alertAddressNull()">

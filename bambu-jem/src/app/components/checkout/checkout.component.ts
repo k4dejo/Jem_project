@@ -85,7 +85,6 @@ export class CheckoutComponent implements OnInit {
 
   submitCheckout() {
     this.sendCc.CcExp = this.dateExp;
-    this.sendCc.CCnumber = this.CcCard1 + this.CcCard2 + this.CcCard3 + this.CcCard4;
     this.sendCc.Ccholder = this.Ccholder;
     this.sendCc.Ccv = this.Ccv;
     this.sendCc.totalPrice = this.total;
@@ -101,6 +100,7 @@ export class CheckoutComponent implements OnInit {
           this.dataCredomatic.hash = response.hashCredomatic;
           this.dataCredomatic.key_id = response.key_id;
           this.dataCredomatic.time = response.time;
+          console.log(this.dataCredomatic);
         // tslint:disable-next-line:no-shadowed-variable
         }, error => {
           console.log(<any> error);
@@ -257,6 +257,20 @@ export class CheckoutComponent implements OnInit {
         console.log(<any> error);
       }
     );
+  }
+
+  gotoTransac() {
+    this.purchaseService.transac().subscribe(
+      response => {
+        console.log(response);
+      }, error => {
+        console.log(<any> error);
+      }
+    );
+  }
+
+  ccNumberInput() {
+    console.log(this.dataCredomatic);
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 export let ImgUrl = {
-    // url: 'http://bambujem.com.devel/catalogo/'
+    //url: 'http://34.94.76.85/storage/catalogo/'
     url: 'https://apiweb.modajem.com/storage/catalogo/'
-    //url: 'http://bambu.test/storage/'
+    // url: 'http://bambu.test/storage/'
 };

@@ -135,4 +135,11 @@ export class PurchaseService {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + 'verifyPurchaseStatus/' + idClient, {headers: headers});
   }
+
+  transac(): Observable<any> {
+    let endpoint = this.url + 'transac/';
+    window.open( endpoint, "_blank");
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url + 'transac/', {headers: headers});
+  }
 }

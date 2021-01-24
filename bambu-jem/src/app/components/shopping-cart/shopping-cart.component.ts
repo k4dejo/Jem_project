@@ -632,7 +632,7 @@ export class ShoppingCartComponent implements OnInit {
     this.checkoutPurchase.shipping = this.shipping;
     this.purchaseService.editPurchase(this.token, this.checkoutPurchase).subscribe(
       response => {
-        if (response.status === 'success') {
+        if (response.status === 'success' || response.status === 'Exist') {
           this.router.navigate(['checkout/', this.checkoutPurchase.id]);
         }
       }, error => {
